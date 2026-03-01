@@ -1,0 +1,35 @@
+/* --- MOBILE FIRST ADJUSTMENTS --- */
+.mobile-menu-btn { 
+  display: none; 
+  background: none; 
+  border: none; 
+  font-size: 1.8rem; 
+  cursor: pointer; 
+  color: var(--text-main); 
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 2rem; }
+  .mobile-menu-btn { display: block; order: 2; }
+  .search-nav { display: none; /* Hide top search on mobile to save space */ }
+  
+  .header .container { flex-wrap: wrap; position: relative; }
+  
+  .nav-links { 
+    display: none; 
+    flex-direction: column; 
+    width: 100%; 
+    position: absolute; 
+    top: 100%; 
+    left: 0; 
+    background: var(--card-bg); 
+    padding: 1rem 1.5rem; 
+    border-bottom: 1px solid var(--border); 
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    order: 3;
+  }
+  
+  .nav-links.active { display: flex; }
+  .nav-links a { padding: 0.75rem 0; border-bottom: 1px solid var(--border); }
+  .nav-links a:last-child { border-bottom: none; }
+}
