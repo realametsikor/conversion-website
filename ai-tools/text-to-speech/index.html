@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech - Convert Text to Audio Free | ToolsNest</title>
+    <meta name="description" content="Free text-to-speech tool using your browser's built-in speech synthesis. Choose from multiple voices, adjust speed and pitch, and listen to any text. No signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/text-to-speech/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Text to Speech
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Text to Speech</h1>
+                <p class="text-center mb-3">Convert any text to natural-sounding speech using your browser's built-in speech synthesis. Choose voices, adjust speed, and listen instantly.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <div class="form-group">
+                        <label for="tts-input">Enter Your Text</label>
+                        <textarea id="tts-input" class="form-input" rows="8" placeholder="Type or paste the text you want to hear spoken aloud..." style="min-height: 180px;"></textarea>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span id="tts-wc" class="text-muted" style="font-size: 0.85rem;">0 characters</span>
+                            <span id="tts-est" class="text-muted" style="font-size: 0.85rem;"></span>
+                        </div>
+                    </div>
+
+                    <!-- Voice settings -->
+                    <div class="tts-settings">
+                        <div class="tts-settings-grid">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="tts-voice">Voice</label>
+                                <select id="tts-voice" class="form-input"></select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="tts-lang">Language</label>
+                                <select id="tts-lang" class="form-input">
+                                    <option value="all">All Languages</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="tts-settings-grid mt-2">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="tts-rate">Speed: <span id="tts-rate-val">1.0x</span></label>
+                                <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1" class="tts-slider">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="tts-pitch">Pitch: <span id="tts-pitch-val">1.0</span></label>
+                                <input type="range" id="tts-pitch" min="0.5" max="2" step="0.1" value="1" class="tts-slider">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="tts-volume">Volume: <span id="tts-volume-val">100%</span></label>
+                                <input type="range" id="tts-volume" min="0" max="1" step="0.1" value="1" class="tts-slider">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="tts-controls mt-3">
+                        <button id="tts-play" class="btn btn-primary" style="padding: 0.75rem 2.5rem; font-size: 1.1rem;">&#9654; Speak</button>
+                        <button id="tts-pause" class="btn btn-outline" style="padding: 0.75rem 1.5rem; display: none;">&#10074;&#10074; Pause</button>
+                        <button id="tts-resume" class="btn btn-outline" style="padding: 0.75rem 1.5rem; display: none;">&#9654; Resume</button>
+                        <button id="tts-stop" class="btn btn-outline" style="padding: 0.75rem 1.5rem;">&#9632; Stop</button>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="tts-progress-bar" class="tts-progress mt-3" style="display: none;">
+                        <div class="tts-progress-track">
+                            <div class="tts-progress-fill" id="tts-progress-fill"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 0.25rem;">
+                            <span id="tts-current-word" class="text-muted" style="font-size: 0.8rem;"></span>
+                            <span id="tts-status" class="text-muted" style="font-size: 0.8rem;">Ready</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Type or paste your text into the input area.</li>
+                        <li>Select a voice from the dropdown. Different browsers offer different voices and languages.</li>
+                        <li>Adjust speed, pitch, and volume using the sliders to your preference.</li>
+                        <li>Click "Speak" to start listening. Use Pause/Resume to control playback.</li>
+                        <li>The progress bar shows the current reading position in your text.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Which voices are available?</h3>
+                        <p>Voices depend on your browser and operating system. Chrome typically offers the most voices including Google's high-quality voices. Safari uses macOS/iOS system voices. Firefox uses the OS default voices. The tool lists all available voices on your device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I download the audio?</h3>
+                        <p>The Web Speech API does not support audio export directly. The speech is generated in real-time by your browser. For downloadable audio, you'd need a server-side TTS service.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does it support multiple languages?</h3>
+                        <p>Yes! The available languages depend on your browser and OS. Most systems support English, Spanish, French, German, Italian, Portuguese, Chinese, Japanese, Korean, and many more. Use the language filter to find voices in your preferred language.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a text length limit?</h3>
+                        <p>Some browsers may have limits on the length of text that can be spoken at once. For very long texts, the tool automatically chunks the text to ensure smooth playback.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/speech-to-text" class="related-link">Speech to Text</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/student-tools/read-time-estimator" class="related-link">Read Time Estimator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var synth = window.speechSynthesis;
+        var inputEl = document.getElementById('tts-input');
+        var voiceSel = document.getElementById('tts-voice');
+        var langSel = document.getElementById('tts-lang');
+        var rateSlider = document.getElementById('tts-rate');
+        var pitchSlider = document.getElementById('tts-pitch');
+        var volumeSlider = document.getElementById('tts-volume');
+        var rateVal = document.getElementById('tts-rate-val');
+        var pitchVal = document.getElementById('tts-pitch-val');
+        var volumeVal = document.getElementById('tts-volume-val');
+        var playBtn = document.getElementById('tts-play');
+        var pauseBtn = document.getElementById('tts-pause');
+        var resumeBtn = document.getElementById('tts-resume');
+        var stopBtn = document.getElementById('tts-stop');
+        var progressBar = document.getElementById('tts-progress-bar');
+        var progressFill = document.getElementById('tts-progress-fill');
+        var statusEl = document.getElementById('tts-status');
+        var currentWordEl = document.getElementById('tts-current-word');
+        var wcEl = document.getElementById('tts-wc');
+        var estEl = document.getElementById('tts-est');
+
+        var allVoices = [];
+
+        /* Slider display updates */
+        rateSlider.addEventListener('input', function() { rateVal.textContent = this.value + 'x'; });
+        pitchSlider.addEventListener('input', function() { pitchVal.textContent = this.value; });
+        volumeSlider.addEventListener('input', function() { volumeVal.textContent = Math.round(this.value * 100) + '%'; });
+
+        /* Character count and estimated time */
+        inputEl.addEventListener('input', function() {
+            var len = this.value.length;
+            var words = this.value.trim() ? this.value.trim().split(/\s+/).length : 0;
+            wcEl.textContent = len + ' characters | ' + words + ' words';
+            var rate = parseFloat(rateSlider.value);
+            var minutes = Math.ceil(words / (150 * rate));
+            estEl.textContent = words > 0 ? 'Est. ' + minutes + ' min at ' + rate + 'x' : '';
+        });
+
+        /* Load voices */
+        function loadVoices() {
+            allVoices = synth.getVoices();
+            if (!allVoices.length) return;
+
+            var langs = new Set();
+            allVoices.forEach(function(v) {
+                var lang = v.lang.split('-')[0];
+                langs.add(lang);
+            });
+
+            var langOptions = '<option value="all">All Languages (' + allVoices.length + ' voices)</option>';
+            var langNames = { en: 'English', es: 'Spanish', fr: 'French', de: 'German', it: 'Italian', pt: 'Portuguese', zh: 'Chinese', ja: 'Japanese', ko: 'Korean', ru: 'Russian', ar: 'Arabic', hi: 'Hindi', nl: 'Dutch', sv: 'Swedish', no: 'Norwegian', da: 'Danish', fi: 'Finnish', pl: 'Polish', tr: 'Turkish', th: 'Thai', vi: 'Vietnamese', cs: 'Czech', el: 'Greek', he: 'Hebrew', hu: 'Hungarian', id: 'Indonesian', ro: 'Romanian', sk: 'Slovak', uk: 'Ukrainian' };
+
+            Array.from(langs).sort().forEach(function(lang) {
+                var name = langNames[lang] || lang.toUpperCase();
+                var count = allVoices.filter(function(v) { return v.lang.split('-')[0] === lang; }).length;
+                langOptions += '<option value="' + lang + '">' + name + ' (' + count + ')</option>';
+            });
+            langSel.innerHTML = langOptions;
+
+            populateVoices('all');
+        }
+
+        function populateVoices(langFilter) {
+            var filtered = allVoices;
+            if (langFilter !== 'all') {
+                filtered = allVoices.filter(function(v) { return v.lang.split('-')[0] === langFilter; });
+            }
+
+            var options = '';
+            filtered.forEach(function(voice, i) {
+                var idx = allVoices.indexOf(voice);
+                var label = voice.name + ' (' + voice.lang + ')' + (voice.default ? ' - DEFAULT' : '');
+                options += '<option value="' + idx + '">' + label + '</option>';
+            });
+            voiceSel.innerHTML = options;
+        }
+
+        langSel.addEventListener('change', function() {
+            populateVoices(this.value);
+        });
+
+        /* Load voices (some browsers load async) */
+        loadVoices();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = loadVoices;
+        }
+
+        /* Speak */
+        var currentUtterance = null;
+
+        function speak() {
+            var text = inputEl.value.trim();
+            if (!text) { alert('Please enter some text.'); return; }
+
+            synth.cancel();
+
+            currentUtterance = new SpeechSynthesisUtterance(text);
+
+            var voiceIdx = parseInt(voiceSel.value);
+            if (!isNaN(voiceIdx) && allVoices[voiceIdx]) {
+                currentUtterance.voice = allVoices[voiceIdx];
+            }
+
+            currentUtterance.rate = parseFloat(rateSlider.value);
+            currentUtterance.pitch = parseFloat(pitchSlider.value);
+            currentUtterance.volume = parseFloat(volumeSlider.value);
+
+            progressBar.style.display = '';
+            statusEl.textContent = 'Speaking...';
+            progressFill.style.width = '0%';
+            playBtn.style.display = 'none';
+            pauseBtn.style.display = '';
+            resumeBtn.style.display = 'none';
+
+            var totalLength = text.length;
+
+            currentUtterance.onboundary = function(e) {
+                if (e.name === 'word') {
+                    var progress = (e.charIndex / totalLength) * 100;
+                    progressFill.style.width = progress + '%';
+                    var word = text.substring(e.charIndex, e.charIndex + e.charLength);
+                    currentWordEl.textContent = word;
+                }
+            };
+
+            currentUtterance.onend = function() {
+                progressFill.style.width = '100%';
+                statusEl.textContent = 'Finished';
+                currentWordEl.textContent = '';
+                playBtn.style.display = '';
+                pauseBtn.style.display = 'none';
+                resumeBtn.style.display = 'none';
+            };
+
+            currentUtterance.onerror = function(e) {
+                statusEl.textContent = 'Error: ' + e.error;
+                playBtn.style.display = '';
+                pauseBtn.style.display = 'none';
+                resumeBtn.style.display = 'none';
+            };
+
+            synth.speak(currentUtterance);
+        }
+
+        playBtn.addEventListener('click', speak);
+
+        pauseBtn.addEventListener('click', function() {
+            synth.pause();
+            pauseBtn.style.display = 'none';
+            resumeBtn.style.display = '';
+            statusEl.textContent = 'Paused';
+        });
+
+        resumeBtn.addEventListener('click', function() {
+            synth.resume();
+            resumeBtn.style.display = 'none';
+            pauseBtn.style.display = '';
+            statusEl.textContent = 'Speaking...';
+        });
+
+        stopBtn.addEventListener('click', function() {
+            synth.cancel();
+            progressFill.style.width = '0%';
+            statusEl.textContent = 'Stopped';
+            currentWordEl.textContent = '';
+            playBtn.style.display = '';
+            pauseBtn.style.display = 'none';
+            resumeBtn.style.display = 'none';
+        });
+
+        /* Check browser support */
+        if (!('speechSynthesis' in window)) {
+            document.querySelector('.tool-workspace').innerHTML = '<div style="text-align:center;padding:3rem;"><h3 style="color:#ef4444;">Browser Not Supported</h3><p class="mt-2">Your browser does not support the Web Speech API. Please try Chrome, Safari, Edge, or Firefox.</p></div>';
+        }
+    })();
+    </script>
+</body>
+</html>

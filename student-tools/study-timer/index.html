@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Study Timer - Focus Timer for Students Free | ToolsNest</title>
+    <meta name="description" content="Free Pomodoro study timer with customizable work and break intervals, session tracking, ambient sounds, and productivity statistics. No signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/student-tools/study-timer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Study Timer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Pomodoro Study Timer</h1>
+                <p class="text-center mb-3">Stay focused with the Pomodoro technique. Work in timed intervals with scheduled breaks to maximize productivity.</p>
+
+                <div class="tool-workspace" style="text-align: center; padding: 2rem; border: none;">
+                    <!-- Timer Display -->
+                    <div class="pomo-timer-container">
+                        <div class="pomo-phase" id="pomo-phase">FOCUS TIME</div>
+                        <div class="pomo-timer-ring">
+                            <svg viewBox="0 0 200 200" width="260" height="260">
+                                <circle cx="100" cy="100" r="90" fill="none" stroke="#E5E7EB" stroke-width="6"/>
+                                <circle id="pomo-ring" cx="100" cy="100" r="90" fill="none" stroke="var(--primary)" stroke-width="6" stroke-dasharray="565.49" stroke-dashoffset="0" stroke-linecap="round" transform="rotate(-90 100 100)" style="transition: stroke-dashoffset 1s linear, stroke 0.3s ease;"/>
+                                <text x="100" y="95" text-anchor="middle" font-size="52" font-weight="700" fill="var(--text-main)" id="pomo-time">25:00</text>
+                                <text x="100" y="120" text-anchor="middle" font-size="14" fill="var(--text-muted)" id="pomo-session-label">Session 1 of 4</text>
+                            </svg>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="pomo-controls">
+                            <button id="pomo-start" class="btn btn-primary" style="padding: 0.75rem 2.5rem; font-size: 1.1rem;">Start</button>
+                            <button id="pomo-pause" class="btn btn-outline" style="padding: 0.75rem 2rem; display: none;">Pause</button>
+                            <button id="pomo-reset" class="btn btn-outline" style="padding: 0.75rem 2rem;">Reset</button>
+                            <button id="pomo-skip" class="btn btn-outline" style="padding: 0.75rem 2rem;">Skip</button>
+                        </div>
+
+                        <!-- Task Input -->
+                        <div class="pomo-task-section mt-3">
+                            <input type="text" id="pomo-task" class="form-input" placeholder="What are you working on?" style="max-width: 400px; margin: 0 auto; text-align: center;">
+                        </div>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="pomo-settings mt-4">
+                        <h3 class="mb-2">Settings</h3>
+                        <div class="pomo-settings-grid">
+                            <div class="form-group">
+                                <label for="pomo-work">Focus (min)</label>
+                                <input type="number" id="pomo-work" class="form-input" value="25" min="1" max="120" style="text-align: center;">
+                            </div>
+                            <div class="form-group">
+                                <label for="pomo-short">Short Break (min)</label>
+                                <input type="number" id="pomo-short" class="form-input" value="5" min="1" max="30" style="text-align: center;">
+                            </div>
+                            <div class="form-group">
+                                <label for="pomo-long">Long Break (min)</label>
+                                <input type="number" id="pomo-long" class="form-input" value="15" min="1" max="60" style="text-align: center;">
+                            </div>
+                            <div class="form-group">
+                                <label for="pomo-rounds">Sessions before Long Break</label>
+                                <input type="number" id="pomo-rounds" class="form-input" value="4" min="1" max="10" style="text-align: center;">
+                            </div>
+                        </div>
+                        <div class="form-group mt-2" style="display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                            <label style="margin-bottom:0;"><input type="checkbox" id="pomo-auto-break" checked> Auto-start breaks</label>
+                            <label style="margin-bottom:0;"><input type="checkbox" id="pomo-auto-work"> Auto-start work</label>
+                            <label style="margin-bottom:0;"><input type="checkbox" id="pomo-sound" checked> Sound notifications</label>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="pomo-stats mt-4" id="pomo-stats">
+                        <h3 class="mb-2">Today's Statistics</h3>
+                        <div class="pomo-stats-grid">
+                            <div class="pomo-stat-card">
+                                <div class="pomo-stat-value" id="stat-sessions">0</div>
+                                <div class="pomo-stat-label">Sessions</div>
+                            </div>
+                            <div class="pomo-stat-card">
+                                <div class="pomo-stat-value" id="stat-focus">0m</div>
+                                <div class="pomo-stat-label">Focus Time</div>
+                            </div>
+                            <div class="pomo-stat-card">
+                                <div class="pomo-stat-value" id="stat-breaks">0m</div>
+                                <div class="pomo-stat-label">Break Time</div>
+                            </div>
+                            <div class="pomo-stat-card">
+                                <div class="pomo-stat-value" id="stat-streak">0</div>
+                                <div class="pomo-stat-label">Day Streak</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Task Log -->
+                    <div class="pomo-log mt-4" id="pomo-log" style="display:none;">
+                        <h3 class="mb-2">Completed Sessions</h3>
+                        <div id="pomo-log-list"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Set your preferred focus duration, break lengths, and number of sessions in Settings.</li>
+                        <li>Optionally type what you're working on in the task field.</li>
+                        <li>Click "Start" to begin your focus session. The timer counts down with a visual ring.</li>
+                        <li>When the timer ends, a notification sound plays and your break begins (if auto-start is on).</li>
+                        <li>After completing all sessions, a long break starts. Your stats track sessions, focus time, and streaks.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the Pomodoro Technique?</h3>
+                        <p>Developed by Francesco Cirillo in the late 1980s, the Pomodoro Technique uses a timer to break work into intervals (traditionally 25 minutes) separated by short breaks. After four intervals, you take a longer break. This helps maintain focus and prevent burnout.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I customize the timer durations?</h3>
+                        <p>Yes! Adjust focus time (1-120 minutes), short break (1-30 minutes), long break (1-60 minutes), and the number of sessions before a long break (1-10). Settings are saved in your browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my statistics saved?</h3>
+                        <p>Your daily statistics and session logs are stored in your browser's local storage. They persist between sessions on the same device but are never uploaded to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does the timer work if I switch tabs?</h3>
+                        <p>Yes, the timer continues running in the background. You'll receive a sound notification when each interval ends (if sound is enabled). The page title also updates with the remaining time.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/student-tools/flashcard-maker" class="related-link">Flashcard Maker</a>
+                    <a href="/student-tools/read-time-estimator" class="related-link">Read Time Estimator</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* State */
+        var state = {
+            running: false,
+            phase: 'work', /* work, short-break, long-break */
+            currentSession: 1,
+            timeLeft: 25 * 60,
+            totalTime: 25 * 60,
+            interval: null
+        };
+
+        /* DOM refs */
+        var timeDisplay = document.getElementById('pomo-time');
+        var phaseDisplay = document.getElementById('pomo-phase');
+        var sessionLabel = document.getElementById('pomo-session-label');
+        var ring = document.getElementById('pomo-ring');
+        var startBtn = document.getElementById('pomo-start');
+        var pauseBtn = document.getElementById('pomo-pause');
+        var resetBtn = document.getElementById('pomo-reset');
+        var skipBtn = document.getElementById('pomo-skip');
+
+        var workInput = document.getElementById('pomo-work');
+        var shortInput = document.getElementById('pomo-short');
+        var longInput = document.getElementById('pomo-long');
+        var roundsInput = document.getElementById('pomo-rounds');
+        var autoBreakCb = document.getElementById('pomo-auto-break');
+        var autoWorkCb = document.getElementById('pomo-auto-work');
+        var soundCb = document.getElementById('pomo-sound');
+        var taskInput = document.getElementById('pomo-task');
+
+        var circumference = 2 * Math.PI * 90;
+        var originalTitle = document.title;
+
+        /* Load saved settings */
+        var savedSettings = JSON.parse(localStorage.getItem('toolsnest-pomo-settings') || '{}');
+        if (savedSettings.work) workInput.value = savedSettings.work;
+        if (savedSettings.short) shortInput.value = savedSettings.short;
+        if (savedSettings.long) longInput.value = savedSettings.long;
+        if (savedSettings.rounds) roundsInput.value = savedSettings.rounds;
+
+        function saveSettings() {
+            localStorage.setItem('toolsnest-pomo-settings', JSON.stringify({
+                work: parseInt(workInput.value), short: parseInt(shortInput.value),
+                long: parseInt(longInput.value), rounds: parseInt(roundsInput.value)
+            }));
+        }
+
+        [workInput, shortInput, longInput, roundsInput].forEach(function(input) {
+            input.addEventListener('change', function() {
+                saveSettings();
+                if (!state.running) resetTimer();
+            });
+        });
+
+        /* Stats */
+        var today = new Date().toISOString().split('T')[0];
+        var stats = JSON.parse(localStorage.getItem('toolsnest-pomo-stats') || '{}');
+        if (!stats[today]) stats[today] = { sessions: 0, focusMinutes: 0, breakMinutes: 0 };
+
+        function getStreak() {
+            var streak = 0;
+            var d = new Date();
+            for (var i = 0; i < 365; i++) {
+                var key = d.toISOString().split('T')[0];
+                if (stats[key] && stats[key].sessions > 0) { streak++; d.setDate(d.getDate() - 1); }
+                else if (i === 0) { d.setDate(d.getDate() - 1); }
+                else break;
+            }
+            return streak;
+        }
+
+        function updateStatsDisplay() {
+            var s = stats[today] || { sessions: 0, focusMinutes: 0, breakMinutes: 0 };
+            document.getElementById('stat-sessions').textContent = s.sessions;
+            document.getElementById('stat-focus').textContent = s.focusMinutes + 'm';
+            document.getElementById('stat-breaks').textContent = s.breakMinutes + 'm';
+            document.getElementById('stat-streak').textContent = getStreak();
+        }
+        updateStatsDisplay();
+
+        /* Session log */
+        var sessionLog = JSON.parse(localStorage.getItem('toolsnest-pomo-log') || '[]');
+
+        function addLogEntry(task, minutes) {
+            sessionLog.push({ task: task || 'Untitled session', minutes: minutes, time: new Date().toLocaleTimeString() });
+            localStorage.setItem('toolsnest-pomo-log', JSON.stringify(sessionLog));
+            renderLog();
+        }
+
+        function renderLog() {
+            var logDiv = document.getElementById('pomo-log');
+            var listDiv = document.getElementById('pomo-log-list');
+            if (!sessionLog.length) { logDiv.style.display = 'none'; return; }
+            logDiv.style.display = 'block';
+            var html = '';
+            for (var i = sessionLog.length - 1; i >= Math.max(0, sessionLog.length - 10); i--) {
+                html += '<div style="display:flex;justify-content:space-between;padding:0.5rem 0;border-bottom:1px solid var(--border);font-size:0.9rem;">';
+                html += '<span>' + sessionLog[i].task.replace(/</g, '&lt;') + '</span>';
+                html += '<span class="text-muted">' + sessionLog[i].minutes + ' min &middot; ' + sessionLog[i].time + '</span></div>';
+            }
+            listDiv.innerHTML = html;
+        }
+        renderLog();
+
+        /* Timer display */
+        function formatTime(seconds) {
+            var m = Math.floor(seconds / 60);
+            var s = seconds % 60;
+            return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        function updateDisplay() {
+            timeDisplay.textContent = formatTime(state.timeLeft);
+            var progress = 1 - (state.timeLeft / state.totalTime);
+            ring.style.strokeDashoffset = circumference * (1 - progress);
+
+            if (state.phase === 'work') {
+                phaseDisplay.textContent = 'FOCUS TIME';
+                ring.style.stroke = 'var(--primary)';
+            } else if (state.phase === 'short-break') {
+                phaseDisplay.textContent = 'SHORT BREAK';
+                ring.style.stroke = 'var(--accent)';
+            } else {
+                phaseDisplay.textContent = 'LONG BREAK';
+                ring.style.stroke = '#F59E0B';
+            }
+
+            var rounds = parseInt(roundsInput.value) || 4;
+            sessionLabel.textContent = 'Session ' + state.currentSession + ' of ' + rounds;
+
+            if (state.running) {
+                document.title = formatTime(state.timeLeft) + ' - ' + phaseDisplay.textContent;
+            } else {
+                document.title = originalTitle;
+            }
+        }
+
+        /* Sound notification */
+        function playNotification() {
+            if (!soundCb.checked) return;
+            try {
+                var ctx = new (window.AudioContext || window.webkitAudioContext)();
+                var notes = [523.25, 659.25, 783.99];
+                notes.forEach(function(freq, i) {
+                    var osc = ctx.createOscillator();
+                    var gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = freq;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime + i * 0.2);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + i * 0.2 + 0.3);
+                    osc.start(ctx.currentTime + i * 0.2);
+                    osc.stop(ctx.currentTime + i * 0.2 + 0.3);
+                });
+            } catch(e) {}
+        }
+
+        /* Timer tick */
+        function tick() {
+            state.timeLeft--;
+            if (state.timeLeft <= 0) {
+                clearInterval(state.interval);
+                state.running = false;
+                playNotification();
+
+                if (state.phase === 'work') {
+                    var workMin = parseInt(workInput.value) || 25;
+                    stats[today].sessions++;
+                    stats[today].focusMinutes += workMin;
+                    localStorage.setItem('toolsnest-pomo-stats', JSON.stringify(stats));
+                    updateStatsDisplay();
+                    addLogEntry(taskInput.value, workMin);
+
+                    var rounds = parseInt(roundsInput.value) || 4;
+                    if (state.currentSession >= rounds) {
+                        state.phase = 'long-break';
+                        state.totalTime = (parseInt(longInput.value) || 15) * 60;
+                        state.currentSession = 1;
+                    } else {
+                        state.phase = 'short-break';
+                        state.totalTime = (parseInt(shortInput.value) || 5) * 60;
+                    }
+                    state.timeLeft = state.totalTime;
+                    updateDisplay();
+
+                    if (autoBreakCb.checked) startTimer();
+                    else { startBtn.style.display = ''; pauseBtn.style.display = 'none'; }
+                } else {
+                    if (state.phase === 'short-break') {
+                        stats[today].breakMinutes += parseInt(shortInput.value) || 5;
+                        state.currentSession++;
+                    } else {
+                        stats[today].breakMinutes += parseInt(longInput.value) || 15;
+                    }
+                    localStorage.setItem('toolsnest-pomo-stats', JSON.stringify(stats));
+                    updateStatsDisplay();
+
+                    state.phase = 'work';
+                    state.totalTime = (parseInt(workInput.value) || 25) * 60;
+                    state.timeLeft = state.totalTime;
+                    updateDisplay();
+
+                    if (autoWorkCb.checked) startTimer();
+                    else { startBtn.style.display = ''; pauseBtn.style.display = 'none'; }
+                }
+                return;
+            }
+            updateDisplay();
+        }
+
+        function startTimer() {
+            state.running = true;
+            state.interval = setInterval(tick, 1000);
+            startBtn.style.display = 'none';
+            pauseBtn.style.display = '';
+            pauseBtn.textContent = 'Pause';
+        }
+
+        function resetTimer() {
+            clearInterval(state.interval);
+            state.running = false;
+            state.phase = 'work';
+            state.currentSession = 1;
+            state.totalTime = (parseInt(workInput.value) || 25) * 60;
+            state.timeLeft = state.totalTime;
+            startBtn.style.display = '';
+            pauseBtn.style.display = 'none';
+            updateDisplay();
+        }
+
+        startBtn.addEventListener('click', function() {
+            if (!state.running) {
+                if (state.timeLeft <= 0) {
+                    state.totalTime = (parseInt(workInput.value) || 25) * 60;
+                    state.timeLeft = state.totalTime;
+                }
+                startTimer();
+            }
+        });
+
+        pauseBtn.addEventListener('click', function() {
+            if (state.running) {
+                clearInterval(state.interval);
+                state.running = false;
+                pauseBtn.textContent = 'Resume';
+                startBtn.style.display = '';
+                pauseBtn.style.display = 'none';
+            }
+        });
+
+        resetBtn.addEventListener('click', resetTimer);
+
+        skipBtn.addEventListener('click', function() {
+            state.timeLeft = 1;
+            if (!state.running) {
+                tick();
+            }
+        });
+
+        /* Initialize display */
+        state.totalTime = (parseInt(workInput.value) || 25) * 60;
+        state.timeLeft = state.totalTime;
+        updateDisplay();
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech to Text - Voice Transcription Free | ToolsNest</title>
+    <meta name="description" content="Free speech-to-text tool that transcribes your voice to text in real-time using your browser's built-in speech recognition. No signup, no uploads.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/speech-to-text/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Speech to Text
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Speech to Text</h1>
+                <p class="text-center mb-3">Transcribe your voice to text in real-time using your browser's built-in speech recognition. No files to upload — just speak and see results.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <!-- Language selection -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="stt-lang">Language</label>
+                            <select id="stt-lang" class="form-input">
+                                <option value="en-US">English (US)</option>
+                                <option value="en-GB">English (UK)</option>
+                                <option value="en-AU">English (Australia)</option>
+                                <option value="es-ES">Spanish (Spain)</option>
+                                <option value="es-MX">Spanish (Mexico)</option>
+                                <option value="fr-FR">French</option>
+                                <option value="de-DE">German</option>
+                                <option value="it-IT">Italian</option>
+                                <option value="pt-BR">Portuguese (Brazil)</option>
+                                <option value="pt-PT">Portuguese (Portugal)</option>
+                                <option value="zh-CN">Chinese (Mandarin)</option>
+                                <option value="ja-JP">Japanese</option>
+                                <option value="ko-KR">Korean</option>
+                                <option value="ru-RU">Russian</option>
+                                <option value="ar-SA">Arabic</option>
+                                <option value="hi-IN">Hindi</option>
+                                <option value="nl-NL">Dutch</option>
+                                <option value="sv-SE">Swedish</option>
+                                <option value="pl-PL">Polish</option>
+                                <option value="tr-TR">Turkish</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label>&nbsp;</label>
+                            <div style="display: flex; gap: 0.5rem; align-items: center; height: 42px;">
+                                <label style="font-size: 0.9rem; margin: 0;"><input type="checkbox" id="stt-continuous" checked> Continuous</label>
+                                <label style="font-size: 0.9rem; margin: 0;"><input type="checkbox" id="stt-interim" checked> Show interim</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mic controls -->
+                    <div class="stt-mic-section">
+                        <button id="stt-start" class="stt-mic-btn" aria-label="Start recording">
+                            <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+                        </button>
+                        <div id="stt-status" class="stt-status">Click the microphone to start</div>
+                        <div id="stt-visualizer" class="stt-visualizer" style="display: none;">
+                            <span></span><span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
+
+                    <!-- Transcript output -->
+                    <div class="form-group mt-3">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                            <label for="stt-output">Transcript</label>
+                            <span id="stt-wc" class="text-muted" style="font-size: 0.85rem;">0 words</span>
+                        </div>
+                        <div id="stt-output" class="stt-output-box" contenteditable="true"></div>
+                        <div id="stt-interim-text" class="text-muted" style="font-style: italic; font-size: 0.9rem; min-height: 1.5em; margin-top: 0.5rem;"></div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <button id="stt-copy" class="btn btn-outline" style="padding: 0.6rem 1.25rem;">Copy Text</button>
+                        <button id="stt-download" class="btn btn-outline" style="padding: 0.6rem 1.25rem;">Download .txt</button>
+                        <button id="stt-clear" class="btn btn-outline" style="padding: 0.6rem 1.25rem; color: #ef4444; border-color: #ef4444;">Clear</button>
+                    </div>
+
+                    <!-- Timestamps -->
+                    <div id="stt-timestamps" class="mt-3" style="display: none;">
+                        <h3 class="mb-2" style="font-size: 1rem;">Session Timestamps</h3>
+                        <div id="stt-timestamp-list" style="font-size: 0.85rem;"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your speaking language from the dropdown menu.</li>
+                        <li>Click the microphone button to start recording. Your browser will ask for microphone permission.</li>
+                        <li>Speak clearly into your microphone. Text appears in real-time as you speak.</li>
+                        <li>Enable "Continuous" mode to keep recording after pauses, or disable it for single utterances.</li>
+                        <li>Use Copy, Download, or edit the transcript directly in the text area.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Which browsers support speech recognition?</h3>
+                        <p>Google Chrome and Microsoft Edge have the best support for the Web Speech Recognition API. Safari has partial support. Firefox currently does not support this feature. For the best experience, use Chrome.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my voice data sent to a server?</h3>
+                        <p>The speech recognition processing is handled by your browser's built-in engine. In Chrome, audio may be processed by Google's servers for recognition. The transcribed text stays in your browser and is not stored by ToolsNest.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate is the transcription?</h3>
+                        <p>Accuracy depends on microphone quality, background noise, accent, and speaking clarity. For best results, use a good microphone in a quiet environment and speak at a moderate pace.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I edit the transcript?</h3>
+                        <p>Yes! The transcript area is fully editable. You can click into it and make changes, fix errors, or add punctuation at any time, even while recording.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-to-speech" class="related-link">Text to Speech</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (!SpeechRecognition) {
+            document.querySelector('.tool-workspace').innerHTML = '<div style="text-align:center;padding:3rem;"><h3 style="color:#ef4444;">Browser Not Supported</h3><p class="mt-2">Your browser does not support the Web Speech Recognition API. Please use Google Chrome or Microsoft Edge for the best experience.</p></div>';
+            return;
+        }
+
+        var recognition = new SpeechRecognition();
+        var langSel = document.getElementById('stt-lang');
+        var continuousCb = document.getElementById('stt-continuous');
+        var interimCb = document.getElementById('stt-interim');
+        var startBtn = document.getElementById('stt-start');
+        var statusEl = document.getElementById('stt-status');
+        var visualizer = document.getElementById('stt-visualizer');
+        var outputEl = document.getElementById('stt-output');
+        var interimEl = document.getElementById('stt-interim-text');
+        var wcEl = document.getElementById('stt-wc');
+        var timestampsDiv = document.getElementById('stt-timestamps');
+        var timestampList = document.getElementById('stt-timestamp-list');
+
+        var isRecording = false;
+        var timestamps = [];
+        var sessionStart = null;
+
+        recognition.interimResults = true;
+        recognition.continuous = true;
+        recognition.lang = langSel.value;
+
+        langSel.addEventListener('change', function() {
+            recognition.lang = this.value;
+        });
+
+        continuousCb.addEventListener('change', function() {
+            recognition.continuous = this.checked;
+        });
+
+        function updateWordCount() {
+            var text = outputEl.textContent || outputEl.innerText;
+            var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+            wcEl.textContent = words + ' words';
+        }
+
+        function formatTimestamp(ms) {
+            var s = Math.floor(ms / 1000);
+            var m = Math.floor(s / 60);
+            s = s % 60;
+            return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        function startRecording() {
+            recognition.lang = langSel.value;
+            recognition.continuous = continuousCb.checked;
+            recognition.interimResults = interimCb.checked;
+
+            try {
+                recognition.start();
+            } catch(e) {
+                /* Already started */
+            }
+        }
+
+        function stopRecording() {
+            try {
+                recognition.stop();
+            } catch(e) {}
+            isRecording = false;
+            startBtn.classList.remove('stt-mic-active');
+            visualizer.style.display = 'none';
+            statusEl.textContent = 'Click the microphone to start';
+        }
+
+        startBtn.addEventListener('click', function() {
+            if (isRecording) {
+                stopRecording();
+            } else {
+                if (!sessionStart) sessionStart = Date.now();
+                startRecording();
+            }
+        });
+
+        recognition.onstart = function() {
+            isRecording = true;
+            startBtn.classList.add('stt-mic-active');
+            visualizer.style.display = 'flex';
+            statusEl.textContent = 'Listening... speak now';
+        };
+
+        recognition.onresult = function(event) {
+            var finalTranscript = '';
+            var interimTranscript = '';
+
+            for (var i = event.resultIndex; i < event.results.length; i++) {
+                var result = event.results[i];
+                if (result.isFinal) {
+                    finalTranscript += result[0].transcript;
+                    /* Add timestamp */
+                    var elapsed = Date.now() - (sessionStart || Date.now());
+                    timestamps.push({ time: formatTimestamp(elapsed), text: result[0].transcript.trim() });
+                } else {
+                    interimTranscript += result[0].transcript;
+                }
+            }
+
+            if (finalTranscript) {
+                outputEl.textContent += finalTranscript;
+                interimEl.textContent = '';
+                updateWordCount();
+                updateTimestamps();
+            }
+
+            if (interimTranscript && interimCb.checked) {
+                interimEl.textContent = interimTranscript;
+            }
+        };
+
+        recognition.onerror = function(event) {
+            if (event.error === 'no-speech') {
+                statusEl.textContent = 'No speech detected. Try again.';
+            } else if (event.error === 'audio-capture') {
+                statusEl.textContent = 'No microphone found. Check your device settings.';
+            } else if (event.error === 'not-allowed') {
+                statusEl.textContent = 'Microphone access denied. Please allow access in your browser settings.';
+            } else {
+                statusEl.textContent = 'Error: ' + event.error;
+            }
+            isRecording = false;
+            startBtn.classList.remove('stt-mic-active');
+            visualizer.style.display = 'none';
+        };
+
+        recognition.onend = function() {
+            if (isRecording && continuousCb.checked) {
+                /* Restart for continuous mode */
+                try { recognition.start(); } catch(e) {}
+            } else {
+                isRecording = false;
+                startBtn.classList.remove('stt-mic-active');
+                visualizer.style.display = 'none';
+                statusEl.textContent = 'Recording stopped';
+            }
+        };
+
+        function updateTimestamps() {
+            if (!timestamps.length) { timestampsDiv.style.display = 'none'; return; }
+            timestampsDiv.style.display = '';
+            var html = '';
+            timestamps.forEach(function(ts) {
+                html += '<div style="display:flex;gap:0.75rem;padding:0.25rem 0;border-bottom:1px solid var(--border);"><span style="font-weight:600;color:var(--primary);white-space:nowrap;">[' + ts.time + ']</span><span>' + ts.text.replace(/</g, '&lt;') + '</span></div>';
+            });
+            timestampList.innerHTML = html;
+        }
+
+        /* Copy */
+        document.getElementById('stt-copy').addEventListener('click', function() {
+            var text = outputEl.textContent || outputEl.innerText;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('stt-copy');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy Text'; }, 2000);
+            });
+        });
+
+        /* Download */
+        document.getElementById('stt-download').addEventListener('click', function() {
+            var text = outputEl.textContent || outputEl.innerText;
+            if (!text) return;
+            var blob = new Blob([text], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'transcript.txt';
+            a.click();
+        });
+
+        /* Clear */
+        document.getElementById('stt-clear').addEventListener('click', function() {
+            outputEl.textContent = '';
+            interimEl.textContent = '';
+            timestamps = [];
+            sessionStart = null;
+            updateWordCount();
+            updateTimestamps();
+        });
+    })();
+    </script>
+</body>
+</html>

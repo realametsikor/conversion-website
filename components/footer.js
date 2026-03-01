@@ -20,12 +20,14 @@ function renderFooter() {
                 <div class="footer-col">
                     <h4>Popular Tools</h4>
                     <a href="/file-tools/pdf-to-word">PDF to Word</a>
-                    <a href="/image-tools/image-compressor">Compress Image</a>
-                    <a href="/calculators/loan-calculator">Loan Calculator</a>
-                    <a href="/file-tools/jpg-to-png">JPG to PNG</a>
+                    <a href="/ai-tools/grammar-checker">Grammar Checker</a>
+                    <a href="/student-tools/citation-generator">Citation Generator</a>
+                    <a href="/ai-tools/paraphrasing-tool">Paraphrasing Tool</a>
+                    <a href="/student-tools/plagiarism-checker">Plagiarism Checker</a>
                 </div>
                 <div class="footer-col">
-                    <h4>Company</h4>
+                    <h4>Resources</h4>
+                    <a href="/blog">Blog</a>
                     <a href="/about">About</a>
                     <a href="/contact">Contact</a>
                     <a href="/privacy-policy">Privacy Policy</a>

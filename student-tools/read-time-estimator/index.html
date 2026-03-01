@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Time Estimator - Calculate Reading Time Free | ToolsNest</title>
+    <meta name="description" content="Free read time estimator that calculates how long it takes to read or speak any text. Includes detailed word, sentence, and paragraph analysis. No signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/student-tools/read-time-estimator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Read Time Estimator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Read Time Estimator</h1>
+                <p class="text-center mb-3">Calculate how long it takes to read or speak any text. Get detailed analytics including word count, sentence analysis, readability grade, and more.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <div class="form-group">
+                        <label for="rt-input">Paste Your Text</label>
+                        <textarea id="rt-input" class="form-input" rows="8" placeholder="Paste or type your article, essay, speech, or any text here to analyze reading time and text statistics..." style="min-height: 180px;"></textarea>
+                    </div>
+
+                    <!-- Speed settings -->
+                    <div class="rt-speed-row mb-3">
+                        <div class="form-group" style="margin-bottom: 0; flex: 1; min-width: 200px;">
+                            <label for="rt-speed">Reading Speed: <span id="rt-speed-val">238</span> WPM</label>
+                            <input type="range" id="rt-speed" min="100" max="500" step="10" value="238" class="tts-slider">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted);">
+                                <span>Slow (100)</span>
+                                <span>Average (238)</span>
+                                <span>Fast (500)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="rt-analyze-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Analyze Text</button>
+
+                    <!-- Results -->
+                    <div id="rt-results" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <!-- Time cards -->
+                            <div class="rt-time-cards">
+                                <div class="rt-time-card rt-time-primary">
+                                    <div class="rt-time-value" id="rt-read-time">0 min</div>
+                                    <div class="rt-time-label">Reading Time</div>
+                                </div>
+                                <div class="rt-time-card">
+                                    <div class="rt-time-value" id="rt-speak-time">0 min</div>
+                                    <div class="rt-time-label">Speaking Time</div>
+                                </div>
+                                <div class="rt-time-card">
+                                    <div class="rt-time-value" id="rt-grade">--</div>
+                                    <div class="rt-time-label">Reading Level</div>
+                                </div>
+                            </div>
+
+                            <!-- Detailed stats -->
+                            <div class="rt-stats-grid mt-3">
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Words</span>
+                                    <span class="rt-stat-value" id="rt-words">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Characters</span>
+                                    <span class="rt-stat-value" id="rt-chars">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Characters (no spaces)</span>
+                                    <span class="rt-stat-value" id="rt-chars-ns">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Sentences</span>
+                                    <span class="rt-stat-value" id="rt-sentences">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Paragraphs</span>
+                                    <span class="rt-stat-value" id="rt-paragraphs">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Avg. Words per Sentence</span>
+                                    <span class="rt-stat-value" id="rt-avg-words">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Avg. Word Length</span>
+                                    <span class="rt-stat-value" id="rt-avg-length">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Unique Words</span>
+                                    <span class="rt-stat-value" id="rt-unique">0</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Vocabulary Density</span>
+                                    <span class="rt-stat-value" id="rt-density">0%</span>
+                                </div>
+                                <div class="rt-stat">
+                                    <span class="rt-stat-label">Longest Word</span>
+                                    <span class="rt-stat-value" id="rt-longest">--</span>
+                                </div>
+                            </div>
+
+                            <!-- Top words -->
+                            <div class="mt-3" id="rt-top-words-section" style="display: none;">
+                                <h3 class="mb-2">Most Used Words</h3>
+                                <div id="rt-top-words" class="rt-word-bars"></div>
+                            </div>
+
+                            <!-- Readability details -->
+                            <div class="mt-3" id="rt-readability-section" style="display: none;">
+                                <h3 class="mb-2">Readability Analysis</h3>
+                                <div id="rt-readability"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area.</li>
+                        <li>Adjust the reading speed slider to match your audience (average adult reads at ~238 WPM).</li>
+                        <li>Click "Analyze Text" to see detailed results.</li>
+                        <li>Review reading time, speaking time, readability grade, word statistics, and most-used words.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Reading Speed Reference</h2>
+                    <div class="grid-3" style="gap: 1rem;">
+                        <div class="card" style="padding: 1.25rem; text-align: center;">
+                            <h3 style="font-size: 2rem; color: var(--primary);">150</h3>
+                            <p style="font-weight: 600; font-size: 0.95rem;">WPM</p>
+                            <p style="font-size: 0.85rem;">Students / ESL readers</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem; text-align: center;">
+                            <h3 style="font-size: 2rem; color: var(--accent);">238</h3>
+                            <p style="font-weight: 600; font-size: 0.95rem;">WPM</p>
+                            <p style="font-size: 0.85rem;">Average adult reader</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem; text-align: center;">
+                            <h3 style="font-size: 2rem; color: #F59E0B;">400+</h3>
+                            <p style="font-weight: 600; font-size: 0.95rem;">WPM</p>
+                            <p style="font-size: 0.85rem;">Speed readers</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is reading time calculated?</h3>
+                        <p>Reading time = total words / reading speed (WPM). The default speed is 238 words per minute, which is the average adult reading speed according to research. Speaking time uses 130 WPM, the average conversational speaking rate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the readability grade?</h3>
+                        <p>The readability grade uses the Flesch-Kincaid formula, which estimates the US school grade level needed to understand the text. It considers average sentence length and syllable count per word. A grade of 8 means an 8th-grader should understand it.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is vocabulary density?</h3>
+                        <p>Vocabulary density (also called lexical diversity) is the ratio of unique words to total words. Higher density means more varied vocabulary. A density above 70% suggests rich, diverse writing, while below 50% may indicate repetitive language.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my text stored anywhere?</h3>
+                        <p>No. All analysis happens in your browser. Your text is never sent to any server.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/text-to-speech" class="related-link">Text to Speech</a>
+                    <a href="/student-tools/study-timer" class="related-link">Pomodoro Timer</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputEl = document.getElementById('rt-input');
+        var speedSlider = document.getElementById('rt-speed');
+        var speedVal = document.getElementById('rt-speed-val');
+
+        speedSlider.addEventListener('input', function() { speedVal.textContent = this.value; });
+
+        var stopWords = new Set(['a','an','the','and','or','but','in','on','at','to','for','of','with','by','from','is','was','are','were','be','been','being','have','has','had','do','does','did','will','would','shall','should','may','might','must','can','could','this','that','these','those','it','its','i','me','my','we','our','you','your','he','him','his','she','her','they','them','their','what','which','who','whom','when','where','why','how','not','no','so','if','as']);
+
+        function countSyllables(word) {
+            word = word.toLowerCase().replace(/[^a-z]/g, '');
+            if (word.length <= 3) return 1;
+            word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+            word = word.replace(/^y/, '');
+            var matches = word.match(/[aeiouy]{1,2}/g);
+            return matches ? Math.max(1, matches.length) : 1;
+        }
+
+        function formatTime(minutes) {
+            if (minutes < 1) return 'less than 1 min';
+            if (minutes < 60) {
+                var m = Math.floor(minutes);
+                var s = Math.round((minutes - m) * 60);
+                return m + ' min' + (s > 0 ? ' ' + s + ' sec' : '');
+            }
+            var h = Math.floor(minutes / 60);
+            var rem = Math.round(minutes % 60);
+            return h + ' hr ' + rem + ' min';
+        }
+
+        function getGradeLabel(grade) {
+            if (grade <= 5) return 'Very Easy (Elementary)';
+            if (grade <= 8) return 'Easy (Middle School)';
+            if (grade <= 10) return 'Moderate (High School)';
+            if (grade <= 12) return 'Difficult (College)';
+            return 'Very Difficult (Graduate)';
+        }
+
+        function getFleschScore(avgSentenceLen, avgSyllables) {
+            return 206.835 - (1.015 * avgSentenceLen) - (84.6 * avgSyllables);
+        }
+
+        function getFleschLabel(score) {
+            if (score >= 90) return 'Very Easy';
+            if (score >= 80) return 'Easy';
+            if (score >= 70) return 'Fairly Easy';
+            if (score >= 60) return 'Standard';
+            if (score >= 50) return 'Fairly Difficult';
+            if (score >= 30) return 'Difficult';
+            return 'Very Difficult';
+        }
+
+        document.getElementById('rt-analyze-btn').addEventListener('click', function() {
+            var text = inputEl.value.trim();
+            var results = document.getElementById('rt-results');
+
+            if (!text) {
+                results.style.display = 'none';
+                return;
+            }
+
+            results.style.display = 'block';
+
+            var readSpeed = parseInt(speedSlider.value) || 238;
+            var speakSpeed = 130;
+
+            /* Basic counts */
+            var chars = text.length;
+            var charsNoSpaces = text.replace(/\s/g, '').length;
+            var words = text.split(/\s+/).filter(function(w) { return w.length > 0; });
+            var wordCount = words.length;
+            var sentences = text.split(/[.!?]+/).filter(function(s) { return s.trim().length > 0; });
+            var sentenceCount = Math.max(1, sentences.length);
+            var paragraphs = text.split(/\n\s*\n/).filter(function(p) { return p.trim().length > 0; });
+            var paragraphCount = Math.max(1, paragraphs.length);
+
+            /* Times */
+            var readMinutes = wordCount / readSpeed;
+            var speakMinutes = wordCount / speakSpeed;
+
+            /* Averages */
+            var avgWordsPerSentence = (wordCount / sentenceCount).toFixed(1);
+            var totalWordLength = words.reduce(function(sum, w) { return sum + w.replace(/[^a-zA-Z]/g, '').length; }, 0);
+            var avgWordLength = (totalWordLength / Math.max(1, wordCount)).toFixed(1);
+
+            /* Unique words */
+            var lowerWords = words.map(function(w) { return w.toLowerCase().replace(/[^a-z']/g, ''); }).filter(function(w) { return w.length > 0; });
+            var uniqueWords = new Set(lowerWords);
+            var density = ((uniqueWords.size / Math.max(1, lowerWords.length)) * 100).toFixed(1);
+
+            /* Longest word */
+            var longest = words.reduce(function(a, b) { return a.replace(/[^a-zA-Z]/g,'').length >= b.replace(/[^a-zA-Z]/g,'').length ? a : b; }, '').replace(/[^a-zA-Z]/g, '');
+
+            /* Readability */
+            var totalSyllables = words.reduce(function(sum, w) { return sum + countSyllables(w); }, 0);
+            var avgSyllables = totalSyllables / Math.max(1, wordCount);
+            var fkGrade = (0.39 * (wordCount / sentenceCount)) + (11.8 * avgSyllables) - 15.59;
+            fkGrade = Math.max(1, Math.round(fkGrade * 10) / 10);
+            var fleschScore = Math.round(getFleschScore(wordCount / sentenceCount, avgSyllables));
+
+            /* Display results */
+            document.getElementById('rt-read-time').textContent = formatTime(readMinutes);
+            document.getElementById('rt-speak-time').textContent = formatTime(speakMinutes);
+            document.getElementById('rt-grade').textContent = 'Grade ' + Math.round(fkGrade);
+
+            document.getElementById('rt-words').textContent = wordCount.toLocaleString();
+            document.getElementById('rt-chars').textContent = chars.toLocaleString();
+            document.getElementById('rt-chars-ns').textContent = charsNoSpaces.toLocaleString();
+            document.getElementById('rt-sentences').textContent = sentenceCount.toLocaleString();
+            document.getElementById('rt-paragraphs').textContent = paragraphCount.toLocaleString();
+            document.getElementById('rt-avg-words').textContent = avgWordsPerSentence;
+            document.getElementById('rt-avg-length').textContent = avgWordLength + ' chars';
+            document.getElementById('rt-unique').textContent = uniqueWords.size.toLocaleString();
+            document.getElementById('rt-density').textContent = density + '%';
+            document.getElementById('rt-longest').textContent = longest || '--';
+
+            /* Top words */
+            var wordFreq = {};
+            lowerWords.forEach(function(w) {
+                if (w.length > 2 && !stopWords.has(w)) {
+                    wordFreq[w] = (wordFreq[w] || 0) + 1;
+                }
+            });
+            var topWords = Object.keys(wordFreq).sort(function(a, b) { return wordFreq[b] - wordFreq[a]; }).slice(0, 10);
+
+            if (topWords.length > 0) {
+                var topSection = document.getElementById('rt-top-words-section');
+                topSection.style.display = '';
+                var maxFreq = wordFreq[topWords[0]];
+                var barsHtml = '';
+                topWords.forEach(function(word) {
+                    var count = wordFreq[word];
+                    var width = (count / maxFreq) * 100;
+                    barsHtml += '<div class="rt-word-bar-row"><span class="rt-word-bar-label">' + word + '</span><div class="rt-word-bar-track"><div class="rt-word-bar-fill" style="width:' + width + '%;"></div></div><span class="rt-word-bar-count">' + count + '</span></div>';
+                });
+                document.getElementById('rt-top-words').innerHTML = barsHtml;
+            }
+
+            /* Readability */
+            var readSection = document.getElementById('rt-readability-section');
+            readSection.style.display = '';
+            var fleschColor = fleschScore >= 60 ? 'var(--accent)' : fleschScore >= 40 ? '#F59E0B' : '#EF4444';
+            var readHtml = '<div class="rt-readability-grid">';
+            readHtml += '<div class="rt-readability-item"><span class="rt-readability-label">Flesch-Kincaid Grade</span><span class="rt-readability-value">' + fkGrade + '</span><span class="text-muted" style="font-size:0.8rem;">' + getGradeLabel(fkGrade) + '</span></div>';
+            readHtml += '<div class="rt-readability-item"><span class="rt-readability-label">Flesch Reading Ease</span><span class="rt-readability-value" style="color:' + fleschColor + ';">' + fleschScore + '/100</span><span class="text-muted" style="font-size:0.8rem;">' + getFleschLabel(fleschScore) + '</span></div>';
+            readHtml += '<div class="rt-readability-item"><span class="rt-readability-label">Avg. Syllables/Word</span><span class="rt-readability-value">' + avgSyllables.toFixed(1) + '</span></div>';
+            readHtml += '</div>';
+            document.getElementById('rt-readability').innerHTML = readHtml;
+        });
+    })();
+    </script>
+</body>
+</html>

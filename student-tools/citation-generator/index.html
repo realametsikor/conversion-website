@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Generator - APA, MLA, Chicago, Harvard Free | ToolsNest</title>
+    <meta name="description" content="Generate accurate citations in APA 7th, MLA 9th, Chicago 17th, and Harvard formats. Supports books, journals, websites, and more. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/student-tools/citation-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Citation Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Citation Generator</h1>
+                <p class="text-center mb-3">Generate properly formatted citations for books, journal articles, websites, and more. Supports APA 7th, MLA 9th, Chicago 17th, and Harvard styles.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <!-- Format & Source Type -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;" class="mb-3">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cite-format">Citation Style</label>
+                            <select id="cite-format" class="form-input">
+                                <option value="apa">APA 7th Edition</option>
+                                <option value="mla">MLA 9th Edition</option>
+                                <option value="chicago">Chicago 17th Edition</option>
+                                <option value="harvard">Harvard</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label for="cite-source">Source Type</label>
+                            <select id="cite-source" class="form-input">
+                                <option value="book">Book</option>
+                                <option value="journal">Journal Article</option>
+                                <option value="website">Website</option>
+                                <option value="newspaper">Newspaper Article</option>
+                                <option value="video">Video / YouTube</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Form Fields -->
+                    <div id="cite-fields"></div>
+
+                    <button id="cite-generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Citation</button>
+
+                    <!-- Output -->
+                    <div id="cite-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2">Your Citation</h3>
+                            <div id="cite-result-apa" class="cite-result-box" style="display: none;">
+                                <span class="cite-format-label">APA 7th</span>
+                                <div class="cite-text" id="cite-text-apa"></div>
+                                <button class="btn btn-outline cite-copy-btn" data-target="cite-text-apa" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-top: 0.5rem;">Copy</button>
+                            </div>
+                            <div id="cite-result-mla" class="cite-result-box" style="display: none;">
+                                <span class="cite-format-label">MLA 9th</span>
+                                <div class="cite-text" id="cite-text-mla"></div>
+                                <button class="btn btn-outline cite-copy-btn" data-target="cite-text-mla" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-top: 0.5rem;">Copy</button>
+                            </div>
+                            <div id="cite-result-chicago" class="cite-result-box" style="display: none;">
+                                <span class="cite-format-label">Chicago 17th</span>
+                                <div class="cite-text" id="cite-text-chicago"></div>
+                                <button class="btn btn-outline cite-copy-btn" data-target="cite-text-chicago" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-top: 0.5rem;">Copy</button>
+                            </div>
+                            <div id="cite-result-harvard" class="cite-result-box" style="display: none;">
+                                <span class="cite-format-label">Harvard</span>
+                                <div class="cite-text" id="cite-text-harvard"></div>
+                                <button class="btn btn-outline cite-copy-btn" data-target="cite-text-harvard" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-top: 0.5rem;">Copy</button>
+                            </div>
+                            <div class="mt-2">
+                                <button id="cite-show-all-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Show All Formats</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saved Citations -->
+                    <div id="cite-saved" style="display: none; margin-top: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3>Saved Citations</h3>
+                            <div>
+                                <button id="cite-export-btn" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;">Export All</button>
+                                <button id="cite-clear-btn" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; margin-left: 0.5rem; color: #ef4444; border-color: #ef4444;">Clear All</button>
+                            </div>
+                        </div>
+                        <div id="cite-saved-list"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your citation style (APA, MLA, Chicago, or Harvard) and source type (book, journal, website, etc.).</li>
+                        <li>Fill in the source details. Required fields are marked with an asterisk (*).</li>
+                        <li>Click "Generate Citation" to create your formatted citation.</li>
+                        <li>Use "Show All Formats" to see the citation in all four styles at once.</li>
+                        <li>Citations are automatically saved in your browser. Use "Export All" to download your bibliography.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Which citation style should I use?</h3>
+                        <p><strong>APA</strong> is standard for psychology, education, and social sciences. <strong>MLA</strong> is used in humanities and liberal arts. <strong>Chicago</strong> is common in history, business, and fine arts. <strong>Harvard</strong> is widely used in the UK and Australia across many disciplines. Check your assignment guidelines or ask your instructor.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate are the citations?</h3>
+                        <p>The generator follows official style guide rules for each format. However, always double-check citations against your institution's specific requirements, as some professors or departments may have variations.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my citations saved?</h3>
+                        <p>Citations are saved in your browser's local storage so they persist between sessions on the same device. They are never uploaded to any server. Use the Export button to download all citations as a text file.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I generate in-text citations?</h3>
+                        <p>Currently, this tool generates full reference list / bibliography entries. In-text citation formats are shown alongside each reference for quick guidance.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/student-tools/plagiarism-checker" class="related-link">Plagiarism Checker</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var formatSel = document.getElementById('cite-format');
+        var sourceSel = document.getElementById('cite-source');
+        var fieldsDiv = document.getElementById('cite-fields');
+        var savedCitations = JSON.parse(localStorage.getItem('toolsnest-citations') || '[]');
+
+        /* Field configs per source type */
+        var fieldConfigs = {
+            book: [
+                { id: 'authors', label: 'Author(s)', placeholder: 'Last, First; Last, First', required: true, help: 'Separate multiple authors with semicolons' },
+                { id: 'title', label: 'Book Title', placeholder: 'The Great Gatsby', required: true },
+                { id: 'publisher', label: 'Publisher', placeholder: 'Scribner', required: true },
+                { id: 'year', label: 'Year Published', placeholder: '2004', required: true },
+                { id: 'edition', label: 'Edition', placeholder: '2nd' },
+                { id: 'city', label: 'City of Publication', placeholder: 'New York' },
+                { id: 'doi', label: 'DOI / URL', placeholder: 'https://doi.org/10.xxxx' }
+            ],
+            journal: [
+                { id: 'authors', label: 'Author(s)', placeholder: 'Last, First; Last, First', required: true, help: 'Separate multiple authors with semicolons' },
+                { id: 'title', label: 'Article Title', placeholder: 'Effects of Climate Change...', required: true },
+                { id: 'journal', label: 'Journal Name', placeholder: 'Nature Climate Change', required: true },
+                { id: 'year', label: 'Year', placeholder: '2023', required: true },
+                { id: 'volume', label: 'Volume', placeholder: '13' },
+                { id: 'issue', label: 'Issue', placeholder: '4' },
+                { id: 'pages', label: 'Pages', placeholder: '234-245' },
+                { id: 'doi', label: 'DOI / URL', placeholder: 'https://doi.org/10.xxxx' }
+            ],
+            website: [
+                { id: 'authors', label: 'Author(s)', placeholder: 'Last, First or Organization', help: 'Leave blank if no author' },
+                { id: 'title', label: 'Page Title', placeholder: 'Climate Change FAQ', required: true },
+                { id: 'site', label: 'Website Name', placeholder: 'NASA', required: true },
+                { id: 'url', label: 'URL', placeholder: 'https://climate.nasa.gov/faq/', required: true },
+                { id: 'year', label: 'Publication Date', placeholder: '2023, March 15' },
+                { id: 'accessed', label: 'Date Accessed', placeholder: 'March 1, 2026' }
+            ],
+            newspaper: [
+                { id: 'authors', label: 'Author(s)', placeholder: 'Last, First', required: true },
+                { id: 'title', label: 'Article Title', placeholder: 'New Study Reveals...', required: true },
+                { id: 'newspaper', label: 'Newspaper Name', placeholder: 'The New York Times', required: true },
+                { id: 'year', label: 'Publication Date', placeholder: '2023, July 20', required: true },
+                { id: 'pages', label: 'Pages', placeholder: 'A1, A4' },
+                { id: 'url', label: 'URL', placeholder: 'https://nytimes.com/...' }
+            ],
+            video: [
+                { id: 'authors', label: 'Creator / Channel', placeholder: 'TED', required: true },
+                { id: 'title', label: 'Video Title', placeholder: 'The Next Breakthrough in AI', required: true },
+                { id: 'site', label: 'Platform', placeholder: 'YouTube', required: true },
+                { id: 'year', label: 'Upload Date', placeholder: '2023, September 12', required: true },
+                { id: 'url', label: 'URL', placeholder: 'https://youtube.com/watch?v=...', required: true }
+            ]
+        };
+
+        function renderFields() {
+            var source = sourceSel.value;
+            var fields = fieldConfigs[source] || [];
+            var html = '';
+            for (var i = 0; i < fields.length; i++) {
+                var f = fields[i];
+                html += '<div class="form-group">';
+                html += '<label for="cf-' + f.id + '">' + f.label + (f.required ? ' <span style="color:#ef4444;">*</span>' : '') + '</label>';
+                html += '<input type="text" id="cf-' + f.id + '" class="form-input" placeholder="' + f.placeholder + '"' + (f.required ? ' required' : '') + '>';
+                if (f.help) html += '<p class="text-muted mt-1" style="font-size: 0.8rem;">' + f.help + '</p>';
+                html += '</div>';
+            }
+            fieldsDiv.innerHTML = html;
+        }
+
+        sourceSel.addEventListener('change', renderFields);
+        renderFields();
+
+        function getField(id) { var el = document.getElementById('cf-' + id); return el ? el.value.trim() : ''; }
+
+        /* Parse authors string into structured array */
+        function parseAuthors(str) {
+            if (!str) return [];
+            return str.split(';').map(function(a) {
+                a = a.trim();
+                var parts = a.split(',').map(function(p) { return p.trim(); });
+                if (parts.length >= 2) return { last: parts[0], first: parts.slice(1).join(' ').trim() };
+                /* Single name — treat as organization or single-word name */
+                return { last: a, first: '' };
+            }).filter(function(a) { return a.last; });
+        }
+
+        /* Format author names per style */
+        function formatAuthorsAPA(authors) {
+            if (!authors.length) return '';
+            var result = authors.map(function(a, i) {
+                var initials = a.first ? a.first.split(/\s+/).map(function(n) { return n.charAt(0).toUpperCase() + '.'; }).join(' ') : '';
+                return a.last + (initials ? ', ' + initials : '');
+            });
+            if (result.length === 1) return result[0];
+            if (result.length === 2) return result[0] + ', & ' + result[1];
+            return result.slice(0, -1).join(', ') + ', & ' + result[result.length - 1];
+        }
+
+        function formatAuthorsMLA(authors) {
+            if (!authors.length) return '';
+            if (authors.length === 1) return authors[0].last + (authors[0].first ? ', ' + authors[0].first : '');
+            if (authors.length === 2) return authors[0].last + ', ' + (authors[0].first || '') + ', and ' + (authors[1].first ? authors[1].first + ' ' : '') + authors[1].last;
+            return authors[0].last + ', ' + (authors[0].first || '') + ', et al';
+        }
+
+        function formatAuthorsChicago(authors) {
+            if (!authors.length) return '';
+            if (authors.length === 1) return authors[0].last + (authors[0].first ? ', ' + authors[0].first : '');
+            var formatted = authors[0].last + ', ' + (authors[0].first || '');
+            for (var i = 1; i < authors.length; i++) {
+                if (i === authors.length - 1) formatted += ', and ';
+                else formatted += ', ';
+                formatted += (authors[i].first ? authors[i].first + ' ' : '') + authors[i].last;
+            }
+            return formatted;
+        }
+
+        function formatAuthorsHarvard(authors) {
+            return formatAuthorsAPA(authors);
+        }
+
+        function extractYear(dateStr) {
+            var match = dateStr.match(/(\d{4})/);
+            return match ? match[1] : dateStr;
+        }
+
+        /* Generate all citation formats */
+        function generateCitations() {
+            var source = sourceSel.value;
+            var authors = parseAuthors(getField('authors'));
+            var title = getField('title');
+            var year = getField('year');
+            var yearNum = extractYear(year);
+            var doi = getField('doi');
+            var url = getField('url');
+            var link = doi || url;
+
+            var citations = { apa: '', mla: '', chicago: '', harvard: '' };
+
+            if (source === 'book') {
+                var publisher = getField('publisher');
+                var edition = getField('edition');
+                var city = getField('city');
+
+                var edText = edition ? ' (' + edition + ' ed.)' : '';
+
+                citations.apa = formatAuthorsAPA(authors) + ' (' + yearNum + '). <em>' + title + '</em>' + edText + '. ' + publisher + '.' + (link ? ' ' + link : '');
+                citations.mla = formatAuthorsMLA(authors) + '. <em>' + title + '</em>.' + (edition ? ' ' + edition + ' ed.,' : '') + ' ' + publisher + ', ' + yearNum + '.';
+                citations.chicago = formatAuthorsChicago(authors) + '. <em>' + title + '</em>.' + (edition ? ' ' + edition + ' ed.' : '') + (city ? ' ' + city + ':' : '') + ' ' + publisher + ', ' + yearNum + '.';
+                citations.harvard = formatAuthorsHarvard(authors) + ' (' + yearNum + ') <em>' + title + '</em>.' + (edition ? ' ' + edition + ' edn.' : '') + (city ? ' ' + city + ':' : '') + ' ' + publisher + '.';
+            }
+            else if (source === 'journal') {
+                var journal = getField('journal');
+                var volume = getField('volume');
+                var issue = getField('issue');
+                var pages = getField('pages');
+
+                citations.apa = formatAuthorsAPA(authors) + ' (' + yearNum + '). ' + title + '. <em>' + journal + '</em>' + (volume ? ', <em>' + volume + '</em>' : '') + (issue ? '(' + issue + ')' : '') + (pages ? ', ' + pages : '') + '.' + (link ? ' ' + link : '');
+                citations.mla = formatAuthorsMLA(authors) + '. "' + title + '." <em>' + journal + '</em>' + (volume ? ', vol. ' + volume : '') + (issue ? ', no. ' + issue : '') + ', ' + yearNum + (pages ? ', pp. ' + pages : '') + '.' + (link ? ' ' + link + '.' : '');
+                citations.chicago = formatAuthorsChicago(authors) + '. "' + title + '." <em>' + journal + '</em> ' + (volume || '') + (issue ? ', no. ' + issue : '') + ' (' + yearNum + ')' + (pages ? ': ' + pages : '') + '.' + (link ? ' ' + link + '.' : '');
+                citations.harvard = formatAuthorsHarvard(authors) + ' (' + yearNum + ') \'' + title + '\', <em>' + journal + '</em>' + (volume ? ', ' + volume : '') + (issue ? '(' + issue + ')' : '') + (pages ? ', pp. ' + pages : '') + '.' + (link ? ' Available at: ' + link + '.' : '');
+            }
+            else if (source === 'website') {
+                var site = getField('site');
+                var accessed = getField('accessed');
+                var authorStr = authors.length ? formatAuthorsAPA(authors) : site;
+                var authorStrMLA = authors.length ? formatAuthorsMLA(authors) : '';
+
+                citations.apa = (authors.length ? formatAuthorsAPA(authors) : site) + ' (' + (yearNum || 'n.d.') + '). ' + title + '. ' + (authors.length ? '<em>' + site + '</em>. ' : '') + (url || '');
+                citations.mla = (authorStrMLA ? authorStrMLA + '. ' : '') + '"' + title + '." <em>' + site + '</em>' + (year ? ', ' + year : '') + (url ? ', ' + url : '') + '.' + (accessed ? ' Accessed ' + accessed + '.' : '');
+                citations.chicago = (authors.length ? formatAuthorsChicago(authors) + '. ' : (site + '. ')) + '"' + title + '." ' + (authors.length ? site + '. ' : '') + (year ? year + '. ' : '') + (url || '') + '.';
+                citations.harvard = (authors.length ? formatAuthorsHarvard(authors) : site) + ' (' + (yearNum || 'n.d.') + ') <em>' + title + '</em>. Available at: ' + (url || '') + (accessed ? ' (Accessed: ' + accessed + ')' : '') + '.';
+            }
+            else if (source === 'newspaper') {
+                var newspaper = getField('newspaper');
+                var pages2 = getField('pages');
+
+                citations.apa = formatAuthorsAPA(authors) + ' (' + (year || yearNum) + '). ' + title + '. <em>' + newspaper + '</em>' + (pages2 ? ', ' + pages2 : '') + '.' + (url ? ' ' + url : '');
+                citations.mla = formatAuthorsMLA(authors) + '. "' + title + '." <em>' + newspaper + '</em>, ' + (year || yearNum) + (pages2 ? ', ' + pages2 : '') + '.' + (url ? ' ' + url + '.' : '');
+                citations.chicago = formatAuthorsChicago(authors) + '. "' + title + '." <em>' + newspaper + '</em>, ' + (year || yearNum) + '.' + (url ? ' ' + url + '.' : '');
+                citations.harvard = formatAuthorsHarvard(authors) + ' (' + yearNum + ') \'' + title + '\', <em>' + newspaper + '</em>' + (pages2 ? ', ' + pages2 : '') + '.' + (url ? ' Available at: ' + url + '.' : '');
+            }
+            else if (source === 'video') {
+                var platform = getField('site');
+
+                citations.apa = (authors.length ? formatAuthorsAPA(authors) : getField('authors')) + ' (' + (year || yearNum) + '). <em>' + title + '</em> [Video]. ' + platform + '. ' + (url || '');
+                citations.mla = (authors.length ? formatAuthorsMLA(authors) : getField('authors')) + '. "' + title + '." <em>' + platform + '</em>, ' + (year || yearNum) + ', ' + (url || '') + '.';
+                citations.chicago = (authors.length ? formatAuthorsChicago(authors) : getField('authors')) + '. "' + title + '." ' + platform + ' video, ' + (year || yearNum) + '. ' + (url || '') + '.';
+                citations.harvard = (authors.length ? formatAuthorsHarvard(authors) : getField('authors')) + ' (' + yearNum + ') <em>' + title + '</em> [Online video]. Available at: ' + (url || '') + '.';
+            }
+
+            return citations;
+        }
+
+        /* Display citations */
+        var showAllFormats = false;
+
+        document.getElementById('cite-generate-btn').addEventListener('click', function() {
+            var title = getField('title');
+            if (!title) {
+                alert('Please fill in at least the title field.');
+                return;
+            }
+
+            var citations = generateCitations();
+            var format = formatSel.value;
+            var output = document.getElementById('cite-output');
+            output.style.display = 'block';
+            showAllFormats = false;
+
+            var formats = ['apa', 'mla', 'chicago', 'harvard'];
+            for (var i = 0; i < formats.length; i++) {
+                var box = document.getElementById('cite-result-' + formats[i]);
+                var text = document.getElementById('cite-text-' + formats[i]);
+                text.innerHTML = citations[formats[i]];
+                box.style.display = formats[i] === format ? 'block' : 'none';
+            }
+
+            /* Save citation */
+            savedCitations.push({ format: format, source: sourceSel.value, citations: citations, title: title, date: new Date().toISOString() });
+            localStorage.setItem('toolsnest-citations', JSON.stringify(savedCitations));
+            renderSaved();
+        });
+
+        document.getElementById('cite-show-all-btn').addEventListener('click', function() {
+            showAllFormats = !showAllFormats;
+            var formats = ['apa', 'mla', 'chicago', 'harvard'];
+            for (var i = 0; i < formats.length; i++) {
+                document.getElementById('cite-result-' + formats[i]).style.display = showAllFormats ? 'block' : (formats[i] === formatSel.value ? 'block' : 'none');
+            }
+            this.textContent = showAllFormats ? 'Show Selected Only' : 'Show All Formats';
+        });
+
+        /* Copy buttons */
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cite-copy-btn')) {
+                var targetId = e.target.getAttribute('data-target');
+                var textEl = document.getElementById(targetId);
+                if (textEl) {
+                    var text = textEl.textContent || textEl.innerText;
+                    navigator.clipboard.writeText(text).then(function() {
+                        e.target.textContent = 'Copied!';
+                        setTimeout(function() { e.target.textContent = 'Copy'; }, 2000);
+                    });
+                }
+            }
+        });
+
+        /* Render saved citations */
+        function renderSaved() {
+            var container = document.getElementById('cite-saved');
+            var list = document.getElementById('cite-saved-list');
+            if (!savedCitations.length) { container.style.display = 'none'; return; }
+            container.style.display = 'block';
+            var html = '';
+            for (var i = savedCitations.length - 1; i >= 0; i--) {
+                var c = savedCitations[i];
+                var displayFormat = c.format.toUpperCase();
+                html += '<div class="cite-saved-item"><div class="cite-saved-header"><span class="cite-format-label" style="font-size:0.7rem;">' + displayFormat + '</span>';
+                html += '<span class="text-muted" style="font-size:0.8rem;">' + c.source + '</span>';
+                html += '<button class="cite-remove-btn" data-index="' + i + '" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:0.85rem;">Remove</button></div>';
+                html += '<div style="font-size:0.9rem;line-height:1.6;margin-top:0.5rem;">' + c.citations[c.format] + '</div></div>';
+            }
+            list.innerHTML = html;
+        }
+
+        /* Remove saved citation */
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('cite-remove-btn')) {
+                var idx = parseInt(e.target.getAttribute('data-index'));
+                savedCitations.splice(idx, 1);
+                localStorage.setItem('toolsnest-citations', JSON.stringify(savedCitations));
+                renderSaved();
+            }
+        });
+
+        /* Export all */
+        document.getElementById('cite-export-btn').addEventListener('click', function() {
+            if (!savedCitations.length) return;
+            var text = 'Bibliography — Generated by ToolsNest\n' + '='.repeat(50) + '\n\n';
+            for (var i = 0; i < savedCitations.length; i++) {
+                var c = savedCitations[i];
+                var el = document.createElement('div');
+                el.innerHTML = c.citations[c.format];
+                text += (i + 1) + '. [' + c.format.toUpperCase() + '] ' + (el.textContent || el.innerText) + '\n\n';
+            }
+            var blob = new Blob([text], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'bibliography.txt';
+            a.click();
+        });
+
+        /* Clear all */
+        document.getElementById('cite-clear-btn').addEventListener('click', function() {
+            if (confirm('Remove all saved citations?')) {
+                savedCitations = [];
+                localStorage.setItem('toolsnest-citations', JSON.stringify(savedCitations));
+                renderSaved();
+            }
+        });
+
+        renderSaved();
+    })();
+    </script>
+</body>
+</html>

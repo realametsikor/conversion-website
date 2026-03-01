@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraphrasing Tool - Rewrite Text Instantly Free | ToolsNest</title>
+    <meta name="description" content="Free paraphrasing tool that rewrites text using synonym replacement, sentence restructuring, and multiple rewriting modes. Works in your browser — no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/paraphrasing-tool/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Paraphrasing Tool
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Paraphrasing Tool</h1>
+                <p class="text-center mb-3">Rewrite any text with different wording while preserving the original meaning. Choose from multiple rewriting modes for different contexts.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <!-- Mode selector -->
+                    <div class="para-modes mb-3">
+                        <button class="para-mode active" data-mode="standard">Standard</button>
+                        <button class="para-mode" data-mode="fluency">Fluency</button>
+                        <button class="para-mode" data-mode="formal">Formal</button>
+                        <button class="para-mode" data-mode="simple">Simplify</button>
+                        <button class="para-mode" data-mode="creative">Creative</button>
+                    </div>
+
+                    <div class="para-split">
+                        <div class="para-panel">
+                            <div class="para-panel-header">
+                                <label>Original Text</label>
+                                <span id="para-wc-in" class="text-muted" style="font-size: 0.8rem;">0 words</span>
+                            </div>
+                            <textarea id="para-input" class="form-input" rows="10" placeholder="Paste or type the text you want to paraphrase here..." style="min-height: 220px; border-top-left-radius: 0; border-top-right-radius: 0;"></textarea>
+                        </div>
+                        <div class="para-panel">
+                            <div class="para-panel-header">
+                                <label>Paraphrased Text</label>
+                                <span id="para-wc-out" class="text-muted" style="font-size: 0.8rem;">0 words</span>
+                            </div>
+                            <div id="para-output" class="para-output-box" style="min-height: 220px;">Your paraphrased text will appear here...</div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                        <button id="para-btn" class="btn btn-primary" style="flex: 1; min-width: 200px; font-size: 1.1rem; padding: 1rem;">Paraphrase</button>
+                        <button id="para-copy" class="btn btn-outline" style="padding: 1rem 1.5rem;">Copy</button>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Rewriting Modes</h2>
+                    <div class="grid-3" style="gap: 1rem;">
+                        <div class="card" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1rem; color: var(--primary);">Standard</h3>
+                            <p style="font-size: 0.85rem;">Balanced rewrite with synonym replacement while maintaining readability and meaning.</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1rem; color: var(--primary);">Fluency</h3>
+                            <p style="font-size: 0.85rem;">Improves flow and readability, smoothing out awkward phrasing.</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1rem; color: var(--primary);">Formal</h3>
+                            <p style="font-size: 0.85rem;">Elevates language to academic and professional tone.</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1rem; color: var(--primary);">Simplify</h3>
+                            <p style="font-size: 0.85rem;">Makes complex text easier to understand with simpler words.</p>
+                        </div>
+                        <div class="card" style="padding: 1.25rem;">
+                            <h3 style="font-size: 1rem; color: var(--primary);">Creative</h3>
+                            <p style="font-size: 0.85rem;">More adventurous rewording with varied sentence structures.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this paraphrasing tool work?</h3>
+                        <p>The tool uses a rule-based approach with an extensive synonym dictionary, sentence restructuring patterns, and mode-specific transformations. It replaces words with appropriate synonyms while maintaining grammatical correctness and the original meaning.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is this tool free?</h3>
+                        <p>Yes, completely free with no word limits, no signup, and no API calls. Everything runs in your browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will it pass plagiarism detection?</h3>
+                        <p>While paraphrasing changes wording, you should always cite your sources. This tool helps you express ideas in your own words, but proper attribution is still required in academic work.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Which mode should I choose?</h3>
+                        <p>Use <strong>Standard</strong> for general use, <strong>Formal</strong> for essays and business writing, <strong>Fluency</strong> to smooth out rough drafts, <strong>Simplify</strong> to make text more accessible, and <strong>Creative</strong> for blog posts or casual content.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/student-tools/plagiarism-checker" class="related-link">Plagiarism Checker</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var currentMode = 'standard';
+        var inputEl = document.getElementById('para-input');
+        var outputEl = document.getElementById('para-output');
+        var wcIn = document.getElementById('para-wc-in');
+        var wcOut = document.getElementById('para-wc-out');
+
+        /* Mode switching */
+        document.querySelectorAll('.para-mode').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.para-mode').forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                currentMode = btn.getAttribute('data-mode');
+            });
+        });
+
+        function countWords(t) { var s = t.trim(); return s ? s.split(/\s+/).length : 0; }
+
+        inputEl.addEventListener('input', function() {
+            wcIn.textContent = countWords(this.value) + ' words';
+        });
+
+        /* Comprehensive synonym maps per mode */
+        var synonyms = {
+            standard: {
+                'important':'significant','significant':'important','big':'large','large':'substantial','small':'minor','minor':'slight',
+                'good':'effective','great':'remarkable','bad':'poor','help':'assist','assist':'support','support':'facilitate',
+                'show':'demonstrate','demonstrate':'illustrate','use':'utilize','utilize':'employ','employ':'leverage',
+                'make':'create','create':'develop','develop':'establish','change':'modify','modify':'alter','alter':'adjust',
+                'improve':'enhance','enhance':'strengthen','increase':'boost','boost':'elevate','reduce':'decrease','decrease':'diminish',
+                'get':'obtain','obtain':'acquire','give':'provide','provide':'supply','supply':'furnish',
+                'think':'consider','consider':'contemplate','understand':'comprehend','comprehend':'grasp',
+                'start':'begin','begin':'commence','end':'conclude','conclude':'finish',
+                'need':'require','require':'necessitate','want':'desire','try':'attempt','attempt':'endeavor',
+                'also':'additionally','however':'nevertheless','therefore':'consequently','because':'since',
+                'about':'regarding','many':'numerous','numerous':'various','several':'multiple',
+                'fast':'rapid','rapid':'swift','quick':'prompt','slow':'gradual',
+                'hard':'difficult','difficult':'challenging','easy':'straightforward','simple':'uncomplicated',
+                'new':'novel','old':'previous','different':'distinct','same':'identical','similar':'comparable',
+                'problem':'issue','issue':'concern','way':'method','method':'approach','approach':'strategy',
+                'result':'outcome','outcome':'consequence','area':'domain','part':'component','group':'collection',
+                'work':'function','function':'operate','happen':'occur','occur':'transpire',
+                'very':'highly','really':'genuinely','quite':'rather','just':'merely','often':'frequently','always':'consistently',
+                'especially':'particularly','mainly':'primarily','usually':'typically','sometimes':'occasionally',
+                'clearly':'evidently','likely':'probably','apparently':'seemingly'
+            },
+            formal: {
+                'a lot':'a considerable amount','lots of':'numerous','get':'obtain','got':'obtained','big':'substantial',
+                'good':'commendable','bad':'inadequate','help':'facilitate','show':'demonstrate','use':'utilize',
+                'make':'construct','give':'furnish','think':'deliberate','understand':'comprehend','need':'necessitate',
+                'want':'aspire','try':'endeavor','start':'initiate','end':'terminate','keep':'maintain','ask':'inquire',
+                'tell':'inform','find':'ascertain','look':'examine','seem':'appear','feel':'perceive',
+                'nice':'agreeable','pretty':'considerably','kind of':'somewhat','really':'fundamentally',
+                'so':'consequently','but':'however','and':'furthermore','also':'moreover',
+                'important':'paramount','hard':'arduous','easy':'effortless','fast':'expeditious',
+                'enough':'sufficient','about':'approximately','around':'approximately',
+                'buy':'purchase','deal with':'address','figure out':'determine','come up with':'devise',
+                'point out':'emphasize','set up':'establish','carry out':'execute','bring about':'engender',
+                'anyway':'nevertheless','thing':'matter','stuff':'material','way':'methodology'
+            },
+            simple: {
+                'utilize':'use','facilitate':'help','demonstrate':'show','substantial':'big','approximately':'about',
+                'endeavor':'try','commence':'start','terminate':'end','comprehend':'understand','obtain':'get',
+                'nevertheless':'however','furthermore':'also','consequently':'so','subsequently':'then',
+                'implement':'do','methodology':'way','sufficient':'enough','numerous':'many',
+                'accomplish':'do','establish':'set up','determine':'find out','significant':'important',
+                'fundamental':'basic','constitute':'make up','acquire':'get','essential':'needed',
+                'encounter':'meet','perspective':'view','prerequisite':'requirement','facilitate':'help',
+                'paramount':'main','inadequate':'not enough','expeditious':'fast','arduous':'hard',
+                'perceive':'feel','deliberate':'think','ascertain':'find','furnish':'give',
+                'initiate':'start','maintain':'keep','inquire':'ask','inform':'tell',
+                'indicate':'show','contribute':'add','component':'part','objective':'goal'
+            },
+            creative: {
+                'said':'remarked','walked':'strolled','looked':'gazed','happy':'elated','sad':'melancholy',
+                'big':'enormous','small':'tiny','good':'splendid','bad':'dreadful','beautiful':'stunning',
+                'important':'crucial','interesting':'fascinating','boring':'tedious','scared':'terrified',
+                'angry':'furious','surprised':'astonished','nice':'delightful','old':'ancient',
+                'new':'brand-new','fast':'lightning-fast','slow':'sluggish','quiet':'hushed',
+                'loud':'thunderous','dark':'shadowy','bright':'radiant','cold':'frigid','hot':'scorching',
+                'think':'ponder','understand':'fathom','create':'craft','show':'reveal','change':'transform',
+                'start':'launch','improve':'supercharge','increase':'skyrocket','reduce':'slash',
+                'many':'countless','very':'incredibly','really':'absolutely','quite':'remarkably'
+            },
+            fluency: {
+                'very':'quite','really':'certainly','kind of':'somewhat','sort of':'rather',
+                'a lot of':'many','lots of':'numerous','thing':'aspect','stuff':'material',
+                'get':'receive','got':'received','gonna':'going to','wanna':'want to',
+                'cause':'because','tho':'though','thru':'through','til':'until'
+            }
+        };
+
+        /* Sentence starters for variety */
+        var transitionPhrases = {
+            standard: ['Moreover, ','Furthermore, ','In addition, ','Additionally, '],
+            formal: ['Furthermore, ','Moreover, ','In addition, ','Subsequently, ','Consequently, '],
+            simple: ['Also, ','Plus, ','And ','Then '],
+            creative: ['Interestingly, ','Notably, ','Remarkably, ','Strikingly, '],
+            fluency: ['Also, ','In fact, ','Indeed, ','Meanwhile, ']
+        };
+
+        function paraphrase(text, mode) {
+            if (!text.trim()) return '';
+
+            var dict = Object.assign({}, synonyms.standard, synonyms[mode] || {});
+            var sentences = text.match(/[^.!?]+[.!?]+[\s]*/g) || [text];
+
+            var result = sentences.map(function(sentence, idx) {
+                var s = sentence.trim();
+                if (!s) return '';
+
+                /* Replace words with synonyms */
+                var words = s.split(/(\s+)/);
+                var changed = false;
+                var newWords = words.map(function(word) {
+                    var lower = word.toLowerCase().replace(/[^a-z'-]/g, '');
+                    if (dict[lower]) {
+                        var replacement = dict[lower];
+                        /* Preserve capitalization */
+                        if (word.charAt(0) === word.charAt(0).toUpperCase() && word.charAt(0) !== word.charAt(0).toLowerCase()) {
+                            replacement = replacement.charAt(0).toUpperCase() + replacement.slice(1);
+                        }
+                        /* Preserve trailing punctuation */
+                        var trailing = word.match(/[^a-zA-Z'-]+$/);
+                        if (trailing) replacement += trailing[0];
+                        var leading = word.match(/^[^a-zA-Z'-]+/);
+                        if (leading) replacement = leading[0] + replacement;
+                        changed = true;
+                        return replacement;
+                    }
+                    return word;
+                });
+
+                var result = newWords.join('');
+
+                /* Sentence restructuring for some modes */
+                if (mode === 'creative' && idx > 0 && Math.random() > 0.7) {
+                    var phrases = transitionPhrases[mode];
+                    result = phrases[Math.floor(Math.random() * phrases.length)] + result.charAt(0).toLowerCase() + result.slice(1);
+                }
+
+                return result;
+            });
+
+            return result.join(' ').replace(/\s+/g, ' ').trim();
+        }
+
+        document.getElementById('para-btn').addEventListener('click', function() {
+            var text = inputEl.value.trim();
+            if (!text) {
+                outputEl.innerHTML = '<span style="color: #ef4444;">Please enter some text to paraphrase.</span>';
+                return;
+            }
+            if (countWords(text) < 3) {
+                outputEl.innerHTML = '<span style="color: #ef4444;">Please enter at least a few words to paraphrase.</span>';
+                return;
+            }
+
+            var result = paraphrase(text, currentMode);
+            outputEl.innerHTML = '<p style="margin:0;line-height:1.8;color:var(--text-main);">' + result.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
+            wcOut.textContent = countWords(result) + ' words';
+        });
+
+        document.getElementById('para-copy').addEventListener('click', function() {
+            var text = outputEl.textContent || outputEl.innerText;
+            if (text && text !== 'Your paraphrased text will appear here...') {
+                navigator.clipboard.writeText(text).then(function() {
+                    var btn = document.getElementById('para-copy');
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+                });
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

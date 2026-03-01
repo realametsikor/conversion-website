@@ -8,9 +8,10 @@ function renderHeader() {
             <nav class="nav-links">
                 <a href="/file-tools">File Tools</a>
                 <a href="/image-tools">Image Tools</a>
-                <a href="/calculators">Calculators</a>
+                <a href="/student-tools">Student Tools</a>
                 <a href="/ai-tools">AI Tools</a>
                 <a href="/all-tools">All Tools</a>
+                <a href="/blog">Blog</a>
             </nav>
             <div class="search-nav">
                 <input type="text" placeholder="Search tools..." id="nav-search">

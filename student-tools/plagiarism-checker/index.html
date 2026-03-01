@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker - Check Text for Duplicate Content Free | ToolsNest</title>
+    <meta name="description" content="Free plagiarism checker that analyzes your text for duplicate content, repeated phrases, and originality. Works in your browser — no signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/student-tools/plagiarism-checker/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Plagiarism Checker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Plagiarism Checker</h1>
+                <p class="text-center mb-3">Analyze your text for duplicate phrases, self-repetition, and originality score. Paste two texts to cross-compare, or check a single text for internal repetition.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <!-- Mode Tabs -->
+                    <div class="plag-tabs">
+                        <button class="plag-tab active" data-mode="single">Single Text Analysis</button>
+                        <button class="plag-tab" data-mode="compare">Compare Two Texts</button>
+                    </div>
+
+                    <!-- Single Mode -->
+                    <div id="single-mode">
+                        <div class="form-group">
+                            <label for="plag-text-1">Paste Your Text</label>
+                            <textarea id="plag-text-1" class="form-input" rows="10" placeholder="Paste your essay, article, or any text here to analyze for internal repetition and originality..." style="min-height: 200px;"></textarea>
+                            <p id="plag-wc-1" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                        </div>
+                    </div>
+
+                    <!-- Compare Mode -->
+                    <div id="compare-mode" style="display: none;">
+                        <div class="form-group">
+                            <label for="plag-text-a">Text A (Original)</label>
+                            <textarea id="plag-text-a" class="form-input" rows="7" placeholder="Paste the original or source text here..." style="min-height: 160px;"></textarea>
+                            <p id="plag-wc-a" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="plag-text-b">Text B (To Check)</label>
+                            <textarea id="plag-text-b" class="form-input" rows="7" placeholder="Paste the text you want to check against Text A..." style="min-height: 160px;"></textarea>
+                            <p id="plag-wc-b" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                        </div>
+                    </div>
+
+                    <button id="plag-check-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Check for Plagiarism</button>
+
+                    <!-- Results -->
+                    <div id="plag-results" style="display: none; margin-top: 2rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <!-- Score Ring -->
+                            <div class="plag-score-section">
+                                <div class="plag-score-ring" id="plag-score-ring">
+                                    <svg viewBox="0 0 120 120" width="140" height="140">
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E7EB" stroke-width="8"/>
+                                        <circle id="plag-ring-circle" cx="60" cy="60" r="54" fill="none" stroke="#10B981" stroke-width="8" stroke-dasharray="339.29" stroke-dashoffset="339.29" stroke-linecap="round" transform="rotate(-90 60 60)" style="transition: stroke-dashoffset 1s ease, stroke 0.5s ease;"/>
+                                        <text x="60" y="55" text-anchor="middle" font-size="28" font-weight="700" fill="var(--text-main)" id="plag-score-text">0%</text>
+                                        <text x="60" y="72" text-anchor="middle" font-size="11" fill="var(--text-muted)">Original</text>
+                                    </svg>
+                                </div>
+                                <div class="plag-score-details" id="plag-score-details"></div>
+                            </div>
+
+                            <!-- Detailed Breakdown -->
+                            <div id="plag-breakdown" class="mt-3"></div>
+
+                            <!-- Highlighted Text -->
+                            <div id="plag-highlighted" class="mt-3" style="display: none;">
+                                <h3 class="mb-2">Highlighted Matches</h3>
+                                <div id="plag-highlight-content" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; font-size: 0.95rem;"></div>
+                                <div class="plag-legend mt-2">
+                                    <span><span class="plag-highlight-match"></span> Matched / Repeated Phrase</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li><strong>Single Text Analysis:</strong> Paste your text and check for internal repetition, overused phrases, and get an originality score.</li>
+                        <li><strong>Compare Two Texts:</strong> Switch to compare mode and paste both texts. The tool detects shared n-grams and highlights matching passages.</li>
+                        <li>Click "Check for Plagiarism" to analyze. Results include an originality score, breakdown of repeated phrases, and highlighted matches.</li>
+                        <li>Use the highlighted output to identify and revise repeated sections.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool check against the internet?</h3>
+                        <p>No. This is a client-side tool that checks for internal repetition within your text or compares two texts you provide. It does not search the internet or external databases. For web-based plagiarism detection, consider dedicated services like Turnitin.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the originality score work?</h3>
+                        <p>In single-text mode, the tool breaks your text into n-grams (sequences of 4+ words) and checks for repeated sequences. The originality score reflects what percentage of your text is unique. In compare mode, it checks how many n-grams from Text B appear in Text A.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What text length works best?</h3>
+                        <p>The tool works best with at least 100 words. Longer texts provide more meaningful analysis. Very short texts may not have enough content to detect meaningful patterns.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my text stored anywhere?</h3>
+                        <p>No. All processing happens entirely in your browser. Your text is never sent to any server or stored anywhere.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                    <a href="/student-tools/citation-generator" class="related-link">Citation Generator</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* Tab switching */
+        var tabs = document.querySelectorAll('.plag-tab');
+        var singleMode = document.getElementById('single-mode');
+        var compareMode = document.getElementById('compare-mode');
+        var currentMode = 'single';
+
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                currentMode = tab.getAttribute('data-mode');
+                singleMode.style.display = currentMode === 'single' ? '' : 'none';
+                compareMode.style.display = currentMode === 'compare' ? '' : 'none';
+                document.getElementById('plag-results').style.display = 'none';
+            });
+        });
+
+        /* Word count helpers */
+        function countWords(t) { var s = t.trim(); return s ? s.split(/\s+/).length : 0; }
+
+        document.getElementById('plag-text-1').addEventListener('input', function() {
+            document.getElementById('plag-wc-1').textContent = countWords(this.value) + ' words';
+        });
+        document.getElementById('plag-text-a').addEventListener('input', function() {
+            document.getElementById('plag-wc-a').textContent = countWords(this.value) + ' words';
+        });
+        document.getElementById('plag-text-b').addEventListener('input', function() {
+            document.getElementById('plag-wc-b').textContent = countWords(this.value) + ' words';
+        });
+
+        /* N-gram generation */
+        function getNgrams(words, n) {
+            var ngrams = [];
+            for (var i = 0; i <= words.length - n; i++) {
+                ngrams.push(words.slice(i, i + n).join(' '));
+            }
+            return ngrams;
+        }
+
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^\w\s'-]/g, ' ').split(/\s+/).filter(function(w) { return w.length > 0; });
+        }
+
+        /* Find repeated n-grams in a single text */
+        function findInternalRepetition(text) {
+            var words = tokenize(text);
+            if (words.length < 8) return { score: 100, repeats: [], totalWords: words.length };
+
+            var repeatedPhrases = {};
+            var matchedPositions = new Set();
+
+            for (var n = 6; n >= 4; n--) {
+                var seen = {};
+                for (var i = 0; i <= words.length - n; i++) {
+                    var ngram = words.slice(i, i + n).join(' ');
+                    if (seen[ngram] !== undefined) {
+                        if (!repeatedPhrases[ngram]) {
+                            repeatedPhrases[ngram] = { count: 1, positions: [seen[ngram]], length: n };
+                        }
+                        repeatedPhrases[ngram].count++;
+                        repeatedPhrases[ngram].positions.push(i);
+                        for (var p = i; p < i + n; p++) matchedPositions.add(p);
+                        for (var q = seen[ngram]; q < seen[ngram] + n; q++) matchedPositions.add(q);
+                    } else {
+                        seen[ngram] = i;
+                    }
+                }
+            }
+
+            var uniqueRatio = 1 - (matchedPositions.size / words.length);
+            var score = Math.max(0, Math.min(100, Math.round(uniqueRatio * 100)));
+
+            var repeats = Object.keys(repeatedPhrases).map(function(key) {
+                return { phrase: key, count: repeatedPhrases[key].count + 1, length: repeatedPhrases[key].length };
+            }).sort(function(a, b) { return b.length - a.length || b.count - a.count; }).slice(0, 20);
+
+            return { score: score, repeats: repeats, totalWords: words.length, matchedWords: matchedPositions.size, matchedPositions: matchedPositions, words: words };
+        }
+
+        /* Compare two texts */
+        function compareTexts(textA, textB) {
+            var wordsA = tokenize(textA);
+            var wordsB = tokenize(textB);
+
+            if (wordsB.length < 4) return { score: 100, matches: [], totalWords: wordsB.length };
+
+            var ngramSetA = {};
+            for (var n = 6; n >= 4; n--) {
+                var ngrams = getNgrams(wordsA, n);
+                for (var i = 0; i < ngrams.length; i++) {
+                    if (!ngramSetA[ngrams[i]]) ngramSetA[ngrams[i]] = n;
+                }
+            }
+
+            var matchedPositionsB = new Set();
+            var matchedPhrases = {};
+
+            for (var n2 = 6; n2 >= 4; n2--) {
+                for (var j = 0; j <= wordsB.length - n2; j++) {
+                    var skip = false;
+                    for (var c = j; c < j + n2; c++) { if (matchedPositionsB.has(c)) { skip = true; break; } }
+                    if (skip) continue;
+
+                    var ngram = wordsB.slice(j, j + n2).join(' ');
+                    if (ngramSetA[ngram]) {
+                        for (var p2 = j; p2 < j + n2; p2++) matchedPositionsB.add(p2);
+                        if (!matchedPhrases[ngram]) matchedPhrases[ngram] = { count: 0, length: n2 };
+                        matchedPhrases[ngram].count++;
+                    }
+                }
+            }
+
+            var similarity = matchedPositionsB.size / wordsB.length;
+            var score = Math.max(0, Math.min(100, Math.round((1 - similarity) * 100)));
+
+            var matches = Object.keys(matchedPhrases).map(function(key) {
+                return { phrase: key, count: matchedPhrases[key].count, length: matchedPhrases[key].length };
+            }).sort(function(a, b) { return b.length - a.length || b.count - a.count; }).slice(0, 20);
+
+            return { score: score, matches: matches, totalWords: wordsB.length, matchedWords: matchedPositionsB.size, matchedPositions: matchedPositionsB, words: wordsB };
+        }
+
+        /* Highlight matched words in text */
+        function highlightText(words, matchedPositions) {
+            var html = '';
+            var inMatch = false;
+            for (var i = 0; i < words.length; i++) {
+                var isMatch = matchedPositions.has(i);
+                if (isMatch && !inMatch) { html += '<mark class="plag-mark">'; inMatch = true; }
+                else if (!isMatch && inMatch) { html += '</mark> '; inMatch = false; }
+                html += words[i].replace(/</g, '&lt;') + ' ';
+            }
+            if (inMatch) html += '</mark>';
+            return html;
+        }
+
+        /* Get score color */
+        function getScoreColor(score) {
+            if (score >= 80) return '#10B981';
+            if (score >= 60) return '#F59E0B';
+            if (score >= 40) return '#F97316';
+            return '#EF4444';
+        }
+
+        function getScoreLabel(score) {
+            if (score >= 90) return 'Excellent originality';
+            if (score >= 80) return 'Good originality';
+            if (score >= 60) return 'Moderate similarity detected';
+            if (score >= 40) return 'Significant similarity found';
+            return 'High similarity detected';
+        }
+
+        /* Main check handler */
+        document.getElementById('plag-check-btn').addEventListener('click', function() {
+            var results = document.getElementById('plag-results');
+            var details = document.getElementById('plag-score-details');
+            var breakdown = document.getElementById('plag-breakdown');
+            var highlighted = document.getElementById('plag-highlighted');
+            var highlightContent = document.getElementById('plag-highlight-content');
+
+            var result;
+            if (currentMode === 'single') {
+                var text = document.getElementById('plag-text-1').value.trim();
+                if (!text || countWords(text) < 10) {
+                    results.style.display = 'block';
+                    details.innerHTML = '<p style="color: #ef4444;">Please enter at least 10 words to analyze.</p>';
+                    breakdown.innerHTML = '';
+                    highlighted.style.display = 'none';
+                    return;
+                }
+                result = findInternalRepetition(text);
+                result.mode = 'single';
+            } else {
+                var textA = document.getElementById('plag-text-a').value.trim();
+                var textB = document.getElementById('plag-text-b').value.trim();
+                if (!textA || !textB || countWords(textA) < 5 || countWords(textB) < 5) {
+                    results.style.display = 'block';
+                    details.innerHTML = '<p style="color: #ef4444;">Please enter text in both fields (at least 5 words each).</p>';
+                    breakdown.innerHTML = '';
+                    highlighted.style.display = 'none';
+                    return;
+                }
+                result = compareTexts(textA, textB);
+                result.mode = 'compare';
+            }
+
+            results.style.display = 'block';
+
+            /* Animate score ring */
+            var circle = document.getElementById('plag-ring-circle');
+            var scoreText = document.getElementById('plag-score-text');
+            var circumference = 339.29;
+            var offset = circumference - (result.score / 100) * circumference;
+            var color = getScoreColor(result.score);
+            circle.style.stroke = color;
+            circle.style.strokeDashoffset = offset;
+            scoreText.textContent = result.score + '%';
+
+            /* Details */
+            var modeLabel = result.mode === 'single' ? 'Internal Repetition Analysis' : 'Cross-Text Comparison';
+            var matchPercent = result.matchedWords ? Math.round((result.matchedWords / result.totalWords) * 100) : 0;
+            details.innerHTML = '<h3 style="margin-bottom: 0.75rem;">' + modeLabel + '</h3>' +
+                '<p style="color: ' + color + '; font-weight: 600; font-size: 1.1rem; margin-bottom: 0.5rem;">' + getScoreLabel(result.score) + '</p>' +
+                '<p class="text-muted" style="font-size: 0.9rem;">Total words analyzed: <strong>' + result.totalWords + '</strong></p>' +
+                '<p class="text-muted" style="font-size: 0.9rem;">Matched/repeated words: <strong>' + (result.matchedWords || 0) + '</strong> (' + matchPercent + '%)</p>';
+
+            /* Breakdown */
+            var items = result.repeats || result.matches || [];
+            if (items.length > 0) {
+                var bhtml = '<h3 class="mb-2">' + (result.mode === 'single' ? 'Repeated Phrases' : 'Matching Phrases') + '</h3><div class="plag-phrase-list">';
+                for (var i = 0; i < items.length; i++) {
+                    var item = items[i];
+                    bhtml += '<div class="plag-phrase-item"><span class="plag-phrase-text">"' + item.phrase.replace(/</g, '&lt;') + '"</span>';
+                    bhtml += '<span class="plag-phrase-count">' + item.count + 'x &middot; ' + item.length + ' words</span></div>';
+                }
+                bhtml += '</div>';
+                breakdown.innerHTML = bhtml;
+            } else {
+                breakdown.innerHTML = '<p class="text-muted" style="font-size: 0.95rem;">No significant repeated or matching phrases detected.</p>';
+            }
+
+            /* Highlighted text */
+            if (result.matchedPositions && result.matchedPositions.size > 0) {
+                highlighted.style.display = '';
+                highlightContent.innerHTML = highlightText(result.words, result.matchedPositions);
+            } else {
+                highlighted.style.display = 'none';
+            }
+        });
+    })();
+    </script>
+</body>
+</html>

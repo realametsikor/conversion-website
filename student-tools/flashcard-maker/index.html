@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Maker - Create Study Flashcards Free | ToolsNest</title>
+    <meta name="description" content="Free flashcard maker with spaced repetition, shuffle mode, and progress tracking. Create, study, and export flashcards. No signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/student-tools/flashcard-maker/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Flashcard Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Flashcard Maker</h1>
+                <p class="text-center mb-3">Create, study, and master flashcards with built-in spaced repetition, progress tracking, and multiple study modes.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem; border: none;">
+                    <!-- View tabs -->
+                    <div class="fc-tabs">
+                        <button class="fc-tab active" data-view="create">Create</button>
+                        <button class="fc-tab" data-view="study">Study</button>
+                        <button class="fc-tab" data-view="manage">Manage</button>
+                    </div>
+
+                    <!-- CREATE VIEW -->
+                    <div id="fc-create-view">
+                        <!-- Deck selector -->
+                        <div style="display: flex; gap: 0.75rem; align-items: flex-end; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; margin-bottom: 0; min-width: 200px;">
+                                <label for="fc-deck-select">Deck</label>
+                                <select id="fc-deck-select" class="form-input"></select>
+                            </div>
+                            <button id="fc-new-deck-btn" class="btn btn-outline" style="padding: 0.75rem 1rem;">+ New Deck</button>
+                        </div>
+
+                        <!-- Single card input -->
+                        <div class="fc-card-input">
+                            <div class="form-group">
+                                <label for="fc-front">Front (Question / Term)</label>
+                                <textarea id="fc-front" class="form-input" rows="3" placeholder="Enter the question or term..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="fc-back">Back (Answer / Definition)</label>
+                                <textarea id="fc-back" class="form-input" rows="3" placeholder="Enter the answer or definition..."></textarea>
+                            </div>
+                            <button id="fc-add-card" class="btn btn-primary" style="width: 100%; padding: 0.75rem;">Add Card</button>
+                        </div>
+
+                        <!-- Bulk import -->
+                        <div class="mt-3">
+                            <details>
+                                <summary style="cursor:pointer;font-weight:600;color:var(--primary);font-size:0.95rem;">Bulk Import (paste multiple cards)</summary>
+                                <div class="mt-2">
+                                    <p class="text-muted mb-2" style="font-size:0.85rem;">Paste cards in "front | back" format, one per line. Example:<br>Mitochondria | The powerhouse of the cell<br>DNA | Deoxyribonucleic acid</p>
+                                    <textarea id="fc-bulk" class="form-input" rows="6" placeholder="front | back&#10;front | back"></textarea>
+                                    <button id="fc-bulk-import" class="btn btn-outline mt-2" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Import Cards</button>
+                                </div>
+                            </details>
+                        </div>
+
+                        <!-- Card count -->
+                        <div id="fc-card-count" class="text-muted mt-2" style="font-size: 0.9rem;"></div>
+                    </div>
+
+                    <!-- STUDY VIEW -->
+                    <div id="fc-study-view" style="display: none;">
+                        <div class="fc-study-controls mb-3" style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <select id="fc-study-deck" class="form-input" style="max-width: 250px;"></select>
+                            <button id="fc-shuffle-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Shuffle</button>
+                            <span id="fc-study-progress" class="text-muted" style="font-size: 0.9rem;"></span>
+                        </div>
+
+                        <!-- Flashcard -->
+                        <div class="fc-flashcard-container">
+                            <div id="fc-flashcard" class="fc-flashcard" tabindex="0">
+                                <div class="fc-flashcard-inner" id="fc-card-inner">
+                                    <div class="fc-flashcard-front" id="fc-card-front">
+                                        <p>Click "Start" to begin studying</p>
+                                    </div>
+                                    <div class="fc-flashcard-back" id="fc-card-back">
+                                        <p>Answer will appear here</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-center text-muted mt-2" style="font-size: 0.85rem;">Click the card or press Space to flip</p>
+                        </div>
+
+                        <!-- Navigation -->
+                        <div class="fc-nav mt-3" style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+                            <button id="fc-prev" class="btn btn-outline" style="padding: 0.6rem 1.5rem;">Previous</button>
+                            <button id="fc-flip" class="btn btn-primary" style="padding: 0.6rem 2rem;">Flip</button>
+                            <button id="fc-next" class="btn btn-outline" style="padding: 0.6rem 1.5rem;">Next</button>
+                        </div>
+
+                        <!-- Rating (spaced repetition) -->
+                        <div id="fc-rating" class="mt-3" style="display: none; text-align: center;">
+                            <p style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">How well did you know this?</p>
+                            <div style="display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="fc-rate-btn" data-score="1" style="background:#FEE2E2;color:#991B1B;">Again</button>
+                                <button class="fc-rate-btn" data-score="2" style="background:#FEF3C7;color:#92400E;">Hard</button>
+                                <button class="fc-rate-btn" data-score="3" style="background:#D1FAE5;color:#065F46;">Good</button>
+                                <button class="fc-rate-btn" data-score="4" style="background:#DBEAFE;color:#1E40AF;">Easy</button>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div id="fc-study-stats" class="mt-4"></div>
+                    </div>
+
+                    <!-- MANAGE VIEW -->
+                    <div id="fc-manage-view" style="display: none;">
+                        <div style="display: flex; gap: 0.75rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                            <select id="fc-manage-deck" class="form-input" style="max-width: 250px;"></select>
+                            <button id="fc-export-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem;">Export Deck</button>
+                            <button id="fc-delete-deck-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.9rem; color: #ef4444; border-color: #ef4444;">Delete Deck</button>
+                        </div>
+                        <div id="fc-card-list"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li><strong>Create:</strong> Add cards one at a time or bulk-import by pasting "front | back" pairs.</li>
+                        <li><strong>Study:</strong> Flip through cards, rate your knowledge (Again/Hard/Good/Easy), and the tool prioritizes cards you struggle with.</li>
+                        <li><strong>Manage:</strong> View all cards in a deck, edit or delete individual cards, and export decks.</li>
+                        <li>Organize cards into multiple decks for different subjects.</li>
+                        <li>All data is saved locally in your browser and persists between sessions.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does spaced repetition work?</h3>
+                        <p>When you rate a card, the tool adjusts how soon you'll see it again. Cards you mark as "Again" reappear quickly, while "Easy" cards appear less frequently. This scientifically proven method optimizes long-term retention.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Where are my flashcards stored?</h3>
+                        <p>All flashcards are saved in your browser's local storage. They persist between sessions on the same device but are never uploaded to any server. Use the Export feature to back up your decks.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I import existing flashcards?</h3>
+                        <p>Yes! Use the Bulk Import feature on the Create tab. Paste your cards in "front | back" format, one card per line. You can also use Tab as a separator instead of the pipe (|) character.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a limit to how many cards I can create?</h3>
+                        <p>There's no artificial limit. The practical limit depends on your browser's local storage capacity, which is typically around 5-10MB — enough for thousands of text-based flashcards.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/student-tools/study-timer" class="related-link">Pomodoro Timer</a>
+                    <a href="/student-tools/plagiarism-checker" class="related-link">Plagiarism Checker</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* State */
+        var decks = JSON.parse(localStorage.getItem('toolsnest-flashcards') || '{}');
+        if (!Object.keys(decks).length) decks['General'] = [];
+        var currentDeck = Object.keys(decks)[0];
+        var studyIndex = 0;
+        var studyCards = [];
+        var isFlipped = false;
+
+        /* View switching */
+        document.querySelectorAll('.fc-tab').forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.fc-tab').forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+                var view = tab.getAttribute('data-view');
+                document.getElementById('fc-create-view').style.display = view === 'create' ? '' : 'none';
+                document.getElementById('fc-study-view').style.display = view === 'study' ? '' : 'none';
+                document.getElementById('fc-manage-view').style.display = view === 'manage' ? '' : 'none';
+                if (view === 'study') initStudy();
+                if (view === 'manage') renderManage();
+            });
+        });
+
+        function save() { localStorage.setItem('toolsnest-flashcards', JSON.stringify(decks)); }
+
+        function populateDeckSelects() {
+            var options = Object.keys(decks).map(function(d) { return '<option value="' + d + '">' + d + ' (' + decks[d].length + ' cards)</option>'; }).join('');
+            document.getElementById('fc-deck-select').innerHTML = options;
+            document.getElementById('fc-study-deck').innerHTML = options;
+            document.getElementById('fc-manage-deck').innerHTML = options;
+            updateCardCount();
+        }
+
+        function updateCardCount() {
+            var deck = document.getElementById('fc-deck-select').value;
+            var count = decks[deck] ? decks[deck].length : 0;
+            document.getElementById('fc-card-count').textContent = count + ' card' + (count !== 1 ? 's' : '') + ' in this deck';
+        }
+
+        populateDeckSelects();
+
+        /* New deck */
+        document.getElementById('fc-new-deck-btn').addEventListener('click', function() {
+            var name = prompt('Enter deck name:');
+            if (name && name.trim()) {
+                name = name.trim();
+                if (!decks[name]) decks[name] = [];
+                save();
+                populateDeckSelects();
+                document.getElementById('fc-deck-select').value = name;
+            }
+        });
+
+        /* Add card */
+        document.getElementById('fc-add-card').addEventListener('click', function() {
+            var front = document.getElementById('fc-front').value.trim();
+            var back = document.getElementById('fc-back').value.trim();
+            if (!front || !back) { alert('Please fill in both front and back.'); return; }
+
+            var deck = document.getElementById('fc-deck-select').value;
+            if (!decks[deck]) decks[deck] = [];
+            decks[deck].push({ front: front, back: back, score: 0, reviews: 0, lastReview: null });
+            save();
+            document.getElementById('fc-front').value = '';
+            document.getElementById('fc-back').value = '';
+            document.getElementById('fc-front').focus();
+            populateDeckSelects();
+        });
+
+        /* Bulk import */
+        document.getElementById('fc-bulk-import').addEventListener('click', function() {
+            var text = document.getElementById('fc-bulk').value.trim();
+            if (!text) return;
+            var deck = document.getElementById('fc-deck-select').value;
+            if (!decks[deck]) decks[deck] = [];
+            var lines = text.split('\n');
+            var added = 0;
+            lines.forEach(function(line) {
+                var parts = line.split(/\||\t/);
+                if (parts.length >= 2) {
+                    var front = parts[0].trim();
+                    var back = parts.slice(1).join('|').trim();
+                    if (front && back) {
+                        decks[deck].push({ front: front, back: back, score: 0, reviews: 0, lastReview: null });
+                        added++;
+                    }
+                }
+            });
+            save();
+            document.getElementById('fc-bulk').value = '';
+            populateDeckSelects();
+            alert('Added ' + added + ' cards.');
+        });
+
+        /* Study mode */
+        function initStudy() {
+            var deck = document.getElementById('fc-study-deck').value;
+            studyCards = (decks[deck] || []).slice();
+            studyIndex = 0;
+            isFlipped = false;
+            showStudyCard();
+        }
+
+        document.getElementById('fc-study-deck').addEventListener('change', initStudy);
+
+        function showStudyCard() {
+            var frontEl = document.getElementById('fc-card-front');
+            var backEl = document.getElementById('fc-card-back');
+            var inner = document.getElementById('fc-card-inner');
+            var progressEl = document.getElementById('fc-study-progress');
+            var ratingEl = document.getElementById('fc-rating');
+
+            isFlipped = false;
+            inner.classList.remove('fc-flipped');
+            ratingEl.style.display = 'none';
+
+            if (!studyCards.length) {
+                frontEl.innerHTML = '<p style="color:var(--text-muted);">No cards in this deck. Create some first!</p>';
+                backEl.innerHTML = '<p></p>';
+                progressEl.textContent = '0 / 0';
+                return;
+            }
+
+            var card = studyCards[studyIndex];
+            frontEl.innerHTML = '<p>' + card.front.replace(/</g, '&lt;').replace(/\n/g, '<br>') + '</p>';
+            backEl.innerHTML = '<p>' + card.back.replace(/</g, '&lt;').replace(/\n/g, '<br>') + '</p>';
+            progressEl.textContent = (studyIndex + 1) + ' / ' + studyCards.length;
+
+            updateStudyStats();
+        }
+
+        function flipCard() {
+            var inner = document.getElementById('fc-card-inner');
+            isFlipped = !isFlipped;
+            if (isFlipped) {
+                inner.classList.add('fc-flipped');
+                document.getElementById('fc-rating').style.display = '';
+            } else {
+                inner.classList.remove('fc-flipped');
+                document.getElementById('fc-rating').style.display = 'none';
+            }
+        }
+
+        document.getElementById('fc-flashcard').addEventListener('click', flipCard);
+        document.getElementById('fc-flip').addEventListener('click', flipCard);
+
+        document.addEventListener('keydown', function(e) {
+            if (document.getElementById('fc-study-view').style.display === 'none') return;
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+            if (e.code === 'Space') { e.preventDefault(); flipCard(); }
+            else if (e.code === 'ArrowLeft') { e.preventDefault(); prevCard(); }
+            else if (e.code === 'ArrowRight') { e.preventDefault(); nextCard(); }
+        });
+
+        function prevCard() {
+            if (studyIndex > 0) { studyIndex--; showStudyCard(); }
+        }
+        function nextCard() {
+            if (studyIndex < studyCards.length - 1) { studyIndex++; showStudyCard(); }
+        }
+
+        document.getElementById('fc-prev').addEventListener('click', prevCard);
+        document.getElementById('fc-next').addEventListener('click', nextCard);
+
+        document.getElementById('fc-shuffle-btn').addEventListener('click', function() {
+            for (var i = studyCards.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = studyCards[i]; studyCards[i] = studyCards[j]; studyCards[j] = temp;
+            }
+            studyIndex = 0;
+            showStudyCard();
+        });
+
+        /* Rating */
+        document.querySelectorAll('.fc-rate-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var score = parseInt(btn.getAttribute('data-score'));
+                if (studyCards.length && studyCards[studyIndex]) {
+                    var card = studyCards[studyIndex];
+                    card.score = score;
+                    card.reviews = (card.reviews || 0) + 1;
+                    card.lastReview = new Date().toISOString();
+
+                    /* Update in original deck */
+                    var deck = document.getElementById('fc-study-deck').value;
+                    var original = decks[deck];
+                    if (original) {
+                        for (var i = 0; i < original.length; i++) {
+                            if (original[i].front === card.front && original[i].back === card.back) {
+                                original[i] = card;
+                                break;
+                            }
+                        }
+                        save();
+                    }
+                }
+                nextCard();
+            });
+        });
+
+        function updateStudyStats() {
+            var statsEl = document.getElementById('fc-study-stats');
+            if (!studyCards.length) { statsEl.innerHTML = ''; return; }
+            var mastered = 0, learning = 0, newCards = 0;
+            studyCards.forEach(function(c) {
+                if (c.reviews === 0) newCards++;
+                else if (c.score >= 3) mastered++;
+                else learning++;
+            });
+            statsEl.innerHTML = '<div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">' +
+                '<div class="pomo-stat-card" style="min-width:80px;"><div class="pomo-stat-value" style="color:var(--accent);">' + mastered + '</div><div class="pomo-stat-label">Mastered</div></div>' +
+                '<div class="pomo-stat-card" style="min-width:80px;"><div class="pomo-stat-value" style="color:#F59E0B;">' + learning + '</div><div class="pomo-stat-label">Learning</div></div>' +
+                '<div class="pomo-stat-card" style="min-width:80px;"><div class="pomo-stat-value" style="color:var(--primary);">' + newCards + '</div><div class="pomo-stat-label">New</div></div>' +
+                '</div>';
+        }
+
+        /* Manage view */
+        function renderManage() {
+            var deck = document.getElementById('fc-manage-deck').value;
+            var cards = decks[deck] || [];
+            var listEl = document.getElementById('fc-card-list');
+
+            if (!cards.length) { listEl.innerHTML = '<p class="text-muted">No cards in this deck.</p>'; return; }
+
+            var html = '';
+            cards.forEach(function(card, i) {
+                html += '<div class="fc-manage-card" data-index="' + i + '">';
+                html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;">';
+                html += '<div style="flex:1;"><strong>Q:</strong> ' + card.front.replace(/</g, '&lt;').substring(0, 100) + '<br><strong>A:</strong> ' + card.back.replace(/</g, '&lt;').substring(0, 100) + '</div>';
+                html += '<button class="fc-delete-card" data-index="' + i + '" style="background:none;border:none;color:#ef4444;cursor:pointer;font-size:1.2rem;padding:0.25rem;">&times;</button>';
+                html += '</div>';
+                if (card.reviews > 0) html += '<div class="text-muted" style="font-size:0.8rem;margin-top:0.25rem;">Reviewed ' + card.reviews + 'x | Score: ' + card.score + '/4</div>';
+                html += '</div>';
+            });
+            listEl.innerHTML = html;
+        }
+
+        document.getElementById('fc-manage-deck').addEventListener('change', renderManage);
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('fc-delete-card')) {
+                var idx = parseInt(e.target.getAttribute('data-index'));
+                var deck = document.getElementById('fc-manage-deck').value;
+                if (decks[deck]) {
+                    decks[deck].splice(idx, 1);
+                    save();
+                    populateDeckSelects();
+                    renderManage();
+                }
+            }
+        });
+
+        /* Export deck */
+        document.getElementById('fc-export-btn').addEventListener('click', function() {
+            var deck = document.getElementById('fc-manage-deck').value;
+            var cards = decks[deck] || [];
+            if (!cards.length) { alert('No cards to export.'); return; }
+            var text = 'Flashcard Deck: ' + deck + '\n' + '='.repeat(40) + '\n\n';
+            cards.forEach(function(c, i) {
+                text += (i + 1) + '. Front: ' + c.front + '\n   Back: ' + c.back + '\n\n';
+            });
+            var blob = new Blob([text], { type: 'text/plain' });
+            var a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = deck.toLowerCase().replace(/\s+/g, '-') + '-flashcards.txt';
+            a.click();
+        });
+
+        /* Delete deck */
+        document.getElementById('fc-delete-deck-btn').addEventListener('click', function() {
+            var deck = document.getElementById('fc-manage-deck').value;
+            if (Object.keys(decks).length <= 1) { alert('Cannot delete the last deck.'); return; }
+            if (confirm('Delete deck "' + deck + '" and all its cards?')) {
+                delete decks[deck];
+                save();
+                currentDeck = Object.keys(decks)[0];
+                populateDeckSelects();
+                renderManage();
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
