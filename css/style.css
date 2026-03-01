@@ -334,43 +334,37 @@ p { color: var(--text-muted); }
 .related-link:hover { background: var(--bg-color); color: var(--primary); }
 
 /* =========================================
-   10. AD PLACEHOLDERS
+   10. AD CONTAINERS (live ads)
    ========================================= */
-.ad-placeholder {
-    background: var(--bg-color);
-    border: 1px dashed var(--border);
-    border-radius: var(--radius-sm);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-.ad-banner-top {
-    width: 100%;
-    height: 90px;
-    margin: 1rem 0;
-}
-.ad-between-sections {
-    width: 100%;
-    height: 90px;
-    margin: 2rem 0;
-}
-.ad-sidebar-placeholder {
-    width: 100%;
-    min-height: 600px;
-}
-.ad-inline {
-    width: 100%;
-    height: 250px;
-    margin: 2rem 0;
+
+/* Generic ad wrapper — centres content, adds breathing room */
+.ad-container {
+    margin: 30px 0;
+    text-align: center;
+    overflow: hidden;
 }
 
-/* Legacy ad containers */
-.desktop-ad { display: flex; justify-content: center; width: 100%; overflow: hidden; margin: 2rem 0; min-height: 90px; }
-.mobile-ad { display: none; width: 100%; min-height: 250px; }
+/* Native banner (responsive, full-width) */
+.ad-native {
+    width: 100%;
+    min-height: 80px;
+}
+
+/* Sidebar 160×600 sticky ad */
+.ad-sidebar-slot {
+    width: 160px;
+    min-height: 600px;
+    margin: 0 auto;
+}
+.sidebar-ad {
+    position: sticky;
+    top: 80px;
+}
+
+/* Ensure sidebar ad wrapper doesn't break tool layout */
+.tool-sidebar .sidebar-ad {
+    margin-bottom: 1.5rem;
+}
 
 /* =========================================
    11. FOOTER
@@ -458,6 +452,7 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .footer-grid { grid-template-columns: repeat(2, 1fr); }
     .tool-layout { grid-template-columns: 1fr; }
     .tool-layout aside { display: none; }
+    .sidebar-ad { position: static; }
 }
 
 @media screen and (max-width: 768px) {
@@ -489,8 +484,6 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .hero-search { flex-direction: column; }
     .tool-workspace { padding: 2rem 1rem; }
 
-    /* Ad swaps */
-    .desktop-ad { display: none !important; }
-    .mobile-ad { display: flex !important; justify-content: center; margin: 1.5rem 0; overflow: hidden; }
-    .ad-banner-top, .ad-between-sections { height: 250px; }
+    /* Ads: reduce margin on mobile */
+    .ad-container { margin: 20px 0; }
 }

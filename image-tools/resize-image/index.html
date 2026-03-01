@@ -8,7 +8,7 @@
     <link rel="canonical" href="https://convertion-website.netlify.app/image-tools/resize-image/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-social-bar>
     <script src="/components/header.js"></script>
 
     <main class="container">
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+                <div class="ad-container ad-native"></div>
 
                 <section class="mb-4">
                     <h2 class="mb-2">How to Use</h2>
@@ -95,12 +95,12 @@
                         <p>The tool can handle any image your browser can load. Very large images (over 50MP) may be slow depending on your device's memory.</p>
                     </div>
                 </section>
-
-                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
             </div>
 
             <aside>
-                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="sidebar-ad">
+                    <div class="ad-container ad-sidebar-slot"></div>
+                </div>
                 <div class="related-tools">
                     <h3>Related Tools</h3>
                     <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
@@ -206,5 +206,6 @@
         });
     })();
     </script>
+    <script async src="/components/ads.js"></script>
 </body>
 </html>
