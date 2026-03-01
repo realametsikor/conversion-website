@@ -3,105 +3,262 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All-in-One Free Online Tools | PlatformName</title>
-    
+    <title>Free Online Tools - Convert, Compress, Calculate | ToolsNest</title>
+    <meta name="description" content="Free online tools for file conversion, image compression, calculators, and AI text tools. Fast, secure, no signup required.">
     <meta name="google-site-verification" content="7-gWaGexCMpqgweIsJqApj1bNp_tkalmJUBxGLDp6hw" />
-
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="canonical" href="https://convertion-website.netlify.app/">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/">PlatformName</a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-            </nav>
-            <div class="search-nav">
-                <input type="text" placeholder="Search...">
-            </div>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
+    <!-- Ad: Banner Top -->
     <div class="container">
-        <div class="desktop-ad"><iframe src="ad-middle.html" width="728" height="90"></iframe></div>
-        <div class="mobile-ad"><iframe src="ad-mobile.html" width="300" height="250"></iframe></div>
+        <div class="ad-placeholder ad-banner-top">Ad Banner Top</div>
     </div>
 
     <main>
-        <section class="section hero" style="text-align: center; padding-top: 2rem;">
+        <!-- 1. Hero with Search -->
+        <section class="hero section">
             <div class="container">
-                <h1 style="font-size: 3rem; margin-bottom: 1rem; letter-spacing: -0.02em;">All-in-One Free Online Tools</h1>
-                <p style="font-size: 1.25rem; color: var(--text-muted); margin-bottom: 2.5rem;">Convert, compress, calculate, and create — fast.</p>
-                
-                <div style="max-width: 650px; margin: 0 auto 2rem; display: flex; gap: 0.5rem;">
-                    <input type="text" placeholder="Search for a tool..." style="flex: 1; padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 1.1rem; outline: none;">
+                <h1>All-in-One Free Online Tools</h1>
+                <p>Convert, compress, calculate, and create — fast and free.</p>
+                <div class="hero-search">
+                    <input type="text" placeholder="What do you want to do? e.g. compress PDF...">
                     <button class="btn btn-primary">Search</button>
                 </div>
             </div>
         </section>
 
+        <!-- 2. Categories Grid (5) -->
         <section class="section" style="padding-top: 0;">
-            <div class="container grid-5">
-                <a href="/file-tools" class="card">
-                    <div class="icon-wrapper-lg"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg></div>
-                    <h2 style="font-size: 1.1rem;">File Tools</h2>
-                </a>
-                <a href="/image-tools" class="card">
-                    <div class="icon-wrapper-lg"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
-                    <h2 style="font-size: 1.1rem;">Image Tools</h2>
-                </a>
-                <a href="/student-tools" class="card">
-                    <div class="icon-wrapper-lg"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"></path><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path></svg></div>
-                    <h2 style="font-size: 1.1rem;">Student Tools</h2>
-                </a>
-                <a href="/calculators" class="card">
-                    <div class="icon-wrapper-lg"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 7h6m-6 4h6m-6 4h6M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
-                    <h2 style="font-size: 1.1rem;">Calculators</h2>
-                </a>
-                <a href="/ai-tools" class="card">
-                    <div class="icon-wrapper-lg"><svg class="svg-icon" viewBox="0 0 24 24"><path d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg></div>
-                    <h2 style="font-size: 1.1rem;">AI Tools</h2>
-                </a>
+            <div class="container">
+                <div class="grid-5">
+                    <a href="/file-tools" class="card category-card">
+                        <div class="card-icon" style="margin: 0 auto 1rem;">&#128196;</div>
+                        <h3>File Tools</h3>
+                    </a>
+                    <a href="/image-tools" class="card category-card">
+                        <div class="card-icon" style="margin: 0 auto 1rem;">&#128247;</div>
+                        <h3>Image Tools</h3>
+                    </a>
+                    <a href="/student-tools" class="card category-card">
+                        <div class="card-icon" style="margin: 0 auto 1rem;">&#127891;</div>
+                        <h3>Student Tools</h3>
+                    </a>
+                    <a href="/calculators" class="card category-card">
+                        <div class="card-icon" style="margin: 0 auto 1rem;">&#129518;</div>
+                        <h3>Calculators</h3>
+                    </a>
+                    <a href="/ai-tools" class="card category-card">
+                        <div class="card-icon" style="margin: 0 auto 1rem;">&#129302;</div>
+                        <h3>AI Tools</h3>
+                    </a>
+                </div>
             </div>
         </section>
 
+        <!-- 3. Popular Tools Grid -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Popular Tools</h2>
+                    <p>The tools people use most, ready in seconds.</p>
+                </div>
+                <div class="grid-4">
+                    <a href="/file-tools/pdf-to-word" class="card tool-card">
+                        <div class="card-icon">&#128196;</div>
+                        <div>
+                            <h3>PDF to Word</h3>
+                            <p>Convert PDF files to editable Word documents.</p>
+                        </div>
+                    </a>
+                    <a href="/image-tools/image-compressor" class="card tool-card">
+                        <div class="card-icon">&#128247;</div>
+                        <div>
+                            <h3>Compress Image</h3>
+                            <p>Reduce image file size without losing quality.</p>
+                        </div>
+                    </a>
+                    <a href="/calculators/loan-calculator" class="card tool-card">
+                        <div class="card-icon">&#129518;</div>
+                        <div>
+                            <h3>Loan Calculator</h3>
+                            <p>Estimate monthly payments and total interest.</p>
+                        </div>
+                    </a>
+                    <a href="/file-tools/jpg-to-png" class="card tool-card">
+                        <div class="card-icon">&#128247;</div>
+                        <div>
+                            <h3>JPG to PNG</h3>
+                            <p>Convert JPG images to PNG format instantly.</p>
+                        </div>
+                    </a>
+                    <a href="/calculators/gpa-calculator" class="card tool-card">
+                        <div class="card-icon">&#127891;</div>
+                        <div>
+                            <h3>GPA Calculator</h3>
+                            <p>Calculate your GPA quickly and accurately.</p>
+                        </div>
+                    </a>
+                    <a href="/ai-tools/text-summarizer" class="card tool-card">
+                        <div class="card-icon">&#129302;</div>
+                        <div>
+                            <h3>Text Summarizer</h3>
+                            <p>Summarize long text into key points with AI.</p>
+                        </div>
+                    </a>
+                    <a href="/file-tools/word-to-pdf" class="card tool-card">
+                        <div class="card-icon">&#128196;</div>
+                        <div>
+                            <h3>Word to PDF</h3>
+                            <p>Convert Word documents to PDF format.</p>
+                        </div>
+                    </a>
+                    <a href="/file-tools/merge-pdf" class="card tool-card">
+                        <div class="card-icon">&#128196;</div>
+                        <div>
+                            <h3>Merge PDF</h3>
+                            <p>Combine multiple PDFs into a single file.</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="/all-tools" class="btn btn-outline">View All Tools</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad: Between Sections -->
         <div class="container">
-            <div class="desktop-ad"><iframe src="ad-middle.html" width="728" height="90"></iframe></div>
-            <div class="mobile-ad"><iframe src="ad-mobile.html" width="300" height="250"></iframe></div>
+            <div class="ad-placeholder ad-between-sections">Ad Between Sections</div>
         </div>
 
-        <section class="section" style="background: var(--card-bg); border-top: 1px solid var(--border);">
+        <!-- 4. Benefits -->
+        <section class="section">
             <div class="container">
-                <h2 style="text-align: center; margin-bottom: 3rem; font-size: 2rem;">Why Use Our Tools?</h2>
-                <div class="grid-4" style="text-align: center;">
+                <div class="section-title">
+                    <h2>Why Use ToolsNest?</h2>
+                </div>
+                <div class="grid-4">
+                    <div class="card benefit-card">
+                        <div class="benefit-icon">&#9889;</div>
+                        <h3>Fast Processing</h3>
+                        <p>Files process instantly in your browser. No waiting in queues.</p>
+                    </div>
+                    <div class="card benefit-card">
+                        <div class="benefit-icon">&#128274;</div>
+                        <h3>Secure &amp; Private</h3>
+                        <p>Files stay on your device. Nothing uploaded to servers.</p>
+                    </div>
+                    <div class="card benefit-card">
+                        <div class="benefit-icon">&#127381;</div>
+                        <h3>Free Forever</h3>
+                        <p>No subscriptions, no paywalls. Every tool is completely free.</p>
+                    </div>
+                    <div class="card benefit-card">
+                        <div class="benefit-icon">&#128640;</div>
+                        <h3>No Signup</h3>
+                        <p>Jump straight to any tool. No email or account needed.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. How It Works -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-title">
+                    <h2>How It Works</h2>
+                    <p>Three simple steps to get things done.</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-item">
+                        <div class="step-number">1</div>
+                        <h3>Choose a Tool</h3>
+                        <p>Browse categories or search for the tool you need.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">2</div>
+                        <h3>Upload or Enter Data</h3>
+                        <p>Drop your file or fill in the form. Everything runs in your browser.</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-number">3</div>
+                        <h3>Download Results</h3>
+                        <p>Get your converted file or result instantly. No delays.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. New Tools -->
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Recently Added</h2>
+                    <p>Fresh tools just added to the platform.</p>
+                </div>
+                <div class="grid-3">
+                    <a href="/ai-tools/text-summarizer" class="card tool-card">
+                        <div class="card-icon">&#129302;</div>
+                        <div>
+                            <h3>AI Text Summarizer</h3>
+                            <p>Summarize articles and essays into concise key points.</p>
+                        </div>
+                    </a>
+                    <a href="/calculators/loan-calculator" class="card tool-card">
+                        <div class="card-icon">&#129518;</div>
+                        <div>
+                            <h3>Loan Calculator</h3>
+                            <p>Calculate monthly payments, interest, and total cost.</p>
+                        </div>
+                    </a>
+                    <a href="/file-tools/merge-pdf" class="card tool-card">
+                        <div class="card-icon">&#128196;</div>
+                        <div>
+                            <h3>Merge PDF</h3>
+                            <p>Combine multiple PDF files into one document.</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ad: Inline -->
+        <div class="container">
+            <div class="ad-placeholder ad-inline">Ad Inline</div>
+        </div>
+
+        <!-- 7. Blog Preview -->
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-title">
+                    <h2>From the Blog</h2>
+                    <p>Tips, guides, and updates.</p>
+                </div>
+                <div class="grid-3">
                     <div class="card">
-                        <h3 style="margin-bottom: 0.5rem; color: var(--primary);">⚡ Fast processing</h3>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Files process instantly without long queue times.</p>
+                        <h3>How to Compress a PDF Without Losing Quality</h3>
+                        <p class="mt-1">Learn the best techniques for reducing PDF file size while keeping text and images sharp.</p>
+                        <a href="/blog" class="mt-2" style="display:inline-block; font-size:0.9rem; font-weight:600;">Read More &rarr;</a>
                     </div>
                     <div class="card">
-                        <h3 style="margin-bottom: 0.5rem; color: var(--primary);">🔒 Secure files</h3>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Your privacy is guaranteed. Files are deleted after 1 hour.</p>
+                        <h3>5 Free Tools Every Student Needs</h3>
+                        <p class="mt-1">From GPA calculators to file converters, these tools will save you hours every semester.</p>
+                        <a href="/blog" class="mt-2" style="display:inline-block; font-size:0.9rem; font-weight:600;">Read More &rarr;</a>
                     </div>
                     <div class="card">
-                        <h3 style="margin-bottom: 0.5rem; color: var(--primary);">🆓 Free forever</h3>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">No subscriptions, no hidden paywalls, completely free.</p>
-                    </div>
-                    <div class="card">
-                        <h3 style="margin-bottom: 0.5rem; color: var(--primary);">🚀 No signup</h3>
-                        <p style="margin: 0; font-size: 0.9rem; color: var(--text-muted);">Jump straight to the tool. We don't ask for your email.</p>
+                        <h3>JPG vs PNG: Which Format Should You Use?</h3>
+                        <p class="mt-1">Understand the differences between image formats and when to convert between them.</p>
+                        <a href="/blog" class="mt-2" style="display:inline-block; font-size:0.9rem; font-weight:600;">Read More &rarr;</a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="background: var(--bg-color); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center;">
-        <div class="container">
-            <p style="color: var(--text-muted);">&copy; 2026 PlatformName. All rights reserved.</p>
-        </div>
-    </footer>
+    <script src="/components/footer.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

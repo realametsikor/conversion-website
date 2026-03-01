@@ -3,38 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPA Calculator | PlatformName</title>
-    <meta name="description" content="Calculate your college or high school GPA instantly and for free.">
+    <title>GPA Calculator - Calculate Your Grade Point Average Free | ToolsNest</title>
+    <meta name="description" content="Calculate your college or high school GPA instantly. Enter your courses, credits, and grades to get your cumulative GPA. Free and easy to use.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/calculators/gpa-calculator/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-                <a href="/ai-tools">AI Tools</a>
-            </nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
     <main class="container">
-        <p style="margin-top: 1rem; font-size: 0.875rem;"><a href="/">Home</a> > <a href="/calculators">Calculators</a> > GPA Calculator</p>
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; GPA Calculator
+        </nav>
 
-        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem; margin-top: 2rem;">
+        <div class="tool-layout">
             <div>
-                <h1 style="text-align: center;">GPA Calculator</h1>
-                <p style="text-align: center;">Quickly calculate your grade point average for the semester.</p>
+                <h1 class="text-center mb-2">GPA Calculator</h1>
+                <p class="text-center mb-3">Quickly calculate your grade point average for the semester or cumulative GPA.</p>
 
                 <div class="tool-workspace" style="text-align: left; padding: 2rem;">
                     <div id="course-list">
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                            <input type="text" placeholder="Course Name (Optional)" style="flex: 2; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <input type="number" class="credit" placeholder="Credits (e.g., 3)" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <select class="grade" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                        <div class="course-row" style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="Course Name (Optional)" class="form-input course-name" style="flex: 2; min-width: 120px;">
+                            <input type="number" placeholder="Credits" class="form-input course-credits" style="flex: 1; min-width: 80px;" min="0" step="1">
+                            <select class="form-input course-grade" style="flex: 1; min-width: 100px;">
                                 <option value="">Grade</option>
                                 <option value="4.0">A / A+</option>
                                 <option value="3.7">A-</option>
@@ -47,12 +39,12 @@
                                 <option value="1.0">D</option>
                                 <option value="0.0">F</option>
                             </select>
+                            <button class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove course">&times;</button>
                         </div>
-                        
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                            <input type="text" placeholder="Course Name (Optional)" style="flex: 2; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <input type="number" class="credit" placeholder="Credits (e.g., 4)" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <select class="grade" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                        <div class="course-row" style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="Course Name (Optional)" class="form-input course-name" style="flex: 2; min-width: 120px;">
+                            <input type="number" placeholder="Credits" class="form-input course-credits" style="flex: 1; min-width: 80px;" min="0" step="1">
+                            <select class="form-input course-grade" style="flex: 1; min-width: 100px;">
                                 <option value="">Grade</option>
                                 <option value="4.0">A / A+</option>
                                 <option value="3.7">A-</option>
@@ -65,12 +57,12 @@
                                 <option value="1.0">D</option>
                                 <option value="0.0">F</option>
                             </select>
+                            <button class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove course">&times;</button>
                         </div>
-
-                        <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
-                            <input type="text" placeholder="Course Name (Optional)" style="flex: 2; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <input type="number" class="credit" placeholder="Credits (e.g., 3)" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                            <select class="grade" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                        <div class="course-row" style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="Course Name (Optional)" class="form-input course-name" style="flex: 2; min-width: 120px;">
+                            <input type="number" placeholder="Credits" class="form-input course-credits" style="flex: 1; min-width: 80px;" min="0" step="1">
+                            <select class="form-input course-grade" style="flex: 1; min-width: 100px;">
                                 <option value="">Grade</option>
                                 <option value="4.0">A / A+</option>
                                 <option value="3.7">A-</option>
@@ -83,56 +75,153 @@
                                 <option value="1.0">D</option>
                                 <option value="0.0">F</option>
                             </select>
+                            <button class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove course">&times;</button>
                         </div>
                     </div>
-                    
-                    <div style="margin-top: 1.5rem; text-align: center;">
-                        <button id="calc-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate GPA</button>
-                        <h2 id="gpa-result" style="margin-top: 1.5rem; color: var(--primary);">Your GPA: 0.00</h2>
+
+                    <div class="text-center mb-3">
+                        <button id="add-course-btn" class="btn btn-outline" style="width: 100%;">+ Add Course</button>
+                    </div>
+
+                    <button id="calc-gpa-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate GPA</button>
+
+                    <div id="gpa-result" style="display: none; margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: var(--bg-color); border-radius: var(--radius); border: 2px solid var(--primary);">
+                        <p class="text-muted mb-1">Your GPA</p>
+                        <strong id="gpa-value" style="font-size: 3rem; color: var(--primary); display: block;">0.00</strong>
+                        <p id="gpa-detail" class="text-muted mt-1" style="font-size: 0.9rem;"></p>
                     </div>
                 </div>
 
-                <div class="ad-banner">Advertisement (Content Middle)</div>
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
 
-                <h2>How to calculate your GPA</h2>
-                <ol style="margin-left: 1.5rem; margin-bottom: 2rem;">
-                    <li>Enter your courses along with their corresponding credit hours.</li>
-                    <li>Select the letter grade you received for each course.</li>
-                    <li>Click "Calculate GPA" to see your result instantly.</li>
-                </ol>
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your course names (optional), credit hours, and letter grades for each course.</li>
+                        <li>Click "+ Add Course" if you need more rows for additional courses.</li>
+                        <li>Click "Calculate GPA" to see your weighted grade point average.</li>
+                        <li>Your GPA is calculated as the sum of (credits x grade points) divided by total credits.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is GPA calculated?</h3>
+                        <p>GPA is calculated by multiplying each course's credit hours by its grade point value, summing those products, and dividing by the total number of credit hours. Formula: GPA = Sum(credits x grade_value) / Sum(credits).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the GPA scale used?</h3>
+                        <p>This calculator uses the standard 4.0 scale: A/A+ = 4.0, A- = 3.7, B+ = 3.3, B = 3.0, B- = 2.7, C+ = 2.3, C = 2.0, C- = 1.7, D = 1.0, F = 0.0.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I calculate a cumulative GPA across semesters?</h3>
+                        <p>Yes. Simply enter all courses from all semesters into the calculator. The weighted formula works the same way regardless of how many courses you include.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if my school uses a different grading scale?</h3>
+                        <p>This calculator uses the most common US grading scale. If your school uses a different scale, the results may not match your official GPA exactly.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
             </div>
 
             <aside>
-                <div class="ad-banner ad-sidebar">Advertisement (Sidebar 300x600)</div>
-                <h3>Related Tools</h3>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.5rem;"><a href="/calculators/loan-calculator">Loan Calculator</a></li>
-                    <li><a href="/student-tools">More Student Tools</a></li>
-                </ul>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/student-tools" class="related-link">Student Tools</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
             </aside>
         </div>
     </main>
-    
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 2rem;">
-        <div class="container grid-5">
-            <div>
-                <strong>PlatformName</strong>
-                <p>Making productivity free.</p>
-            </div>
-            <div>
-                <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
-            </div>
-            <div>
-                <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="/js/main.js"></script>
-    <script src="/js/gpa-calculator.js"></script>
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var courseList = document.getElementById('course-list');
+        var addBtn = document.getElementById('add-course-btn');
+        var calcBtn = document.getElementById('calc-gpa-btn');
+        var resultDiv = document.getElementById('gpa-result');
+        var gpaValue = document.getElementById('gpa-value');
+        var gpaDetail = document.getElementById('gpa-detail');
+
+        function createCourseRow() {
+            var row = document.createElement('div');
+            row.className = 'course-row';
+            row.style.cssText = 'display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;';
+            row.innerHTML =
+                '<input type="text" placeholder="Course Name (Optional)" class="form-input course-name" style="flex: 2; min-width: 120px;">' +
+                '<input type="number" placeholder="Credits" class="form-input course-credits" style="flex: 1; min-width: 80px;" min="0" step="1">' +
+                '<select class="form-input course-grade" style="flex: 1; min-width: 100px;">' +
+                    '<option value="">Grade</option>' +
+                    '<option value="4.0">A / A+</option>' +
+                    '<option value="3.7">A-</option>' +
+                    '<option value="3.3">B+</option>' +
+                    '<option value="3.0">B</option>' +
+                    '<option value="2.7">B-</option>' +
+                    '<option value="2.3">C+</option>' +
+                    '<option value="2.0">C</option>' +
+                    '<option value="1.7">C-</option>' +
+                    '<option value="1.0">D</option>' +
+                    '<option value="0.0">F</option>' +
+                '</select>' +
+                '<button class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove course">&times;</button>';
+            return row;
+        }
+
+        addBtn.addEventListener('click', function() {
+            courseList.appendChild(createCourseRow());
+        });
+
+        courseList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-row-btn')) {
+                var rows = courseList.querySelectorAll('.course-row');
+                if (rows.length > 1) {
+                    e.target.closest('.course-row').remove();
+                }
+            }
+        });
+
+        calcBtn.addEventListener('click', function() {
+            var rows = courseList.querySelectorAll('.course-row');
+            var totalPoints = 0;
+            var totalCredits = 0;
+            var validCourses = 0;
+
+            for (var i = 0; i < rows.length; i++) {
+                var credits = parseFloat(rows[i].querySelector('.course-credits').value);
+                var grade = rows[i].querySelector('.course-grade').value;
+
+                if (!isNaN(credits) && credits > 0 && grade !== '') {
+                    totalPoints += credits * parseFloat(grade);
+                    totalCredits += credits;
+                    validCourses++;
+                }
+            }
+
+            if (totalCredits === 0) {
+                resultDiv.style.display = 'block';
+                resultDiv.style.borderColor = '#ef4444';
+                gpaValue.style.color = '#ef4444';
+                gpaValue.textContent = '--';
+                gpaDetail.textContent = 'Please enter at least one course with credits and a grade.';
+                return;
+            }
+
+            var gpa = totalPoints / totalCredits;
+
+            resultDiv.style.display = 'block';
+            resultDiv.style.borderColor = 'var(--primary)';
+            gpaValue.style.color = 'var(--primary)';
+            gpaValue.textContent = gpa.toFixed(2);
+            gpaDetail.textContent = validCourses + ' course' + (validCourses !== 1 ? 's' : '') + ' | ' + totalCredits + ' total credits | ' + totalPoints.toFixed(1) + ' quality points';
+        });
+    })();
+    </script>
 </body>
 </html>

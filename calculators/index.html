@@ -3,56 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Online Calculators | PlatformName</title>
-    <meta name="description" content="Free online calculators for students and professionals. Calculate GPA, loans, and more instantly.">
+    <title>Free Online Calculators - GPA, Loan & More | ToolsNest</title>
+    <meta name="description" content="Free online calculators for GPA, loans, mortgages, and daily tasks. Fast, accurate, no signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/calculators">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/all-tools">All Tools</a>
-            </nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
-    <main class="container section">
-        <p style="font-size: 0.875rem; margin-bottom: 2rem;"><a href="/">Home</a> > Calculators</p>
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="section-title">
+                    <h1>Calculators</h1>
+                    <p>Fast, accurate calculators for finance, education, and daily tasks.</p>
+                </div>
 
-        <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
-            <h1>Calculators</h1>
-            <p>Fast, accurate calculators for finance, education, and daily tasks.</p>
-        </div>
+                <div class="ad-placeholder ad-banner-top">Ad Banner Top</div>
 
-        <div class="grid-3">
-            <div class="card">
-                <h3>🧮 GPA Calculator</h3>
-                <p>Quickly calculate your grade point average for the semester.</p>
-                <a href="/calculators/gpa-calculator" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Use Tool</a>
+                <div class="grid-3">
+                    <a href="/calculators/gpa-calculator" class="card tool-card">
+                        <div class="card-icon">&#129518;</div>
+                        <div><h3>GPA Calculator</h3><p>Calculate your college or high school GPA instantly.</p></div>
+                    </a>
+                    <a href="/calculators/loan-calculator" class="card tool-card">
+                        <div class="card-icon">&#129518;</div>
+                        <div><h3>Loan Calculator</h3><p>Estimate monthly payments and total interest.</p></div>
+                    </a>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Between Sections</div>
             </div>
-            <div class="card">
-                <h3>🧮 Loan Calculator</h3>
-                <p>Estimate your monthly payments and interest rates.</p>
-                <a href="/calculators/loan-calculator" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Use Tool</a>
-            </div>
-        </div>
+        </section>
     </main>
 
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
-            <div><strong>PlatformName</strong></div>
-            <div>
-                <h4>Company</h4>
-                <p><a href="/about">About</a></p><p><a href="/contact">Contact</a></p>
-            </div>
-            <div>
-                <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p><p><a href="/terms">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="/js/main.js"></script>
+    <script src="/components/footer.js"></script>
 </body>
 </html>

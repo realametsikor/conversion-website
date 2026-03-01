@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | ToolsNest</title>
+    <meta name="description" content="Get in touch with ToolsNest. Send us your questions, feedback, or suggestions about our free online tools.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/contact">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container" style="max-width: 700px;">
+                <h1 class="mb-2">Contact Us</h1>
+                <p class="mb-4" style="font-size: 1.05rem;">Have a question, suggestion, or found a bug? We would love to hear from you.</p>
+
+                <form name="contact" method="POST" data-netlify="true" id="contact-form">
+                    <input type="hidden" name="form-name" value="contact">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" class="form-input" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" class="form-input" placeholder="e.g., Bug report, Feature request">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" class="form-input" placeholder="Tell us what's on your mind..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1rem;">Send Message</button>
+                </form>
+
+                <div id="form-success" style="display:none; text-align:center; padding: 2rem;" class="mt-3">
+                    <h2 style="color: var(--accent);">Message Sent!</h2>
+                    <p class="mt-2">Thank you for reaching out. We will get back to you as soon as possible.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('contact-form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var data = new FormData(form);
+                fetch('/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(data).toString()
+                }).then(function() {
+                    form.style.display = 'none';
+                    document.getElementById('form-success').style.display = 'block';
+                }).catch(function() {
+                    alert('Something went wrong. Please try again.');
+                });
+            });
+        }
+    });
+    </script>
+</body>
+</html>
