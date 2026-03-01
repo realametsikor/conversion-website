@@ -9,13 +9,8 @@
     <link rel="canonical" href="https://convertion-website.netlify.app/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-social-bar>
     <script src="/components/header.js"></script>
-
-    <!-- Ad: Banner Top -->
-    <div class="container">
-        <div class="ad-placeholder ad-banner-top">Ad Banner Top</div>
-    </div>
 
     <main>
         <!-- 1. Hero with Search -->
@@ -57,6 +52,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Ad: Native banner below hero -->
+        <div class="container">
+            <div class="ad-container ad-native"></div>
+        </div>
 
         <!-- 3. Popular Tools Grid -->
         <section class="section section-alt">
@@ -129,11 +129,6 @@
             </div>
         </section>
 
-        <!-- Ad: Between Sections -->
-        <div class="container">
-            <div class="ad-placeholder ad-between-sections">Ad Between Sections</div>
-        </div>
-
         <!-- 4. Benefits -->
         <section class="section">
             <div class="container">
@@ -164,6 +159,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Ad: Native banner mid-page -->
+        <div class="container">
+            <div class="ad-container ad-native"></div>
+        </div>
 
         <!-- 5. How It Works -->
         <section class="section section-alt">
@@ -225,11 +225,6 @@
             </div>
         </section>
 
-        <!-- Ad: Inline -->
-        <div class="container">
-            <div class="ad-placeholder ad-inline">Ad Inline</div>
-        </div>
-
         <!-- 7. Blog Preview -->
         <section class="section section-alt">
             <div class="container">
@@ -260,5 +255,6 @@
 
     <script src="/components/footer.js"></script>
     <script src="/js/main.js"></script>
+    <script async src="/components/ads.js"></script>
 </body>
 </html>

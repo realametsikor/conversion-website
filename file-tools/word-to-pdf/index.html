@@ -8,7 +8,7 @@
     <link rel="canonical" href="https://convertion-website.netlify.app/file-tools/word-to-pdf">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-social-bar>
     <script src="/components/header.js"></script>
 
     <main>
@@ -50,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div class="ad-placeholder ad-between-sections">Advertisement</div>
+                        <div class="ad-container ad-native"></div>
 
                         <h2 style="margin-top:2rem;">How to Convert Word to PDF</h2>
                         <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
@@ -59,7 +59,6 @@
                             <li>Click "Download PDF" to save the converted file to your device.</li>
                         </ol>
 
-                        <div class="ad-placeholder ad-between-sections">Advertisement</div>
 
                         <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
                         <div class="faq-item">
@@ -85,7 +84,9 @@
                     </div>
 
                     <aside class="tool-sidebar">
-                        <div class="ad-placeholder ad-sidebar-placeholder">Ad Sidebar</div>
+                        <div class="sidebar-ad">
+                            <div class="ad-container ad-sidebar-slot"></div>
+                        </div>
                         <div class="related-tools">
                             <h3>Related Tools</h3>
                             <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
@@ -216,5 +217,6 @@
         });
     })();
     </script>
+    <script async src="/components/ads.js"></script>
 </body>
 </html>

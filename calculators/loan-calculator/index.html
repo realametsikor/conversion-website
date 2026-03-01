@@ -8,7 +8,7 @@
     <link rel="canonical" href="https://convertion-website.netlify.app/calculators/loan-calculator/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-social-bar>
     <script src="/components/header.js"></script>
 
     <main class="container">
@@ -67,7 +67,7 @@
                     </div>
                 </div>
 
-                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+                <div class="ad-container ad-native"></div>
 
                 <section class="mb-4">
                     <h2 class="mb-2">How to Use</h2>
@@ -98,12 +98,12 @@
                         <p>If the interest rate is 0%, the calculator will simply divide the loan amount by the total number of months to determine the monthly payment, with zero total interest.</p>
                     </div>
                 </section>
-
-                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
             </div>
 
             <aside>
-                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="sidebar-ad">
+                    <div class="ad-container ad-sidebar-slot"></div>
+                </div>
                 <div class="related-tools">
                     <h3>Related Tools</h3>
                     <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
@@ -164,5 +164,6 @@
         });
     })();
     </script>
+    <script async src="/components/ads.js"></script>
 </body>
 </html>
