@@ -3,59 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free File Tools & Converters | PlatformName</title>
-    <meta name="description" content="Free online file tools. Convert, merge, and edit PDF and Word documents securely.">
+    <title>File Tools | Convertion Tools</title>
+    <meta name="description" content="Convert, merge, and optimize documents with fast file tools. PDF, Word, and media utilities in one place.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-                <a href="/ai-tools">AI Tools</a>
+        <div class="container header-inner">
+            <a class="logo" href="/">Convertion Tools</a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="/all-tools.html">All Tools</a>
+                <a href="/file-tools/">File Tools</a>
+                <a href="/image-tools/">Image Tools</a>
+                <a href="/student-tools/">Student Tools</a>
+                <a href="/calculators/">Calculators</a>
+                <a href="/ai-tools/">AI Tools</a>
+                <a href="/blog/">Blog</a>
             </nav>
+            <form class="header-search" data-search-form>
+                <input type="search" placeholder="Search tools" aria-label="Search tools">
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+            <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
         </div>
     </header>
 
-    <main class="container section">
-        <p style="font-size: 0.875rem; margin-bottom: 2rem;"><a href="/">Home</a> > File Tools</p>
+    <main class="section">
+        <div class="container">
+            <p class="breadcrumb"><a href="/">Home</a> / File Tools</p>
+            <h1 class="section-title">File tools</h1>
+            <p class="section-subtitle">Convert, merge, and compress documents fast with client-side processing.</p>
 
-        <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
-            <h1>File Tools</h1>
-            <p>Convert and manage your documents securely. Files are processed fast and deleted after 1 hour.</p>
+            <div class="ad-placeholder ad-banner-top" style="margin-top: 2rem;">ad-banner-top</div>
+
+            <div class="grid grid-3" data-tools-grid data-category="File Tools" style="margin-top: 2rem;"></div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                Looking for something else? Explore <a href="/all-tools.html">all tools</a> or jump to <a href="/image-tools/">image tools</a>.
+            </div>
         </div>
-
-        <div class="grid-3">
-            <div class="card">
-                <h3>📄 PDF to Word</h3>
-                <p>Convert your PDF files to editable Word documents instantly.</p>
-                <a href="/file-tools/pdf-to-word" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Use Tool</a>
-            </div>
-            </div>
     </main>
 
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
+    <footer class="footer">
+        <div class="container footer-grid">
             <div>
-                <strong>PlatformName</strong>
+                <strong class="logo">Convertion Tools</strong>
+                <p>Fast, free, and built for scale.</p>
             </div>
             <div>
                 <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
+                <p><a href="/about.html">About</a></p>
+                <p><a href="/contact.html">Contact</a></p>
             </div>
             <div>
                 <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
+                <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+                <p><a href="/terms.html">Terms</a></p>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <p><a href="/file-tools/">File Tools</a></p>
+                <p><a href="/image-tools/">Image Tools</a></p>
+                <p><a href="/student-tools/">Student Tools</a></p>
             </div>
         </div>
     </footer>
 
+    <script src="/js/tools-config.js"></script>
+    <script src="/js/tools-list.js"></script>
     <script src="/js/main.js"></script>
 </body>
 </html>

@@ -3,56 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Online Calculators | PlatformName</title>
-    <meta name="description" content="Free online calculators for students and professionals. Calculate GPA, loans, and more instantly.">
+    <title>Calculators | Convertion Tools</title>
+    <meta name="description" content="Financial and academic calculators for quick answers. Estimate loans, GPA, and more.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/all-tools">All Tools</a>
+        <div class="container header-inner">
+            <a class="logo" href="/">Convertion Tools</a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="/all-tools.html">All Tools</a>
+                <a href="/file-tools/">File Tools</a>
+                <a href="/image-tools/">Image Tools</a>
+                <a href="/student-tools/">Student Tools</a>
+                <a href="/calculators/">Calculators</a>
+                <a href="/ai-tools/">AI Tools</a>
+                <a href="/blog/">Blog</a>
             </nav>
+            <form class="header-search" data-search-form>
+                <input type="search" placeholder="Search tools" aria-label="Search tools">
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+            <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
         </div>
     </header>
 
-    <main class="container section">
-        <p style="font-size: 0.875rem; margin-bottom: 2rem;"><a href="/">Home</a> > Calculators</p>
+    <main class="section">
+        <div class="container">
+            <p class="breadcrumb"><a href="/">Home</a> / Calculators</p>
+            <h1 class="section-title">Calculators</h1>
+            <p class="section-subtitle">Fast calculators for finance, school, and planning.</p>
 
-        <div style="text-align: center; max-width: 800px; margin: 0 auto 3rem;">
-            <h1>Calculators</h1>
-            <p>Fast, accurate calculators for finance, education, and daily tasks.</p>
-        </div>
+            <div class="ad-placeholder ad-banner-top" style="margin-top: 2rem;">ad-banner-top</div>
 
-        <div class="grid-3">
-            <div class="card">
-                <h3>🧮 GPA Calculator</h3>
-                <p>Quickly calculate your grade point average for the semester.</p>
-                <a href="/calculators/gpa-calculator" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Use Tool</a>
-            </div>
-            <div class="card">
-                <h3>🧮 Loan Calculator</h3>
-                <p>Estimate your monthly payments and interest rates.</p>
-                <a href="/calculators/loan-calculator" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Use Tool</a>
+            <div class="grid grid-3" data-tools-grid data-category="Calculators" style="margin-top: 2rem;"></div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                Explore <a href="/file-tools/">file tools</a> or jump to <a href="/student-tools/">student tools</a>.
             </div>
         </div>
     </main>
 
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
-            <div><strong>PlatformName</strong></div>
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <strong class="logo">Convertion Tools</strong>
+                <p>Fast, free, and built for scale.</p>
+            </div>
             <div>
                 <h4>Company</h4>
-                <p><a href="/about">About</a></p><p><a href="/contact">Contact</a></p>
+                <p><a href="/about.html">About</a></p>
+                <p><a href="/contact.html">Contact</a></p>
             </div>
             <div>
                 <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p><p><a href="/terms">Terms of Service</a></p>
+                <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+                <p><a href="/terms.html">Terms</a></p>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <p><a href="/file-tools/">File Tools</a></p>
+                <p><a href="/image-tools/">Image Tools</a></p>
+                <p><a href="/student-tools/">Student Tools</a></p>
             </div>
         </div>
     </footer>
 
+    <script src="/js/tools-config.js"></script>
+    <script src="/js/tools-list.js"></script>
     <script src="/js/main.js"></script>
 </body>
 </html>

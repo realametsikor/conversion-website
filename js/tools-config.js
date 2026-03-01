@@ -326,5 +326,78 @@ const toolsConfig = {
                 </div>
             </div>
         `
+    },
+
+    // --- STUDENT TOOLS ---
+    "study-timer": {
+        id: "study-timer",
+        name: "Study Timer",
+        category: "Student Tools",
+        categoryPath: "/student-tools",
+        seoTitle: "Free Study Timer Online - Focus & Break Cycles",
+        seoDesc: "Run focused study sessions with quick start timers and break reminders.",
+        icon: "⏱️",
+        instructions: [
+            "Pick a focus length and break length.",
+            "Start the timer to begin a study session.",
+            "Pause or reset anytime and track your completed rounds."
+        ],
+        script: "/js/study-timer.js",
+        workspaceHtml: `
+            <div style="text-align: center;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem;">
+                    <div>
+                        <label style="display:block; font-weight: 600; margin-bottom: 0.5rem;">Focus (minutes)</label>
+                        <input id="focus-minutes" type="number" min="5" max="120" value="25" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                    </div>
+                    <div>
+                        <label style="display:block; font-weight: 600; margin-bottom: 0.5rem;">Break (minutes)</label>
+                        <input id="break-minutes" type="number" min="5" max="60" value="5" style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <h2 id="timer-display" style="font-size: 2.5rem; margin-bottom: 1rem;">25:00</h2>
+                    <div style="display: flex; justify-content: center; gap: 0.75rem; flex-wrap: wrap;">
+                        <button id="timer-start" class="btn btn-primary">Start</button>
+                        <button id="timer-pause" class="btn btn-ghost">Pause</button>
+                        <button id="timer-reset" class="btn btn-ghost">Reset</button>
+                    </div>
+                    <p id="timer-status" style="margin-top: 1rem; color: var(--muted);">Ready to focus.</p>
+                </div>
+            </div>
+        `
+    },
+
+    // --- AI TOOLS ---
+    "text-summarizer": {
+        id: "text-summarizer",
+        name: "AI Text Summarizer",
+        category: "AI Tools",
+        categoryPath: "/ai-tools",
+        seoTitle: "Free AI Text Summarizer Online - Instant Key Points",
+        seoDesc: "Generate a short, readable summary from long text in seconds.",
+        icon: "🤖",
+        instructions: [
+            "Paste or type your text into the box.",
+            "Choose how many sentences you want in the summary.",
+            "Click summarize to generate concise key points."
+        ],
+        script: "/js/text-summarizer.js",
+        workspaceHtml: `
+            <div style="display: grid; gap: 1rem;">
+                <label style="font-weight: 600;">Paste your text</label>
+                <textarea id="summary-input" rows="8" placeholder="Add your text here..." style="width: 100%; padding: 1rem; border-radius: var(--radius); border: 1px solid var(--border); font-family: inherit;"></textarea>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;">
+                    <label style="font-weight: 600;">Summary length</label>
+                    <select id="summary-length" style="padding: 0.6rem 0.8rem; border-radius: 999px; border: 1px solid var(--border);">
+                        <option value="2">2 sentences</option>
+                        <option value="3" selected>3 sentences</option>
+                        <option value="4">4 sentences</option>
+                    </select>
+                    <button id="summary-btn" class="btn btn-primary">Summarize</button>
+                </div>
+                <div id="summary-output" class="highlight-box">Your summary will appear here.</div>
+            </div>
+        `
     }
 };

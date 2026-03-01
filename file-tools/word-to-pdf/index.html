@@ -3,24 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Tool...</title> 
+    <title>Word to PDF Converter | Convertion Tools</title>
+    <meta name="description" content="Use the Word to PDF Converter tool on Convertion Tools. Fast, free, and simple.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body data-tool-id="word-to-pdf"> 
-    
+<body data-tool-id="word-to-pdf">
+
     <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/all-tools">All Tools</a>
+        <div class="container header-inner">
+            <a class="logo" href="/">Convertion Tools</a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="/all-tools.html">All Tools</a>
+                <a href="/file-tools/">File Tools</a>
+                <a href="/image-tools/">Image Tools</a>
+                <a href="/student-tools/">Student Tools</a>
+                <a href="/calculators/">Calculators</a>
+                <a href="/ai-tools/">AI Tools</a>
+                <a href="/blog/">Blog</a>
             </nav>
+            <form class="header-search" data-search-form>
+                <input type="search" placeholder="Search tools" aria-label="Search tools">
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+            <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
         </div>
     </header>
 
-    <main class="container" id="tool-container"></main>
-    
-    <script src="/js/main.js"></script>
+    <main class="section">
+        <div class="container" id="tool-container"></div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div>
+                <strong class="logo">Convertion Tools</strong>
+                <p>Fast, free, and built for scale.</p>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <p><a href="/about.html">About</a></p>
+                <p><a href="/contact.html">Contact</a></p>
+            </div>
+            <div>
+                <h4>Legal</h4>
+                <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+                <p><a href="/terms.html">Terms</a></p>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <p><a href="/file-tools/">File Tools</a></p>
+                <p><a href="/image-tools/">Image Tools</a></p>
+                <p><a href="/student-tools/">Student Tools</a></p>
+            </div>
+        </div>
+    </footer>
+
     <script src="/js/tools-config.js"></script>
     <script src="/js/tool-renderer.js"></script>
+    <script src="/js/main.js"></script>
 </body>
 </html>

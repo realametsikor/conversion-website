@@ -1,59 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // --- 1. MOBILE NAVIGATION MENU ---
-    const initMobileMenu = () => {
-        const headerContainer = document.querySelector('.header .container');
-        const navLinks = document.querySelector('.nav-links');
-        
-        if (!headerContainer || !navLinks) return;
+    const nav = document.querySelector('.nav-links');
+    const toggle = document.querySelector('.mobile-toggle');
 
-        const mobileBtn = document.createElement('button');
-        mobileBtn.className = 'mobile-menu-btn';
-        mobileBtn.innerHTML = '☰'; 
-        mobileBtn.setAttribute('aria-label', 'Toggle mobile menu');
-        
-        headerContainer.appendChild(mobileBtn);
-
-        mobileBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            mobileBtn.innerHTML = navLinks.classList.contains('active') ? '✕' : '☰';
+    if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', nav.classList.contains('active'));
         });
-    };
+    }
 
-    // --- 2. STICKY HEADER ENHANCEMENT ---
-    const initStickyHeader = () => {
-        const header = document.querySelector('.header');
-        if (!header) return;
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 10) {
-                header.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.05)';
-            } else {
-                header.style.boxShadow = 'none';
-            }
+    const searchForms = document.querySelectorAll('[data-search-form]');
+    searchForms.forEach((form) => {
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const input = form.querySelector('input');
+            if (!input) return;
+            const query = input.value.trim();
+            if (!query) return;
+            window.location.href = `/all-tools.html?q=${encodeURIComponent(query)}`;
         });
-    };
-
-    // --- 3. GLOBAL SEARCH FUNCTIONALITY ---
-    const initSearch = () => {
-        const searchInputs = document.querySelectorAll('input[placeholder*="Search"], input[placeholder*="What do you want to do"]');
-        
-        searchInputs.forEach(input => {
-            input.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
-                    const query = input.value.trim().toLowerCase();
-                    
-                    if (query) {
-                        alert(`Search triggered for: "${query}". \nThis will route to your search results page once built.`);
-                        input.value = ''; 
-                    }
-                }
-            });
-        });
-    };
-
-    initMobileMenu();
-    initStickyHeader();
-    initSearch();
+    });
 });

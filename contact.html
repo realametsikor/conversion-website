@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | Convertion Tools</title>
-    <meta name="description" content="Privacy policy for Convertion Tools. Learn how data is handled and stored while using the platform.">
+    <title>Contact | Convertion Tools</title>
+    <meta name="description" content="Get in touch with Convertion Tools for support, partnerships, or feedback.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -30,17 +30,28 @@
 
     <main class="section">
         <div class="container">
-            <p class="breadcrumb"><a href="/">Home</a> / Privacy Policy</p>
-            <h1 class="section-title">Privacy Policy</h1>
-            <p class="section-subtitle">Last updated: March 1, 2026</p>
+            <p class="breadcrumb"><a href="/">Home</a> / Contact</p>
+            <h1 class="section-title">Contact</h1>
+            <p class="section-subtitle">Send product feedback, partnerships, or support questions.</p>
 
-            <div class="card" style="margin-top: 2rem;">
-                <h3>Data handling</h3>
-                <p>Most tools operate in the browser and do not upload files to a server. When a tool requires backend processing, it is clearly marked in the UI.</p>
-                <h3 style="margin-top: 1.5rem;">Analytics</h3>
-                <p>Aggregated analytics may be collected to improve performance and usability. No personal files are stored.</p>
-                <h3 style="margin-top: 1.5rem;">Contact</h3>
-                <p>Questions about privacy can be sent to support@convertiontools.com.</p>
+            <div class="grid grid-2" style="margin-top: 2rem;">
+                <div class="card">
+                    <h3>Support hours</h3>
+                    <p>Monday to Friday, 9:00 AM to 5:00 PM (UTC).</p>
+                    <p>Email: support@convertiontools.com</p>
+                </div>
+                <form class="card" name="contact" method="post" data-netlify="true">
+                    <label style="font-weight: 600;">Name</label>
+                    <input name="name" type="text" required style="margin-top: 0.5rem; padding: 0.75rem; border-radius: var(--radius); border: 1px solid var(--border);">
+
+                    <label style="font-weight: 600; margin-top: 1rem;">Email</label>
+                    <input name="email" type="email" required style="margin-top: 0.5rem; padding: 0.75rem; border-radius: var(--radius); border: 1px solid var(--border);">
+
+                    <label style="font-weight: 600; margin-top: 1rem;">Message</label>
+                    <textarea name="message" rows="4" required style="margin-top: 0.5rem; padding: 0.75rem; border-radius: var(--radius); border: 1px solid var(--border); font-family: inherit;"></textarea>
+
+                    <button class="btn btn-primary" type="submit" style="margin-top: 1rem;">Send message</button>
+                </form>
             </div>
         </div>
     </main>

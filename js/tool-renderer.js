@@ -1,13 +1,61 @@
-/**
- * tool-renderer.js
- * Injects tool layout with fully responsive Mobile Ad Swapping.
- */
+const buildFaq = (toolName) => {
+    const items = [
+        {
+            q: `Is ${toolName} free to use?`,
+            a: 'Yes. This tool runs in your browser and is free for personal and professional use.'
+        },
+        {
+            q: 'Are my files or text uploaded?',
+            a: 'Processing happens locally in your browser unless stated otherwise, so your data stays on your device.'
+        },
+        {
+            q: 'What formats are supported?',
+            a: 'Each tool lists its supported formats in the instructions above.'
+        }
+    ];
+
+    return items
+        .map((item) => {
+            return `
+                <details>
+                    <summary>${item.q}</summary>
+                    <p>${item.a}</p>
+                </details>
+            `;
+        })
+        .join('');
+};
+
+const buildRelatedTools = (tool, allTools) => {
+    const related = allTools
+        .filter((candidate) => candidate.category === tool.category && candidate.id !== tool.id)
+        .slice(0, 3);
+
+    if (!related.length) {
+        return '<p class="highlight-box">More tools in this category are coming soon.</p>';
+    }
+
+    return related
+        .map((item) => {
+            const url = `${item.categoryPath}/${item.id}/`;
+            return `
+                <article class="card">
+                    <div class="tool-icon">${item.icon}</div>
+                    <h3>${item.name}</h3>
+                    <p>${item.seoDesc}</p>
+                    <a class="btn btn-ghost" href="${url}">View Tool</a>
+                </article>
+            `;
+        })
+        .join('');
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     const toolId = document.body.getAttribute('data-tool-id');
     const tool = typeof toolsConfig !== 'undefined' ? toolsConfig[toolId] : null;
 
     if (!tool) {
-        console.error("Tool configuration not found!");
+        console.error('Tool configuration not found.');
         return;
     }
 
@@ -15,48 +63,56 @@ document.addEventListener('DOMContentLoaded', () => {
     let metaDesc = document.querySelector('meta[name="description"]');
     if (!metaDesc) {
         metaDesc = document.createElement('meta');
-        metaDesc.name = "description";
+        metaDesc.name = 'description';
         document.head.appendChild(metaDesc);
     }
     metaDesc.content = tool.seoDesc;
 
+    const allTools = Object.values(toolsConfig);
     const mainContainer = document.getElementById('tool-container');
-    
+
     mainContainer.innerHTML = `
-        <p style="margin-top: 1rem; font-size: 0.875rem;"><a href="/">Home</a> > <a href="${tool.categoryPath}">${tool.category}</a> > ${tool.name}</p>
+        <p class="breadcrumb"><a href="/">Home</a> / <a href="${tool.categoryPath}/">${tool.category}</a> / ${tool.name}</p>
 
         <div class="tool-layout">
             <div>
-                <h1 style="text-align: center;">${tool.name}</h1>
-                <p style="text-align: center; margin-bottom: 2rem;">${tool.seoDesc}</p>
+                <div class="tool-meta">
+                    <h1>${tool.name}</h1>
+                    <p>${tool.seoDesc}</p>
+                </div>
+
+                <div class="ad-placeholder ad-banner-top">ad-banner-top</div>
 
                 <div class="tool-workspace">
                     ${tool.workspaceHtml}
                 </div>
 
-                <div style="margin: 3rem 0; width: 100%; min-height: 280px; overflow: hidden; border-top: 1px solid var(--border); padding-top: 1.5rem;">
-                    <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; font-weight: bold; letter-spacing: 0.05em;">Recommended</p>
-                    <iframe src="/ad-native" width="100%" height="280" frameborder="0" scrolling="no" style="border:none; overflow:hidden;"></iframe>
-                </div>
+                <div class="ad-placeholder ad-inline">ad-inline</div>
 
-                <div class="desktop-ad" style="margin: 3rem 0; min-height: 90px; overflow: hidden;">
-                    <iframe src="/ad-middle" width="728" height="90" frameborder="0" scrolling="no" style="border:none;"></iframe>
-                </div>
+                <section class="section" style="padding: 2rem 0 0;">
+                    <h2>How to use ${tool.name}</h2>
+                    <ol style="margin-left: 1.2rem; margin-top: 1rem;">
+                        ${tool.instructions.map((step) => `<li>${step}</li>`).join('')}
+                    </ol>
+                </section>
 
-                <div class="mobile-ad" style="overflow: hidden;">
-                    <iframe src="/ad-mobile" width="300" height="250" frameborder="0" scrolling="no" style="border:none;"></iframe>
-                </div>
+                <section class="section" style="padding: 2rem 0 0;">
+                    <h2>FAQ</h2>
+                    <div class="faq" style="margin-top: 1rem;">
+                        ${buildFaq(tool.name)}
+                    </div>
+                </section>
 
-                <h2>How to use ${tool.name}</h2>
-                <ol style="margin-left: 1.5rem; margin-bottom: 2rem;">
-                    ${tool.instructions.map(step => `<li>${step}</li>`).join('')}
-                </ol>
+                <section class="section" style="padding: 2rem 0;">
+                    <h2>Related tools</h2>
+                    <div class="grid grid-3" style="margin-top: 1.5rem;">
+                        ${buildRelatedTools(tool, allTools)}
+                    </div>
+                </section>
             </div>
 
             <aside>
-                <div style="text-align: center; display: flex; justify-content: center; position: sticky; top: 2rem; min-height: 600px; overflow: hidden;">
-                    <iframe src="/ad-sidebar" width="160" height="600" frameborder="0" scrolling="no" style="border:none;"></iframe>
-                </div>
+                <div class="ad-placeholder ad-sidebar">ad-sidebar</div>
             </aside>
         </div>
     `;

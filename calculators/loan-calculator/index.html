@@ -3,113 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Loan & Mortgage Calculator | PlatformName</title>
-    <meta name="description" content="Calculate your monthly payments, total interest, and loan cost instantly. Perfect for mortgages, auto loans, and personal loans.">
+    <title>Loan Calculator | Convertion Tools</title>
+    <meta name="description" content="Use the Loan Calculator tool on Convertion Tools. Fast, free, and simple.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body data-tool-id="loan-calculator">
+
     <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-                <a href="/ai-tools">AI Tools</a>
+        <div class="container header-inner">
+            <a class="logo" href="/">Convertion Tools</a>
+            <nav class="nav-links" aria-label="Primary">
+                <a href="/all-tools.html">All Tools</a>
+                <a href="/file-tools/">File Tools</a>
+                <a href="/image-tools/">Image Tools</a>
+                <a href="/student-tools/">Student Tools</a>
+                <a href="/calculators/">Calculators</a>
+                <a href="/ai-tools/">AI Tools</a>
+                <a href="/blog/">Blog</a>
             </nav>
+            <form class="header-search" data-search-form>
+                <input type="search" placeholder="Search tools" aria-label="Search tools">
+                <button class="btn btn-ghost" type="submit">Search</button>
+            </form>
+            <button class="mobile-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
         </div>
     </header>
 
-    <main class="container">
-        <p style="margin-top: 1rem; font-size: 0.875rem;"><a href="/">Home</a> > <a href="/calculators">Calculators</a> > Loan Calculator</p>
-
-        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem; margin-top: 2rem;">
-            <div>
-                <h1 style="text-align: center;">Loan Calculator</h1>
-                <p style="text-align: center;">Estimate your monthly payments and total interest instantly.</p>
-
-                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
-                    <form id="loan-form">
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Loan Amount ($)</label>
-                            <input type="number" id="amount" placeholder="e.g., 50000" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                        </div>
-                        
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Annual Interest Rate (%)</label>
-                            <input type="number" id="interest" step="0.01" placeholder="e.g., 5.5" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                        </div>
-
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Loan Term (Years)</label>
-                            <input type="number" id="years" placeholder="e.g., 15" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Payments</button>
-                    </form>
-
-                    <div id="results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-                        <h3 style="margin-bottom: 1rem;">Results</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Monthly Payment</p>
-                                <strong id="monthly-payment" style="font-size: 1.5rem; color: var(--primary);">-</strong>
-                            </div>
-                            <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Total Interest</p>
-                                <strong id="total-interest" style="font-size: 1.5rem; color: var(--accent);">-</strong>
-                            </div>
-                            <div style="grid-column: span 2; background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Total Payment (Principal + Interest)</p>
-                                <strong id="total-payment" style="font-size: 1.5rem;">-</strong>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="ad-banner">Advertisement (Content Middle)</div>
-
-                <h2>How to use the loan calculator</h2>
-                <ol style="margin-left: 1.5rem; margin-bottom: 2rem;">
-                    <li>Enter the total amount you plan to borrow.</li>
-                    <li>Enter the annual interest rate provided by your lender.</li>
-                    <li>Enter the number of years you have to pay back the loan.</li>
-                    <li>Click calculate to see your estimated monthly payments and total costs.</li>
-                </ol>
-            </div>
-
-            <aside>
-                <div class="ad-banner ad-sidebar">Advertisement (Sidebar 300x600)</div>
-                <h3>Related Tools</h3>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.5rem;"><a href="/calculators/gpa-calculator">GPA Calculator</a></li>
-                    <li><a href="/all-tools">See All Tools</a></li>
-                </ul>
-            </aside>
-        </div>
+    <main class="section">
+        <div class="container" id="tool-container"></div>
     </main>
-    
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
+
+    <footer class="footer">
+        <div class="container footer-grid">
             <div>
-                <strong>PlatformName</strong>
-                <p>Making productivity free.</p>
+                <strong class="logo">Convertion Tools</strong>
+                <p>Fast, free, and built for scale.</p>
             </div>
             <div>
                 <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
+                <p><a href="/about.html">About</a></p>
+                <p><a href="/contact.html">Contact</a></p>
             </div>
             <div>
                 <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
+                <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+                <p><a href="/terms.html">Terms</a></p>
+            </div>
+            <div>
+                <h4>Categories</h4>
+                <p><a href="/file-tools/">File Tools</a></p>
+                <p><a href="/image-tools/">Image Tools</a></p>
+                <p><a href="/student-tools/">Student Tools</a></p>
             </div>
         </div>
     </footer>
 
+    <script src="/js/tools-config.js"></script>
+    <script src="/js/tool-renderer.js"></script>
     <script src="/js/main.js"></script>
-    <script src="/js/loan-calculator.js"></script>
 </body>
 </html>
