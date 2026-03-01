@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resize Image Online Free - Change Dimensions | ToolsNest</title>
+    <meta name="description" content="Resize any image to custom dimensions instantly in your browser. Maintain aspect ratio, set exact width and height. Free, fast, and private.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/image-tools/resize-image/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Resize Image
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Resize Image Online</h1>
+                <p class="text-center mb-3">Change the dimensions of any image quickly and easily. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="resize-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Image</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                    </div>
+
+                    <div id="resize-controls" style="display: none; text-align: left;">
+                        <div class="text-center mb-3">
+                            <img id="image-preview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Preview">
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Original Dimensions</p>
+                            <p class="text-muted" style="margin: 0;"><span id="orig-width">--</span> x <span id="orig-height">--</span> pixels</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label>New Width (px)</label>
+                            <input type="number" id="new-width" class="form-input" min="1" placeholder="Width in pixels">
+                        </div>
+
+                        <div class="form-group">
+                            <label>New Height (px)</label>
+                            <input type="number" id="new-height" class="form-input" min="1" placeholder="Height in pixels">
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="lock-ratio" checked>
+                                <span>Lock Aspect Ratio</span>
+                            </label>
+                        </div>
+
+                        <canvas id="resize-canvas" style="display: none;"></canvas>
+
+                        <div class="text-center">
+                            <button id="resize-btn" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Download Resized Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" to upload a JPG, PNG, or WebP image from your device.</li>
+                        <li>View the original dimensions displayed automatically after upload.</li>
+                        <li>Enter your desired width or height. With "Lock Aspect Ratio" checked, the other dimension adjusts automatically.</li>
+                        <li>Click "Download Resized Image" to save the resized version as a JPEG file.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool upload my images to a server?</h3>
+                        <p>No. All image processing is done entirely in your browser using the HTML5 Canvas API. Your images stay on your device at all times.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I resize to exact pixel dimensions?</h3>
+                        <p>Yes. Enter the exact width and height you need. Uncheck "Lock Aspect Ratio" if you want to set each dimension independently.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format is the resized image?</h3>
+                        <p>Resized images are exported as high-quality JPEG files (quality 0.92) for optimal file size and compatibility.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a maximum image size?</h3>
+                        <p>The tool can handle any image your browser can load. Very large images (over 50MP) may be slow depending on your device's memory.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var resizeControls = document.getElementById('resize-controls');
+        var imagePreview = document.getElementById('image-preview');
+        var origWidthEl = document.getElementById('orig-width');
+        var origHeightEl = document.getElementById('orig-height');
+        var newWidthInput = document.getElementById('new-width');
+        var newHeightInput = document.getElementById('new-height');
+        var lockRatio = document.getElementById('lock-ratio');
+        var resizeBtn = document.getElementById('resize-btn');
+        var canvas = document.getElementById('resize-canvas');
+
+        var originalWidth = 0;
+        var originalHeight = 0;
+        var aspectRatio = 1;
+        var currentImage = null;
+        var updatingField = false;
+
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    originalWidth = img.width;
+                    originalHeight = img.height;
+                    aspectRatio = originalWidth / originalHeight;
+                    currentImage = img;
+
+                    imagePreview.src = e.target.result;
+                    origWidthEl.textContent = originalWidth;
+                    origHeightEl.textContent = originalHeight;
+                    newWidthInput.value = originalWidth;
+                    newHeightInput.value = originalHeight;
+
+                    uploadSection.style.display = 'none';
+                    resizeControls.style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        newWidthInput.addEventListener('input', function() {
+            if (updatingField) return;
+            if (lockRatio.checked && newWidthInput.value) {
+                updatingField = true;
+                newHeightInput.value = Math.round(parseInt(newWidthInput.value) / aspectRatio);
+                updatingField = false;
+            }
+        });
+
+        newHeightInput.addEventListener('input', function() {
+            if (updatingField) return;
+            if (lockRatio.checked && newHeightInput.value) {
+                updatingField = true;
+                newWidthInput.value = Math.round(parseInt(newHeightInput.value) * aspectRatio);
+                updatingField = false;
+            }
+        });
+
+        resizeBtn.addEventListener('click', function() {
+            if (!currentImage) return;
+
+            var targetWidth = parseInt(newWidthInput.value) || originalWidth;
+            var targetHeight = parseInt(newHeightInput.value) || originalHeight;
+
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+            var ctx = canvas.getContext('2d');
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(currentImage, 0, 0, targetWidth, targetHeight);
+
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'resized-' + targetWidth + 'x' + targetHeight + '.jpg';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/jpeg', 0.92);
+        });
+    })();
+    </script>
+</body>
+</html>

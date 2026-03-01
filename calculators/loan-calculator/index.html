@@ -3,113 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Loan & Mortgage Calculator | PlatformName</title>
-    <meta name="description" content="Calculate your monthly payments, total interest, and loan cost instantly. Perfect for mortgages, auto loans, and personal loans.">
+    <title>Loan Calculator - Monthly Payment & Interest Calculator | ToolsNest</title>
+    <meta name="description" content="Calculate monthly loan payments, total interest, and total cost instantly. Works for mortgages, auto loans, personal loans, and student loans.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/calculators/loan-calculator/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-                <a href="/ai-tools">AI Tools</a>
-            </nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
     <main class="container">
-        <p style="margin-top: 1rem; font-size: 0.875rem;"><a href="/">Home</a> > <a href="/calculators">Calculators</a> > Loan Calculator</p>
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Loan Calculator
+        </nav>
 
-        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem; margin-top: 2rem;">
+        <div class="tool-layout">
             <div>
-                <h1 style="text-align: center;">Loan Calculator</h1>
-                <p style="text-align: center;">Estimate your monthly payments and total interest instantly.</p>
+                <h1 class="text-center mb-2">Loan Calculator</h1>
+                <p class="text-center mb-3">Estimate your monthly payments, total interest, and total cost for any loan.</p>
 
                 <div class="tool-workspace" style="text-align: left; padding: 2rem;">
                     <form id="loan-form">
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Loan Amount ($)</label>
-                            <input type="number" id="amount" placeholder="e.g., 50000" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
-                        </div>
-                        
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Annual Interest Rate (%)</label>
-                            <input type="number" id="interest" step="0.01" placeholder="e.g., 5.5" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <label for="loan-amount">Loan Amount ($)</label>
+                            <input type="number" id="loan-amount" class="form-input" placeholder="e.g., 250000" min="1" step="any" required>
                         </div>
 
-                        <div style="margin-bottom: 1.5rem;">
-                            <label style="display: block; font-weight: 500; margin-bottom: 0.5rem;">Loan Term (Years)</label>
-                            <input type="number" id="years" placeholder="e.g., 15" required style="width: 100%; padding: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius);">
+                        <div class="form-group">
+                            <label for="interest-rate">Annual Interest Rate (%)</label>
+                            <input type="number" id="interest-rate" class="form-input" placeholder="e.g., 6.5" min="0.01" step="0.01" required>
                         </div>
-                        
-                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Payments</button>
+
+                        <div class="form-group">
+                            <label for="loan-term">Loan Term (Years)</label>
+                            <input type="number" id="loan-term" class="form-input" placeholder="e.g., 30" min="1" step="1" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
                     </form>
 
-                    <div id="results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border);">
-                        <h3 style="margin-bottom: 1rem;">Results</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                            <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Monthly Payment</p>
-                                <strong id="monthly-payment" style="font-size: 1.5rem; color: var(--primary);">-</strong>
+                    <div id="loan-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Loan Summary</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Monthly Payment</p>
+                                <strong id="result-monthly" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
                             </div>
-                            <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Total Interest</p>
-                                <strong id="total-interest" style="font-size: 1.5rem; color: var(--accent);">-</strong>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Interest</p>
+                                <strong id="result-interest" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
                             </div>
-                            <div style="grid-column: span 2; background: var(--bg-color); padding: 1rem; border-radius: var(--radius);">
-                                <p style="margin-bottom: 0; font-size: 0.875rem;">Total Payment (Principal + Interest)</p>
-                                <strong id="total-payment" style="font-size: 1.5rem;">-</strong>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Payment</p>
+                                <strong id="result-total" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
                             </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Breakdown:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="ad-banner">Advertisement (Content Middle)</div>
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
 
-                <h2>How to use the loan calculator</h2>
-                <ol style="margin-left: 1.5rem; margin-bottom: 2rem;">
-                    <li>Enter the total amount you plan to borrow.</li>
-                    <li>Enter the annual interest rate provided by your lender.</li>
-                    <li>Enter the number of years you have to pay back the loan.</li>
-                    <li>Click calculate to see your estimated monthly payments and total costs.</li>
-                </ol>
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter the total loan amount you plan to borrow in dollars.</li>
+                        <li>Enter the annual interest rate as a percentage (e.g., 6.5 for 6.5%).</li>
+                        <li>Enter the loan term in years (e.g., 30 for a 30-year mortgage).</li>
+                        <li>Click "Calculate" to see your estimated monthly payment, total interest, and total payment.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What formula does this calculator use?</h3>
+                        <p>This calculator uses the standard amortization formula: M = P[r(1+r)^n] / [(1+r)^n - 1], where M is the monthly payment, P is the principal, r is the monthly interest rate, and n is the total number of payments.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this include taxes and insurance?</h3>
+                        <p>No. This calculator computes principal and interest only. Your actual monthly payment may be higher when property taxes, homeowner's insurance, and PMI are included.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for different types of loans?</h3>
+                        <p>Yes. This calculator works for mortgages, auto loans, personal loans, student loans, and any other fixed-rate amortizing loan.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if my interest rate is 0%?</h3>
+                        <p>If the interest rate is 0%, the calculator will simply divide the loan amount by the total number of months to determine the monthly payment, with zero total interest.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
             </div>
 
             <aside>
-                <div class="ad-banner ad-sidebar">Advertisement (Sidebar 300x600)</div>
-                <h3>Related Tools</h3>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.5rem;"><a href="/calculators/gpa-calculator">GPA Calculator</a></li>
-                    <li><a href="/all-tools">See All Tools</a></li>
-                </ul>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/student-tools" class="related-link">Student Tools</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
             </aside>
         </div>
     </main>
-    
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
-            <div>
-                <strong>PlatformName</strong>
-                <p>Making productivity free.</p>
-            </div>
-            <div>
-                <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
-            </div>
-            <div>
-                <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="/js/main.js"></script>
-    <script src="/js/loan-calculator.js"></script>
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var form = document.getElementById('loan-form');
+        var resultsDiv = document.getElementById('loan-results');
+        var resultMonthly = document.getElementById('result-monthly');
+        var resultInterest = document.getElementById('result-interest');
+        var resultTotal = document.getElementById('result-total');
+        var resultSummary = document.getElementById('result-summary');
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var principal = parseFloat(document.getElementById('loan-amount').value);
+            var annualRate = parseFloat(document.getElementById('interest-rate').value);
+            var years = parseFloat(document.getElementById('loan-term').value);
+
+            if (isNaN(principal) || isNaN(annualRate) || isNaN(years) || principal <= 0 || annualRate < 0 || years <= 0) {
+                return;
+            }
+
+            var totalMonths = years * 12;
+            var monthlyPayment, totalPayment, totalInterest;
+
+            if (annualRate === 0) {
+                monthlyPayment = principal / totalMonths;
+                totalPayment = principal;
+                totalInterest = 0;
+            } else {
+                var monthlyRate = annualRate / 100 / 12;
+                var compoundFactor = Math.pow(1 + monthlyRate, totalMonths);
+                monthlyPayment = principal * (monthlyRate * compoundFactor) / (compoundFactor - 1);
+                totalPayment = monthlyPayment * totalMonths;
+                totalInterest = totalPayment - principal;
+            }
+
+            resultMonthly.textContent = formatCurrency(monthlyPayment);
+            resultInterest.textContent = formatCurrency(totalInterest);
+            resultTotal.textContent = formatCurrency(totalPayment);
+            resultSummary.textContent = ' You will pay ' + formatCurrency(monthlyPayment) + '/month for ' + years + ' year' + (years !== 1 ? 's' : '') + ' (' + totalMonths + ' payments). Of the ' + formatCurrency(totalPayment) + ' total, ' + formatCurrency(totalInterest) + ' is interest.';
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
 </body>
 </html>

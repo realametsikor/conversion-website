@@ -2,87 +2,187 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Compress Image Online Free | PlatformName</title>
-    <meta name="description" content="Compress JPG, PNG, and WebP images quickly without losing quality.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress Image Online Free - Reduce File Size | ToolsNest</title>
+    <meta name="description" content="Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. Free, fast, and private.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/image-tools/image-compressor/">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/file-tools">File Tools</a>
-                <a href="/image-tools">Image Tools</a>
-                <a href="/student-tools">Student Tools</a>
-                <a href="/calculators">Calculators</a>
-                <a href="/ai-tools">AI Tools</a>
-            </nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
     <main class="container">
-        <p style="margin-top: 1rem; font-size: 0.875rem;"><a href="/">Home</a> > <a href="/image-tools">Image Tools</a> > Compress Image</p>
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Compress Image
+        </nav>
 
-        <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 2rem; margin-top: 2rem;">
+        <div class="tool-layout">
             <div>
-                <h1 style="text-align: center;">Compress Image Online</h1>
-                <p style="text-align: center;">Reduce image file size instantly right in your browser.</p>
+                <h1 class="text-center mb-2">Compress Image Online</h1>
+                <p class="text-center mb-3">Reduce image file size instantly right in your browser. Your files never leave your device.</p>
 
                 <div class="tool-workspace" id="drop-zone">
-                    <h3>Drag & Drop your Image here</h3>
-                    <p>or</p>
-                    <input type="file" id="file-input" accept="image/png, image/jpeg, image/webp" style="display: none;">
+                    <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
+                    <p class="text-muted mb-2">or</p>
+                    <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
                     <label for="file-input" class="btn btn-primary">Select Image</label>
-                    <div id="output-area" style="display: none; margin-top: 2rem;"></div>
+
+                    <div id="preview-area" style="display: none; margin-top: 2rem;">
+                        <canvas id="compress-canvas" style="display: none;"></canvas>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Original Size</p>
+                                <strong id="original-size" style="font-size: 1.5rem; color: var(--text-main);">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Compressed Size</p>
+                                <strong id="compressed-size" style="font-size: 1.5rem; color: var(--accent);">--</strong>
+                            </div>
+                        </div>
+                        <p id="savings-text" class="text-center mt-2" style="font-weight: 600; font-size: 1.1rem;"></p>
+                        <div class="text-center mt-3">
+                            <a id="download-btn" class="btn btn-accent" style="display: none;" download="compressed-image.jpg">Download Compressed Image</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="ad-banner">Advertisement (Content Middle)</div>
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
 
-                <h2>How to compress an image</h2>
-                <ol style="margin-left: 1.5rem; margin-bottom: 2rem;">
-                    <li>Upload your JPG, PNG, or WebP file using the button above.</li>
-                    <li>Wait for the client-side processor to reduce the file size.</li>
-                    <li>Click download to save your optimized image.</li>
-                </ol>
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP file into the workspace above.</li>
+                        <li>The tool will automatically compress your image using optimized browser-based encoding.</li>
+                        <li>Compare the original and compressed file sizes shown on screen.</li>
+                        <li>Click "Download Compressed Image" to save the smaller file to your device.</li>
+                    </ol>
+                </section>
 
-                <h2>Frequently Asked Questions</h2>
-                <div class="card" style="margin-bottom: 1rem;">
-                    <strong>Are my images secure?</strong>
-                    <p>Yes. This tool processes images directly in your browser. Your files never leave your device.</p>
-                </div>
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my images secure?</h3>
+                        <p>Yes. This tool processes images entirely in your browser using the HTML5 Canvas API. Your files never leave your device and are never uploaded to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported?</h3>
+                        <p>This tool supports JPEG, PNG, and WebP image formats. All images are compressed and exported as JPEG for maximum size reduction.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How much can the file size be reduced?</h3>
+                        <p>Typical reductions range from 40% to 80% depending on the original image format and content. JPEG images with high quality settings see the largest reductions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will the image quality be affected?</h3>
+                        <p>The tool uses a balanced compression level (quality 0.6) that significantly reduces file size while maintaining visually acceptable quality for most uses including web and email.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
             </div>
 
             <aside>
-                <div class="ad-banner ad-sidebar">Advertisement (Sidebar 300x600)</div>
-                <h3>Related Tools</h3>
-                <ul style="list-style: none;">
-                    <li><a href="/image-tools/resize-image">Resize Image</a></li>
-                    <li><a href="/image-tools/background-remover">Remove Background</a></li>
-                </ul>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
             </aside>
         </div>
     </main>
-    
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 2rem;">
-        <div class="container grid-5">
-            <div>
-                <strong>PlatformName</strong>
-                <p>Making productivity free.</p>
-            </div>
-            <div>
-                <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
-            </div>
-            <div>
-                <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
 
-    <script src="/js/main.js"></script>
-    <script src="/js/image-compressor.js"></script>
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var previewArea = document.getElementById('preview-area');
+        var canvas = document.getElementById('compress-canvas');
+        var originalSizeEl = document.getElementById('original-size');
+        var compressedSizeEl = document.getElementById('compressed-size');
+        var savingsText = document.getElementById('savings-text');
+        var downloadBtn = document.getElementById('download-btn');
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function compressImage(file) {
+            var originalSize = file.size;
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    ctx.drawImage(img, 0, 0);
+
+                    canvas.toBlob(function(blob) {
+                        var compressedSize = blob.size;
+                        var savings = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+
+                        originalSizeEl.textContent = formatBytes(originalSize);
+                        compressedSizeEl.textContent = formatBytes(compressedSize);
+
+                        if (savings > 0) {
+                            savingsText.textContent = 'Reduced by ' + savings + '% (' + formatBytes(originalSize - compressedSize) + ' saved)';
+                            savingsText.style.color = 'var(--accent)';
+                        } else {
+                            savingsText.textContent = 'Image is already well optimized. No further compression possible.';
+                            savingsText.style.color = 'var(--text-muted)';
+                        }
+
+                        var url = URL.createObjectURL(blob);
+                        downloadBtn.href = url;
+                        var ext = 'jpg';
+                        var baseName = file.name.replace(/\.[^.]+$/, '');
+                        downloadBtn.download = baseName + '-compressed.' + ext;
+                        downloadBtn.style.display = 'inline-flex';
+                        previewArea.style.display = 'block';
+                    }, 'image/jpeg', 0.6);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                compressImage(fileInput.files[0]);
+            }
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0] && files[0].type.match(/^image\/(jpeg|png|webp)$/)) {
+                fileInput.files = files;
+                compressImage(files[0]);
+            }
+        });
+    })();
+    </script>
 </body>
 </html>

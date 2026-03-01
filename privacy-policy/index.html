@@ -3,62 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy | PlatformName</title>
-    <meta name="description" content="Read our privacy policy to understand how we protect your data and handle your files securely.">
+    <title>Privacy Policy | ToolsNest</title>
+    <meta name="description" content="Learn how ToolsNest handles your data. We prioritize your privacy with client-side processing and no personal data collection.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/privacy-policy">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/all-tools">All Tools</a>
-            </nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
-    <main class="container section">
-        <p style="font-size: 0.875rem; margin-bottom: 2rem;"><a href="/">Home</a> > Privacy Policy</p>
+    <main>
+        <section class="section">
+            <div class="container" style="max-width: 800px;">
+                <h1 class="mb-2">Privacy Policy</h1>
+                <p class="mb-4" style="font-size: 0.9rem;">Last Updated: March 1, 2026</p>
 
-        <div style="max-width: 800px; margin: 0 auto; background: var(--card-bg); padding: 3rem; border: 1px solid var(--border); border-radius: var(--radius);">
-            <h1 style="margin-bottom: 1.5rem;">Privacy Policy</h1>
-            <p><em>Last Updated: Today</em></p>
-            
-            <p>At PlatformName, your privacy and data security are our top priorities. This Privacy Policy outlines how we handle your information when you use our free online tools.</p>
+                <h2 class="mb-2">1. File Uploads and Processing</h2>
+                <p class="mb-3">Most of our tools process files entirely within your browser using client-side JavaScript. Your files are never uploaded to our servers in these cases. For tools that require server-side processing, uploaded files are automatically and permanently deleted within 1 hour of processing.</p>
 
-            <h2 style="margin-top: 2rem; font-size: 1.5rem;">1. File Uploads and Processing</h2>
-            <p><strong>Client-Side Processing:</strong> Whenever possible, our tools (such as Image Compressors and Calculators) process your data entirely within your web browser. This means your files never leave your device and are never uploaded to our servers.</p>
-            <p><strong>Server-Side Processing:</strong> For complex tools that require backend processing (such as certain PDF converters), your files are transmitted securely via HTTPS. <strong>We never store user files permanently.</strong> All uploaded files and generated outputs are automatically and permanently deleted from our servers within one (1) hour of processing.</p>
+                <h2 class="mb-2">2. Data Collection</h2>
+                <p class="mb-3">We do not collect personally identifiable information (PII). We use anonymous analytics to understand general usage patterns and improve our tools. No personal data, file contents, or calculation inputs are stored or tracked.</p>
 
-            <h2 style="margin-top: 2rem; font-size: 1.5rem;">2. Data Collection</h2>
-            <p>We do not require you to create an account, and we do not collect personally identifiable information (PII) such as names, emails, or phone numbers to use our core tools. We may collect anonymous, aggregated analytics (like page views) to improve our platform's performance.</p>
+                <h2 class="mb-2">3. Cookies</h2>
+                <p class="mb-3">We use minimal cookies necessary for site functionality. Third-party advertisement partners may use cookies to serve relevant ads. You can manage cookie preferences through your browser settings.</p>
 
-            <h2 style="margin-top: 2rem; font-size: 1.5rem;">3. Third-Party Advertisements</h2>
-            <p>To keep our tools free, we display third-party advertisements. These ad networks may use cookies to serve ads based on your prior visits to our website or other websites on the internet. You can opt out of personalized advertising by visiting your browser's ad settings.</p>
+                <h2 class="mb-2">4. Third-Party Services</h2>
+                <p class="mb-3">We may display advertisements from third-party ad networks. These partners may use cookies or similar technologies to personalize ads. We do not share any user data with these partners.</p>
 
-            <h2 style="margin-top: 2rem; font-size: 1.5rem;">4. Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy or how we handle your data, please visit our <a href="/contact" style="color: var(--primary);">Contact page</a>.</p>
-        </div>
+                <h2 class="mb-2">5. Contact</h2>
+                <p>If you have questions about this privacy policy, please reach out through our <a href="/contact">contact page</a>.</p>
+            </div>
+        </section>
     </main>
 
-    <footer style="background: var(--card-bg); border-top: 1px solid var(--border); padding: 3rem 0; margin-top: 4rem;">
-        <div class="container grid-5">
-            <div>
-                <strong>PlatformName</strong>
-            </div>
-            <div>
-                <h4>Company</h4>
-                <p><a href="/about">About</a></p>
-                <p><a href="/contact">Contact</a></p>
-            </div>
-            <div>
-                <h4>Legal</h4>
-                <p><a href="/privacy-policy">Privacy Policy</a></p>
-                <p><a href="/terms">Terms of Service</a></p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="/js/main.js"></script>
+    <script src="/components/footer.js"></script>
 </body>
 </html>

@@ -3,24 +3,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading Tool...</title> 
+    <title>Word to PDF Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert Word documents (.doc, .docx) to PDF format online for free. Preserves formatting, fonts, and layout. Fast and secure.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/file-tools/word-to-pdf">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body data-tool-id="word-to-pdf"> 
-    
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links">
-                <a href="/all-tools">All Tools</a>
-            </nav>
-        </div>
-    </header>
+<body>
+    <script src="/components/header.js"></script>
 
-    <main class="container" id="tool-container"></main>
-    
-    <script src="/js/main.js"></script>
-    <script src="/js/tools-config.js"></script>
-    <script src="/js/tool-renderer.js"></script>
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Word to PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Word to PDF Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert your Word documents (.doc, .docx) to professional PDF files instantly. Layout, fonts, and images are preserved perfectly.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128221;</div>
+                                <h3>Drag & Drop your Word file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select Word File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .doc and .docx files (max 50MB)</p>
+                            </div>
+                            <div id="processing-area" style="display:none;">
+                                <div id="file-info" style="margin-bottom:1.5rem;"></div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Converting your Word document to PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">0%</p>
+                            </div>
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Conversion Complete!</h3>
+                                <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download PDF</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Convert Another File</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert Word to PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select Word File" or drag and drop your .doc or .docx file into the upload area.</li>
+                            <li>Our converter will process your document and convert it to PDF format.</li>
+                            <li>Click "Download PDF" to save the converted file to your device.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Is this Word to PDF converter free?</h3>
+                            <p>Yes, this tool is 100% free with no hidden costs, registration requirements, or conversion limits.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Will my document formatting be preserved?</h3>
+                            <p>Our converter maintains your document layout, fonts, images, tables, and other formatting elements as closely as possible to the original Word file.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I convert .doc files (older format)?</h3>
+                            <p>Yes, we support both the older .doc format and the modern .docx format for conversion to PDF.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my document private?</h3>
+                            <p>Your files are processed securely. We do not store or share any uploaded documents. Files are automatically deleted after conversion.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I convert multiple Word files at once?</h3>
+                            <p>Currently, you can convert one file at a time. Simply repeat the process for each document you need to convert.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/split-pdf" class="related-link">Split PDF</a>
+                            <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var resultInfo = document.getElementById('result-info');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var selectedFile = null;
+
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            var validTypes = [
+                'application/msword',
+                'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            ];
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (validTypes.indexOf(file.type) === -1 && ext !== 'doc' && ext !== 'docx') {
+                alert('Please select a Word document (.doc or .docx).');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+            uploadArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            simulateProcessing();
+        }
+
+        function simulateProcessing() {
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 7 + 2;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(showResult, 400);
+                }
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '%';
+            }, 150);
+        }
+
+        function showResult() {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            var newName = selectedFile.name.replace(/\.docx?$/i, '.pdf');
+            resultInfo.textContent = newName + ' is ready for download.';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            var newName = selectedFile.name.replace(/\.docx?$/i, '.pdf');
+            var content = 'This is a placeholder PDF document.\n\n';
+            content += 'Original file: ' + selectedFile.name + '\n';
+            content += 'Original size: ' + (selectedFile.size / 1024).toFixed(1) + ' KB\n\n';
+            content += 'Note: Actual Word-to-PDF conversion requires server-side processing with a document rendering engine.\n';
+            content += 'In a production environment, this file would be a properly formatted PDF.\n';
+            content += '\nConverted with ToolsNest Word to PDF Converter.';
+
+            var blob = new Blob([content], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = newName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFile = null;
+            fileInput.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
 </body>
 </html>

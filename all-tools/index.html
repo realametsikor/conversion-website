@@ -3,29 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Online Tools Directory | PlatformName</title>
+    <title>All Free Online Tools | ToolsNest</title>
+    <meta name="description" content="Browse all free online tools: file converters, image editors, calculators, AI tools, and student utilities. No signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/all-tools">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="logo"><a href="/"><strong>PlatformName</strong></a></div>
-            <nav class="nav-links"><a href="/">Back Home</a></nav>
-        </div>
-    </header>
+    <script src="/components/header.js"></script>
 
-    <main class="container section">
-        <h1>All Online Tools</h1>
-        <p style="margin-bottom: 3rem;">Browse our complete collection of free productivity tools.</p>
-        
-        <div class="grid-3">
-            <div class="card"><h3>PDF to Word</h3><p>Convert PDF documents to editable Word files.</p><a href="/file-tools/pdf-to-word" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Open Tool</a></div>
-            <div class="card"><h3>Merge PDF</h3><p>Combine multiple PDFs into one.</p><a href="/file-tools/merge-pdf" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Open Tool</a></div>
-            <div class="card"><h3>Compress Image</h3><p>Reduce image file size instantly.</p><a href="/image-tools/image-compressor" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Open Tool</a></div>
-            <div class="card"><h3>GPA Calculator</h3><p>Calculate your semester grades.</p><a href="/calculators/gpa-calculator" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">Open Tool</a></div>
+    <main>
+        <section class="hero section" style="padding-bottom: 1rem;">
+            <div class="container">
+                <h1>All Tools</h1>
+                <p>Every tool we offer, in one place.</p>
+                <div class="hero-search" style="margin-top: 1.5rem;">
+                    <input type="text" placeholder="Search tools..." id="tools-search">
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="ad-placeholder ad-banner-top">Ad Banner Top</div>
         </div>
+
+        <!-- File Tools -->
+        <section class="section" id="file-tools" style="padding-top: 1rem;">
+            <div class="container">
+                <h2 class="mb-3">File Tools</h2>
+                <div class="grid-3 tool-grid">
+                    <a href="/file-tools/pdf-to-word" class="card tool-card" data-name="pdf to word converter">
+                        <div class="card-icon">&#128196;</div>
+                        <div><h3>PDF to Word</h3><p>Convert PDF to editable Word documents.</p></div>
+                    </a>
+                    <a href="/file-tools/word-to-pdf" class="card tool-card" data-name="word to pdf converter">
+                        <div class="card-icon">&#128196;</div>
+                        <div><h3>Word to PDF</h3><p>Convert Word documents to PDF format.</p></div>
+                    </a>
+                    <a href="/file-tools/merge-pdf" class="card tool-card" data-name="merge pdf combine">
+                        <div class="card-icon">&#128196;</div>
+                        <div><h3>Merge PDF</h3><p>Combine multiple PDFs into one file.</p></div>
+                    </a>
+                    <a href="/file-tools/split-pdf" class="card tool-card" data-name="split pdf extract pages">
+                        <div class="card-icon">&#128196;</div>
+                        <div><h3>Split PDF</h3><p>Extract pages or split into multiple files.</p></div>
+                    </a>
+                    <a href="/file-tools/compress-pdf" class="card tool-card" data-name="compress pdf reduce size">
+                        <div class="card-icon">&#128196;</div>
+                        <div><h3>Compress PDF</h3><p>Reduce PDF file size while maintaining quality.</p></div>
+                    </a>
+                    <a href="/file-tools/mp4-to-mp3" class="card tool-card" data-name="mp4 to mp3 audio video">
+                        <div class="card-icon">&#127925;</div>
+                        <div><h3>MP4 to MP3</h3><p>Extract audio from video files.</p></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Tools -->
+        <section class="section section-alt" id="image-tools">
+            <div class="container">
+                <h2 class="mb-3">Image Tools</h2>
+                <div class="grid-3 tool-grid">
+                    <a href="/image-tools/image-compressor" class="card tool-card" data-name="compress image reduce size">
+                        <div class="card-icon">&#128247;</div>
+                        <div><h3>Compress Image</h3><p>Reduce image file size without losing quality.</p></div>
+                    </a>
+                    <a href="/image-tools/resize-image" class="card tool-card" data-name="resize image dimensions">
+                        <div class="card-icon">&#128247;</div>
+                        <div><h3>Resize Image</h3><p>Change image dimensions quickly.</p></div>
+                    </a>
+                    <a href="/file-tools/jpg-to-png" class="card tool-card" data-name="jpg to png convert image">
+                        <div class="card-icon">&#128247;</div>
+                        <div><h3>JPG to PNG</h3><p>Convert JPG images to PNG format.</p></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <div class="container">
+            <div class="ad-placeholder ad-between-sections">Ad Between Sections</div>
+        </div>
+
+        <!-- Calculators -->
+        <section class="section" id="calculators">
+            <div class="container">
+                <h2 class="mb-3">Calculators</h2>
+                <div class="grid-3 tool-grid">
+                    <a href="/calculators/gpa-calculator" class="card tool-card" data-name="gpa calculator college school">
+                        <div class="card-icon">&#129518;</div>
+                        <div><h3>GPA Calculator</h3><p>Calculate your college or high school GPA.</p></div>
+                    </a>
+                    <a href="/calculators/loan-calculator" class="card tool-card" data-name="loan calculator mortgage payment">
+                        <div class="card-icon">&#129518;</div>
+                        <div><h3>Loan Calculator</h3><p>Estimate monthly payments and total interest.</p></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Tools -->
+        <section class="section section-alt" id="ai-tools">
+            <div class="container">
+                <h2 class="mb-3">AI Tools</h2>
+                <div class="grid-3 tool-grid">
+                    <a href="/ai-tools/text-summarizer" class="card tool-card" data-name="ai text summarizer">
+                        <div class="card-icon">&#129302;</div>
+                        <div><h3>Text Summarizer</h3><p>Summarize long text into key points with AI.</p></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Tools -->
+        <section class="section" id="student-tools">
+            <div class="container">
+                <h2 class="mb-3">Student Tools</h2>
+                <div class="grid-3 tool-grid">
+                    <a href="/calculators/gpa-calculator" class="card tool-card" data-name="gpa calculator student">
+                        <div class="card-icon">&#127891;</div>
+                        <div><h3>GPA Calculator</h3><p>Calculate your GPA quickly and accurately.</p></div>
+                    </a>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <script src="/js/main.js"></script>
+    <script src="/components/footer.js"></script>
+    <script>
+    /* Client-side tool search/filter */
+    document.addEventListener('DOMContentLoaded', function() {
+        var searchInput = document.getElementById('tools-search');
+        var cards = document.querySelectorAll('.tool-grid .tool-card');
+        var sections = document.querySelectorAll('.tool-grid');
+
+        /* Check URL for search query */
+        var params = new URLSearchParams(window.location.search);
+        var q = params.get('q');
+        if (q && searchInput) {
+            searchInput.value = q;
+            filterTools(q);
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                filterTools(this.value);
+            });
+        }
+
+        function filterTools(query) {
+            var q = query.toLowerCase().trim();
+            cards.forEach(function(card) {
+                var name = (card.getAttribute('data-name') || '') + ' ' + card.textContent.toLowerCase();
+                card.style.display = !q || name.indexOf(q) !== -1 ? '' : 'none';
+            });
+            sections.forEach(function(grid) {
+                var visible = grid.querySelectorAll('.tool-card:not([style*="display: none"])');
+                var section = grid.closest('section');
+                if (section) section.style.display = visible.length ? '' : 'none';
+            });
+        }
+    });
+    </script>
 </body>
 </html>

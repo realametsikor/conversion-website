@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summarizer - Summarize Any Text Instantly Free | ToolsNest</title>
+    <meta name="description" content="Summarize long text instantly using extractive summarization. No API calls needed - works entirely in your browser. Free, private, and fast.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/text-summarizer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Text Summarizer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Text Summarizer</h1>
+                <p class="text-center mb-3">Paste any text and get a concise summary instantly. Uses extractive summarization powered by client-side JavaScript -- no API calls, fully private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="input-text">Paste Your Text Below</label>
+                        <textarea id="input-text" class="form-input" rows="10" placeholder="Paste or type your text here. The longer the text, the better the summary. Aim for at least a few paragraphs for best results." style="min-height: 200px;"></textarea>
+                        <p id="input-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <button id="summarize-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Summarize</button>
+
+                    <div id="summary-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Summary</h3>
+                            <div id="summary-text" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary);"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <p id="summary-word-count" class="text-muted" style="font-size: 0.85rem; margin: 0;">0 words</p>
+                                <p id="reduction-info" class="text-muted" style="font-size: 0.85rem; margin: 0;"></p>
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Summary</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area above. Longer texts produce better summaries.</li>
+                        <li>Click the "Summarize" button to generate your summary.</li>
+                        <li>Read the extracted summary, which highlights the most important sentences from your text.</li>
+                        <li>Click "Copy Summary" to copy the result to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this summarizer work?</h3>
+                        <p>This tool uses extractive summarization. It analyzes word frequency across all sentences, scores each sentence by the importance of its words, and extracts the top-ranked sentences to form a coherent summary.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool use AI or API calls?</h3>
+                        <p>No external API calls are made. The summarization algorithm runs entirely in your browser using client-side JavaScript. Your text is never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What kind of text works best?</h3>
+                        <p>This tool works best with informational or expository text such as articles, essays, reports, and research papers. It is less effective with poetry, dialogue, or very short texts.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How many sentences are included in the summary?</h3>
+                        <p>The number of summary sentences scales with the length of your input. Short texts get 1-2 sentences, medium texts get 3-4, and long texts get up to 5-7 key sentences.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputText = document.getElementById('input-text');
+        var inputWordCount = document.getElementById('input-word-count');
+        var summarizeBtn = document.getElementById('summarize-btn');
+        var summaryOutput = document.getElementById('summary-output');
+        var summaryText = document.getElementById('summary-text');
+        var summaryWordCount = document.getElementById('summary-word-count');
+        var reductionInfo = document.getElementById('reduction-info');
+        var copyBtn = document.getElementById('copy-btn');
+
+        /* Common English stop words to ignore during scoring */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','because','as','until','while','about',
+            'between','through','during','before','after','above','below','up','down',
+            'out','off','over','under','again','further','then','once','if','also',
+            'into','there','here','new','one','two','said','like','get','make','go',
+            'know','take','see','come','think','look','want','give','use','find','tell',
+            'ask','work','seem','feel','try','leave','call','need','become','keep','let',
+            'begin','show','hear','play','run','move','live','believe','bring','happen',
+            'write','provide','sit','stand','lose','pay','meet','include','continue',
+            'set','learn','change','lead','understand','watch','follow','stop','create',
+            'speak','read','allow','add','spend','grow','open','walk','win','offer',
+            'remember','love','consider','appear','buy','wait','serve','die','send',
+            'expect','build','stay','fall','cut','reach','kill','remain','am','able',
+            'much','many','well','back','still','even','any','right','now','going',
+            'thing','way','may','then','around','long','really','great','part','over'
+        ]);
+
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        /* Update live word count */
+        inputText.addEventListener('input', function() {
+            inputWordCount.textContent = countWords(inputText.value) + ' words';
+        });
+
+        /* Split text into sentences */
+        function splitSentences(text) {
+            /* Split on sentence-ending punctuation followed by space or end of string */
+            var raw = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            var sentences = [];
+            var regex = /[^.!?]*[.!?]+[\s]*/g;
+            var match;
+
+            while ((match = regex.exec(raw)) !== null) {
+                var s = match[0].trim();
+                if (s.length > 10) {
+                    sentences.push(s);
+                }
+            }
+
+            /* If no sentences matched (e.g. no punctuation), split by line / long chunks */
+            if (sentences.length === 0 && raw.length > 0) {
+                sentences = raw.split(/[.!?\n]+/).filter(function(s) {
+                    return s.trim().length > 10;
+                }).map(function(s) {
+                    return s.trim() + '.';
+                });
+            }
+
+            return sentences;
+        }
+
+        /* Tokenize a sentence into lowercase words */
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 1;
+            });
+        }
+
+        /* Extractive summarization algorithm */
+        function summarize(text) {
+            var sentences = splitSentences(text);
+
+            if (sentences.length === 0) {
+                return { summary: 'Could not extract sentences from the provided text. Please enter longer text with proper punctuation.', sentences: 0 };
+            }
+
+            if (sentences.length <= 2) {
+                return { summary: sentences.join(' '), sentences: sentences.length };
+            }
+
+            /* Step 1: Build word frequency map (excluding stop words) */
+            var wordFreq = {};
+            var maxFreq = 1;
+
+            for (var i = 0; i < sentences.length; i++) {
+                var words = tokenize(sentences[i]);
+                for (var j = 0; j < words.length; j++) {
+                    var w = words[j];
+                    if (!stopWords.has(w)) {
+                        wordFreq[w] = (wordFreq[w] || 0) + 1;
+                        if (wordFreq[w] > maxFreq) maxFreq = wordFreq[w];
+                    }
+                }
+            }
+
+            /* Normalize frequencies */
+            var wordKeys = Object.keys(wordFreq);
+            for (var k = 0; k < wordKeys.length; k++) {
+                wordFreq[wordKeys[k]] = wordFreq[wordKeys[k]] / maxFreq;
+            }
+
+            /* Step 2: Score each sentence */
+            var scored = [];
+            for (var s = 0; s < sentences.length; s++) {
+                var sWords = tokenize(sentences[s]);
+                var score = 0;
+                var scoredWordCount = 0;
+
+                for (var w2 = 0; w2 < sWords.length; w2++) {
+                    if (wordFreq[sWords[w2]]) {
+                        score += wordFreq[sWords[w2]];
+                        scoredWordCount++;
+                    }
+                }
+
+                /* Normalize by sentence length to avoid bias toward long sentences */
+                if (scoredWordCount > 0) {
+                    score = score / scoredWordCount;
+                }
+
+                /* Small bonus for position: first and second sentences often carry key info */
+                if (s === 0) score *= 1.25;
+                else if (s === 1) score *= 1.1;
+
+                scored.push({ index: s, score: score, text: sentences[s] });
+            }
+
+            /* Step 3: Determine how many sentences to include */
+            var numSentences;
+            var totalSentences = sentences.length;
+            if (totalSentences <= 5) numSentences = 2;
+            else if (totalSentences <= 10) numSentences = 3;
+            else if (totalSentences <= 20) numSentences = 4;
+            else if (totalSentences <= 40) numSentences = 5;
+            else numSentences = Math.min(7, Math.ceil(totalSentences * 0.15));
+
+            /* Step 4: Pick top N sentences, then sort by original order */
+            scored.sort(function(a, b) { return b.score - a.score; });
+            var topSentences = scored.slice(0, numSentences);
+            topSentences.sort(function(a, b) { return a.index - b.index; });
+
+            var summaryResult = topSentences.map(function(item) { return item.text; }).join(' ');
+
+            return { summary: summaryResult, sentences: numSentences };
+        }
+
+        summarizeBtn.addEventListener('click', function() {
+            var text = inputText.value.trim();
+
+            if (!text) {
+                summaryOutput.style.display = 'block';
+                summaryText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter some text to summarize.</p>';
+                summaryWordCount.textContent = '';
+                reductionInfo.textContent = '';
+                return;
+            }
+
+            var originalWords = countWords(text);
+
+            if (originalWords < 10) {
+                summaryOutput.style.display = 'block';
+                summaryText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter more text. The summarizer works best with at least a few paragraphs.</p>';
+                summaryWordCount.textContent = '';
+                reductionInfo.textContent = '';
+                return;
+            }
+
+            var result = summarize(text);
+            var summaryWords = countWords(result.summary);
+            var reduction = ((1 - summaryWords / originalWords) * 100).toFixed(0);
+
+            summaryOutput.style.display = 'block';
+            summaryText.innerHTML = '<p style="margin: 0; color: var(--text-main); line-height: 1.8;">' + result.summary.replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</p>';
+            summaryWordCount.textContent = summaryWords + ' words (summary)';
+            reductionInfo.textContent = 'Reduced from ' + originalWords + ' words (' + reduction + '% shorter)';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            var text = summaryText.textContent || summaryText.innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Summary'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Summary'; }, 2000);
+            }
+        });
+    })();
+    </script>
+</body>
+</html>
