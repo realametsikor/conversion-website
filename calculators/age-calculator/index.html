@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - Calculate Your Exact Age Instantly | ToolsNest</title>
+    <meta name="description" content="Calculate your exact age in years, months, and days from your date of birth. See your next birthday countdown and total days lived.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/age-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Age Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Age Calculator</h1>
+                <p class="text-center mb-3">Enter your date of birth to find your exact age in years, months, and days, plus a countdown to your next birthday.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="age-form">
+                        <div class="form-group">
+                            <label for="dob">Date of Birth</label>
+                            <input type="date" id="dob" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age-as-of">Calculate Age As Of (optional)</label>
+                            <input type="date" id="age-as-of" class="form-input">
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">Defaults to today if left blank.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Age</button>
+                    </form>
+
+                    <div id="age-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Your Age</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Years</p>
+                                <strong id="result-years" style="font-size: 2rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Months</p>
+                                <strong id="result-months" style="font-size: 2rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Days</p>
+                                <strong id="result-days" style="font-size: 2rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Total Days Lived:</strong>
+                                <span id="result-total-days" class="text-muted"></span>
+                            </p>
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Total Weeks Lived:</strong>
+                                <span id="result-total-weeks" class="text-muted"></span>
+                            </p>
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Total Months Lived:</strong>
+                                <span id="result-total-months" class="text-muted"></span>
+                            </p>
+                        </div>
+
+                        <div style="margin-top: 1rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--primary);">
+                            <p style="margin: 0; font-size: 0.95rem; color: var(--text-main);">
+                                <strong>Next Birthday:</strong>
+                                <span id="result-next-birthday" class="text-muted"></span>
+                            </p>
+                            <p style="margin: 0.5rem 0 0 0; font-size: 0.95rem; color: var(--text-main);">
+                                <strong>Countdown:</strong>
+                                <span id="result-countdown" style="color: var(--primary); font-weight: 600;"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your date of birth using the date picker.</li>
+                        <li>Optionally, set a specific date to calculate your age as of that date (defaults to today).</li>
+                        <li>Click "Calculate Age" to see your exact age broken down into years, months, and days.</li>
+                        <li>View additional details including total days lived and a countdown to your next birthday.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is the exact age calculated?</h3>
+                        <p>The calculator computes the difference between your date of birth and the target date by counting complete years, then complete months, then remaining days. It accounts for varying month lengths and leap years.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does it account for leap years?</h3>
+                        <p>Yes. The calculator correctly handles leap years. If you were born on February 29, your birthday is recognized on that date in leap years, and the countdown adjusts accordingly.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I calculate age as of a past or future date?</h3>
+                        <p>Yes. Use the "Calculate Age As Of" field to enter any date. This lets you find your age on a specific historical date or determine how old you will be on a future date.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my date of birth stored anywhere?</h3>
+                        <p>No. All calculations happen entirely in your browser. No data is sent to any server or stored anywhere.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/date-difference-calculator" class="related-link">Date Difference Calculator</a>
+                    <a href="/calculators/time-zone-converter" class="related-link">Time Zone Converter</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var form = document.getElementById('age-form');
+        var resultsDiv = document.getElementById('age-results');
+
+        function getDaysInMonth(year, month) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+
+        function calcAge(birthDate, targetDate) {
+            var years = targetDate.getFullYear() - birthDate.getFullYear();
+            var months = targetDate.getMonth() - birthDate.getMonth();
+            var days = targetDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                var prevMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            return { years: years, months: months, days: days };
+        }
+
+        function totalDaysBetween(d1, d2) {
+            var msPerDay = 1000 * 60 * 60 * 24;
+            var utc1 = Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate());
+            var utc2 = Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate());
+            return Math.floor((utc2 - utc1) / msPerDay);
+        }
+
+        function formatDateNice(d) {
+            var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            return d.toLocaleDateString('en-US', options);
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var dobVal = document.getElementById('dob').value;
+            var asOfVal = document.getElementById('age-as-of').value;
+
+            if (!dobVal) return;
+
+            var parts = dobVal.split('-');
+            var birthDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+
+            var targetDate;
+            if (asOfVal) {
+                var tParts = asOfVal.split('-');
+                targetDate = new Date(parseInt(tParts[0]), parseInt(tParts[1]) - 1, parseInt(tParts[2]));
+            } else {
+                var now = new Date();
+                targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            }
+
+            if (birthDate > targetDate) {
+                resultsDiv.style.display = 'block';
+                document.getElementById('result-years').textContent = '--';
+                document.getElementById('result-months').textContent = '--';
+                document.getElementById('result-days').textContent = '--';
+                document.getElementById('result-total-days').textContent = 'Date of birth must be before the target date.';
+                document.getElementById('result-total-weeks').textContent = '';
+                document.getElementById('result-total-months').textContent = '';
+                document.getElementById('result-next-birthday').textContent = '';
+                document.getElementById('result-countdown').textContent = '';
+                return;
+            }
+
+            var age = calcAge(birthDate, targetDate);
+            var totalDays = totalDaysBetween(birthDate, targetDate);
+            var totalWeeks = Math.floor(totalDays / 7);
+            var totalMonths = age.years * 12 + age.months;
+
+            document.getElementById('result-years').textContent = age.years;
+            document.getElementById('result-months').textContent = age.months;
+            document.getElementById('result-days').textContent = age.days;
+            document.getElementById('result-total-days').textContent = totalDays.toLocaleString() + ' days';
+            document.getElementById('result-total-weeks').textContent = totalWeeks.toLocaleString() + ' weeks';
+            document.getElementById('result-total-months').textContent = totalMonths.toLocaleString() + ' months';
+
+            // Next birthday calculation
+            var nextBirthday = new Date(targetDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
+            // Handle Feb 29 birthdays
+            if (birthDate.getMonth() === 1 && birthDate.getDate() === 29) {
+                var yearToCheck = targetDate.getFullYear();
+                if (getDaysInMonth(yearToCheck, 1) < 29) {
+                    nextBirthday = new Date(yearToCheck, 2, 1); // March 1 in non-leap years
+                }
+            }
+
+            if (nextBirthday <= targetDate) {
+                var nextYear = targetDate.getFullYear() + 1;
+                if (birthDate.getMonth() === 1 && birthDate.getDate() === 29) {
+                    // Find next leap year
+                    while (getDaysInMonth(nextYear, 1) < 29) {
+                        nextYear++;
+                    }
+                }
+                nextBirthday = new Date(nextYear, birthDate.getMonth(), birthDate.getDate());
+            }
+
+            var daysUntil = totalDaysBetween(targetDate, nextBirthday);
+            var turningAge = nextBirthday.getFullYear() - birthDate.getFullYear();
+
+            document.getElementById('result-next-birthday').textContent = formatDateNice(nextBirthday) + ' (turning ' + turningAge + ')';
+            document.getElementById('result-countdown').textContent = daysUntil + ' day' + (daysUntil !== 1 ? 's' : '') + ' away';
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - Calculate Percentages Easily | ToolsNest</title>
+    <meta name="description" content="Calculate percentages with three modes: find X% of Y, find what percent X is of Y, and calculate percentage change between two values. Free and instant.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/percentage-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Percentage Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Percentage Calculator</h1>
+                <p class="text-center mb-3">Three handy percentage calculators in one: find a percentage of a number, determine what percent one number is of another, or calculate the percentage change between two values.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Mode tabs -->
+                    <div id="mode-tabs" style="display: flex; gap: 0; margin-bottom: 1.5rem; border-radius: var(--radius-sm); overflow: hidden; border: 2px solid var(--primary);">
+                        <button type="button" class="mode-tab active" data-mode="percent-of" style="flex: 1; padding: 0.75rem 0.5rem; border: none; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; background: var(--primary); color: #fff;">X% of Y</button>
+                        <button type="button" class="mode-tab" data-mode="is-what-percent" style="flex: 1; padding: 0.75rem 0.5rem; border: none; border-left: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; background: var(--card-bg, #fff); color: var(--text-main);">X is ?% of Y</button>
+                        <button type="button" class="mode-tab" data-mode="percent-change" style="flex: 1; padding: 0.75rem 0.5rem; border: none; border-left: 1px solid var(--border); cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; background: var(--card-bg, #fff); color: var(--text-main);">% Change</button>
+                    </div>
+
+                    <!-- Mode 1: What is X% of Y? -->
+                    <form id="form-percent-of" class="calc-mode">
+                        <p class="text-muted mb-2" style="font-size: 0.95rem;">What is <strong>X%</strong> of <strong>Y</strong>?</p>
+                        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="pof-percent">Percentage (%)</label>
+                                <input type="number" id="pof-percent" class="form-input" placeholder="e.g., 25" step="any" required>
+                            </div>
+                            <div style="padding-top: 1.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-muted);">of</div>
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="pof-number">Number</label>
+                                <input type="number" id="pof-number" class="form-input" placeholder="e.g., 200" step="any" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
+                    </form>
+
+                    <!-- Mode 2: X is what % of Y? -->
+                    <form id="form-is-what-percent" class="calc-mode" style="display: none;">
+                        <p class="text-muted mb-2" style="font-size: 0.95rem;"><strong>X</strong> is what <strong>%</strong> of <strong>Y</strong>?</p>
+                        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="iwp-value">Value (X)</label>
+                                <input type="number" id="iwp-value" class="form-input" placeholder="e.g., 50" step="any" required>
+                            </div>
+                            <div style="padding-top: 1.5rem; font-size: 1.25rem; font-weight: 700; color: var(--text-muted);">of</div>
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="iwp-total">Total (Y)</label>
+                                <input type="number" id="iwp-total" class="form-input" placeholder="e.g., 200" step="any" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
+                    </form>
+
+                    <!-- Mode 3: Percentage change from X to Y -->
+                    <form id="form-percent-change" class="calc-mode" style="display: none;">
+                        <p class="text-muted mb-2" style="font-size: 0.95rem;">Percentage change from <strong>X</strong> to <strong>Y</strong></p>
+                        <div style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="pc-from">From (X)</label>
+                                <input type="number" id="pc-from" class="form-input" placeholder="e.g., 80" step="any" required>
+                            </div>
+                            <div style="padding-top: 1.5rem; font-size: 1.5rem; font-weight: 700; color: var(--text-muted);">&rarr;</div>
+                            <div class="form-group" style="flex: 1; min-width: 100px;">
+                                <label for="pc-to">To (Y)</label>
+                                <input type="number" id="pc-to" class="form-input" placeholder="e.g., 100" step="any" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
+                    </form>
+
+                    <!-- Result -->
+                    <div id="pct-result" style="display: none; margin-top: 1.5rem; text-align: center; padding: 1.5rem; background: var(--bg-color); border-radius: var(--radius); border: 2px solid var(--primary);">
+                        <p id="pct-result-label" class="text-muted mb-1" style="font-size: 0.95rem;"></p>
+                        <strong id="pct-result-value" style="font-size: 2.5rem; color: var(--primary); display: block;"></strong>
+                        <p id="pct-result-detail" class="text-muted mt-1" style="font-size: 0.9rem;"></p>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Choose a calculation mode using the tabs at the top: "X% of Y", "X is ?% of Y", or "% Change".</li>
+                        <li>Enter the required values in the input fields for your chosen mode.</li>
+                        <li>Click "Calculate" to get your result instantly.</li>
+                        <li>Switch between modes at any time to perform different percentage calculations.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What are the three calculation modes?</h3>
+                        <p><strong>"X% of Y"</strong> finds a percentage of a number (e.g., 25% of 200 = 50). <strong>"X is ?% of Y"</strong> determines what percentage one number is of another (e.g., 50 is 25% of 200). <strong>"% Change"</strong> calculates the percentage increase or decrease from one value to another.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I enter decimal numbers?</h3>
+                        <p>Yes. All input fields accept decimal numbers. For example, you can calculate 12.5% of 99.99 or find the percentage change from 3.14 to 6.28.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is percentage change calculated?</h3>
+                        <p>Percentage change is calculated using the formula: ((New Value - Old Value) / |Old Value|) x 100. A positive result indicates an increase, while a negative result indicates a decrease.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What happens if I divide by zero?</h3>
+                        <p>If you enter zero as the total value in "X is ?% of Y" mode or as the starting value in "% Change" mode, the calculator will display an error message since division by zero is undefined.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/grade-calculator" class="related-link">Grade Calculator</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var tabs = document.querySelectorAll('.mode-tab');
+        var forms = document.querySelectorAll('.calc-mode');
+        var resultDiv = document.getElementById('pct-result');
+        var resultLabel = document.getElementById('pct-result-label');
+        var resultValue = document.getElementById('pct-result-value');
+        var resultDetail = document.getElementById('pct-result-detail');
+
+        function formatNumber(num) {
+            if (Number.isInteger(num)) return num.toLocaleString();
+            // Show up to 6 decimal places, removing trailing zeros
+            return parseFloat(num.toFixed(6)).toLocaleString(undefined, { maximumFractionDigits: 6 });
+        }
+
+        // Tab switching
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                tabs.forEach(function(t) {
+                    t.style.background = 'var(--card-bg, #fff)';
+                    t.style.color = 'var(--text-main)';
+                    t.classList.remove('active');
+                });
+                tab.style.background = 'var(--primary)';
+                tab.style.color = '#fff';
+                tab.classList.add('active');
+
+                var mode = tab.getAttribute('data-mode');
+                forms.forEach(function(f) { f.style.display = 'none'; });
+                document.getElementById('form-' + mode).style.display = 'block';
+                resultDiv.style.display = 'none';
+            });
+        });
+
+        // Mode 1: X% of Y
+        document.getElementById('form-percent-of').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var percent = parseFloat(document.getElementById('pof-percent').value);
+            var number = parseFloat(document.getElementById('pof-number').value);
+            if (isNaN(percent) || isNaN(number)) return;
+
+            var result = (percent / 100) * number;
+            resultLabel.textContent = percent + '% of ' + formatNumber(number) + ' is:';
+            resultValue.textContent = formatNumber(result);
+            resultDetail.textContent = 'Formula: (' + percent + ' / 100) \u00d7 ' + formatNumber(number) + ' = ' + formatNumber(result);
+            resultDiv.style.display = 'block';
+            resultDiv.style.borderColor = 'var(--primary)';
+            resultValue.style.color = 'var(--primary)';
+        });
+
+        // Mode 2: X is what % of Y
+        document.getElementById('form-is-what-percent').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var value = parseFloat(document.getElementById('iwp-value').value);
+            var total = parseFloat(document.getElementById('iwp-total').value);
+            if (isNaN(value) || isNaN(total)) return;
+
+            if (total === 0) {
+                resultLabel.textContent = 'Error';
+                resultValue.textContent = 'Undefined';
+                resultValue.style.color = '#ef4444';
+                resultDetail.textContent = 'Cannot divide by zero. The total (Y) must be a non-zero value.';
+                resultDiv.style.display = 'block';
+                resultDiv.style.borderColor = '#ef4444';
+                return;
+            }
+
+            var result = (value / total) * 100;
+            resultLabel.textContent = formatNumber(value) + ' is what % of ' + formatNumber(total) + '?';
+            resultValue.textContent = formatNumber(result) + '%';
+            resultDetail.textContent = 'Formula: (' + formatNumber(value) + ' / ' + formatNumber(total) + ') \u00d7 100 = ' + formatNumber(result) + '%';
+            resultDiv.style.display = 'block';
+            resultDiv.style.borderColor = 'var(--primary)';
+            resultValue.style.color = 'var(--primary)';
+        });
+
+        // Mode 3: % change from X to Y
+        document.getElementById('form-percent-change').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var fromVal = parseFloat(document.getElementById('pc-from').value);
+            var toVal = parseFloat(document.getElementById('pc-to').value);
+            if (isNaN(fromVal) || isNaN(toVal)) return;
+
+            if (fromVal === 0) {
+                resultLabel.textContent = 'Error';
+                resultValue.textContent = 'Undefined';
+                resultValue.style.color = '#ef4444';
+                resultDetail.textContent = 'Cannot calculate percentage change from zero. The starting value must be non-zero.';
+                resultDiv.style.display = 'block';
+                resultDiv.style.borderColor = '#ef4444';
+                return;
+            }
+
+            var change = ((toVal - fromVal) / Math.abs(fromVal)) * 100;
+            var direction = change > 0 ? 'increase' : change < 0 ? 'decrease' : 'no change';
+            var color = change > 0 ? '#22c55e' : change < 0 ? '#ef4444' : 'var(--primary)';
+            var sign = change > 0 ? '+' : '';
+
+            resultLabel.textContent = 'Percentage change from ' + formatNumber(fromVal) + ' to ' + formatNumber(toVal) + ':';
+            resultValue.textContent = sign + formatNumber(change) + '%';
+            resultValue.style.color = color;
+            resultDetail.textContent = 'This is a ' + formatNumber(Math.abs(change)) + '% ' + direction + '. Difference: ' + formatNumber(toVal - fromVal);
+            resultDiv.style.display = 'block';
+            resultDiv.style.borderColor = color;
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

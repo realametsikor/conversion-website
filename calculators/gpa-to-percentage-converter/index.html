@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPA to Percentage Converter - Convert GPA & Percentage | ToolsNest</title>
+    <meta name="description" content="Convert GPA to percentage or percentage to GPA across multiple grading scales (4.0, 5.0, 10.0). See grade letter equivalents instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/gpa-to-percentage-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; GPA to Percentage Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">GPA to Percentage Converter</h1>
+                <p class="text-center mb-3">Convert between GPA and percentage values across different grading scales, with letter grade equivalents.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="gpa-form">
+                        <div class="form-group">
+                            <label for="conv-mode">Conversion Mode</label>
+                            <select id="conv-mode" class="form-input">
+                                <option value="gpa-to-pct">GPA to Percentage</option>
+                                <option value="pct-to-gpa">Percentage to GPA</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gpa-scale">GPA Scale</label>
+                            <select id="gpa-scale" class="form-input">
+                                <option value="4">4.0 Scale (US Standard)</option>
+                                <option value="5">5.0 Scale</option>
+                                <option value="10">10.0 Scale (India)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="gpa-input-group">
+                            <label for="gpa-value">GPA Value</label>
+                            <input type="number" id="gpa-value" class="form-input" placeholder="e.g., 3.5" min="0" step="0.01" required>
+                            <small class="text-muted" id="gpa-range-hint">Enter a value between 0 and 4.0</small>
+                        </div>
+
+                        <div class="form-group" id="pct-input-group" style="display: none;">
+                            <label for="pct-value">Percentage Value</label>
+                            <input type="number" id="pct-value" class="form-input" placeholder="e.g., 85" min="0" max="100" step="0.01">
+                            <small class="text-muted">Enter a value between 0 and 100</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Convert</button>
+                    </form>
+
+                    <div id="gpa-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Conversion Result</h3>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">GPA</p>
+                                <strong id="result-gpa" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                                <span id="result-scale-label" class="text-muted" style="font-size: 0.8rem;"></span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Percentage</p>
+                                <strong id="result-pct" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">%</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Letter Grade</p>
+                                <strong id="result-letter" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                                <span id="result-classification" class="text-muted" style="font-size: 0.8rem;"></span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <h4 class="mb-2">Grade Scale Reference</h4>
+                            <div style="overflow-x: auto;">
+                                <table id="grade-table" style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                                    <thead>
+                                        <tr style="background: var(--bg-color);">
+                                            <th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border);">Letter</th>
+                                            <th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border);">GPA Range</th>
+                                            <th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border);">Percentage Range</th>
+                                            <th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid var(--border);">Classification</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="grade-table-body">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your conversion mode: "GPA to Percentage" or "Percentage to GPA".</li>
+                        <li>Choose the GPA scale that applies to your institution (4.0, 5.0, or 10.0).</li>
+                        <li>Enter the GPA or percentage value you want to convert.</li>
+                        <li>Click "Convert" to see the equivalent value, letter grade, and a complete grade scale reference table.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is GPA converted to percentage?</h3>
+                        <p>The conversion depends on the scale. For the 4.0 scale, a common formula is Percentage = (GPA / 4.0) x 100, with adjustments to map to standard grade boundaries. Different institutions may use slightly different mappings. This tool uses widely accepted conversion ranges for each scale.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the difference between the 4.0, 5.0, and 10.0 scales?</h3>
+                        <p>The 4.0 scale is the most common in the United States, where 4.0 represents an A or perfect GPA. The 5.0 scale is used by some US high schools that include weighted honors/AP courses. The 10.0 scale is commonly used in Indian universities, where 10.0 represents the highest achievement.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are these conversions universally accepted?</h3>
+                        <p>No. GPA-to-percentage conversions vary between institutions, countries, and even departments. This tool provides commonly used approximations. Always check with your specific institution for their official conversion guidelines, especially for applications and transcripts.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What letter grades correspond to each GPA?</h3>
+                        <p>On the standard 4.0 scale: A = 4.0-3.7, B = 3.6-2.7, C = 2.6-1.7, D = 1.6-1.0, and F = below 1.0. The exact boundaries for plus/minus grades (A-, B+, etc.) are shown in the reference table after conversion.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/calculators/grade-calculator" class="related-link">Grade Calculator</a>
+                    <a href="/calculators/percentage-calculator" class="related-link">Percentage Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('gpa-form');
+        var modeSelect = document.getElementById('conv-mode');
+        var scaleSelect = document.getElementById('gpa-scale');
+        var gpaInputGroup = document.getElementById('gpa-input-group');
+        var pctInputGroup = document.getElementById('pct-input-group');
+        var gpaInput = document.getElementById('gpa-value');
+        var pctInput = document.getElementById('pct-value');
+        var rangeHint = document.getElementById('gpa-range-hint');
+        var resultsDiv = document.getElementById('gpa-results');
+
+        // Grade tables for each scale
+        var gradeTables = {
+            '4': [
+                { letter: 'A+', gpaMin: 4.0, gpaMax: 4.0, pctMin: 97, pctMax: 100, cls: 'Exceptional' },
+                { letter: 'A',  gpaMin: 3.85, gpaMax: 3.99, pctMin: 93, pctMax: 96, cls: 'Excellent' },
+                { letter: 'A-', gpaMin: 3.7, gpaMax: 3.84, pctMin: 90, pctMax: 92, cls: 'Excellent' },
+                { letter: 'B+', gpaMin: 3.3, gpaMax: 3.69, pctMin: 87, pctMax: 89, cls: 'Very Good' },
+                { letter: 'B',  gpaMin: 3.0, gpaMax: 3.29, pctMin: 83, pctMax: 86, cls: 'Good' },
+                { letter: 'B-', gpaMin: 2.7, gpaMax: 2.99, pctMin: 80, pctMax: 82, cls: 'Good' },
+                { letter: 'C+', gpaMin: 2.3, gpaMax: 2.69, pctMin: 77, pctMax: 79, cls: 'Above Average' },
+                { letter: 'C',  gpaMin: 2.0, gpaMax: 2.29, pctMin: 73, pctMax: 76, cls: 'Average' },
+                { letter: 'C-', gpaMin: 1.7, gpaMax: 1.99, pctMin: 70, pctMax: 72, cls: 'Below Average' },
+                { letter: 'D+', gpaMin: 1.3, gpaMax: 1.69, pctMin: 67, pctMax: 69, cls: 'Poor' },
+                { letter: 'D',  gpaMin: 1.0, gpaMax: 1.29, pctMin: 63, pctMax: 66, cls: 'Poor' },
+                { letter: 'D-', gpaMin: 0.7, gpaMax: 0.99, pctMin: 60, pctMax: 62, cls: 'Very Poor' },
+                { letter: 'F',  gpaMin: 0.0, gpaMax: 0.69, pctMin: 0, pctMax: 59, cls: 'Failing' }
+            ],
+            '5': [
+                { letter: 'A+', gpaMin: 5.0, gpaMax: 5.0, pctMin: 97, pctMax: 100, cls: 'Exceptional' },
+                { letter: 'A',  gpaMin: 4.5, gpaMax: 4.99, pctMin: 93, pctMax: 96, cls: 'Excellent' },
+                { letter: 'A-', gpaMin: 4.0, gpaMax: 4.49, pctMin: 90, pctMax: 92, cls: 'Excellent' },
+                { letter: 'B+', gpaMin: 3.5, gpaMax: 3.99, pctMin: 85, pctMax: 89, cls: 'Very Good' },
+                { letter: 'B',  gpaMin: 3.0, gpaMax: 3.49, pctMin: 80, pctMax: 84, cls: 'Good' },
+                { letter: 'B-', gpaMin: 2.5, gpaMax: 2.99, pctMin: 75, pctMax: 79, cls: 'Above Average' },
+                { letter: 'C+', gpaMin: 2.0, gpaMax: 2.49, pctMin: 70, pctMax: 74, cls: 'Average' },
+                { letter: 'C',  gpaMin: 1.5, gpaMax: 1.99, pctMin: 65, pctMax: 69, cls: 'Below Average' },
+                { letter: 'D',  gpaMin: 1.0, gpaMax: 1.49, pctMin: 60, pctMax: 64, cls: 'Poor' },
+                { letter: 'F',  gpaMin: 0.0, gpaMax: 0.99, pctMin: 0, pctMax: 59, cls: 'Failing' }
+            ],
+            '10': [
+                { letter: 'O',  gpaMin: 9.5, gpaMax: 10.0, pctMin: 90, pctMax: 100, cls: 'Outstanding' },
+                { letter: 'A+', gpaMin: 9.0, gpaMax: 9.49, pctMin: 85, pctMax: 89, cls: 'Excellent' },
+                { letter: 'A',  gpaMin: 8.0, gpaMax: 8.99, pctMin: 75, pctMax: 84, cls: 'Very Good' },
+                { letter: 'B+', gpaMin: 7.0, gpaMax: 7.99, pctMin: 65, pctMax: 74, cls: 'Good' },
+                { letter: 'B',  gpaMin: 6.0, gpaMax: 6.99, pctMin: 55, pctMax: 64, cls: 'Above Average' },
+                { letter: 'C',  gpaMin: 5.0, gpaMax: 5.99, pctMin: 45, pctMax: 54, cls: 'Average' },
+                { letter: 'P',  gpaMin: 4.0, gpaMax: 4.99, pctMin: 35, pctMax: 44, cls: 'Pass' },
+                { letter: 'F',  gpaMin: 0.0, gpaMax: 3.99, pctMin: 0, pctMax: 34, cls: 'Failing' }
+            ]
+        };
+
+        function updateUI() {
+            var mode = modeSelect.value;
+            var scale = scaleSelect.value;
+
+            if (mode === 'gpa-to-pct') {
+                gpaInputGroup.style.display = '';
+                pctInputGroup.style.display = 'none';
+                gpaInput.required = true;
+                pctInput.required = false;
+            } else {
+                gpaInputGroup.style.display = 'none';
+                pctInputGroup.style.display = '';
+                gpaInput.required = false;
+                pctInput.required = true;
+            }
+
+            gpaInput.max = scale;
+            rangeHint.textContent = 'Enter a value between 0 and ' + scale + '.0';
+            resultsDiv.style.display = 'none';
+        }
+
+        modeSelect.addEventListener('change', updateUI);
+        scaleSelect.addEventListener('change', updateUI);
+
+        function findGradeByGPA(gpa, scale) {
+            var table = gradeTables[scale];
+            for (var i = 0; i < table.length; i++) {
+                if (gpa >= table[i].gpaMin) {
+                    return table[i];
+                }
+            }
+            return table[table.length - 1];
+        }
+
+        function findGradeByPct(pct, scale) {
+            var table = gradeTables[scale];
+            for (var i = 0; i < table.length; i++) {
+                if (pct >= table[i].pctMin) {
+                    return table[i];
+                }
+            }
+            return table[table.length - 1];
+        }
+
+        function gpaToPercentage(gpa, scale) {
+            var grade = findGradeByGPA(gpa, scale);
+            var gpaRange = grade.gpaMax - grade.gpaMin;
+            var pctRange = grade.pctMax - grade.pctMin;
+            if (gpaRange === 0) return grade.pctMax;
+            var ratio = (gpa - grade.gpaMin) / gpaRange;
+            return grade.pctMin + (ratio * pctRange);
+        }
+
+        function percentageToGPA(pct, scale) {
+            var grade = findGradeByPct(pct, scale);
+            var pctRange = grade.pctMax - grade.pctMin;
+            var gpaRange = grade.gpaMax - grade.gpaMin;
+            if (pctRange === 0) return grade.gpaMax;
+            var ratio = (pct - grade.pctMin) / pctRange;
+            return grade.gpaMin + (ratio * gpaRange);
+        }
+
+        function buildTable(scale, highlightLetter) {
+            var table = gradeTables[scale];
+            var tbody = document.getElementById('grade-table-body');
+            tbody.innerHTML = '';
+
+            for (var i = 0; i < table.length; i++) {
+                var row = document.createElement('tr');
+                var isHighlighted = table[i].letter === highlightLetter;
+                if (isHighlighted) {
+                    row.style.background = 'var(--bg-color)';
+                    row.style.fontWeight = 'bold';
+                }
+                row.style.borderBottom = '1px solid var(--border)';
+
+                var gpaText = table[i].gpaMin === table[i].gpaMax
+                    ? table[i].gpaMin.toFixed(1)
+                    : table[i].gpaMin.toFixed(1) + ' - ' + table[i].gpaMax.toFixed(1);
+                var pctText = table[i].pctMin + '% - ' + table[i].pctMax + '%';
+
+                row.innerHTML = '<td style="padding: 0.5rem;">' + table[i].letter + '</td>' +
+                    '<td style="padding: 0.5rem;">' + gpaText + '</td>' +
+                    '<td style="padding: 0.5rem;">' + pctText + '</td>' +
+                    '<td style="padding: 0.5rem;">' + table[i].cls + '</td>';
+                tbody.appendChild(row);
+            }
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var mode = modeSelect.value;
+            var scale = scaleSelect.value;
+            var scaleMax = parseFloat(scale);
+            var gpa, pct, grade;
+
+            if (mode === 'gpa-to-pct') {
+                gpa = parseFloat(gpaInput.value);
+                if (isNaN(gpa) || gpa < 0 || gpa > scaleMax) {
+                    alert('Please enter a valid GPA between 0 and ' + scaleMax.toFixed(1) + '.');
+                    return;
+                }
+                grade = findGradeByGPA(gpa, scale);
+                pct = gpaToPercentage(gpa, scale);
+            } else {
+                pct = parseFloat(pctInput.value);
+                if (isNaN(pct) || pct < 0 || pct > 100) {
+                    alert('Please enter a valid percentage between 0 and 100.');
+                    return;
+                }
+                grade = findGradeByPct(pct, scale);
+                gpa = percentageToGPA(pct, scale);
+            }
+
+            document.getElementById('result-gpa').textContent = gpa.toFixed(2);
+            document.getElementById('result-scale-label').textContent = 'on ' + scaleMax.toFixed(1) + ' scale';
+            document.getElementById('result-pct').textContent = pct.toFixed(1);
+            document.getElementById('result-letter').textContent = grade.letter;
+            document.getElementById('result-classification').textContent = grade.cls;
+
+            buildTable(scale, grade.letter);
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

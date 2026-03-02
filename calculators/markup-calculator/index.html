@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markup Calculator - Calculate Markup % and Selling Price | ToolsNest</title>
+    <meta name="description" content="Calculate markup percentage from cost and selling price, or find the selling price from cost and desired markup. Includes profit margin and markup amount.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/markup-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Markup Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Markup Calculator</h1>
+                <p class="text-center mb-3">Calculate markup percentage from cost and selling price, or determine the selling price based on your desired markup.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label>Calculation Mode</label>
+                        <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                            <button type="button" id="btn-mode-markup" class="btn btn-primary" style="flex: 1;" onclick="switchMode('find-markup')">Find Markup %</button>
+                            <button type="button" id="btn-mode-price" class="btn btn-outline" style="flex: 1;" onclick="switchMode('find-price')">Find Selling Price</button>
+                        </div>
+                    </div>
+
+                    <form id="markup-form">
+                        <div class="form-group">
+                            <label for="markup-cost">Cost ($)</label>
+                            <input type="number" id="markup-cost" class="form-input" placeholder="e.g., 50" min="0.01" step="any" required>
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">The amount you pay to acquire or produce the item.</small>
+                        </div>
+
+                        <div class="form-group" id="group-selling-price">
+                            <label for="markup-selling-price">Selling Price ($)</label>
+                            <input type="number" id="markup-selling-price" class="form-input" placeholder="e.g., 80" min="0.01" step="any" required>
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">The price at which you sell the item to customers.</small>
+                        </div>
+
+                        <div class="form-group" id="group-markup-pct" style="display: none;">
+                            <label for="markup-percentage">Desired Markup (%)</label>
+                            <input type="number" id="markup-percentage" class="form-input" placeholder="e.g., 60" min="0" step="any">
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">The percentage above cost you want to charge.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
+                    </form>
+
+                    <div id="markup-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Markup Results</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Markup Percentage</p>
+                                <strong id="result-markup-pct" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Markup Amount</p>
+                                <strong id="result-markup-amt" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Profit Margin</p>
+                                <strong id="result-profit-margin" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Selling Price</p>
+                                <strong id="result-sell-price" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your calculation mode: "Find Markup %" to calculate markup from cost and selling price, or "Find Selling Price" to determine the price from cost and a desired markup percentage.</li>
+                        <li>Enter the cost of the item -- the amount you pay to acquire or produce it.</li>
+                        <li>Enter either the selling price or the desired markup percentage, depending on your selected mode.</li>
+                        <li>Click "Calculate" to see the markup percentage, markup amount, profit margin, and selling price.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between markup and profit margin?</h3>
+                        <p>Markup is the percentage added to the cost to get the selling price. It is calculated as (Selling Price - Cost) / Cost. Profit margin is the percentage of the selling price that is profit, calculated as (Selling Price - Cost) / Selling Price. For example, a $50 item sold at $80 has a 60% markup but a 37.5% profit margin.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why is markup always higher than profit margin?</h3>
+                        <p>Markup is based on the cost (a smaller number), while profit margin is based on the selling price (a larger number). Since the same dollar amount of profit is divided by a smaller number for markup, the resulting percentage is always higher. They only approach equality when the markup is very small.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is a typical markup percentage?</h3>
+                        <p>Markup varies widely by industry. Grocery stores often use 5-15% markup, clothing retail typically uses 50-100%, restaurants may use 200-300% on food, and luxury goods can exceed 500%. The appropriate markup depends on your overhead, competition, and target market.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I have a 0% markup?</h3>
+                        <p>Yes, a 0% markup means you are selling at cost with no profit. This is sometimes done as a loss leader strategy to attract customers. If you enter a selling price equal to cost, the calculator will show 0% markup and 0% profit margin.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/break-even-calculator" class="related-link">Break-Even Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/calculators/savings-goal-calculator" class="related-link">Savings Goal Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var currentMode = 'find-markup';
+
+        window.switchMode = function(mode) {
+            currentMode = mode;
+            var btnMarkup = document.getElementById('btn-mode-markup');
+            var btnPrice = document.getElementById('btn-mode-price');
+            var groupSelling = document.getElementById('group-selling-price');
+            var groupPct = document.getElementById('group-markup-pct');
+            var inputSelling = document.getElementById('markup-selling-price');
+            var inputPct = document.getElementById('markup-percentage');
+
+            if (mode === 'find-markup') {
+                btnMarkup.className = 'btn btn-primary';
+                btnPrice.className = 'btn btn-outline';
+                groupSelling.style.display = 'block';
+                groupPct.style.display = 'none';
+                inputSelling.required = true;
+                inputPct.required = false;
+            } else {
+                btnMarkup.className = 'btn btn-outline';
+                btnPrice.className = 'btn btn-primary';
+                groupSelling.style.display = 'none';
+                groupPct.style.display = 'block';
+                inputSelling.required = false;
+                inputPct.required = true;
+            }
+
+            document.getElementById('markup-results').style.display = 'none';
+        };
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        document.getElementById('markup-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var cost = parseFloat(document.getElementById('markup-cost').value);
+
+            if (isNaN(cost) || cost <= 0) {
+                return;
+            }
+
+            var sellingPrice, markupPct, markupAmt, profitMargin;
+
+            if (currentMode === 'find-markup') {
+                sellingPrice = parseFloat(document.getElementById('markup-selling-price').value);
+                if (isNaN(sellingPrice) || sellingPrice <= 0) {
+                    return;
+                }
+                markupAmt = sellingPrice - cost;
+                markupPct = (markupAmt / cost) * 100;
+                profitMargin = (markupAmt / sellingPrice) * 100;
+            } else {
+                markupPct = parseFloat(document.getElementById('markup-percentage').value);
+                if (isNaN(markupPct) || markupPct < 0) {
+                    return;
+                }
+                markupAmt = cost * (markupPct / 100);
+                sellingPrice = cost + markupAmt;
+                profitMargin = sellingPrice > 0 ? (markupAmt / sellingPrice) * 100 : 0;
+            }
+
+            document.getElementById('result-markup-pct').textContent = markupPct.toFixed(2) + '%';
+            document.getElementById('result-markup-amt').textContent = formatCurrency(markupAmt);
+            document.getElementById('result-profit-margin').textContent = profitMargin.toFixed(2) + '%';
+            document.getElementById('result-sell-price').textContent = formatCurrency(sellingPrice);
+
+            var summaryText;
+            if (markupAmt < 0) {
+                summaryText = ' Selling at ' + formatCurrency(sellingPrice) + ' with a cost of ' + formatCurrency(cost) + ' results in a loss of ' + formatCurrency(Math.abs(markupAmt)) + ' per unit (' + markupPct.toFixed(2) + '% negative markup). You are selling below cost.';
+            } else {
+                summaryText = ' With a cost of ' + formatCurrency(cost) + ' and a selling price of ' + formatCurrency(sellingPrice) + ', your markup is ' + markupPct.toFixed(2) + '% (' + formatCurrency(markupAmt) + ' above cost). Your profit margin is ' + profitMargin.toFixed(2) + '%, meaning ' + formatCurrency(markupAmt) + ' of every ' + formatCurrency(sellingPrice) + ' sale is profit.';
+            }
+
+            document.getElementById('result-summary').textContent = summaryText;
+            document.getElementById('markup-results').style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

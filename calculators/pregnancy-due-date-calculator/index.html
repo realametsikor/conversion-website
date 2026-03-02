@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Due Date Calculator - Estimate Your Baby's Arrival | ToolsNest</title>
+    <meta name="description" content="Calculate your estimated pregnancy due date based on your last menstrual period or conception date. See gestational age, trimester, and key milestone dates.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/pregnancy-due-date-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Pregnancy Due Date Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Pregnancy Due Date Calculator</h1>
+                <p class="text-center mb-3">Estimate your baby's due date, current gestational age, trimester, and key pregnancy milestones.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="due-date-form">
+                        <div class="form-group">
+                            <label for="calc-mode">Calculation Method</label>
+                            <select id="calc-mode" class="form-input">
+                                <option value="lmp">Last Menstrual Period (LMP)</option>
+                                <option value="conception">Conception Date</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="lmp-group">
+                            <label for="lmp-date">First Day of Last Menstrual Period</label>
+                            <input type="date" id="lmp-date" class="form-input" required>
+                        </div>
+
+                        <div class="form-group" id="conception-group" style="display: none;">
+                            <label for="conception-date">Conception Date</label>
+                            <input type="date" id="conception-date" class="form-input">
+                        </div>
+
+                        <div class="form-group" id="cycle-group">
+                            <label for="cycle-length">Average Cycle Length (days)</label>
+                            <input type="number" id="cycle-length" class="form-input" value="28" min="20" max="45" step="1">
+                            <small class="text-muted">Standard cycle is 28 days. Adjust if your cycle is different.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Due Date</button>
+                    </form>
+
+                    <div id="due-date-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Your Pregnancy Summary</h3>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Estimated Due Date</p>
+                                <strong id="result-due-date" style="font-size: 1.4rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Gestational Age</p>
+                                <strong id="result-gest-age" style="font-size: 1.4rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Current Trimester</p>
+                                <strong id="result-trimester" style="font-size: 1.4rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Days Remaining</p>
+                                <strong id="result-remaining" style="font-size: 1.4rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <h4 class="mb-2">Key Milestones</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div class="card" style="padding: 0.75rem;">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Conception (approx.)</p>
+                                    <strong id="result-conception" style="font-size: 0.95rem;">--</strong>
+                                </div>
+                                <div class="card" style="padding: 0.75rem;">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">End of 1st Trimester (Week 13)</p>
+                                    <strong id="result-tri1" style="font-size: 0.95rem;">--</strong>
+                                </div>
+                                <div class="card" style="padding: 0.75rem;">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">End of 2nd Trimester (Week 27)</p>
+                                    <strong id="result-tri2" style="font-size: 0.95rem;">--</strong>
+                                </div>
+                                <div class="card" style="padding: 0.75rem;">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Full Term (Week 39)</p>
+                                    <strong id="result-fullterm" style="font-size: 0.95rem;">--</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); border-left: 4px solid var(--accent);">
+                            <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">
+                                <strong>Disclaimer:</strong> This calculator is for informational and educational purposes only. It is not a substitute for professional medical advice. Actual due dates can vary. Only about 5% of babies are born on their exact due date. Please consult your healthcare provider for an accurate assessment.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your calculation method: "Last Menstrual Period (LMP)" if you know the first day of your last period, or "Conception Date" if you know your approximate conception date.</li>
+                        <li>Enter the relevant date using the date picker. For LMP mode, optionally adjust your average cycle length if it differs from the standard 28 days.</li>
+                        <li>Click "Calculate Due Date" to see your estimated due date, current gestational age, trimester, and days remaining.</li>
+                        <li>Review the key milestone dates to track important stages of your pregnancy journey.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is the due date calculated from LMP?</h3>
+                        <p>The due date is calculated using Naegele's rule with a cycle length adjustment. From your LMP date, the calculator adds 280 days (40 weeks) and then adjusts for your cycle length. If your cycle is longer than 28 days, the due date shifts later by the difference; if shorter, it shifts earlier. This accounts for ovulation timing differences between cycle lengths.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is the due date calculated from conception date?</h3>
+                        <p>When using the conception date, the calculator adds 266 days (38 weeks) to the provided date. This is because pregnancy is approximately 38 weeks from conception, or 40 weeks from the last menstrual period (since conception typically occurs about 2 weeks after the start of the menstrual cycle).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does gestational age mean?</h3>
+                        <p>Gestational age is the number of weeks and days since the first day of your last menstrual period (LMP). It is the standard way pregnancy duration is measured by healthcare providers. A full-term pregnancy is typically 39 to 40 weeks gestational age.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate is this due date estimate?</h3>
+                        <p>Due date estimates are approximate. Only about 5% of babies are born on the exact estimated due date. Most babies arrive within a two-week window around the due date. Factors such as irregular cycles, inaccurate date recall, and individual variation affect accuracy. An ultrasound in the first trimester provides the most accurate dating.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/age-calculator" class="related-link">Age Calculator</a>
+                    <a href="/calculators/date-difference-calculator" class="related-link">Date Difference Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('due-date-form');
+        var modeSelect = document.getElementById('calc-mode');
+        var lmpGroup = document.getElementById('lmp-group');
+        var conceptionGroup = document.getElementById('conception-group');
+        var cycleGroup = document.getElementById('cycle-group');
+        var lmpInput = document.getElementById('lmp-date');
+        var conceptionInput = document.getElementById('conception-date');
+        var cycleInput = document.getElementById('cycle-length');
+        var resultsDiv = document.getElementById('due-date-results');
+
+        function formatDate(date) {
+            var months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            return months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+        }
+
+        function addDays(date, days) {
+            var result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result;
+        }
+
+        function daysBetween(date1, date2) {
+            var oneDay = 24 * 60 * 60 * 1000;
+            return Math.round((date2 - date1) / oneDay);
+        }
+
+        modeSelect.addEventListener('change', function() {
+            if (modeSelect.value === 'lmp') {
+                lmpGroup.style.display = '';
+                conceptionGroup.style.display = 'none';
+                cycleGroup.style.display = '';
+                lmpInput.required = true;
+                conceptionInput.required = false;
+            } else {
+                lmpGroup.style.display = 'none';
+                conceptionGroup.style.display = '';
+                cycleGroup.style.display = 'none';
+                lmpInput.required = false;
+                conceptionInput.required = true;
+            }
+            resultsDiv.style.display = 'none';
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            var lmpDate, conceptionDate, dueDate;
+
+            if (modeSelect.value === 'lmp') {
+                var lmpVal = lmpInput.value;
+                if (!lmpVal) return;
+                lmpDate = new Date(lmpVal + 'T00:00:00');
+
+                var cycleLength = parseInt(cycleInput.value) || 28;
+                var cycleAdjustment = cycleLength - 28;
+
+                // Naegele's rule: LMP + 280 days, adjusted for cycle length
+                dueDate = addDays(lmpDate, 280 + cycleAdjustment);
+                conceptionDate = addDays(lmpDate, 14 + cycleAdjustment);
+            } else {
+                var concVal = conceptionInput.value;
+                if (!concVal) return;
+                conceptionDate = new Date(concVal + 'T00:00:00');
+
+                // From conception: add 266 days (38 weeks)
+                dueDate = addDays(conceptionDate, 266);
+                // LMP is approximately 14 days before conception
+                lmpDate = addDays(conceptionDate, -14);
+            }
+
+            // Calculate gestational age from LMP
+            var gestDays = daysBetween(lmpDate, today);
+            var gestWeeks = Math.floor(gestDays / 7);
+            var gestRemDays = gestDays % 7;
+
+            // Handle future LMP or negative gestational age
+            var gestAgeText;
+            if (gestDays < 0) {
+                gestAgeText = 'Not yet started';
+            } else {
+                gestAgeText = gestWeeks + ' week' + (gestWeeks !== 1 ? 's' : '') + ', ' + gestRemDays + ' day' + (gestRemDays !== 1 ? 's' : '');
+            }
+
+            // Determine trimester
+            var trimesterText;
+            if (gestDays < 0) {
+                trimesterText = 'Not yet started';
+            } else if (gestWeeks < 13) {
+                trimesterText = '1st Trimester';
+            } else if (gestWeeks < 27) {
+                trimesterText = '2nd Trimester';
+            } else if (gestWeeks <= 42) {
+                trimesterText = '3rd Trimester';
+            } else {
+                trimesterText = 'Past due date';
+            }
+
+            // Days remaining
+            var daysRemaining = daysBetween(today, dueDate);
+            var remainingText;
+            if (daysRemaining > 0) {
+                remainingText = daysRemaining + ' day' + (daysRemaining !== 1 ? 's' : '');
+            } else if (daysRemaining === 0) {
+                remainingText = 'Today!';
+            } else {
+                remainingText = Math.abs(daysRemaining) + ' day' + (Math.abs(daysRemaining) !== 1 ? 's' : '') + ' past due';
+            }
+
+            // Milestone dates
+            var endTri1 = addDays(lmpDate, 13 * 7); // End of week 13
+            var endTri2 = addDays(lmpDate, 27 * 7); // End of week 27
+            var fullTerm = addDays(lmpDate, 39 * 7); // Week 39
+
+            // Display results
+            document.getElementById('result-due-date').textContent = formatDate(dueDate);
+            document.getElementById('result-gest-age').textContent = gestAgeText;
+            document.getElementById('result-trimester').textContent = trimesterText;
+            document.getElementById('result-remaining').textContent = remainingText;
+            document.getElementById('result-conception').textContent = formatDate(conceptionDate);
+            document.getElementById('result-tri1').textContent = formatDate(endTri1);
+            document.getElementById('result-tri2').textContent = formatDate(endTri2);
+            document.getElementById('result-fullterm').textContent = formatDate(fullTerm);
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

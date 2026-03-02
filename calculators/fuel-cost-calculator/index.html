@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fuel Cost Calculator - Estimate Trip Fuel Expenses | ToolsNest</title>
+    <meta name="description" content="Calculate fuel costs for any trip. Enter distance, fuel efficiency, and gas price to get total fuel needed, trip cost, and cost per mile or kilometer.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/fuel-cost-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Fuel Cost Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Fuel Cost Calculator</h1>
+                <p class="text-center mb-3">Estimate the total fuel cost for your trip based on distance, fuel efficiency, and fuel price.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="fuel-form">
+                        <div class="form-group">
+                            <label>Unit System</label>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.25rem;">
+                                <button type="button" id="btn-imperial" class="btn btn-primary" style="flex: 1;" onclick="setUnit('imperial')">Imperial (mi, mpg, gal)</button>
+                                <button type="button" id="btn-metric" class="btn btn-outline" style="flex: 1;" onclick="setUnit('metric')">Metric (km, L/100km, L)</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fuel-distance" id="label-distance">Distance (miles)</label>
+                            <input type="number" id="fuel-distance" class="form-input" placeholder="e.g., 350" min="0.1" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fuel-efficiency" id="label-efficiency">Fuel Efficiency (mpg)</label>
+                            <input type="number" id="fuel-efficiency" class="form-input" placeholder="e.g., 28" min="0.1" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fuel-price" id="label-price">Fuel Price per Gallon ($)</label>
+                            <input type="number" id="fuel-price" class="form-input" placeholder="e.g., 3.50" min="0.01" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Fuel Cost</button>
+                    </form>
+
+                    <div id="fuel-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Trip Fuel Summary</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;" id="label-fuel-needed">Fuel Needed (gal)</p>
+                                <strong id="result-fuel" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Cost</p>
+                                <strong id="result-cost" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;" id="label-cost-per">Cost per Mile</p>
+                                <strong id="result-per" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your preferred unit system: Imperial (miles, mpg, gallons) or Metric (km, L/100km, liters).</li>
+                        <li>Enter the total distance of your trip in miles or kilometers.</li>
+                        <li>Enter your vehicle's fuel efficiency (miles per gallon or liters per 100 km).</li>
+                        <li>Enter the current fuel price per gallon or per liter, then click "Calculate Fuel Cost" to see your results.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How do I find my car's fuel efficiency?</h3>
+                        <p>Check your vehicle's owner's manual or the sticker on the driver's side door jamb. You can also look up your car's EPA fuel economy rating at fueleconomy.gov. For real-world estimates, divide your miles driven by gallons used at your last fill-up.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this calculator account for city vs. highway driving?</h3>
+                        <p>No. This calculator uses a single fuel efficiency value. For mixed driving, you can use a blended average. Typically, highway driving gets better mileage than city driving, so adjust accordingly based on your route.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate is this fuel cost estimate?</h3>
+                        <p>The estimate is as accurate as the values you enter. Actual fuel consumption can vary based on driving conditions, speed, terrain, weather, vehicle load, tire pressure, and driving habits. Use this as a planning tool rather than an exact prediction.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for a round trip?</h3>
+                        <p>Yes. Simply enter the total round-trip distance (double your one-way distance) to calculate the fuel cost for your entire journey.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/calculators/savings-goal-calculator" class="related-link">Savings Goal Calculator</a>
+                    <a href="/calculators/markup-calculator" class="related-link">Markup Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var currentUnit = 'imperial';
+
+        window.setUnit = function(unit) {
+            currentUnit = unit;
+            var btnImperial = document.getElementById('btn-imperial');
+            var btnMetric = document.getElementById('btn-metric');
+            var labelDistance = document.getElementById('label-distance');
+            var labelEfficiency = document.getElementById('label-efficiency');
+            var labelPrice = document.getElementById('label-price');
+            var inputDistance = document.getElementById('fuel-distance');
+            var inputEfficiency = document.getElementById('fuel-efficiency');
+            var inputPrice = document.getElementById('fuel-price');
+
+            if (unit === 'imperial') {
+                btnImperial.className = 'btn btn-primary';
+                btnMetric.className = 'btn btn-outline';
+                labelDistance.textContent = 'Distance (miles)';
+                labelEfficiency.textContent = 'Fuel Efficiency (mpg)';
+                labelPrice.textContent = 'Fuel Price per Gallon ($)';
+                inputDistance.placeholder = 'e.g., 350';
+                inputEfficiency.placeholder = 'e.g., 28';
+                inputPrice.placeholder = 'e.g., 3.50';
+            } else {
+                btnImperial.className = 'btn btn-outline';
+                btnMetric.className = 'btn btn-primary';
+                labelDistance.textContent = 'Distance (km)';
+                labelEfficiency.textContent = 'Fuel Consumption (L/100km)';
+                labelPrice.textContent = 'Fuel Price per Liter ($)';
+                inputDistance.placeholder = 'e.g., 500';
+                inputEfficiency.placeholder = 'e.g., 8.5';
+                inputPrice.placeholder = 'e.g., 1.60';
+            }
+
+            document.getElementById('fuel-results').style.display = 'none';
+        };
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        document.getElementById('fuel-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var distance = parseFloat(document.getElementById('fuel-distance').value);
+            var efficiency = parseFloat(document.getElementById('fuel-efficiency').value);
+            var price = parseFloat(document.getElementById('fuel-price').value);
+
+            if (isNaN(distance) || isNaN(efficiency) || isNaN(price) || distance <= 0 || efficiency <= 0 || price <= 0) {
+                return;
+            }
+
+            var fuelNeeded, totalCost, costPer, distUnit, volUnit;
+
+            if (currentUnit === 'imperial') {
+                fuelNeeded = distance / efficiency;
+                totalCost = fuelNeeded * price;
+                costPer = totalCost / distance;
+                distUnit = 'mile';
+                volUnit = 'gal';
+                document.getElementById('label-fuel-needed').textContent = 'Fuel Needed (gal)';
+                document.getElementById('label-cost-per').textContent = 'Cost per Mile';
+            } else {
+                fuelNeeded = (efficiency / 100) * distance;
+                totalCost = fuelNeeded * price;
+                costPer = totalCost / distance;
+                distUnit = 'km';
+                volUnit = 'L';
+                document.getElementById('label-fuel-needed').textContent = 'Fuel Needed (L)';
+                document.getElementById('label-cost-per').textContent = 'Cost per km';
+            }
+
+            document.getElementById('result-fuel').textContent = fuelNeeded.toFixed(2) + ' ' + volUnit;
+            document.getElementById('result-cost').textContent = formatCurrency(totalCost);
+            document.getElementById('result-per').textContent = formatCurrency(costPer);
+            document.getElementById('result-summary').textContent = ' A ' + distance + ' ' + distUnit + ' trip at ' + efficiency + (currentUnit === 'imperial' ? ' mpg' : ' L/100km') + ' with fuel priced at ' + formatCurrency(price) + '/' + volUnit + ' will require ' + fuelNeeded.toFixed(2) + ' ' + volUnit + ' of fuel, costing a total of ' + formatCurrency(totalCost) + '.';
+
+            document.getElementById('fuel-results').style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

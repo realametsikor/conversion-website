@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Difference Calculator - Days Between Two Dates | ToolsNest</title>
+    <meta name="description" content="Calculate the exact difference between two dates in years, months, days, weeks, and total days. Free and easy to use date duration calculator.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/date-difference-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Date Difference Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Date Difference Calculator</h1>
+                <p class="text-center mb-3">Find the exact duration between any two dates in years, months, days, and more.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="date-diff-form">
+                        <div class="form-group">
+                            <label for="start-date">Start Date</label>
+                            <input type="date" id="start-date" class="form-input" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="end-date">End Date</label>
+                            <input type="date" id="end-date" class="form-input" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Difference</button>
+                    </form>
+
+                    <div id="diff-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Date Difference</h3>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Years</p>
+                                <strong id="result-years" style="font-size: 2rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Months</p>
+                                <strong id="result-months" style="font-size: 2rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Days</p>
+                                <strong id="result-days" style="font-size: 2rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <p id="result-summary" class="text-muted" style="font-size: 0.95rem; margin: 0;"></p>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm);">
+                            <h4 style="margin: 0 0 0.75rem 0; font-size: 0.95rem; color: var(--text-main);">Also Expressed As:</h4>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div style="padding: 0.75rem; background: var(--card-bg, #fff); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Total Days</p>
+                                    <strong id="result-total-days" style="font-size: 1.25rem; color: var(--primary);">--</strong>
+                                </div>
+                                <div style="padding: 0.75rem; background: var(--card-bg, #fff); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Total Weeks</p>
+                                    <strong id="result-total-weeks" style="font-size: 1.25rem; color: var(--primary);">--</strong>
+                                </div>
+                                <div style="padding: 0.75rem; background: var(--card-bg, #fff); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Total Months</p>
+                                    <strong id="result-total-months" style="font-size: 1.25rem; color: var(--primary);">--</strong>
+                                </div>
+                                <div style="padding: 0.75rem; background: var(--card-bg, #fff); border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                    <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Total Hours</p>
+                                    <strong id="result-total-hours" style="font-size: 1.25rem; color: var(--primary);">--</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select a start date using the first date picker.</li>
+                        <li>Select an end date using the second date picker.</li>
+                        <li>Click "Calculate Difference" to see the duration between the two dates.</li>
+                        <li>Review the breakdown in years, months, and days, along with total days, weeks, months, and hours.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does the order of dates matter?</h3>
+                        <p>No. The calculator automatically determines which date is earlier and which is later, so you will always get a positive result regardless of the order you enter the dates.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does it account for leap years?</h3>
+                        <p>Yes. The calculation correctly handles leap years, including the extra day in February. Total day counts reflect the actual number of calendar days between the two dates.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is the month difference calculated?</h3>
+                        <p>Months are counted as complete calendar months. For example, January 15 to February 15 is exactly 1 month. Partial months are expressed as remaining days.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for project planning or age verification?</h3>
+                        <p>Absolutely. This tool is useful for calculating project durations, contract periods, age verification, event planning, and any scenario where you need the exact time span between two dates.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/age-calculator" class="related-link">Age Calculator</a>
+                    <a href="/calculators/time-zone-converter" class="related-link">Time Zone Converter</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var form = document.getElementById('date-diff-form');
+        var resultsDiv = document.getElementById('diff-results');
+
+        function parseDate(val) {
+            var parts = val.split('-');
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+
+        function totalDaysBetween(d1, d2) {
+            var msPerDay = 1000 * 60 * 60 * 24;
+            var utc1 = Date.UTC(d1.getFullYear(), d1.getMonth(), d1.getDate());
+            var utc2 = Date.UTC(d2.getFullYear(), d2.getMonth(), d2.getDate());
+            return Math.abs(Math.floor((utc2 - utc1) / msPerDay));
+        }
+
+        function calcDifference(startDate, endDate) {
+            // Ensure startDate <= endDate
+            if (startDate > endDate) {
+                var temp = startDate;
+                startDate = endDate;
+                endDate = temp;
+            }
+
+            var years = endDate.getFullYear() - startDate.getFullYear();
+            var months = endDate.getMonth() - startDate.getMonth();
+            var days = endDate.getDate() - startDate.getDate();
+
+            if (days < 0) {
+                months--;
+                var prevMonth = new Date(endDate.getFullYear(), endDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            return { years: years, months: months, days: days };
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var startVal = document.getElementById('start-date').value;
+            var endVal = document.getElementById('end-date').value;
+
+            if (!startVal || !endVal) return;
+
+            var startDate = parseDate(startVal);
+            var endDate = parseDate(endVal);
+
+            var diff = calcDifference(startDate, endDate);
+            var totalDays = totalDaysBetween(startDate, endDate);
+            var totalWeeks = Math.floor(totalDays / 7);
+            var remainingDaysAfterWeeks = totalDays % 7;
+            var totalMonthsCalc = diff.years * 12 + diff.months;
+            var totalHours = totalDays * 24;
+
+            document.getElementById('result-years').textContent = diff.years;
+            document.getElementById('result-months').textContent = diff.months;
+            document.getElementById('result-days').textContent = diff.days;
+
+            // Build summary
+            var parts = [];
+            if (diff.years > 0) parts.push(diff.years + ' year' + (diff.years !== 1 ? 's' : ''));
+            if (diff.months > 0) parts.push(diff.months + ' month' + (diff.months !== 1 ? 's' : ''));
+            if (diff.days > 0) parts.push(diff.days + ' day' + (diff.days !== 1 ? 's' : ''));
+            var summaryText = parts.length > 0 ? parts.join(', ') : '0 days (same date)';
+            document.getElementById('result-summary').textContent = summaryText;
+
+            document.getElementById('result-total-days').textContent = totalDays.toLocaleString();
+            document.getElementById('result-total-weeks').textContent = totalWeeks.toLocaleString() + (remainingDaysAfterWeeks > 0 ? ' and ' + remainingDaysAfterWeeks + 'd' : '');
+            document.getElementById('result-total-months').textContent = totalMonthsCalc.toLocaleString() + (diff.days > 0 ? ' and ' + diff.days + 'd' : '');
+            document.getElementById('result-total-hours').textContent = totalHours.toLocaleString();
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

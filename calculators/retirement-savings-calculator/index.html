@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Savings Calculator - Plan Your Financial Future | ToolsNest</title>
+    <meta name="description" content="Calculate your projected retirement savings, total contributions, interest earned, and estimated monthly retirement income. Plan your financial future with confidence.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/retirement-savings-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Retirement Savings Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Retirement Savings Calculator</h1>
+                <p class="text-center mb-3">Estimate how much you will have saved by retirement and what your monthly income could look like.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="retirement-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="current-age">Current Age</label>
+                                <input type="number" id="current-age" class="form-input" placeholder="e.g., 30" min="18" max="99" step="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="retirement-age">Retirement Age</label>
+                                <input type="number" id="retirement-age" class="form-input" placeholder="e.g., 65" min="19" max="100" step="1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="current-savings">Current Savings ($)</label>
+                            <input type="number" id="current-savings" class="form-input" placeholder="e.g., 50000" min="0" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="monthly-contribution">Monthly Contribution ($)</label>
+                            <input type="number" id="monthly-contribution" class="form-input" placeholder="e.g., 500" min="0" step="any" required>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="annual-return">Expected Annual Return (%)</label>
+                                <input type="number" id="annual-return" class="form-input" placeholder="e.g., 7" min="0" max="30" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="inflation-rate">Expected Inflation Rate (%)</label>
+                                <input type="number" id="inflation-rate" class="form-input" placeholder="e.g., 3" min="0" max="20" step="0.1" value="3">
+                                <small class="text-muted">Optional. Used for inflation-adjusted projections.</small>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Retirement Savings</button>
+                    </form>
+
+                    <div id="retirement-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Retirement Projection</h3>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Projected Savings (Nominal)</p>
+                                <strong id="result-nominal" style="font-size: 1.4rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Projected Savings (Inflation-Adjusted)</p>
+                                <strong id="result-real" style="font-size: 1.4rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Contributions</p>
+                                <strong id="result-contributions" style="font-size: 1.4rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Interest Earned</p>
+                                <strong id="result-interest" style="font-size: 1.4rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center; border-left: 4px solid var(--primary);">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Est. Monthly Income (4% Rule, Nominal)</p>
+                                <strong id="result-income-nominal" style="font-size: 1.3rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center; border-left: 4px solid var(--primary);">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Est. Monthly Income (4% Rule, Inflation-Adjusted)</p>
+                                <strong id="result-income-real" style="font-size: 1.3rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your current age and the age at which you plan to retire.</li>
+                        <li>Enter your current retirement savings balance and how much you plan to contribute each month.</li>
+                        <li>Set your expected annual rate of return (historically, the stock market has averaged around 7% after inflation) and optionally adjust the expected inflation rate.</li>
+                        <li>Click "Calculate Retirement Savings" to view your projected savings, total contributions, interest earned, and estimated monthly retirement income based on the 4% withdrawal rule.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the 4% rule?</h3>
+                        <p>The 4% rule is a widely used retirement planning guideline suggesting that retirees can withdraw 4% of their savings in the first year of retirement, then adjust that amount for inflation each subsequent year, and have a high probability of not running out of money over a 30-year retirement period. This calculator uses it to estimate your potential monthly retirement income.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What rate of return should I use?</h3>
+                        <p>The historical average annual return of the S&P 500 is roughly 10% before inflation and about 7% after inflation. A conservative estimate would be 5-6%, a moderate estimate 7-8%, and an aggressive estimate 9-10%. Your actual returns will depend on your asset allocation and market conditions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the difference between nominal and inflation-adjusted values?</h3>
+                        <p>Nominal values represent the raw dollar amount without accounting for the erosion of purchasing power over time. Inflation-adjusted (real) values show what your future savings would be worth in terms of today's purchasing power. The inflation-adjusted figure gives you a more realistic picture of your retirement wealth.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this calculator account for taxes?</h3>
+                        <p>No, this calculator does not account for taxes on contributions, investment growth, or withdrawals. Tax treatment varies depending on account type (e.g., 401(k), Roth IRA, traditional IRA, taxable brokerage). Consult a financial advisor for personalized tax planning.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/calculators/savings-goal-calculator" class="related-link">Savings Goal Calculator</a>
+                    <a href="/calculators/percentage-calculator" class="related-link">Percentage Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('retirement-form');
+        var resultsDiv = document.getElementById('retirement-results');
+
+        function formatCurrency(amount) {
+            if (amount >= 1e9) {
+                return '$' + (amount / 1e9).toFixed(2) + 'B';
+            }
+            if (amount >= 1e7) {
+                return '$' + (amount / 1e6).toFixed(2) + 'M';
+            }
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var currentAge = parseInt(document.getElementById('current-age').value);
+            var retirementAge = parseInt(document.getElementById('retirement-age').value);
+            var currentSavings = parseFloat(document.getElementById('current-savings').value);
+            var monthlyContribution = parseFloat(document.getElementById('monthly-contribution').value);
+            var annualReturn = parseFloat(document.getElementById('annual-return').value);
+            var inflationRate = parseFloat(document.getElementById('inflation-rate').value) || 0;
+
+            if (retirementAge <= currentAge) {
+                alert('Retirement age must be greater than your current age.');
+                return;
+            }
+
+            var yearsToRetirement = retirementAge - currentAge;
+            var totalMonths = yearsToRetirement * 12;
+            var monthlyReturn = annualReturn / 100 / 12;
+
+            // Calculate future value of current savings
+            var fvCurrentSavings = currentSavings * Math.pow(1 + monthlyReturn, totalMonths);
+
+            // Calculate future value of monthly contributions (annuity)
+            var fvContributions;
+            if (monthlyReturn === 0) {
+                fvContributions = monthlyContribution * totalMonths;
+            } else {
+                fvContributions = monthlyContribution * ((Math.pow(1 + monthlyReturn, totalMonths) - 1) / monthlyReturn);
+            }
+
+            var totalNominal = fvCurrentSavings + fvContributions;
+            var totalContributions = currentSavings + (monthlyContribution * totalMonths);
+            var totalInterest = totalNominal - totalContributions;
+
+            // Inflation-adjusted value
+            var inflationFactor = Math.pow(1 + inflationRate / 100, yearsToRetirement);
+            var totalReal = totalNominal / inflationFactor;
+
+            // Monthly income using 4% rule
+            var annualIncomeNominal = totalNominal * 0.04;
+            var monthlyIncomeNominal = annualIncomeNominal / 12;
+            var annualIncomeReal = totalReal * 0.04;
+            var monthlyIncomeReal = annualIncomeReal / 12;
+
+            // Display results
+            document.getElementById('result-nominal').textContent = formatCurrency(totalNominal);
+            document.getElementById('result-real').textContent = formatCurrency(totalReal);
+            document.getElementById('result-contributions').textContent = formatCurrency(totalContributions);
+            document.getElementById('result-interest').textContent = formatCurrency(totalInterest);
+            document.getElementById('result-income-nominal').textContent = formatCurrency(monthlyIncomeNominal) + '/mo';
+            document.getElementById('result-income-real').textContent = formatCurrency(monthlyIncomeReal) + '/mo';
+
+            document.getElementById('result-summary').textContent = ' Over ' + yearsToRetirement + ' years, your ' + formatCurrency(currentSavings) + ' in current savings plus ' + formatCurrency(monthlyContribution) + '/month in contributions (' + formatCurrency(totalContributions) + ' total contributed) will grow to ' + formatCurrency(totalNominal) + ' at a ' + annualReturn + '% annual return. After adjusting for ' + inflationRate + '% annual inflation, that is worth ' + formatCurrency(totalReal) + ' in today\'s dollars.';
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

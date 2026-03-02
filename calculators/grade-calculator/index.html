@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator - Calculate Weighted & Unweighted Grades | ToolsNest</title>
+    <meta name="description" content="Calculate your weighted or unweighted grade percentage and letter grade. Add multiple assignments with scores, total points, and optional weights.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/grade-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Grade Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Grade Calculator</h1>
+                <p class="text-center mb-3">Calculate your overall grade from multiple assignments. Supports both weighted and unweighted grading.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Header row labels -->
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem; padding: 0 0.25rem; flex-wrap: wrap;">
+                        <span class="text-muted" style="flex: 2; min-width: 100px; font-size: 0.8rem;">Assignment Name</span>
+                        <span class="text-muted" style="flex: 1; min-width: 70px; font-size: 0.8rem;">Score</span>
+                        <span class="text-muted" style="flex: 1; min-width: 70px; font-size: 0.8rem;">Total Points</span>
+                        <span class="text-muted" style="flex: 1; min-width: 70px; font-size: 0.8rem;">Weight (%)</span>
+                        <span style="width: 36px;"></span>
+                    </div>
+
+                    <div id="assignment-list">
+                        <div class="assignment-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="e.g., Midterm" class="form-input assign-name" style="flex: 2; min-width: 100px;">
+                            <input type="number" placeholder="Score" class="form-input assign-score" style="flex: 1; min-width: 70px;" min="0" step="any" required>
+                            <input type="number" placeholder="Total" class="form-input assign-total" style="flex: 1; min-width: 70px;" min="0.01" step="any" required>
+                            <input type="number" placeholder="Weight" class="form-input assign-weight" style="flex: 1; min-width: 70px;" min="0" step="any">
+                            <button type="button" class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove assignment">&times;</button>
+                        </div>
+                        <div class="assignment-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="e.g., Final Exam" class="form-input assign-name" style="flex: 2; min-width: 100px;">
+                            <input type="number" placeholder="Score" class="form-input assign-score" style="flex: 1; min-width: 70px;" min="0" step="any" required>
+                            <input type="number" placeholder="Total" class="form-input assign-total" style="flex: 1; min-width: 70px;" min="0.01" step="any" required>
+                            <input type="number" placeholder="Weight" class="form-input assign-weight" style="flex: 1; min-width: 70px;" min="0" step="any">
+                            <button type="button" class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove assignment">&times;</button>
+                        </div>
+                        <div class="assignment-row" style="display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap;">
+                            <input type="text" placeholder="e.g., Homework" class="form-input assign-name" style="flex: 2; min-width: 100px;">
+                            <input type="number" placeholder="Score" class="form-input assign-score" style="flex: 1; min-width: 70px;" min="0" step="any" required>
+                            <input type="number" placeholder="Total" class="form-input assign-total" style="flex: 1; min-width: 70px;" min="0.01" step="any" required>
+                            <input type="number" placeholder="Weight" class="form-input assign-weight" style="flex: 1; min-width: 70px;" min="0" step="any">
+                            <button type="button" class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove assignment">&times;</button>
+                        </div>
+                    </div>
+
+                    <p class="text-muted mb-2" style="font-size: 0.8rem;">Leave the Weight column blank for unweighted (points-based) grading. Fill in weights to use weighted grading.</p>
+
+                    <div class="text-center mb-3">
+                        <button type="button" id="add-assignment-btn" class="btn btn-outline" style="width: 100%;">+ Add Assignment</button>
+                    </div>
+
+                    <button type="button" id="calc-grade-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Grade</button>
+
+                    <div id="grade-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Your Grade</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Percentage</p>
+                                <strong id="result-percentage" style="font-size: 2.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Letter Grade</p>
+                                <strong id="result-letter" style="font-size: 2.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p id="result-method" style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-main);"></p>
+                            <p id="result-detail" style="margin: 0; font-size: 0.9rem;" class="text-muted"></p>
+                        </div>
+
+                        <!-- Per-assignment breakdown -->
+                        <div id="assignment-breakdown" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter each assignment's name (optional), score earned, and total possible points.</li>
+                        <li>For weighted grading, enter a weight percentage for each assignment category. Leave weights blank for simple points-based grading.</li>
+                        <li>Click "+ Add Assignment" to add more rows as needed.</li>
+                        <li>Click "Calculate Grade" to see your overall percentage and letter grade.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between weighted and unweighted grading?</h3>
+                        <p><strong>Unweighted</strong> grading sums all points earned and divides by total possible points. <strong>Weighted</strong> grading multiplies each assignment's percentage by its weight, allowing categories like exams to count more than homework. Leave weights blank for unweighted mode.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do the weights need to add up to 100%?</h3>
+                        <p>Ideally, yes. However, the calculator will normalize your weights automatically. If your weights total 80%, each weight is proportionally scaled to represent its share of the total. This ensures accurate results even with incomplete weight assignments.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What letter grade scale is used?</h3>
+                        <p>The standard US grading scale: A (93-100), A- (90-92), B+ (87-89), B (83-86), B- (80-82), C+ (77-79), C (73-76), C- (70-72), D+ (67-69), D (63-66), D- (60-62), and F (below 60).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I mix weighted and unweighted assignments?</h3>
+                        <p>For the most accurate results, either fill in weights for all assignments or leave all weights blank. If some assignments have weights and others do not, only the assignments with weights will be included in the weighted calculation.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/calculators/percentage-calculator" class="related-link">Percentage Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var assignmentList = document.getElementById('assignment-list');
+        var addBtn = document.getElementById('add-assignment-btn');
+        var calcBtn = document.getElementById('calc-grade-btn');
+        var resultsDiv = document.getElementById('grade-results');
+
+        function createAssignmentRow() {
+            var row = document.createElement('div');
+            row.className = 'assignment-row';
+            row.style.cssText = 'display: flex; gap: 0.5rem; margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap;';
+            row.innerHTML =
+                '<input type="text" placeholder="e.g., Quiz" class="form-input assign-name" style="flex: 2; min-width: 100px;">' +
+                '<input type="number" placeholder="Score" class="form-input assign-score" style="flex: 1; min-width: 70px;" min="0" step="any" required>' +
+                '<input type="number" placeholder="Total" class="form-input assign-total" style="flex: 1; min-width: 70px;" min="0.01" step="any" required>' +
+                '<input type="number" placeholder="Weight" class="form-input assign-weight" style="flex: 1; min-width: 70px;" min="0" step="any">' +
+                '<button type="button" class="btn btn-outline remove-row-btn" style="padding: 0.5rem 0.75rem; font-size: 1rem;" title="Remove assignment">&times;</button>';
+            return row;
+        }
+
+        addBtn.addEventListener('click', function() {
+            assignmentList.appendChild(createAssignmentRow());
+        });
+
+        assignmentList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-row-btn')) {
+                var rows = assignmentList.querySelectorAll('.assignment-row');
+                if (rows.length > 1) {
+                    e.target.closest('.assignment-row').remove();
+                }
+            }
+        });
+
+        function getLetterGrade(pct) {
+            if (pct >= 93) return 'A';
+            if (pct >= 90) return 'A-';
+            if (pct >= 87) return 'B+';
+            if (pct >= 83) return 'B';
+            if (pct >= 80) return 'B-';
+            if (pct >= 77) return 'C+';
+            if (pct >= 73) return 'C';
+            if (pct >= 70) return 'C-';
+            if (pct >= 67) return 'D+';
+            if (pct >= 63) return 'D';
+            if (pct >= 60) return 'D-';
+            return 'F';
+        }
+
+        calcBtn.addEventListener('click', function() {
+            var rows = assignmentList.querySelectorAll('.assignment-row');
+            var assignments = [];
+            var hasAnyWeight = false;
+
+            for (var i = 0; i < rows.length; i++) {
+                var name = rows[i].querySelector('.assign-name').value.trim() || ('Assignment ' + (i + 1));
+                var score = parseFloat(rows[i].querySelector('.assign-score').value);
+                var total = parseFloat(rows[i].querySelector('.assign-total').value);
+                var weightVal = rows[i].querySelector('.assign-weight').value.trim();
+                var weight = weightVal !== '' ? parseFloat(weightVal) : null;
+
+                if (!isNaN(score) && !isNaN(total) && total > 0) {
+                    if (weight !== null && !isNaN(weight)) {
+                        hasAnyWeight = true;
+                    }
+                    assignments.push({
+                        name: name,
+                        score: score,
+                        total: total,
+                        weight: (weight !== null && !isNaN(weight)) ? weight : null,
+                        percentage: (score / total) * 100
+                    });
+                }
+            }
+
+            if (assignments.length === 0) {
+                resultsDiv.style.display = 'block';
+                document.getElementById('result-percentage').textContent = '--';
+                document.getElementById('result-letter').textContent = '--';
+                document.getElementById('result-percentage').style.color = '#ef4444';
+                document.getElementById('result-method').textContent = '';
+                document.getElementById('result-detail').textContent = 'Please enter at least one assignment with a valid score and total points.';
+                document.getElementById('assignment-breakdown').innerHTML = '';
+                return;
+            }
+
+            var finalPercentage;
+            var methodText;
+
+            if (hasAnyWeight) {
+                // Weighted calculation
+                var weightedSum = 0;
+                var totalWeight = 0;
+                var weightedCount = 0;
+
+                for (var j = 0; j < assignments.length; j++) {
+                    if (assignments[j].weight !== null && assignments[j].weight > 0) {
+                        weightedSum += assignments[j].percentage * assignments[j].weight;
+                        totalWeight += assignments[j].weight;
+                        weightedCount++;
+                    }
+                }
+
+                if (totalWeight > 0) {
+                    finalPercentage = weightedSum / totalWeight;
+                } else {
+                    finalPercentage = 0;
+                }
+                methodText = '<strong>Method:</strong> Weighted average (' + weightedCount + ' weighted assignment' + (weightedCount !== 1 ? 's' : '') + ', total weight: ' + totalWeight.toFixed(1) + '%)';
+            } else {
+                // Unweighted (points-based) calculation
+                var totalScore = 0;
+                var totalPoints = 0;
+
+                for (var k = 0; k < assignments.length; k++) {
+                    totalScore += assignments[k].score;
+                    totalPoints += assignments[k].total;
+                }
+
+                finalPercentage = (totalScore / totalPoints) * 100;
+                methodText = '<strong>Method:</strong> Unweighted (points-based): ' + totalScore.toFixed(1) + ' out of ' + totalPoints.toFixed(1) + ' total points';
+            }
+
+            var letterGrade = getLetterGrade(finalPercentage);
+
+            document.getElementById('result-percentage').textContent = finalPercentage.toFixed(2) + '%';
+            document.getElementById('result-percentage').style.color = 'var(--primary)';
+            document.getElementById('result-letter').textContent = letterGrade;
+            document.getElementById('result-method').innerHTML = methodText;
+            document.getElementById('result-detail').textContent = assignments.length + ' assignment' + (assignments.length !== 1 ? 's' : '') + ' calculated';
+
+            // Build breakdown table
+            var breakdownHTML = '<div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1rem; overflow-x: auto;">';
+            breakdownHTML += '<table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">';
+            breakdownHTML += '<thead><tr style="border-bottom: 2px solid var(--border);">';
+            breakdownHTML += '<th style="text-align: left; padding: 0.5rem;">Assignment</th>';
+            breakdownHTML += '<th style="text-align: center; padding: 0.5rem;">Score</th>';
+            breakdownHTML += '<th style="text-align: center; padding: 0.5rem;">Percentage</th>';
+            if (hasAnyWeight) breakdownHTML += '<th style="text-align: center; padding: 0.5rem;">Weight</th>';
+            breakdownHTML += '</tr></thead><tbody>';
+
+            for (var m = 0; m < assignments.length; m++) {
+                var a = assignments[m];
+                breakdownHTML += '<tr style="border-bottom: 1px solid var(--border);">';
+                breakdownHTML += '<td style="padding: 0.5rem;">' + a.name + '</td>';
+                breakdownHTML += '<td style="text-align: center; padding: 0.5rem;">' + a.score + ' / ' + a.total + '</td>';
+                breakdownHTML += '<td style="text-align: center; padding: 0.5rem;">' + a.percentage.toFixed(1) + '%</td>';
+                if (hasAnyWeight) breakdownHTML += '<td style="text-align: center; padding: 0.5rem;">' + (a.weight !== null ? a.weight + '%' : '-') + '</td>';
+                breakdownHTML += '</tr>';
+            }
+
+            breakdownHTML += '</tbody></table></div>';
+            document.getElementById('assignment-breakdown').innerHTML = breakdownHTML;
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

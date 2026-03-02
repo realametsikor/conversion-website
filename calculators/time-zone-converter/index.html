@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Converter - Convert Time Between Time Zones | ToolsNest</title>
+    <meta name="description" content="Convert time between world time zones instantly. Supports UTC, EST, CST, MST, PST, GMT, CET, IST, JST, AEST, and more. Free and easy to use.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/time-zone-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Time Zone Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Time Zone Converter</h1>
+                <p class="text-center mb-3">Convert any date and time between world time zones. Select your source and target time zones to see the converted result instantly.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="tz-form">
+                        <div class="form-group">
+                            <label for="tz-datetime">Date &amp; Time</label>
+                            <input type="datetime-local" id="tz-datetime" class="form-input" required>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label for="tz-source">From Time Zone</label>
+                                <select id="tz-source" class="form-input" required>
+                                    <option value="">Select source timezone</option>
+                                    <optgroup label="Americas">
+                                        <option value="-10">HST - Hawaii (UTC-10)</option>
+                                        <option value="-9">AKST - Alaska (UTC-9)</option>
+                                        <option value="-8">PST - Pacific (UTC-8)</option>
+                                        <option value="-7">MST - Mountain (UTC-7)</option>
+                                        <option value="-6">CST - Central (UTC-6)</option>
+                                        <option value="-5" selected>EST - Eastern (UTC-5)</option>
+                                        <option value="-4">AST - Atlantic (UTC-4)</option>
+                                        <option value="-3">ART - Argentina (UTC-3)</option>
+                                        <option value="-3.5">NST - Newfoundland (UTC-3:30)</option>
+                                    </optgroup>
+                                    <optgroup label="Europe &amp; Africa">
+                                        <option value="0">GMT / UTC (UTC+0)</option>
+                                        <option value="1">CET - Central European (UTC+1)</option>
+                                        <option value="2">EET - Eastern European (UTC+2)</option>
+                                        <option value="3">MSK - Moscow (UTC+3)</option>
+                                    </optgroup>
+                                    <optgroup label="Asia">
+                                        <option value="3.5">IRST - Iran (UTC+3:30)</option>
+                                        <option value="4">GST - Gulf (UTC+4)</option>
+                                        <option value="4.5">AFT - Afghanistan (UTC+4:30)</option>
+                                        <option value="5">PKT - Pakistan (UTC+5)</option>
+                                        <option value="5.5">IST - India (UTC+5:30)</option>
+                                        <option value="5.75">NPT - Nepal (UTC+5:45)</option>
+                                        <option value="6">BST - Bangladesh (UTC+6)</option>
+                                        <option value="7">ICT - Indochina (UTC+7)</option>
+                                        <option value="8">CST - China / SGT - Singapore (UTC+8)</option>
+                                        <option value="9">JST - Japan / KST - Korea (UTC+9)</option>
+                                    </optgroup>
+                                    <optgroup label="Oceania">
+                                        <option value="9.5">ACST - Australian Central (UTC+9:30)</option>
+                                        <option value="10">AEST - Australian Eastern (UTC+10)</option>
+                                        <option value="12">NZST - New Zealand (UTC+12)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <div style="display: flex; align-items: center; padding-top: 1.5rem;">
+                                <button type="button" id="swap-tz-btn" class="btn btn-outline" style="padding: 0.5rem 0.75rem; font-size: 1.2rem;" title="Swap time zones">&#8644;</button>
+                            </div>
+
+                            <div class="form-group" style="flex: 1; min-width: 200px;">
+                                <label for="tz-target">To Time Zone</label>
+                                <select id="tz-target" class="form-input" required>
+                                    <option value="">Select target timezone</option>
+                                    <optgroup label="Americas">
+                                        <option value="-10">HST - Hawaii (UTC-10)</option>
+                                        <option value="-9">AKST - Alaska (UTC-9)</option>
+                                        <option value="-8">PST - Pacific (UTC-8)</option>
+                                        <option value="-7">MST - Mountain (UTC-7)</option>
+                                        <option value="-6">CST - Central (UTC-6)</option>
+                                        <option value="-5">EST - Eastern (UTC-5)</option>
+                                        <option value="-4">AST - Atlantic (UTC-4)</option>
+                                        <option value="-3">ART - Argentina (UTC-3)</option>
+                                        <option value="-3.5">NST - Newfoundland (UTC-3:30)</option>
+                                    </optgroup>
+                                    <optgroup label="Europe &amp; Africa">
+                                        <option value="0" selected>GMT / UTC (UTC+0)</option>
+                                        <option value="1">CET - Central European (UTC+1)</option>
+                                        <option value="2">EET - Eastern European (UTC+2)</option>
+                                        <option value="3">MSK - Moscow (UTC+3)</option>
+                                    </optgroup>
+                                    <optgroup label="Asia">
+                                        <option value="3.5">IRST - Iran (UTC+3:30)</option>
+                                        <option value="4">GST - Gulf (UTC+4)</option>
+                                        <option value="4.5">AFT - Afghanistan (UTC+4:30)</option>
+                                        <option value="5">PKT - Pakistan (UTC+5)</option>
+                                        <option value="5.5">IST - India (UTC+5:30)</option>
+                                        <option value="5.75">NPT - Nepal (UTC+5:45)</option>
+                                        <option value="6">BST - Bangladesh (UTC+6)</option>
+                                        <option value="7">ICT - Indochina (UTC+7)</option>
+                                        <option value="8">CST - China / SGT - Singapore (UTC+8)</option>
+                                        <option value="9">JST - Japan / KST - Korea (UTC+9)</option>
+                                    </optgroup>
+                                    <optgroup label="Oceania">
+                                        <option value="9.5">ACST - Australian Central (UTC+9:30)</option>
+                                        <option value="10">AEST - Australian Eastern (UTC+10)</option>
+                                        <option value="12">NZST - New Zealand (UTC+12)</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Convert Time</button>
+                    </form>
+
+                    <div id="tz-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Converted Time</h3>
+                        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.8rem;">Source</p>
+                                <strong id="result-source-tz" style="font-size: 0.85rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;"></strong>
+                                <strong id="result-source-time" style="font-size: 1.3rem; color: var(--primary); display: block;"></strong>
+                                <span id="result-source-date" class="text-muted" style="font-size: 0.85rem;"></span>
+                            </div>
+                            <div style="font-size: 1.5rem; color: var(--text-muted);">&#8594;</div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.8rem;">Target</p>
+                                <strong id="result-target-tz" style="font-size: 0.85rem; color: var(--text-main); display: block; margin-bottom: 0.5rem;"></strong>
+                                <strong id="result-target-time" style="font-size: 1.3rem; color: var(--accent); display: block;"></strong>
+                                <span id="result-target-date" class="text-muted" style="font-size: 0.85rem;"></span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Time Difference:</strong>
+                                <span id="result-diff" class="text-muted"></span>
+                            </p>
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Day Change:</strong>
+                                <span id="result-day-change" class="text-muted"></span>
+                            </p>
+                        </div>
+
+                        <!-- Common conversions -->
+                        <div style="margin-top: 1rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <h4 style="margin: 0 0 0.75rem 0; font-size: 0.9rem; color: var(--text-main);">Same Moment in Other Time Zones:</h4>
+                            <div id="result-multi-tz" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.85rem;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter the date and time you want to convert using the date-time picker.</li>
+                        <li>Select the source time zone (the time zone of the entered time).</li>
+                        <li>Select the target time zone you want to convert to. Use the swap button to quickly reverse the conversion.</li>
+                        <li>Click "Convert Time" to see the equivalent time in the target zone, along with the time difference and a multi-zone comparison.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this converter handle daylight saving time?</h3>
+                        <p>This converter uses fixed UTC offsets and does not automatically adjust for daylight saving time (DST). During DST periods, you may need to manually select the appropriate offset (e.g., EDT at UTC-4 instead of EST at UTC-5).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What time zones are supported?</h3>
+                        <p>The converter includes all major world time zones: HST, AKST, PST, MST, CST, EST, AST, GMT/UTC, CET, EET, MSK, IST (India), JST (Japan), AEST (Australia), NZST (New Zealand), and many more, covering offsets from UTC-10 to UTC+12.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does the "Day Change" indicator mean?</h3>
+                        <p>When converting between time zones with large offsets, the date may change. The "Day Change" indicator tells you if the converted time falls on the same day, the next day, or the previous day compared to the source date.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate is this converter?</h3>
+                        <p>The converter is accurate for standard time zone conversions based on UTC offsets. For critical scheduling across time zones, always confirm with a source that accounts for DST transitions and any regional time zone rules.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/date-difference-calculator" class="related-link">Date Difference Calculator</a>
+                    <a href="/calculators/age-calculator" class="related-link">Age Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var form = document.getElementById('tz-form');
+        var resultsDiv = document.getElementById('tz-results');
+        var sourceSelect = document.getElementById('tz-source');
+        var targetSelect = document.getElementById('tz-target');
+        var datetimeInput = document.getElementById('tz-datetime');
+
+        // Set default datetime to now
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = String(now.getMonth() + 1).padStart(2, '0');
+        var day = String(now.getDate()).padStart(2, '0');
+        var hours = String(now.getHours()).padStart(2, '0');
+        var minutes = String(now.getMinutes()).padStart(2, '0');
+        datetimeInput.value = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+
+        // Swap button
+        document.getElementById('swap-tz-btn').addEventListener('click', function() {
+            var temp = sourceSelect.value;
+            sourceSelect.value = targetSelect.value;
+            targetSelect.value = temp;
+        });
+
+        // Timezone label map
+        var tzLabels = {
+            '-10': 'HST (UTC-10)',
+            '-9': 'AKST (UTC-9)',
+            '-8': 'PST (UTC-8)',
+            '-7': 'MST (UTC-7)',
+            '-6': 'CST (UTC-6)',
+            '-5': 'EST (UTC-5)',
+            '-4': 'AST (UTC-4)',
+            '-3.5': 'NST (UTC-3:30)',
+            '-3': 'ART (UTC-3)',
+            '0': 'GMT/UTC (UTC+0)',
+            '1': 'CET (UTC+1)',
+            '2': 'EET (UTC+2)',
+            '3': 'MSK (UTC+3)',
+            '3.5': 'IRST (UTC+3:30)',
+            '4': 'GST (UTC+4)',
+            '4.5': 'AFT (UTC+4:30)',
+            '5': 'PKT (UTC+5)',
+            '5.5': 'IST (UTC+5:30)',
+            '5.75': 'NPT (UTC+5:45)',
+            '6': 'BST (UTC+6)',
+            '7': 'ICT (UTC+7)',
+            '8': 'CST/SGT (UTC+8)',
+            '9': 'JST/KST (UTC+9)',
+            '9.5': 'ACST (UTC+9:30)',
+            '10': 'AEST (UTC+10)',
+            '12': 'NZST (UTC+12)'
+        };
+
+        // Short labels for multi-tz display
+        var shortTzLabels = {
+            '-8': 'PST',
+            '-5': 'EST',
+            '0': 'GMT',
+            '1': 'CET',
+            '5.5': 'IST',
+            '8': 'CST/SGT',
+            '9': 'JST',
+            '10': 'AEST',
+            '12': 'NZST'
+        };
+
+        function formatOffset(offset) {
+            var sign = offset >= 0 ? '+' : '-';
+            var abs = Math.abs(offset);
+            var h = Math.floor(abs);
+            var m = (abs - h) * 60;
+            return 'UTC' + sign + h + (m > 0 ? ':' + String(Math.round(m)).padStart(2, '0') : '');
+        }
+
+        function formatTime12(d) {
+            var h = d.getUTCHours();
+            var m = String(d.getUTCMinutes()).padStart(2, '0');
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            var h12 = h % 12;
+            if (h12 === 0) h12 = 12;
+            return h12 + ':' + m + ' ' + ampm;
+        }
+
+        function formatDateNice(d) {
+            var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return days[d.getUTCDay()] + ', ' + months[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
+        }
+
+        function formatDiffHours(diff) {
+            var abs = Math.abs(diff);
+            var h = Math.floor(abs);
+            var m = Math.round((abs - h) * 60);
+            var parts = [];
+            if (h > 0) parts.push(h + ' hour' + (h !== 1 ? 's' : ''));
+            if (m > 0) parts.push(m + ' minute' + (m !== 1 ? 's' : ''));
+            if (parts.length === 0) return 'No difference (same time zone)';
+            var direction = diff > 0 ? 'ahead' : 'behind';
+            return parts.join(' and ') + ' ' + direction;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var dtVal = datetimeInput.value;
+            var sourceOffset = parseFloat(sourceSelect.value);
+            var targetOffset = parseFloat(targetSelect.value);
+
+            if (!dtVal || isNaN(sourceOffset) || isNaN(targetOffset)) return;
+
+            // Parse the datetime-local value as the time in the source timezone
+            var parts = dtVal.split('T');
+            var dateParts = parts[0].split('-');
+            var timeParts = parts[1].split(':');
+
+            var yr = parseInt(dateParts[0]);
+            var mo = parseInt(dateParts[1]) - 1;
+            var dy = parseInt(dateParts[2]);
+            var hr = parseInt(timeParts[0]);
+            var mn = parseInt(timeParts[1]);
+
+            // Convert source time to UTC by subtracting source offset
+            var sourceUTCMs = Date.UTC(yr, mo, dy, hr, mn, 0) - (sourceOffset * 60 * 60 * 1000);
+            var utcDate = new Date(sourceUTCMs);
+
+            // Convert UTC to target by adding target offset
+            var targetMs = sourceUTCMs + (targetOffset * 60 * 60 * 1000);
+            var targetDate = new Date(targetMs);
+
+            // Source date for display
+            var sourceDate = new Date(Date.UTC(yr, mo, dy, hr, mn, 0));
+
+            // Display results
+            document.getElementById('result-source-tz').textContent = tzLabels[String(sourceOffset)] || formatOffset(sourceOffset);
+            document.getElementById('result-source-time').textContent = formatTime12(sourceDate);
+            document.getElementById('result-source-date').textContent = formatDateNice(sourceDate);
+
+            document.getElementById('result-target-tz').textContent = tzLabels[String(targetOffset)] || formatOffset(targetOffset);
+            document.getElementById('result-target-time').textContent = formatTime12(targetDate);
+            document.getElementById('result-target-date').textContent = formatDateNice(targetDate);
+
+            // Time difference
+            var diffHours = targetOffset - sourceOffset;
+            document.getElementById('result-diff').textContent = formatDiffHours(diffHours) + ' (' + formatOffset(sourceOffset) + ' \u2192 ' + formatOffset(targetOffset) + ')';
+
+            // Day change
+            var sourceDayStr = sourceDate.getUTCFullYear() + '-' + sourceDate.getUTCMonth() + '-' + sourceDate.getUTCDate();
+            var targetDayStr = targetDate.getUTCFullYear() + '-' + targetDate.getUTCMonth() + '-' + targetDate.getUTCDate();
+            if (sourceDayStr === targetDayStr) {
+                document.getElementById('result-day-change').textContent = 'Same day';
+            } else if (targetDate > sourceDate) {
+                document.getElementById('result-day-change').textContent = 'Next day (+1)';
+            } else {
+                document.getElementById('result-day-change').textContent = 'Previous day (-1)';
+            }
+
+            // Multi-timezone display
+            var multiOffsets = ['-8', '-5', '0', '1', '5.5', '8', '9', '10'];
+            var multiHTML = '';
+            for (var i = 0; i < multiOffsets.length; i++) {
+                var off = parseFloat(multiOffsets[i]);
+                var ms = sourceUTCMs + (off * 60 * 60 * 1000);
+                var d = new Date(ms);
+                var label = shortTzLabels[multiOffsets[i]] || formatOffset(off);
+                var isSource = off === sourceOffset;
+                var isTarget = off === targetOffset;
+                var highlight = isSource || isTarget ? 'font-weight: 700; color: var(--primary);' : '';
+                multiHTML += '<div style="padding: 0.35rem 0.5rem; border-radius: 4px; ' + (isSource || isTarget ? 'background: rgba(99,102,241,0.08);' : '') + '">';
+                multiHTML += '<span class="text-muted" style="font-size: 0.8rem;">' + label + '</span><br>';
+                multiHTML += '<span style="' + highlight + '">' + formatTime12(d) + '</span>';
+                multiHTML += '</div>';
+            }
+            document.getElementById('result-multi-tz').innerHTML = multiHTML;
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
