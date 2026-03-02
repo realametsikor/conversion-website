@@ -1,10 +1,11 @@
 /* Reusable ad component - injects real ads into placeholder containers
    Usage: Add <script src="/components/ads.js"></script> before </body>
 
-   Ad types:
-   - .ad-native: Native banner ad (responsive)
-   - .ad-sidebar-slot: 160x600 sidebar banner
-   - .ad-social-bar: Social bar (loaded once globally)
+   Ad types by position class:
+   - .ad-banner-top / .ad-between-sections: 728x90 banner ad (iframe)
+   - .ad-inline / .ad-native (fallback): Native content widget
+   - .ad-sidebar-slot: 160x600 sidebar ad (iframe)
+   - .ad-social-bar / data-social-bar: Social bar (loaded once globally)
 */
 (function () {
     'use strict';
@@ -12,12 +13,18 @@
     /* ── Ad configuration ─────────────────────────────────────── */
     var ADS = {
         native: {
-            containerId: 'container-2a4349586e480674cd450313a03915c0',
-            scriptSrc: 'https://pl28824919.effectivegatecpm.com/2a4349586e480674cd450313a03915c0/invoke.js'
+            containerId: 'container-9db21a06b90a8899fe94021a2b27023f',
+            scriptSrc: 'https://pl28817528.effectivegatecpm.com/9db21a06b90a8899fe94021a2b27023f/invoke.js'
+        },
+        banner: {
+            key: 'a1702819e0322a14efc53c7493ded2d6',
+            scriptSrc: 'https://www.highperformanceformat.com/a1702819e0322a14efc53c7493ded2d6/invoke.js',
+            width: 728,
+            height: 90
         },
         sidebar: {
-            key: '4874a5a48bb5b62ee0dca15658a996eb',
-            scriptSrc: 'https://www.highperformanceformat.com/4874a5a48bb5b62ee0dca15658a996eb/invoke.js',
+            key: 'df3cd1cc2d629e3ce9352e7e5c0c195f',
+            scriptSrc: 'https://www.highperformanceformat.com/df3cd1cc2d629e3ce9352e7e5c0c195f/invoke.js',
             width: 160,
             height: 600
         },
@@ -54,26 +61,42 @@
         (parent || document.body).appendChild(s);
     }
 
-    /* ── Native banner ad ──────────────────────────────────────── */
-    var nativeCounter = 0;
-    function initNativeAd(el) {
-        nativeCounter++;
-        var uniqueId = ADS.native.containerId + '-' + nativeCounter;
-        var div = document.createElement('div');
-        div.id = uniqueId;
-        el.innerHTML = '';
-        el.appendChild(div);
+    /* Mark element as loaded (removes placeholder styling) */
+    function markLoaded(el) {
+        el.classList.add('ad-loaded');
+    }
 
-        var s = document.createElement('script');
-        s.async = true;
-        s.setAttribute('data-cfasync', 'false');
-        s.src = ADS.native.scriptSrc;
-        el.appendChild(s);
+    /* ── Banner ad (728x90 iframe) ────────────────────────────── */
+    function initBannerAd(el) {
+        el.innerHTML = '';
+        markLoaded(el);
+        var optScript = document.createElement('script');
+        optScript.textContent = "atOptions = { 'key' : '" + ADS.banner.key + "', 'format' : 'iframe', 'height' : " + ADS.banner.height + ", 'width' : " + ADS.banner.width + ", 'params' : {} };";
+        el.appendChild(optScript);
+        loadScript(ADS.banner.scriptSrc, el);
+    }
+
+    /* ── Native content widget ────────────────────────────────── */
+    var nativeLoaded = false;
+    function initNativeAd(el) {
+        el.innerHTML = '';
+        markLoaded(el);
+        if (!nativeLoaded) {
+            nativeLoaded = true;
+            var div = document.createElement('div');
+            div.id = ADS.native.containerId;
+            el.appendChild(div);
+            loadScript(ADS.native.scriptSrc, el);
+        } else {
+            /* Additional native positions fall back to banner format */
+            initBannerAd(el);
+        }
     }
 
     /* ── Sidebar 160x600 ad ────────────────────────────────────── */
     function initSidebarAd(el) {
         el.innerHTML = '';
+        markLoaded(el);
         var optScript = document.createElement('script');
         optScript.textContent = "atOptions = { 'key' : '" + ADS.sidebar.key + "', 'format' : 'iframe', 'height' : " + ADS.sidebar.height + ", 'width' : " + ADS.sidebar.width + ", 'params' : {} };";
         el.appendChild(optScript);
@@ -90,20 +113,45 @@
 
     /* ── Bootstrap all ads on the page ─────────────────────────── */
     function bootstrap() {
-        /* Native banner ads */
-        var natives = document.querySelectorAll('.ad-native');
-        for (var i = 0; i < natives.length; i++) {
-            (function (el) {
-                lazyLoad(el, initNativeAd);
-            })(natives[i]);
+        var processed = [];
+
+        /* Banner top ads → 728x90 */
+        var bannerTops = document.querySelectorAll('.ad-banner-top');
+        for (var i = 0; i < bannerTops.length; i++) {
+            processed.push(bannerTops[i]);
+            (function (el) { lazyLoad(el, initBannerAd); })(bannerTops[i]);
         }
 
-        /* Sidebar ads */
+        /* Between-sections ads → 728x90 */
+        var betweens = document.querySelectorAll('.ad-between-sections');
+        for (var j = 0; j < betweens.length; j++) {
+            processed.push(betweens[j]);
+            (function (el) { lazyLoad(el, initBannerAd); })(betweens[j]);
+        }
+
+        /* Inline ads → native content widget */
+        var inlines = document.querySelectorAll('.ad-inline');
+        for (var k = 0; k < inlines.length; k++) {
+            processed.push(inlines[k]);
+            (function (el) { lazyLoad(el, initNativeAd); })(inlines[k]);
+        }
+
+        /* Any remaining .ad-native elements not yet handled */
+        var natives = document.querySelectorAll('.ad-native');
+        for (var l = 0; l < natives.length; l++) {
+            var already = false;
+            for (var m = 0; m < processed.length; m++) {
+                if (processed[m] === natives[l]) { already = true; break; }
+            }
+            if (!already) {
+                (function (el) { lazyLoad(el, initNativeAd); })(natives[l]);
+            }
+        }
+
+        /* Sidebar ads → 160x600 */
         var sidebars = document.querySelectorAll('.ad-sidebar-slot');
-        for (var j = 0; j < sidebars.length; j++) {
-            (function (el) {
-                lazyLoad(el, initSidebarAd);
-            })(sidebars[j]);
+        for (var n = 0; n < sidebars.length; n++) {
+            (function (el) { lazyLoad(el, initSidebarAd); })(sidebars[n]);
         }
 
         /* Social bar — load globally */

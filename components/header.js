@@ -11,6 +11,7 @@ function renderHeader() {
                 <a href="/calculators">Calculators</a>
                 <a href="/ai-tools">AI Tools</a>
                 <a href="/all-tools">All Tools</a>
+                <a href="/blog">Blog</a>
             </nav>
             <div class="search-nav">
                 <input type="text" placeholder="Search tools..." id="nav-search">
