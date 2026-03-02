@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard Sketch Converter Free Online - Clean Up Whiteboard Photos | ToolsNest</title>
+    <meta name="description" content="Convert whiteboard photos into clean, readable images online for free. Enhance contrast, remove shadows, and sharpen text. Download as PNG instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/whiteboard-sketch-converter/">
+
+    <meta property="og:title" content="Whiteboard Sketch Converter Free Online - Clean Up Whiteboard Photos | ToolsNest">
+    <meta property="og:description" content="Convert whiteboard photos into clean, readable images online for free. Enhance contrast, remove shadows, and sharpen text. Download as PNG instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/whiteboard-sketch-converter/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Whiteboard Sketch Converter Free Online - Clean Up Whiteboard Photos | ToolsNest">
+    <meta name="twitter:description" content="Convert whiteboard photos into clean, readable images online for free. Enhance contrast, remove shadows, and sharpen text. Download as PNG instantly.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Whiteboard Sketch Converter Free Online - Clean Up Whiteboard Photos"
+        }
+      ]
+    }
+    </script>
+    <style>
+        .wb-upload {
+            padding: 3rem 2rem;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .wb-upload:hover,
+        .wb-upload.drag-over {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.04);
+        }
+        .wb-upload .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .canvas-wrapper {
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .canvas-wrapper canvas {
+            max-width: 100%;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .comparison-container {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .comparison-container .panel {
+            flex: 1;
+            min-width: 280px;
+            text-align: center;
+        }
+        .comparison-container .panel canvas {
+            max-width: 100%;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .comparison-container .panel h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .mode-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .mode-options label {
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .mode-options label:hover {
+            border-color: var(--primary);
+        }
+        .mode-options input[type="radio"] {
+            display: none;
+        }
+        .mode-options input[type="radio"]:checked + label {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+        }
+        .sliders-section {
+            max-width: 400px;
+            margin: 1.5rem auto;
+        }
+        .slider-group {
+            margin-bottom: 1rem;
+        }
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 0.95rem;
+        }
+        .slider-group input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .view-toggle button {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        .view-toggle button.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Whiteboard Sketch Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Whiteboard Sketch Converter</h1>
+                <p class="text-center mb-3">Convert whiteboard photos into clean, readable images. Automatically enhance contrast, remove shadows, and sharpen ink strokes for crisp results. Choose from multiple processing modes or fine-tune with manual sliders. 100% free and private — everything runs in your browser.</p>
+
+                <div class="tool-workspace">
+                    <!-- Upload Section -->
+                    <div id="upload-section">
+                        <div class="wb-upload" id="drop-zone">
+                            <span class="upload-icon">&#128203;</span>
+                            <h3 class="mb-2">Upload Your Whiteboard Photo</h3>
+                            <p class="text-muted mb-2">Drag &amp; drop an image here, or click to browse</p>
+                            <p class="text-muted" style="font-size: 0.85rem;">Supports JPG, PNG, and WebP</p>
+                            <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                            <label for="file-input" class="btn btn-primary" style="margin-top: 1rem;">Select Image</label>
+                        </div>
+                    </div>
+
+                    <!-- Editor Section -->
+                    <div id="editor-section" style="display: none;">
+                        <!-- View Toggle -->
+                        <div class="view-toggle">
+                            <button id="view-side" class="active">Side by Side</button>
+                            <button id="view-result">Result Only</button>
+                        </div>
+
+                        <!-- Side-by-side comparison -->
+                        <div class="comparison-container" id="comparison-view">
+                            <div class="panel">
+                                <h4>Original</h4>
+                                <canvas id="original-canvas"></canvas>
+                            </div>
+                            <div class="panel">
+                                <h4>Enhanced</h4>
+                                <canvas id="preview-canvas"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Result-only view -->
+                        <div class="canvas-wrapper" id="result-view" style="display: none;">
+                            <canvas id="result-canvas"></canvas>
+                        </div>
+
+                        <!-- Processing Modes -->
+                        <h3 class="text-center mb-1">Processing Mode</h3>
+                        <div class="mode-options" id="mode-options">
+                            <input type="radio" name="mode" id="mode-auto" value="auto" checked>
+                            <label for="mode-auto">Auto Clean</label>
+
+                            <input type="radio" name="mode" id="mode-highcontrast" value="highcontrast">
+                            <label for="mode-highcontrast">High Contrast</label>
+
+                            <input type="radio" name="mode" id="mode-bw" value="bw">
+                            <label for="mode-bw">Black &amp; White</label>
+
+                            <input type="radio" name="mode" id="mode-original" value="original">
+                            <label for="mode-original">Original</label>
+                        </div>
+
+                        <!-- Sliders -->
+                        <div class="sliders-section">
+                            <h3 class="text-center mb-1">Adjustments</h3>
+                            <div class="slider-group">
+                                <label>Brightness <span id="brightness-val">20</span></label>
+                                <input type="range" id="brightness-slider" min="-50" max="50" value="20">
+                            </div>
+                            <div class="slider-group">
+                                <label>Contrast <span id="contrast-val">50</span></label>
+                                <input type="range" id="contrast-slider" min="0" max="100" value="50">
+                            </div>
+                            <div class="slider-group" id="threshold-group" style="display: none;">
+                                <label>Threshold <span id="threshold-val">128</span></label>
+                                <input type="range" id="threshold-slider" min="80" max="200" value="128">
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button id="download-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.05rem;">Download PNG</button>
+                            <button id="reset-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Reset</button>
+                            <button id="new-image-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Upload New Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop a whiteboard photo (JPG, PNG, or WebP) into the upload area.</li>
+                        <li>Choose a processing mode: "Auto Clean" works best for most photos, "High Contrast" for faded markers, or "Black &amp; White" for a crisp binarized look.</li>
+                        <li>Fine-tune the result with the Brightness, Contrast, and Threshold sliders.</li>
+                        <li>Compare the original and enhanced images side by side, or toggle to the result-only view.</li>
+                        <li>Click "Download PNG" to save the cleaned-up whiteboard image to your device.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What does this tool do?</h3>
+                        <p>The Whiteboard Sketch Converter takes a photo of a whiteboard and enhances it into a clean, readable image. It automatically balances the white background, removes shadows and uneven lighting, increases contrast so ink and marker strokes stand out, and optionally sharpens text for maximum clarity.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What are the best photo conditions for good results?</h3>
+                        <p>For the best output, take the photo straight-on (not at an angle), ensure the entire whiteboard is in frame, and use even lighting to minimize harsh shadows. Avoid camera flash directly on the board, as glare can wash out areas. Natural or overhead lighting works best.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How can I get the highest quality result?</h3>
+                        <p>Start with "Auto Clean" mode, which works well for most whiteboard photos. If the marker strokes are faded, switch to "High Contrast" mode. For a document-like look, use "Black &amp; White" mode and adjust the threshold slider until text is sharp and the background is fully white. Fine-tune brightness and contrast sliders for the final polish.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported?</h3>
+                        <p>You can upload images in JPEG, PNG, and WebP formats. The processed result is always downloaded as a high-quality PNG file, which preserves sharpness and is ideal for sharing or printing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data private?</h3>
+                        <p>Yes, completely. All image processing happens entirely in your browser using the HTML5 Canvas API. Your photos are never uploaded to any server. Nothing leaves your device, so your whiteboard content stays fully private and secure.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/photo-filters-editor" class="related-link">Photo Filters Editor</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Image Compressor</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+
+        var originalCanvas = document.getElementById('original-canvas');
+        var originalCtx = originalCanvas.getContext('2d');
+        var previewCanvas = document.getElementById('preview-canvas');
+        var previewCtx = previewCanvas.getContext('2d');
+        var resultCanvas = document.getElementById('result-canvas');
+        var resultCtx = resultCanvas.getContext('2d');
+
+        var comparisonView = document.getElementById('comparison-view');
+        var resultView = document.getElementById('result-view');
+        var viewSideBtn = document.getElementById('view-side');
+        var viewResultBtn = document.getElementById('view-result');
+
+        var brightnessSlider = document.getElementById('brightness-slider');
+        var contrastSlider = document.getElementById('contrast-slider');
+        var thresholdSlider = document.getElementById('threshold-slider');
+        var brightnessVal = document.getElementById('brightness-val');
+        var contrastVal = document.getElementById('contrast-val');
+        var thresholdVal = document.getElementById('threshold-val');
+        var thresholdGroup = document.getElementById('threshold-group');
+
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var newImageBtn = document.getElementById('new-image-btn');
+
+        var originalImage = null;
+        var originalImageData = null;
+        var currentMode = 'auto';
+        var MAX_PREVIEW = 1200;
+
+        // File upload handling
+        dropZone.addEventListener('click', function(e) {
+            if (e.target === fileInput || e.target.closest('label[for="file-input"]')) return;
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) loadImage(fileInput.files[0]);
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+        });
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+        });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                var file = e.dataTransfer.files[0];
+                if (file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                    loadImage(file);
+                }
+            }
+        });
+
+        function loadImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    originalImage = img;
+
+                    // Scale for preview
+                    var w = img.naturalWidth;
+                    var h = img.naturalHeight;
+                    if (w > MAX_PREVIEW || h > MAX_PREVIEW) {
+                        var ratio = Math.min(MAX_PREVIEW / w, MAX_PREVIEW / h);
+                        w = Math.round(w * ratio);
+                        h = Math.round(h * ratio);
+                    }
+
+                    originalCanvas.width = w;
+                    originalCanvas.height = h;
+                    originalCtx.drawImage(img, 0, 0, w, h);
+                    originalImageData = originalCtx.getImageData(0, 0, w, h);
+
+                    previewCanvas.width = w;
+                    previewCanvas.height = h;
+                    resultCanvas.width = w;
+                    resultCanvas.height = h;
+
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+
+                    applyProcessing();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Mode selection
+        var modeRadios = document.querySelectorAll('input[name="mode"]');
+        modeRadios.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                currentMode = this.value;
+                thresholdGroup.style.display = currentMode === 'bw' ? 'block' : 'none';
+                applyProcessing();
+            });
+        });
+
+        // View toggle
+        viewSideBtn.addEventListener('click', function() {
+            comparisonView.style.display = 'flex';
+            resultView.style.display = 'none';
+            viewSideBtn.classList.add('active');
+            viewResultBtn.classList.remove('active');
+        });
+        viewResultBtn.addEventListener('click', function() {
+            comparisonView.style.display = 'none';
+            resultView.style.display = 'block';
+            viewSideBtn.classList.remove('active');
+            viewResultBtn.classList.add('active');
+            // Copy preview to result canvas
+            resultCtx.drawImage(previewCanvas, 0, 0);
+        });
+
+        // Slider events
+        brightnessSlider.addEventListener('input', function() {
+            brightnessVal.textContent = this.value;
+            applyProcessing();
+        });
+        contrastSlider.addEventListener('input', function() {
+            contrastVal.textContent = this.value;
+            applyProcessing();
+        });
+        thresholdSlider.addEventListener('input', function() {
+            thresholdVal.textContent = this.value;
+            applyProcessing();
+        });
+
+        function clamp(val, min, max) {
+            return val < min ? min : val > max ? max : val;
+        }
+
+        // Detect background color (most common bright pixel)
+        function detectBackgroundColor(data, len) {
+            var rSum = 0, gSum = 0, bSum = 0, count = 0;
+            for (var i = 0; i < len; i += 4) {
+                var r = data[i], g = data[i + 1], b = data[i + 2];
+                // Consider bright pixels as potential background
+                if (r > 160 && g > 160 && b > 160) {
+                    rSum += r;
+                    gSum += g;
+                    bSum += b;
+                    count++;
+                }
+            }
+            if (count === 0) return { r: 220, g: 220, b: 220 };
+            return {
+                r: Math.round(rSum / count),
+                g: Math.round(gSum / count),
+                b: Math.round(bSum / count)
+            };
+        }
+
+        // Auto white balance: normalize background to white
+        function applyWhiteBalance(data, len, bgColor) {
+            var scaleR = 255 / Math.max(bgColor.r, 1);
+            var scaleG = 255 / Math.max(bgColor.g, 1);
+            var scaleB = 255 / Math.max(bgColor.b, 1);
+            for (var i = 0; i < len; i += 4) {
+                data[i]     = clamp(Math.round(data[i] * scaleR), 0, 255);
+                data[i + 1] = clamp(Math.round(data[i + 1] * scaleG), 0, 255);
+                data[i + 2] = clamp(Math.round(data[i + 2] * scaleB), 0, 255);
+            }
+        }
+
+        // Shadow removal: brighten dark areas that are not ink
+        function removeShadows(data, len) {
+            for (var i = 0; i < len; i += 4) {
+                var r = data[i], g = data[i + 1], b = data[i + 2];
+                var brightness = (r + g + b) / 3;
+                // Mid-range pixels (shadows, not ink) get brightened
+                if (brightness > 60 && brightness < 180) {
+                    var boost = Math.round((180 - brightness) * 0.5);
+                    data[i]     = clamp(r + boost, 0, 255);
+                    data[i + 1] = clamp(g + boost, 0, 255);
+                    data[i + 2] = clamp(b + boost, 0, 255);
+                }
+            }
+        }
+
+        // Contrast enhancement
+        function applyContrast(data, len, strength) {
+            var factor = (259 * (strength + 255)) / (255 * (259 - strength));
+            for (var i = 0; i < len; i += 4) {
+                data[i]     = clamp(Math.round(factor * (data[i] - 128) + 128), 0, 255);
+                data[i + 1] = clamp(Math.round(factor * (data[i + 1] - 128) + 128), 0, 255);
+                data[i + 2] = clamp(Math.round(factor * (data[i + 2] - 128) + 128), 0, 255);
+            }
+        }
+
+        // Brightness adjustment
+        function applyBrightness(data, len, amount) {
+            for (var i = 0; i < len; i += 4) {
+                data[i]     = clamp(data[i] + amount, 0, 255);
+                data[i + 1] = clamp(data[i + 1] + amount, 0, 255);
+                data[i + 2] = clamp(data[i + 2] + amount, 0, 255);
+            }
+        }
+
+        // Sharpen using 3x3 convolution kernel
+        function applySharpen(srcData, data, width, height) {
+            var kernel = [
+                 0, -1,  0,
+                -1,  5, -1,
+                 0, -1,  0
+            ];
+            var len = srcData.length;
+            var copy = new Uint8ClampedArray(len);
+            for (var i = 0; i < len; i++) copy[i] = data[i];
+
+            for (var y = 1; y < height - 1; y++) {
+                for (var x = 1; x < width - 1; x++) {
+                    var rSum = 0, gSum = 0, bSum = 0;
+                    var ki = 0;
+                    for (var ky = -1; ky <= 1; ky++) {
+                        for (var kx = -1; kx <= 1; kx++) {
+                            var px = ((y + ky) * width + (x + kx)) * 4;
+                            var w = kernel[ki++];
+                            rSum += copy[px] * w;
+                            gSum += copy[px + 1] * w;
+                            bSum += copy[px + 2] * w;
+                        }
+                    }
+                    var idx = (y * width + x) * 4;
+                    data[idx]     = clamp(Math.round(rSum), 0, 255);
+                    data[idx + 1] = clamp(Math.round(gSum), 0, 255);
+                    data[idx + 2] = clamp(Math.round(bSum), 0, 255);
+                }
+            }
+        }
+
+        // Binarize (threshold)
+        function applyThreshold(data, len, threshold) {
+            for (var i = 0; i < len; i += 4) {
+                var gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                var val = gray > threshold ? 255 : 0;
+                data[i] = data[i + 1] = data[i + 2] = val;
+            }
+        }
+
+        function applyProcessing() {
+            if (!originalImageData) return;
+
+            var w = previewCanvas.width;
+            var h = previewCanvas.height;
+            var imgData = previewCtx.createImageData(w, h);
+            var src = originalImageData.data;
+            var data = imgData.data;
+            var len = src.length;
+
+            // Copy original
+            for (var i = 0; i < len; i++) {
+                data[i] = src[i];
+            }
+
+            var brightness = parseInt(brightnessSlider.value, 10);
+            var contrast = parseInt(contrastSlider.value, 10);
+            var threshold = parseInt(thresholdSlider.value, 10);
+
+            if (currentMode === 'original') {
+                // Only apply manual brightness/contrast
+                if (brightness !== 0) applyBrightness(data, len, brightness);
+                if (contrast !== 0) applyContrast(data, len, contrast);
+            } else if (currentMode === 'auto') {
+                // Auto Clean: white balance + shadow removal + contrast + sharpen
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                applyContrast(data, len, contrast);
+                applyBrightness(data, len, brightness);
+                applySharpen(src, data, w, h);
+            } else if (currentMode === 'highcontrast') {
+                // High Contrast: stronger contrast, white balance, sharpen
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                var boostedContrast = Math.min(contrast + 30, 200);
+                applyContrast(data, len, boostedContrast);
+                applyBrightness(data, len, brightness);
+                applySharpen(src, data, w, h);
+            } else if (currentMode === 'bw') {
+                // Black & White: white balance + binarize
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                applyBrightness(data, len, brightness);
+                applyContrast(data, len, contrast);
+                applyThreshold(data, len, threshold);
+            }
+
+            previewCtx.putImageData(imgData, 0, 0);
+
+            // Also update result canvas if result-only view is active
+            if (resultView.style.display !== 'none') {
+                resultCtx.drawImage(previewCanvas, 0, 0);
+            }
+        }
+
+        // Download at full resolution
+        downloadBtn.addEventListener('click', function() {
+            if (!originalImage) return;
+
+            var dlCanvas = document.createElement('canvas');
+            var dlCtx = dlCanvas.getContext('2d');
+            var w = originalImage.naturalWidth;
+            var h = originalImage.naturalHeight;
+            dlCanvas.width = w;
+            dlCanvas.height = h;
+            dlCtx.drawImage(originalImage, 0, 0);
+
+            var fullData = dlCtx.getImageData(0, 0, w, h);
+            var data = fullData.data;
+            var len = data.length;
+
+            var brightness = parseInt(brightnessSlider.value, 10);
+            var contrast = parseInt(contrastSlider.value, 10);
+            var threshold = parseInt(thresholdSlider.value, 10);
+
+            if (currentMode === 'original') {
+                if (brightness !== 0) applyBrightness(data, len, brightness);
+                if (contrast !== 0) applyContrast(data, len, contrast);
+            } else if (currentMode === 'auto') {
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                applyContrast(data, len, contrast);
+                applyBrightness(data, len, brightness);
+                applySharpen(fullData.data, data, w, h);
+            } else if (currentMode === 'highcontrast') {
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                var boostedContrast = Math.min(contrast + 30, 200);
+                applyContrast(data, len, boostedContrast);
+                applyBrightness(data, len, brightness);
+                applySharpen(fullData.data, data, w, h);
+            } else if (currentMode === 'bw') {
+                var bgColor = detectBackgroundColor(data, len);
+                applyWhiteBalance(data, len, bgColor);
+                removeShadows(data, len);
+                applyBrightness(data, len, brightness);
+                applyContrast(data, len, contrast);
+                applyThreshold(data, len, threshold);
+            }
+
+            dlCtx.putImageData(fullData, 0, 0);
+
+            dlCanvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'whiteboard-cleaned.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            currentMode = 'auto';
+            document.getElementById('mode-auto').checked = true;
+            brightnessSlider.value = 20;
+            contrastSlider.value = 50;
+            thresholdSlider.value = 128;
+            brightnessVal.textContent = '20';
+            contrastVal.textContent = '50';
+            thresholdVal.textContent = '128';
+            thresholdGroup.style.display = 'none';
+            applyProcessing();
+        });
+
+        // Upload new image
+        newImageBtn.addEventListener('click', function() {
+            originalImage = null;
+            originalImageData = null;
+            fileInput.value = '';
+            currentMode = 'auto';
+            document.getElementById('mode-auto').checked = true;
+            brightnessSlider.value = 20;
+            contrastSlider.value = 50;
+            thresholdSlider.value = 128;
+            brightnessVal.textContent = '20';
+            contrastVal.textContent = '50';
+            thresholdVal.textContent = '128';
+            thresholdGroup.style.display = 'none';
+            uploadSection.style.display = 'block';
+            editorSection.style.display = 'none';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

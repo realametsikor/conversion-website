@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG to PNG Converter Free Online - Convert SVG Files Instantly | ToolsNest</title>
+    <meta name="description" content="Convert SVG to PNG online for free. Choose custom dimensions, set background color, and download high-quality PNG files. No signup or upload needed.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/svg-to-png/">
+
+    <meta property="og:title" content="SVG to PNG Converter Free Online - Convert SVG Files Instantly | ToolsNest">
+    <meta property="og:description" content="Convert SVG to PNG online for free. Choose custom dimensions, set background color, and download high-quality PNG files. No signup or upload needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/svg-to-png/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="SVG to PNG Converter Free Online - Convert SVG Files Instantly | ToolsNest">
+    <meta name="twitter:description" content="Convert SVG to PNG online for free. Choose custom dimensions, set background color, and download high-quality PNG files. No signup or upload needed.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "SVG to PNG Converter Free Online - Convert SVG Files Instantly"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; SVG to PNG
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">SVG to PNG Converter</h1>
+                <p class="text-center mb-3">Convert SVG vector files to high-quality PNG images instantly. Customize dimensions, scale, and background color. Everything runs in your browser — no uploads, no signups.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <!-- Upload Area -->
+                    <div id="upload-area" style="text-align:center;">
+                        <div style="font-size:3rem;margin-bottom:1rem;">&#128444;</div>
+                        <h3>Drag & Drop your SVG file here</h3>
+                        <p style="margin:0.75rem 0;">or</p>
+                        <input type="file" id="file-input" accept=".svg,image/svg+xml" style="display:none;">
+                        <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select SVG File</label>
+                        <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .svg files only</p>
+                    </div>
+
+                    <!-- Editor Area -->
+                    <div id="editor-area" style="display:none;">
+                        <!-- SVG Preview -->
+                        <div style="text-align:center;margin-bottom:1.5rem;">
+                            <p style="font-weight:600;margin-bottom:0.5rem;color:var(--text-main);">SVG Preview</p>
+                            <div id="svg-preview" style="max-width:100%;max-height:300px;overflow:auto;border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;background:repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50%/20px 20px;display:inline-block;"></div>
+                        </div>
+
+                        <!-- File Info -->
+                        <div style="background:var(--bg-color);padding:1rem;border-radius:var(--radius-sm);margin-bottom:1.5rem;">
+                            <p style="font-weight:600;margin-bottom:0.5rem;color:var(--text-main);">File Details</p>
+                            <p class="text-muted" style="margin:0 0 0.25rem 0;">Filename: <strong id="file-name">--</strong></p>
+                            <p class="text-muted" style="margin:0 0 0.25rem 0;">Original Dimensions: <strong id="original-dims">--</strong></p>
+                            <p class="text-muted" style="margin:0;">File Size: <strong id="file-size">--</strong></p>
+                        </div>
+
+                        <!-- Dimension Controls -->
+                        <div style="max-width:500px;margin:0 auto 1.5rem;">
+                            <p style="font-weight:600;margin-bottom:0.75rem;color:var(--text-main);">Output Dimensions</p>
+                            <div style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:0.75rem;">
+                                <div style="flex:1;min-width:120px;">
+                                    <label for="width-input" style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;">Width (px)</label>
+                                    <input type="number" id="width-input" class="form-input" min="1" max="8192" style="width:100%;">
+                                </div>
+                                <div style="display:flex;align-items:center;padding-top:1.2rem;">
+                                    <span id="lock-icon" style="font-size:1.2rem;cursor:pointer;" title="Toggle aspect ratio lock">&#128279;</span>
+                                </div>
+                                <div style="flex:1;min-width:120px;">
+                                    <label for="height-input" style="font-size:0.85rem;color:var(--text-muted);display:block;margin-bottom:0.25rem;">Height (px)</label>
+                                    <input type="number" id="height-input" class="form-input" min="1" max="8192" style="width:100%;">
+                                </div>
+                            </div>
+                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;font-size:0.9rem;color:var(--text-muted);">
+                                <input type="checkbox" id="lock-ratio" checked> Lock aspect ratio
+                            </label>
+                        </div>
+
+                        <!-- Scale Multiplier -->
+                        <div style="max-width:500px;margin:0 auto 1.5rem;">
+                            <p style="font-weight:600;margin-bottom:0.75rem;color:var(--text-main);">Scale Multiplier</p>
+                            <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                                <button class="btn btn-secondary scale-btn active" data-scale="1">1x</button>
+                                <button class="btn btn-secondary scale-btn" data-scale="2">2x</button>
+                                <button class="btn btn-secondary scale-btn" data-scale="3">3x</button>
+                                <button class="btn btn-secondary scale-btn" data-scale="4">4x</button>
+                            </div>
+                            <p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;">Multiplies the output dimensions for higher resolution exports.</p>
+                        </div>
+
+                        <!-- Background Color -->
+                        <div style="max-width:500px;margin:0 auto 1.5rem;">
+                            <p style="font-weight:600;margin-bottom:0.75rem;color:var(--text-main);">Background Color</p>
+                            <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;">
+                                <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                    <input type="radio" name="bg-type" value="transparent" checked> Transparent
+                                </label>
+                                <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                    <input type="radio" name="bg-type" value="custom"> Custom Color
+                                </label>
+                                <input type="color" id="bg-color-picker" value="#ffffff" style="width:40px;height:32px;border:1px solid var(--border);border-radius:4px;cursor:pointer;" disabled>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div style="text-align:center;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+                            <button id="convert-btn" class="btn btn-primary" style="padding:0.75rem 2rem;font-size:1rem;">Convert to PNG</button>
+                            <button id="reset-btn" class="btn btn-secondary" style="padding:0.75rem 2rem;font-size:1rem;">Start Over</button>
+                        </div>
+
+                        <!-- Result Area -->
+                        <div id="result-area" style="display:none;margin-top:1.5rem;">
+                            <div style="text-align:center;margin-bottom:1rem;">
+                                <p style="font-weight:600;color:var(--text-main);margin-bottom:0.5rem;">PNG Output</p>
+                                <p class="text-muted" style="margin:0 0 0.25rem 0;">Output Dimensions: <strong id="output-dims">--</strong></p>
+                            </div>
+                            <div style="text-align:center;margin-bottom:1rem;">
+                                <canvas id="output-canvas" style="max-width:100%;border:1px solid var(--border);border-radius:var(--radius-sm);background:repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50%/20px 20px;"></canvas>
+                            </div>
+                            <div style="text-align:center;">
+                                <button id="download-btn" class="btn btn-accent" style="padding:0.75rem 2rem;font-size:1rem;">Download PNG</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Area -->
+                    <div id="error-area" style="display:none;margin-top:1.5rem;">
+                        <div style="background:#fff5f5;border:1px solid #feb2b2;padding:1rem;border-radius:var(--radius-sm);color:#c53030;text-align:center;">
+                            <p id="error-message" style="margin:0;font-weight:500;">An error occurred.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left:1.5rem;line-height:2;">
+                        <li>Upload your SVG file by clicking "Select SVG File" or dragging it into the tool area above.</li>
+                        <li>Preview the SVG and review the detected dimensions. Adjust the width and height as needed, or use the scale multiplier (2x, 3x, 4x) for higher resolution output.</li>
+                        <li>Choose a background color. Select "Transparent" for a see-through background or pick a custom color using the color picker.</li>
+                        <li>Click "Convert to PNG" to render the SVG at the specified dimensions. The PNG preview will appear below.</li>
+                        <li>Click "Download PNG" to save the converted image to your device.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between SVG and PNG?</h3>
+                        <p>SVG (Scalable Vector Graphics) is a vector format that uses mathematical paths to define shapes, meaning it can scale to any size without losing quality. PNG (Portable Network Graphics) is a raster format made of pixels. PNG is better for sharing images on platforms that do not support SVG, while SVG is ideal for logos, icons, and graphics that need to scale.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this converter support transparent backgrounds?</h3>
+                        <p>Yes. The default output has a transparent background, preserving any transparency in your SVG. You can also choose a custom background color if you need a solid background behind your image.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will the PNG output be high quality?</h3>
+                        <p>Absolutely. The converter renders the SVG at the exact pixel dimensions you specify, so the output is crisp and sharp. Use the scale multiplier (2x, 3x, 4x) to generate higher resolution PNGs suitable for retina displays or print.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What are the maximum output dimensions?</h3>
+                        <p>You can set width and height up to 8192 pixels each. Keep in mind that very large dimensions (e.g., 8192 x 8192) may use significant memory in your browser. For most use cases, dimensions up to 4096 pixels work smoothly on all devices.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my SVG file uploaded to a server?</h3>
+                        <p>No. All processing happens entirely in your browser using JavaScript. Your SVG file is never sent to any server, ensuring complete privacy. The conversion uses the Canvas API to render the SVG locally and export it as PNG.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/png-to-svg" class="related-link">PNG to SVG</a>
+                    <a href="/image-tools/favicon-generator" class="related-link">Favicon Generator</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadArea = document.getElementById('upload-area');
+        var editorArea = document.getElementById('editor-area');
+        var errorArea = document.getElementById('error-area');
+        var errorMessage = document.getElementById('error-message');
+        var svgPreview = document.getElementById('svg-preview');
+        var fileNameEl = document.getElementById('file-name');
+        var originalDimsEl = document.getElementById('original-dims');
+        var fileSizeEl = document.getElementById('file-size');
+        var widthInput = document.getElementById('width-input');
+        var heightInput = document.getElementById('height-input');
+        var lockRatio = document.getElementById('lock-ratio');
+        var lockIcon = document.getElementById('lock-icon');
+        var bgColorPicker = document.getElementById('bg-color-picker');
+        var convertBtn = document.getElementById('convert-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var resultArea = document.getElementById('result-area');
+        var outputCanvas = document.getElementById('output-canvas');
+        var outputDimsEl = document.getElementById('output-dims');
+
+        var svgText = '';
+        var svgOrigWidth = 0;
+        var svgOrigHeight = 0;
+        var aspectRatio = 1;
+        var currentScale = 1;
+        var pngDataURL = '';
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function showError(msg) {
+            errorMessage.textContent = msg;
+            errorArea.style.display = 'block';
+        }
+
+        function hideError() {
+            errorArea.style.display = 'none';
+        }
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#EFF6FF';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            hideError();
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'svg' && file.type !== 'image/svg+xml') {
+                showError('Please select a valid SVG file.');
+                return;
+            }
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                svgText = e.target.result;
+                parseSVG(file);
+            };
+            reader.onerror = function() {
+                showError('Failed to read the file. Please try again.');
+            };
+            reader.readAsText(file);
+        }
+
+        function parseSVG(file) {
+            var parser = new DOMParser();
+            var doc = parser.parseFromString(svgText, 'image/svg+xml');
+            var svgEl = doc.querySelector('svg');
+
+            if (!svgEl) {
+                showError('The file does not contain a valid SVG element.');
+                return;
+            }
+
+            // Extract dimensions from width/height attributes or viewBox
+            var w = 0;
+            var h = 0;
+            var viewBox = svgEl.getAttribute('viewBox');
+            var attrWidth = parseFloat(svgEl.getAttribute('width'));
+            var attrHeight = parseFloat(svgEl.getAttribute('height'));
+
+            if (attrWidth > 0 && attrHeight > 0) {
+                w = Math.round(attrWidth);
+                h = Math.round(attrHeight);
+            } else if (viewBox) {
+                var parts = viewBox.trim().split(/[\s,]+/);
+                if (parts.length === 4) {
+                    w = Math.round(parseFloat(parts[2]));
+                    h = Math.round(parseFloat(parts[3]));
+                }
+            }
+
+            if (w <= 0 || h <= 0) {
+                w = 300;
+                h = 150;
+            }
+
+            svgOrigWidth = w;
+            svgOrigHeight = h;
+            aspectRatio = w / h;
+
+            // Update UI
+            fileNameEl.textContent = file.name;
+            originalDimsEl.textContent = w + ' x ' + h + ' px';
+            fileSizeEl.textContent = formatBytes(file.size);
+            widthInput.value = w;
+            heightInput.value = h;
+
+            // Show SVG preview
+            var previewSvg = svgText;
+            var blob = new Blob([previewSvg], { type: 'image/svg+xml;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            svgPreview.innerHTML = '';
+            var previewImg = document.createElement('img');
+            previewImg.src = url;
+            previewImg.alt = 'SVG Preview';
+            previewImg.style.maxWidth = '100%';
+            previewImg.style.maxHeight = '280px';
+            svgPreview.appendChild(previewImg);
+
+            uploadArea.style.display = 'none';
+            editorArea.style.display = 'block';
+            resultArea.style.display = 'none';
+
+            // Reset scale buttons
+            currentScale = 1;
+            var scaleBtns = document.querySelectorAll('.scale-btn');
+            scaleBtns.forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-scale') === '1') {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        // Lock aspect ratio toggle
+        lockRatio.addEventListener('change', function() {
+            lockIcon.textContent = lockRatio.checked ? '\uD83D\uDD17' : '\u26D3\uFE0F';
+        });
+
+        lockIcon.addEventListener('click', function() {
+            lockRatio.checked = !lockRatio.checked;
+            lockIcon.textContent = lockRatio.checked ? '\uD83D\uDD17' : '\u26D3\uFE0F';
+        });
+
+        // Width/height input with aspect ratio lock
+        widthInput.addEventListener('input', function() {
+            if (lockRatio.checked && aspectRatio > 0) {
+                var w = parseInt(widthInput.value) || 0;
+                heightInput.value = Math.round(w / aspectRatio);
+            }
+        });
+
+        heightInput.addEventListener('input', function() {
+            if (lockRatio.checked && aspectRatio > 0) {
+                var h = parseInt(heightInput.value) || 0;
+                widthInput.value = Math.round(h * aspectRatio);
+            }
+        });
+
+        // Scale buttons
+        var scaleBtns = document.querySelectorAll('.scale-btn');
+        scaleBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                scaleBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                currentScale = parseInt(btn.getAttribute('data-scale'));
+
+                var baseW = svgOrigWidth;
+                var baseH = svgOrigHeight;
+                widthInput.value = baseW * currentScale;
+                heightInput.value = baseH * currentScale;
+            });
+        });
+
+        // Background type toggle
+        var bgRadios = document.querySelectorAll('input[name="bg-type"]');
+        bgRadios.forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                bgColorPicker.disabled = (radio.value === 'transparent');
+            });
+        });
+
+        // Convert to PNG
+        convertBtn.addEventListener('click', function() {
+            hideError();
+
+            var outW = parseInt(widthInput.value) || 0;
+            var outH = parseInt(heightInput.value) || 0;
+
+            if (outW < 1 || outH < 1) {
+                showError('Please enter valid width and height values (minimum 1px).');
+                return;
+            }
+            if (outW > 8192 || outH > 8192) {
+                showError('Maximum dimension is 8192 pixels. Please reduce the width or height.');
+                return;
+            }
+            if (!svgText) {
+                showError('No SVG file loaded. Please upload an SVG file first.');
+                return;
+            }
+
+            var bgType = document.querySelector('input[name="bg-type"]:checked').value;
+            var bgColor = bgType === 'custom' ? bgColorPicker.value : null;
+
+            // Create an image from the SVG
+            var svgBlob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+            var svgUrl = URL.createObjectURL(svgBlob);
+
+            var img = new Image();
+            img.onload = function() {
+                var canvas = outputCanvas;
+                canvas.width = outW;
+                canvas.height = outH;
+                var ctx = canvas.getContext('2d');
+
+                // Clear canvas
+                ctx.clearRect(0, 0, outW, outH);
+
+                // Draw background if custom color
+                if (bgColor) {
+                    ctx.fillStyle = bgColor;
+                    ctx.fillRect(0, 0, outW, outH);
+                }
+
+                // Draw SVG image to canvas
+                ctx.drawImage(img, 0, 0, outW, outH);
+
+                URL.revokeObjectURL(svgUrl);
+
+                // Export as PNG
+                try {
+                    pngDataURL = canvas.toDataURL('image/png');
+                    outputDimsEl.textContent = outW + ' x ' + outH + ' px';
+                    resultArea.style.display = 'block';
+                    resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                } catch (e) {
+                    showError('Failed to export PNG. The SVG may contain external resources that block canvas export.');
+                }
+            };
+            img.onerror = function() {
+                URL.revokeObjectURL(svgUrl);
+                showError('Failed to render the SVG. The file may be malformed or contain unsupported elements.');
+            };
+            img.src = svgUrl;
+        });
+
+        // Download PNG
+        downloadBtn.addEventListener('click', function() {
+            if (!pngDataURL) return;
+            var a = document.createElement('a');
+            a.href = pngDataURL;
+            var baseName = (fileNameEl.textContent || 'image').replace(/\.svg$/i, '');
+            a.download = baseName + '.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            svgText = '';
+            svgOrigWidth = 0;
+            svgOrigHeight = 0;
+            aspectRatio = 1;
+            currentScale = 1;
+            pngDataURL = '';
+
+            fileInput.value = '';
+            widthInput.value = '';
+            heightInput.value = '';
+            lockRatio.checked = true;
+            lockIcon.textContent = '\uD83D\uDD17';
+            svgPreview.innerHTML = '';
+            resultArea.style.display = 'none';
+            editorArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+            hideError();
+
+            var defaultBg = document.querySelector('input[name="bg-type"][value="transparent"]');
+            if (defaultBg) defaultBg.checked = true;
+            bgColorPicker.disabled = true;
+            bgColorPicker.value = '#ffffff';
+
+            var scaleBtns = document.querySelectorAll('.scale-btn');
+            scaleBtns.forEach(function(btn) {
+                btn.classList.remove('active');
+                if (btn.getAttribute('data-scale') === '1') {
+                    btn.classList.add('active');
+                }
+            });
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

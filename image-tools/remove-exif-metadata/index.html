@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Remove EXIF Data from Photos Free Online - Strip Image Metadata | ToolsNest</title>
+    <meta name="description" content="Remove EXIF metadata from photos online for free. Strip GPS location, camera info, and personal data from images. Protect your privacy instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/remove-exif-metadata/">
+
+    <meta property="og:title" content="Remove EXIF Data from Photos Free Online - Strip Image Metadata | ToolsNest">
+    <meta property="og:description" content="Remove EXIF metadata from photos online for free. Strip GPS location, camera info, and personal data from images. Protect your privacy instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/remove-exif-metadata/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Remove EXIF Data from Photos Free Online - Strip Image Metadata | ToolsNest">
+    <meta name="twitter:description" content="Remove EXIF metadata from photos online for free. Strip GPS location, camera info, and personal data from images. Protect your privacy instantly.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Remove EXIF Metadata"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Remove EXIF Metadata
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Remove EXIF Metadata</h1>
+                <p class="text-center mb-3">Strip hidden metadata from your photos to protect your privacy. Remove GPS location, camera details, and personal data before sharing images online.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-area">
+                        <div style="font-size:3rem;margin-bottom:1rem;">&#128274;</div>
+                        <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
+                        <p class="text-muted mb-2">or</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display:none;">
+                        <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select Image</label>
+                        <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts JPEG, PNG, and WebP images</p>
+                    </div>
+
+                    <div id="result-area" style="display:none;">
+                        <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;align-items:flex-start;">
+                            <div style="flex:1;min-width:250px;max-width:400px;">
+                                <h3 style="margin-bottom:0.75rem;color:var(--text-muted);">Original Image</h3>
+                                <img id="preview-original" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);border:1px solid var(--border);display:block;margin:0 auto;" alt="Original image with EXIF data">
+                                <div id="before-info" style="margin-top:0.75rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.85rem;text-align:left;"></div>
+                            </div>
+                            <div style="flex:1;min-width:250px;max-width:400px;">
+                                <h3 style="margin-bottom:0.75rem;color:var(--accent);">Cleaned Image</h3>
+                                <img id="preview-cleaned" style="max-width:100%;max-height:200px;border-radius:var(--radius-sm);border:1px solid var(--border);display:block;margin:0 auto;display:none;" alt="Cleaned image without EXIF data">
+                                <div id="after-info" style="margin-top:0.75rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.85rem;text-align:left;display:none;"></div>
+                            </div>
+                        </div>
+
+                        <canvas id="exif-canvas" style="display:none;"></canvas>
+
+                        <div style="margin-top:1.5rem;display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap;">
+                            <div style="display:flex;align-items:center;gap:0.5rem;">
+                                <label for="output-format" style="font-size:0.9rem;font-weight:600;">Output Format:</label>
+                                <select id="output-format" class="btn btn-outline" style="padding:0.4rem 0.75rem;font-size:0.85rem;cursor:pointer;">
+                                    <option value="image/jpeg" selected>JPEG</option>
+                                    <option value="image/png">PNG</option>
+                                </select>
+                            </div>
+                            <div id="quality-control" style="display:flex;align-items:center;gap:0.5rem;">
+                                <label for="quality-slider" style="font-size:0.9rem;font-weight:600;">Quality:</label>
+                                <input type="range" id="quality-slider" min="70" max="100" value="92" style="width:120px;cursor:pointer;">
+                                <span id="quality-value" style="font-size:0.85rem;min-width:36px;">92%</span>
+                            </div>
+                        </div>
+
+                        <div style="margin-top:1rem;text-align:center;">
+                            <button id="remove-btn" class="btn btn-primary">Remove Metadata</button>
+                        </div>
+
+                        <div id="status-message" style="margin-top:1rem;padding:0.75rem;background:#ECFDF5;border:1px solid #6EE7B7;border-radius:var(--radius-sm);color:#065F46;font-size:0.9rem;display:none;">
+                            All EXIF metadata including GPS location, camera info, and timestamps has been removed.
+                        </div>
+
+                        <div id="download-area" style="margin-top:1.5rem;display:none;gap:0.75rem;justify-content:center;">
+                            <a id="download-btn" class="btn btn-accent" download>Download Cleaned Image</a>
+                            <button id="reset-btn" class="btn btn-outline">Clean Another Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left:1.5rem;line-height:2;">
+                        <li>Click "Select Image" or drag and drop a JPEG, PNG, or WebP photo into the upload area above.</li>
+                        <li>Review the detected file information and EXIF data summary displayed for your original image.</li>
+                        <li>Choose your preferred output format (JPEG or PNG) and adjust quality if needed.</li>
+                        <li>Click "Remove Metadata" to strip all EXIF data from the image using the Canvas API.</li>
+                        <li>Compare the before and after file sizes, then click "Download Cleaned Image" to save the privacy-safe version.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is EXIF data?</h3>
+                        <p>EXIF (Exchangeable Image File Format) data is hidden metadata embedded in photos by cameras and smartphones. It can include GPS coordinates, camera make and model, lens settings, date and time the photo was taken, exposure values, and even unique device identifiers. This data travels with the image file wherever it is shared.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why should I remove EXIF metadata from my photos?</h3>
+                        <p>Removing EXIF data protects your privacy when sharing photos online. Without stripping metadata, anyone who downloads your image can see where the photo was taken (GPS coordinates), what device you used, and when you took it. This information can be exploited for stalking, profiling, or social engineering attacks.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does GPS location data in photos put me at risk?</h3>
+                        <p>Many smartphones embed precise GPS coordinates in every photo by default. If you share an image taken at your home, workplace, or frequent locations, the embedded GPS data can reveal your exact address and daily routines. Removing this metadata before sharing online eliminates this privacy risk entirely.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does removing EXIF data reduce image quality?</h3>
+                        <p>When exporting as JPEG, there is minimal quality loss controlled by the quality slider (70-100%). At the default setting of 92%, the difference is virtually imperceptible. Exporting as PNG produces a lossless copy with zero quality degradation. The pixel dimensions of the image remain identical to the original.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported?</h3>
+                        <p>This tool supports JPEG, PNG, and WebP image formats for input. You can export the cleaned image as either JPEG (smaller file size, adjustable quality) or PNG (lossless, no quality loss). All processing happens locally in your browser using the HTML5 Canvas API, so your images are never uploaded to any server.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/file-metadata-remover" class="related-link">File Metadata Remover</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadArea = document.getElementById('upload-area');
+        var resultArea = document.getElementById('result-area');
+        var previewOriginal = document.getElementById('preview-original');
+        var previewCleaned = document.getElementById('preview-cleaned');
+        var beforeInfo = document.getElementById('before-info');
+        var afterInfo = document.getElementById('after-info');
+        var canvas = document.getElementById('exif-canvas');
+        var outputFormat = document.getElementById('output-format');
+        var qualitySlider = document.getElementById('quality-slider');
+        var qualityValue = document.getElementById('quality-value');
+        var qualityControl = document.getElementById('quality-control');
+        var removeBtn = document.getElementById('remove-btn');
+        var statusMessage = document.getElementById('status-message');
+        var downloadArea = document.getElementById('download-area');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var currentFile = null;
+        var loadedImage = null;
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function detectExifMarkers(arrayBuffer) {
+            var view = new DataView(arrayBuffer);
+            var info = {
+                hasExif: false,
+                hasGps: false,
+                cameraMake: null,
+                cameraModel: null,
+                dateTaken: null
+            };
+
+            if (view.byteLength < 4) return info;
+
+            /* Check for JPEG SOI marker */
+            if (view.getUint8(0) !== 0xFF || view.getUint8(1) !== 0xD8) return info;
+
+            var offset = 2;
+            while (offset < view.byteLength - 4) {
+                if (view.getUint8(offset) !== 0xFF) break;
+                var marker = view.getUint8(offset + 1);
+
+                /* APP1 marker (EXIF) */
+                if (marker === 0xE1) {
+                    info.hasExif = true;
+                    var segLen = view.getUint16(offset + 2);
+                    /* Search for GPS IFD tag (0x8825) and common tags within segment */
+                    try {
+                        var segEnd = Math.min(offset + 2 + segLen, view.byteLength);
+                        for (var i = offset + 10; i < segEnd - 1; i++) {
+                            var b1 = view.getUint8(i);
+                            var b2 = view.getUint8(i + 1);
+                            /* GPS IFD pointer tag: 0x8825 (big-endian) or 0x2588 (little-endian) */
+                            if ((b1 === 0x88 && b2 === 0x25) || (b1 === 0x25 && b2 === 0x88)) {
+                                info.hasGps = true;
+                            }
+                        }
+                    } catch (e) { /* ignore read errors */ }
+                    break;
+                }
+
+                if (marker === 0xDA) break; /* Start of scan, stop looking */
+
+                var length = view.getUint16(offset + 2);
+                offset += 2 + length;
+            }
+
+            return info;
+        }
+
+        function showFileInfo(file, img, exifInfo) {
+            var isJpeg = file.type === 'image/jpeg';
+            var html = '';
+            html += '<div style="margin-bottom:0.3rem;"><strong>File name:</strong> ' + file.name + '</div>';
+            html += '<div style="margin-bottom:0.3rem;"><strong>File size:</strong> ' + formatBytes(file.size) + '</div>';
+            html += '<div style="margin-bottom:0.3rem;"><strong>Type:</strong> ' + file.type + '</div>';
+            html += '<div style="margin-bottom:0.3rem;"><strong>Dimensions:</strong> ' + img.width + ' x ' + img.height + ' px</div>';
+            html += '<div style="margin-bottom:0.3rem;"><strong>Last modified:</strong> ' + new Date(file.lastModified).toLocaleDateString() + '</div>';
+
+            if (isJpeg && exifInfo.hasExif) {
+                html += '<div style="margin-top:0.5rem;padding:0.5rem;background:#FEF3C7;border-radius:4px;color:#92400E;font-size:0.8rem;">';
+                html += '<strong>EXIF data detected</strong>';
+                if (exifInfo.hasGps) {
+                    html += '<br>GPS location data found';
+                }
+                html += '<br>May contain: camera make/model, timestamps, software info';
+                html += '</div>';
+            } else if (isJpeg) {
+                html += '<div style="margin-top:0.5rem;padding:0.5rem;background:#DBEAFE;border-radius:4px;color:#1E40AF;font-size:0.8rem;">';
+                html += 'No EXIF marker detected (image may already be clean)';
+                html += '</div>';
+            } else {
+                html += '<div style="margin-top:0.5rem;padding:0.5rem;background:#DBEAFE;border-radius:4px;color:#1E40AF;font-size:0.8rem;">';
+                html += file.type.toUpperCase().replace('IMAGE/', '') + ' format — metadata will be stripped via Canvas re-export';
+                html += '</div>';
+            }
+
+            beforeInfo.innerHTML = html;
+        }
+
+        function handleFile(file) {
+            if (!file || !file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                alert('Please select a JPEG, PNG, or WebP image file.');
+                return;
+            }
+
+            currentFile = file;
+
+            /* Read as ArrayBuffer first to detect EXIF markers */
+            var bufferReader = new FileReader();
+            bufferReader.onload = function(bufEvt) {
+                var exifInfo = detectExifMarkers(bufEvt.target.result);
+
+                /* Now read as data URL for preview */
+                var urlReader = new FileReader();
+                urlReader.onload = function(urlEvt) {
+                    var img = new Image();
+                    img.onload = function() {
+                        loadedImage = img;
+                        previewOriginal.src = urlEvt.target.result;
+                        showFileInfo(file, img, exifInfo);
+
+                        /* Reset cleaned side */
+                        previewCleaned.style.display = 'none';
+                        afterInfo.style.display = 'none';
+                        statusMessage.style.display = 'none';
+                        downloadArea.style.display = 'none';
+                        removeBtn.style.display = '';
+
+                        /* Show result area */
+                        uploadArea.style.display = 'none';
+                        resultArea.style.display = 'block';
+                    };
+                    img.src = urlEvt.target.result;
+                };
+                urlReader.readAsDataURL(file);
+            };
+            bufferReader.readAsArrayBuffer(file);
+        }
+
+        function removeMetadata() {
+            if (!loadedImage || !currentFile) return;
+
+            var img = loadedImage;
+            var mime = outputFormat.value;
+            var quality = mime === 'image/png' ? undefined : (parseInt(qualitySlider.value, 10) / 100);
+
+            canvas.width = img.width;
+            canvas.height = img.height;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+
+            canvas.toBlob(function(blob) {
+                if (!blob) return;
+
+                var cleanUrl = URL.createObjectURL(blob);
+                previewCleaned.src = cleanUrl;
+                previewCleaned.style.display = 'block';
+
+                var ext = mime === 'image/png' ? '.png' : '.jpg';
+                var cleanName = currentFile.name.replace(/\.[^.]+$/, '') + '_no_exif' + ext;
+
+                var afterHtml = '';
+                afterHtml += '<div style="margin-bottom:0.3rem;"><strong>File name:</strong> ' + cleanName + '</div>';
+                afterHtml += '<div style="margin-bottom:0.3rem;"><strong>File size:</strong> ' + formatBytes(blob.size) + '</div>';
+                afterHtml += '<div style="margin-bottom:0.3rem;"><strong>Dimensions:</strong> ' + img.width + ' x ' + img.height + ' px</div>';
+                afterHtml += '<div style="margin-bottom:0.3rem;"><strong>Type:</strong> ' + mime + '</div>';
+
+                var diff = currentFile.size - blob.size;
+                if (diff > 0) {
+                    afterHtml += '<div style="margin-top:0.5rem;padding:0.5rem;background:#ECFDF5;border-radius:4px;color:#065F46;font-size:0.8rem;">';
+                    afterHtml += 'All metadata stripped. File size reduced by ' + formatBytes(diff) + '.';
+                    afterHtml += '</div>';
+                } else {
+                    afterHtml += '<div style="margin-top:0.5rem;padding:0.5rem;background:#ECFDF5;border-radius:4px;color:#065F46;font-size:0.8rem;">';
+                    afterHtml += 'All metadata stripped. Clean image ready for download.';
+                    afterHtml += '</div>';
+                }
+
+                afterInfo.innerHTML = afterHtml;
+                afterInfo.style.display = 'block';
+
+                downloadBtn.href = cleanUrl;
+                downloadBtn.download = cleanName;
+                statusMessage.style.display = 'block';
+                downloadArea.style.display = 'flex';
+                removeBtn.style.display = 'none';
+            }, mime, quality);
+        }
+
+        /* Quality slider display */
+        qualitySlider.addEventListener('input', function() {
+            qualityValue.textContent = qualitySlider.value + '%';
+        });
+
+        /* Toggle quality control visibility based on format */
+        outputFormat.addEventListener('change', function() {
+            qualityControl.style.display = outputFormat.value === 'image/png' ? 'none' : 'flex';
+        });
+
+        /* Remove button */
+        removeBtn.addEventListener('click', removeMetadata);
+
+        /* File input */
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        /* Drag and drop */
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        /* Reset */
+        resetBtn.addEventListener('click', function() {
+            currentFile = null;
+            loadedImage = null;
+            fileInput.value = '';
+            previewOriginal.src = '';
+            previewCleaned.src = '';
+            beforeInfo.innerHTML = '';
+            afterInfo.innerHTML = '';
+            afterInfo.style.display = 'none';
+            statusMessage.style.display = 'none';
+            downloadArea.style.display = 'none';
+            downloadBtn.href = '';
+            downloadBtn.download = '';
+            removeBtn.style.display = '';
+            resultArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+            outputFormat.value = 'image/jpeg';
+            qualitySlider.value = 92;
+            qualityValue.textContent = '92%';
+            qualityControl.style.display = 'flex';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
