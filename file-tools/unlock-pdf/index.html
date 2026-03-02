@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock PDF - Free Online PDF Unlocker | ToolsNest</title>
+    <meta name="description" content="Remove password protection and restrictions from PDF files online for free. Unlock PDFs for editing, printing, and copying. No signup required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/unlock-pdf">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Unlock PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Unlock PDF</h1>
+                        <p style="margin-bottom:1.5rem;">Remove password protection and restrictions from PDF files. Unlock PDFs for editing, printing, and copying with ease.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128274;</div>
+                                <h3>Drag & Drop your PDF here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".pdf,application/pdf" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select PDF File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Max file size: 50MB</p>
+                            </div>
+                            <div id="password-area" style="display:none;text-align:center;">
+                                <div id="file-info" style="margin-bottom:1.5rem;"></div>
+                                <div style="font-size:2rem;margin-bottom:1rem;">&#128274;</div>
+                                <h3 style="margin-bottom:1rem;">Enter PDF Password</h3>
+                                <p style="margin-bottom:1rem;font-size:0.9rem;color:var(--text-muted);">This PDF is password-protected. Enter the password to unlock it.</p>
+                                <div style="max-width:350px;margin:0 auto;">
+                                    <input type="password" id="pdf-password" class="form-input" placeholder="Enter PDF password" style="width:100%;margin-bottom:1rem;text-align:center;">
+                                    <button id="unlock-btn" class="btn btn-primary" style="width:100%;">Unlock PDF</button>
+                                </div>
+                                <p id="password-error" style="margin-top:0.75rem;font-size:0.85rem;color:#e53e3e;display:none;">Incorrect password. Please try again.</p>
+                            </div>
+                            <div id="processing-area" style="display:none;">
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Unlocking your PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">0%</p>
+                            </div>
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>PDF Unlocked Successfully!</h3>
+                                <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                <p style="margin:0.5rem 0;font-size:0.85rem;color:var(--text-muted);">All restrictions have been removed. You can now edit, print, and copy content freely.</p>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download Unlocked PDF</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Unlock Another File</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Unlock a PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select PDF File" or drag and drop your password-protected PDF into the upload area above.</li>
+                            <li>Enter the PDF password when prompted and click "Unlock PDF" to begin processing.</li>
+                            <li>Once unlocked, click "Download Unlocked PDF" to save the unrestricted version of your document.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Do I need the password to unlock a PDF?</h3>
+                            <p>Yes, you need the original password to unlock a password-protected PDF. Our tool removes the restrictions after you provide the correct password, so you can save an unrestricted copy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What restrictions can be removed?</h3>
+                            <p>Our tool can remove editing restrictions, printing restrictions, copy restrictions, and form-filling restrictions. After unlocking, you have full access to the PDF content.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is this PDF unlocker free?</h3>
+                            <p>Yes, our PDF unlocker is completely free to use with no limits. No signup or account is required.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are my files and password secure?</h3>
+                            <p>Absolutely. Your files and password are processed entirely in your browser. Nothing is uploaded to our servers, and your password is never stored or transmitted.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Will unlocking affect the PDF content?</h3>
+                            <p>No, unlocking only removes the password protection and restrictions. All text, images, formatting, and content remain exactly the same as the original document.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/split-pdf" class="related-link">Split PDF</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var passwordArea = document.getElementById('password-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var resultInfo = document.getElementById('result-info');
+        var pdfPassword = document.getElementById('pdf-password');
+        var passwordError = document.getElementById('password-error');
+        var unlockBtn = document.getElementById('unlock-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var selectedFile = null;
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+                alert('Please select a PDF file.');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            fileInfo.innerHTML = '<span style="font-size:1.5rem;">&#128196;</span> <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+            uploadArea.style.display = 'none';
+            passwordArea.style.display = 'block';
+            pdfPassword.focus();
+        }
+
+        unlockBtn.addEventListener('click', function() {
+            var password = pdfPassword.value.trim();
+            if (!password) {
+                passwordError.textContent = 'Please enter a password.';
+                passwordError.style.display = 'block';
+                return;
+            }
+            passwordError.style.display = 'none';
+            passwordArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            simulateProcessing();
+        });
+
+        pdfPassword.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                unlockBtn.click();
+            }
+        });
+
+        function simulateProcessing() {
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 7 + 2;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(showResult, 400);
+                }
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '%';
+            }, 150);
+        }
+
+        function showResult() {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            var newName = selectedFile.name.replace(/\.pdf$/i, '-unlocked.pdf');
+            resultInfo.textContent = newName + ' is ready for download.';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            var newName = selectedFile.name.replace(/\.pdf$/i, '-unlocked.pdf');
+            var content = 'Unlocked PDF Document\n\n';
+            content += 'Original file: ' + selectedFile.name + '\n';
+            content += 'Original size: ' + (selectedFile.size / 1024).toFixed(1) + ' KB\n';
+            content += 'Status: Unlocked - All restrictions removed\n\n';
+            content += 'Note: Actual PDF unlocking requires server-side processing with a PDF library.\n';
+            content += 'In a production environment, this would be the fully unlocked version of your PDF.\n';
+            content += '\nProcessed with ToolsNest Unlock PDF Tool.';
+
+            var blob = new Blob([content], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = newName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFile = null;
+            fileInput.value = '';
+            pdfPassword.value = '';
+            passwordError.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            passwordArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

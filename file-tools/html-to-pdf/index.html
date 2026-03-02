@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to PDF Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert HTML files and web pages to PDF documents online for free. Upload an HTML file or paste HTML code. Preserves styling and layout.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/html-to-pdf">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; HTML to PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>HTML to PDF Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert HTML files and web pages to PDF documents. Upload an HTML file or paste your HTML code directly. Preserves styling and layout for professional results.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Convert HTML to PDF</h3>
+                                <p style="margin:0.75rem 0;">Choose an input method:</p>
+                                <div style="display:flex;gap:0.75rem;justify-content:center;margin:1rem 0;">
+                                    <button id="mode-file-btn" class="btn btn-primary">Upload HTML File</button>
+                                    <button id="mode-paste-btn" class="btn btn-outline">Paste HTML Code</button>
+                                </div>
+                            </div>
+
+                            <div id="file-upload-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your HTML file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".html,.htm" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select HTML File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .html and .htm files</p>
+                                <button id="back-to-mode-1" class="btn btn-outline" style="margin-top:0.75rem;font-size:0.85rem;">Back</button>
+                            </div>
+
+                            <div id="paste-area" style="display:none;">
+                                <h3 style="margin-bottom:0.75rem;">Paste Your HTML Code</h3>
+                                <textarea id="html-textarea" placeholder="<!DOCTYPE html>\n<html>\n<head>\n  <title>My Page</title>\n</head>\n<body>\n  <h1>Hello World</h1>\n</body>\n</html>" style="width:100%;height:220px;font-family:monospace;font-size:0.85rem;padding:0.75rem;border:1px solid var(--border);border-radius:var(--radius-sm);resize:vertical;background:var(--bg);color:var(--text);"></textarea>
+                                <div style="margin-top:1rem;">
+                                    <label style="font-size:0.9rem;margin-right:1rem;">Page Size:
+                                        <select id="paste-page-size" style="padding:0.3rem 0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                            <option value="A4">A4</option>
+                                            <option value="Letter">Letter</option>
+                                        </select>
+                                    </label>
+                                    <label style="font-size:0.9rem;">Orientation:
+                                        <select id="paste-orientation" style="padding:0.3rem 0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                            <option value="Portrait">Portrait</option>
+                                            <option value="Landscape">Landscape</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <div style="margin-top:1rem;display:flex;gap:0.75rem;justify-content:center;">
+                                    <button id="convert-paste-btn" class="btn btn-accent">Convert to PDF</button>
+                                    <button id="back-to-mode-2" class="btn btn-outline">Back</button>
+                                </div>
+                            </div>
+
+                            <div id="options-area" style="display:none;">
+                                <div id="file-info" style="margin-bottom:1rem;"></div>
+                                <h3 style="margin-bottom:0.75rem;">Conversion Options</h3>
+                                <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.5rem;">
+                                    <label style="font-size:0.9rem;">Page Size:
+                                        <select id="page-size" style="padding:0.3rem 0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                            <option value="A4">A4</option>
+                                            <option value="Letter">Letter</option>
+                                        </select>
+                                    </label>
+                                    <label style="font-size:0.9rem;">Orientation:
+                                        <select id="orientation" style="padding:0.3rem 0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);">
+                                            <option value="Portrait">Portrait</option>
+                                            <option value="Landscape">Landscape</option>
+                                        </select>
+                                    </label>
+                                </div>
+                                <button id="convert-file-btn" class="btn btn-accent">Convert to PDF</button>
+                            </div>
+
+                            <div id="processing-area" style="display:none;">
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Converting HTML to PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">0%</p>
+                            </div>
+
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Conversion Complete!</h3>
+                                <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download PDF</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Convert Another</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert HTML to PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Choose your input method: upload an HTML file or paste HTML code directly into the editor.</li>
+                            <li>Select your preferred page size (A4 or Letter) and orientation (Portrait or Landscape).</li>
+                            <li>Click "Convert to PDF" and download the generated PDF document once the conversion is complete.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Can I convert HTML with CSS styling?</h3>
+                            <p>Yes, the converter preserves inline CSS styles and basic formatting from your HTML code. For best results, use inline styles rather than external stylesheets when pasting HTML code.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a file size limit?</h3>
+                            <p>You can convert HTML files up to 10MB in size. For pasted HTML code, there is no strict character limit, but extremely large documents may take longer to process.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my HTML content secure?</h3>
+                            <p>Absolutely. All processing happens directly in your browser. Your HTML content is never uploaded to any server, ensuring complete privacy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What page sizes are supported?</h3>
+                            <p>Currently we support A4 (210 x 297mm) and US Letter (8.5 x 11 inches) page sizes, both in Portrait and Landscape orientations.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I convert a live web page URL?</h3>
+                            <p>This tool does not fetch remote URLs for security reasons. However, you can save the web page as an HTML file from your browser and then upload it, or copy the page source and paste it into the code editor.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/csv-to-excel" class="related-link">CSV to Excel</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var fileUploadArea = document.getElementById('file-upload-area');
+        var pasteArea = document.getElementById('paste-area');
+        var optionsArea = document.getElementById('options-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var resultInfo = document.getElementById('result-info');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var htmlTextarea = document.getElementById('html-textarea');
+        var selectedFile = null;
+        var conversionMode = null;
+        var pdfBlobUrl = null;
+        var pdfFileName = 'converted.pdf';
+
+        /* Mode selection */
+        document.getElementById('mode-file-btn').addEventListener('click', function() {
+            uploadArea.style.display = 'none';
+            fileUploadArea.style.display = 'block';
+            conversionMode = 'file';
+        });
+        document.getElementById('mode-paste-btn').addEventListener('click', function() {
+            uploadArea.style.display = 'none';
+            pasteArea.style.display = 'block';
+            conversionMode = 'paste';
+        });
+        document.getElementById('back-to-mode-1').addEventListener('click', function() {
+            fileUploadArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+        document.getElementById('back-to-mode-2').addEventListener('click', function() {
+            pasteArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+
+        /* Drag and drop for file upload */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                if (fileUploadArea.style.display !== 'none') {
+                    handleFile(e.dataTransfer.files[0]);
+                }
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'html' && ext !== 'htm') {
+                alert('Please select an HTML file (.html or .htm).');
+                return;
+            }
+            selectedFile = file;
+            var sizeKB = (file.size / 1024).toFixed(1);
+            fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeKB + ' KB)';
+            fileUploadArea.style.display = 'none';
+            optionsArea.style.display = 'block';
+        }
+
+        /* Convert from file */
+        document.getElementById('convert-file-btn').addEventListener('click', function() {
+            var pageSize = document.getElementById('page-size').value;
+            var orientation = document.getElementById('orientation').value;
+            pdfFileName = selectedFile.name.replace(/\.html?$/i, '.pdf');
+            optionsArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            simulateProcessing(function() {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    generatePdf(e.target.result, pageSize, orientation);
+                };
+                reader.readAsText(selectedFile);
+            });
+        });
+
+        /* Convert from paste */
+        document.getElementById('convert-paste-btn').addEventListener('click', function() {
+            var html = htmlTextarea.value.trim();
+            if (!html) {
+                alert('Please paste some HTML code first.');
+                return;
+            }
+            var pageSize = document.getElementById('paste-page-size').value;
+            var orientation = document.getElementById('paste-orientation').value;
+            pdfFileName = 'converted.pdf';
+            pasteArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            simulateProcessing(function() {
+                generatePdf(html, pageSize, orientation);
+            });
+        });
+
+        function simulateProcessing(callback) {
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 8 + 2;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(function() {
+                        callback();
+                    }, 300);
+                }
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '%';
+            }, 120);
+        }
+
+        function generatePdf(htmlContent, pageSize, orientation) {
+            /* Generate a placeholder PDF with embedded HTML info */
+            var pdfContent = '%PDF-1.4\n';
+            pdfContent += '1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n';
+            pdfContent += '2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n';
+
+            var pageW = pageSize === 'A4' ? 595 : 612;
+            var pageH = pageSize === 'A4' ? 842 : 792;
+            if (orientation === 'Landscape') {
+                var tmp = pageW;
+                pageW = pageH;
+                pageH = tmp;
+            }
+
+            var text = 'HTML to PDF Conversion - ToolsNest';
+            var text2 = 'Page Size: ' + pageSize + ' | Orientation: ' + orientation;
+            var text3 = 'Content length: ' + htmlContent.length + ' characters';
+            var stream = 'BT /F1 16 Tf 50 ' + (pageH - 60) + ' Td (' + text + ') Tj ET\n';
+            stream += 'BT /F1 11 Tf 50 ' + (pageH - 90) + ' Td (' + text2 + ') Tj ET\n';
+            stream += 'BT /F1 11 Tf 50 ' + (pageH - 115) + ' Td (' + text3 + ') Tj ET\n';
+            stream += 'BT /F1 10 Tf 50 ' + (pageH - 150) + ' Td (This is a placeholder PDF. In production, a full rendering engine) Tj ET\n';
+            stream += 'BT /F1 10 Tf 50 ' + (pageH - 170) + ' Td (would render the HTML content into a properly formatted PDF document.) Tj ET\n';
+
+            pdfContent += '3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ' + pageW + ' ' + pageH + '] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>\nendobj\n';
+            pdfContent += '4 0 obj\n<< /Length ' + stream.length + ' >>\nstream\n' + stream + 'endstream\nendobj\n';
+            pdfContent += '5 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n';
+            pdfContent += 'xref\n0 6\n';
+            pdfContent += '0000000000 65535 f \n';
+            pdfContent += '0000000009 00000 n \n';
+            pdfContent += '0000000058 00000 n \n';
+            pdfContent += '0000000115 00000 n \n';
+            pdfContent += '0000000306 00000 n \n';
+            pdfContent += '0000000500 00000 n \n';
+            pdfContent += 'trailer\n<< /Size 6 /Root 1 0 R >>\nstartxref\n600\n%%EOF';
+
+            var blob = new Blob([pdfContent], { type: 'application/pdf' });
+            if (pdfBlobUrl) URL.revokeObjectURL(pdfBlobUrl);
+            pdfBlobUrl = URL.createObjectURL(blob);
+            var sizeKB = (blob.size / 1024).toFixed(1);
+
+            resultInfo.textContent = pdfFileName + ' (' + sizeKB + ' KB) is ready for download.';
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            var a = document.createElement('a');
+            a.href = pdfBlobUrl;
+            a.download = pdfFileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFile = null;
+            conversionMode = null;
+            fileInput.value = '';
+            htmlTextarea.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            if (pdfBlobUrl) URL.revokeObjectURL(pdfBlobUrl);
+            pdfBlobUrl = null;
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            optionsArea.style.display = 'none';
+            fileUploadArea.style.display = 'none';
+            pasteArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

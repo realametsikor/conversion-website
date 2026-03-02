@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOCX to TXT Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert Word documents (.docx) to plain text files online for free. Extract all text content from your DOCX files instantly in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/docx-to-txt">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; DOCX to TXT
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>DOCX to TXT Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert Word documents (.docx) to plain text files. Extract all text content from your documents instantly, right in your browser.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your DOCX file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select DOCX File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .docx files (max 50MB)</p>
+                            </div>
+                            <div id="processing-area" style="display:none;">
+                                <div id="file-info" style="margin-bottom:1.5rem;"></div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Extracting text from your document...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">Reading document...</p>
+                            </div>
+                            <div id="result-area" style="display:none;text-align:left;">
+                                <div style="text-align:center;">
+                                    <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                    <h3>Text Extracted Successfully!</h3>
+                                    <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                </div>
+                                <div style="margin:1rem 0;">
+                                    <textarea id="text-output" readonly style="width:100%;min-height:300px;padding:1rem;border:1px solid var(--border);border-radius:8px;font-family:monospace;font-size:0.9rem;resize:vertical;background:var(--bg-main,#f9f9f9);color:var(--text-main);"></textarea>
+                                </div>
+                                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+                                    <button id="copy-btn" class="btn btn-primary">Copy Text</button>
+                                    <button id="download-btn" class="btn btn-accent">Download as TXT</button>
+                                    <button id="reset-btn" class="btn btn-outline">Convert Another File</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert DOCX to TXT</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Upload your DOCX file by clicking "Select DOCX File" or dragging it into the tool area.</li>
+                            <li>The tool will automatically extract all text content from the Word document.</li>
+                            <li>Copy the extracted text to your clipboard or download it as a .txt file.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>How does this tool extract text from DOCX files?</h3>
+                            <p>DOCX files are actually ZIP archives containing XML files. This tool unzips the document, parses the word/document.xml file, and extracts the text content from the XML structure, all within your browser.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Will formatting be preserved in the text output?</h3>
+                            <p>Plain text files do not support formatting like bold, italic, or tables. The tool extracts the raw text content with paragraph breaks preserved. Headers, lists, and paragraphs are separated by line breaks.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I convert .doc files (older Word format)?</h3>
+                            <p>This tool specifically handles .docx files (the modern XML-based format). Older .doc files use a binary format that requires different processing. You can use Microsoft Word or LibreOffice to save .doc files as .docx first.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a file size limit?</h3>
+                            <p>The maximum file size is 50MB. Since all processing happens in your browser, very large files may take a bit longer to process depending on your device.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are my documents kept private?</h3>
+                            <p>Yes, all processing happens entirely in your browser. Your files are never uploaded to any server, ensuring complete privacy for your documents.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/txt-to-pdf" class="related-link">TXT to PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/all-tools" class="related-link">See All Tools</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var resultInfo = document.getElementById('result-info');
+        var textOutput = document.getElementById('text-output');
+        var copyBtn = document.getElementById('copy-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var selectedFile = null;
+        var extractedText = '';
+
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'docx') {
+                alert('Please select a .docx file.');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            fileInfo.innerHTML = '<span style="font-size:1.5rem;">&#128196;</span> <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+            uploadArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            progressBar.style.width = '10%';
+            progressText.textContent = 'Reading document...';
+            convertDocx(file);
+        }
+
+        function convertDocx(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                progressBar.style.width = '30%';
+                progressText.textContent = 'Unzipping DOCX archive...';
+
+                JSZip.loadAsync(e.target.result).then(function(zip) {
+                    progressBar.style.width = '60%';
+                    progressText.textContent = 'Parsing document XML...';
+
+                    var docFile = zip.file('word/document.xml');
+                    if (!docFile) {
+                        alert('Could not find document content in the DOCX file. The file may be corrupted.');
+                        resetState();
+                        return;
+                    }
+
+                    return docFile.async('string');
+                }).then(function(xmlContent) {
+                    if (!xmlContent) return;
+
+                    progressBar.style.width = '80%';
+                    progressText.textContent = 'Extracting text content...';
+
+                    extractedText = extractTextFromXml(xmlContent);
+
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Done!';
+
+                    setTimeout(function() {
+                        showResult();
+                    }, 300);
+                }).catch(function(err) {
+                    alert('Error processing the DOCX file: ' + err.message);
+                    resetState();
+                });
+            };
+            reader.onerror = function() {
+                alert('Error reading the file. Please try again.');
+                resetState();
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function extractTextFromXml(xml) {
+            var text = '';
+            /* Parse paragraphs: each <w:p> is a paragraph */
+            var paragraphs = xml.split(/<w:p[\s>]/);
+            for (var i = 1; i < paragraphs.length; i++) {
+                var para = paragraphs[i];
+                var endIdx = para.indexOf('</w:p>');
+                if (endIdx !== -1) {
+                    para = para.substring(0, endIdx);
+                }
+                /* Extract text runs <w:t> */
+                var paraText = '';
+                var tMatches = para.match(/<w:t[^>]*>([^<]*)<\/w:t>/g);
+                if (tMatches) {
+                    for (var j = 0; j < tMatches.length; j++) {
+                        var content = tMatches[j].replace(/<w:t[^>]*>/, '').replace(/<\/w:t>/, '');
+                        paraText += content;
+                    }
+                }
+                /* Check for tab characters */
+                if (para.indexOf('<w:tab/>') !== -1 || para.indexOf('<w:tab />') !== -1) {
+                    paraText = paraText.replace(/\t/g, '\t');
+                }
+                text += paraText + '\n';
+            }
+            /* Clean up excessive blank lines */
+            text = text.replace(/\n{3,}/g, '\n\n').trim();
+            return text;
+        }
+
+        function showResult() {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            textOutput.value = extractedText;
+
+            var words = extractedText.trim().split(/\s+/).filter(function(w) { return w.length > 0; }).length;
+            var chars = extractedText.length;
+            var lines = extractedText.split('\n').length;
+            resultInfo.textContent = words + ' words | ' + chars + ' characters | ' + lines + ' lines';
+        }
+
+        copyBtn.addEventListener('click', function() {
+            textOutput.select();
+            textOutput.setSelectionRange(0, 99999);
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(extractedText).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Text'; }, 2000);
+                });
+            } else {
+                document.execCommand('copy');
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Text'; }, 2000);
+            }
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            var newName = selectedFile.name.replace(/\.docx$/i, '.txt');
+            var blob = new Blob([extractedText], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = newName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        function resetState() {
+            selectedFile = null;
+            extractedText = '';
+            fileInput.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Reading document...';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        }
+
+        resetBtn.addEventListener('click', resetState);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

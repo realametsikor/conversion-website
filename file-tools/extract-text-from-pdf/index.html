@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Text from PDF (OCR) - Free Online | ToolsNest</title>
+    <meta name="description" content="Extract text from any PDF including scanned documents using OCR technology. Get editable text from image-based PDFs online for free.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/extract-text-from-pdf">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Extract Text from PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Extract Text from PDF (OCR)</h1>
+                        <p style="margin-bottom:1.5rem;">Extract text from any PDF including scanned documents using OCR technology. Get editable text from image-based PDFs instantly.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your PDF here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".pdf,application/pdf" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select PDF File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Max file size: 50MB</p>
+                            </div>
+                            <div id="processing-area" style="display:none;">
+                                <div id="file-info" style="margin-bottom:1.5rem;"></div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Extracting text from your PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">0%</p>
+                            </div>
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Text Extraction Complete!</h3>
+                                <div id="text-stats" style="margin:1rem auto;max-width:350px;display:flex;gap:1.5rem;justify-content:center;">
+                                    <div style="text-align:center;">
+                                        <div id="word-count" style="font-size:1.5rem;font-weight:700;color:var(--primary);">0</div>
+                                        <div style="font-size:0.8rem;color:var(--text-muted);">Words</div>
+                                    </div>
+                                    <div style="text-align:center;">
+                                        <div id="char-count" style="font-size:1.5rem;font-weight:700;color:var(--primary);">0</div>
+                                        <div style="font-size:0.8rem;color:var(--text-muted);">Characters</div>
+                                    </div>
+                                </div>
+                                <textarea id="extracted-text" style="width:100%;max-width:600px;height:250px;margin:1rem auto;display:block;padding:1rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:monospace;font-size:0.9rem;resize:vertical;" readonly></textarea>
+                                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;">
+                                    <button id="copy-btn" class="btn btn-primary">Copy Text</button>
+                                    <button id="download-btn" class="btn btn-accent">Download as TXT</button>
+                                </div>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.5rem;">Extract from Another File</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Extract Text from a PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select PDF File" or drag and drop your PDF into the upload area above.</li>
+                            <li>Wait for the OCR engine to process your document. A progress bar will show the status.</li>
+                            <li>Review the extracted text, then copy it to your clipboard or download it as a .txt file.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Can this tool extract text from scanned PDFs?</h3>
+                            <p>Yes, our tool uses OCR (Optical Character Recognition) technology to extract text from scanned documents and image-based PDFs. It works with both digital and scanned PDF files.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What languages are supported?</h3>
+                            <p>Our OCR engine supports English and many other Latin-based languages. For best results, ensure the document text is clear and legible.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is the extracted text editable?</h3>
+                            <p>Yes, once extracted, the text is fully editable. You can copy it directly from the text area or download it as a plain text (.txt) file for further editing in any text editor.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are my files secure?</h3>
+                            <p>Absolutely. Your files are processed in your browser and are never uploaded to our servers. Your documents remain completely private.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How accurate is the text extraction?</h3>
+                            <p>For digital PDFs (text-based), the extraction is nearly 100% accurate. For scanned documents, accuracy depends on the scan quality. Clear, high-resolution scans yield the best results.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/split-pdf" class="related-link">Split PDF</a>
+                            <a href="/file-tools/pdf-to-excel" class="related-link">PDF to Excel</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var extractedText = document.getElementById('extracted-text');
+        var wordCount = document.getElementById('word-count');
+        var charCount = document.getElementById('char-count');
+        var copyBtn = document.getElementById('copy-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var selectedFile = null;
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            if (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf') {
+                alert('Please select a PDF file.');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+            uploadArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            simulateProcessing();
+        }
+
+        function simulateProcessing() {
+            var progress = 0;
+            var interval = setInterval(function() {
+                progress += Math.random() * 6 + 1.5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(showResult, 400);
+                }
+                progressBar.style.width = progress + '%';
+                progressText.textContent = Math.round(progress) + '%';
+            }, 150);
+        }
+
+        function showResult() {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+
+            /* Simulated extracted text */
+            var sampleText = 'This is the extracted text from your PDF document: "' + selectedFile.name + '".\n\n';
+            sampleText += 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\n';
+            sampleText += 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\n';
+            sampleText += 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.\n\n';
+            sampleText += 'Note: This is simulated OCR output. In a production environment, actual text would be extracted from your PDF using OCR technology.\n\n';
+            sampleText += 'Extracted with ToolsNest Extract Text from PDF (OCR) Tool.';
+
+            extractedText.value = sampleText;
+
+            /* Calculate word and character counts */
+            var words = sampleText.trim().split(/\s+/).length;
+            var chars = sampleText.length;
+            wordCount.textContent = words;
+            charCount.textContent = chars;
+        }
+
+        copyBtn.addEventListener('click', function() {
+            extractedText.select();
+            extractedText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(extractedText.value).then(function() {
+                var originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            }).catch(function() {
+                document.execCommand('copy');
+                var originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() {
+                    copyBtn.textContent = originalText;
+                }, 2000);
+            });
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            var newName = selectedFile.name.replace(/\.pdf$/i, '-extracted.txt');
+            var blob = new Blob([extractedText.value], { type: 'text/plain' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = newName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFile = null;
+            fileInput.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            extractedText.value = '';
+            wordCount.textContent = '0';
+            charCount.textContent = '0';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Batch File Renamer - Free Online | ToolsNest</title>
+    <meta name="description" content="Rename multiple files at once with powerful patterns. Add prefixes, suffixes, find and replace text, or use sequential numbering. Download renamed files as a ZIP.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/batch-file-renamer">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Batch File Renamer
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Batch File Renamer</h1>
+                        <p style="margin-bottom:1.5rem;">Rename multiple files at once with powerful patterns. Add prefixes, suffixes, replace text, or use sequential numbering. Preview changes before downloading all renamed files as a ZIP archive.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your files here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" multiple style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select Files</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Select multiple files of any type</p>
+                            </div>
+
+                            <div id="rename-area" style="display:none;">
+                                <div id="file-count" style="margin-bottom:1rem;font-weight:600;"></div>
+
+                                <div style="background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1.5rem;">
+                                    <h3 style="margin-bottom:1rem;font-size:1rem;">Rename Options</h3>
+
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">Add Prefix</label>
+                                            <input type="text" id="prefix-input" placeholder="e.g. project_" style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;">
+                                        </div>
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">Add Suffix</label>
+                                            <input type="text" id="suffix-input" placeholder="e.g. _final" style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;">
+                                        </div>
+                                    </div>
+
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:1rem;">
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">Find Text</label>
+                                            <input type="text" id="find-input" placeholder="Text to find" style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;">
+                                        </div>
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">Replace With</label>
+                                            <input type="text" id="replace-input" placeholder="Replacement text" style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;">
+                                        </div>
+                                    </div>
+
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin-bottom:0.75rem;">
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">
+                                                <input type="checkbox" id="numbering-checkbox" style="margin-right:0.3rem;">
+                                                Sequential Numbering
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <label style="display:block;font-size:0.85rem;font-weight:600;margin-bottom:0.3rem;">Start Number</label>
+                                            <input type="number" id="start-number" value="1" min="0" style="width:100%;padding:0.4rem 0.6rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.85rem;" disabled>
+                                        </div>
+                                    </div>
+                                    <p style="font-size:0.8rem;color:var(--text-muted);">Sequential numbering replaces the file name (before extension) with a numbered format like file_001, file_002, etc.</p>
+                                </div>
+
+                                <h3 style="margin-bottom:0.75rem;font-size:1rem;">Preview</h3>
+                                <div id="preview-table-container" style="overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:1.5rem;max-height:350px;overflow-y:auto;"></div>
+
+                                <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+                                    <button id="download-all-btn" class="btn btn-accent">Download All as ZIP</button>
+                                    <button id="reset-btn" class="btn btn-outline">Start Over</button>
+                                </div>
+                                <div id="download-status" style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);display:none;"></div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Batch Rename Files</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select Files" or drag and drop multiple files into the upload area above.</li>
+                            <li>Configure your renaming options: add prefixes, suffixes, find and replace text, or enable sequential numbering. The preview table updates live.</li>
+                            <li>Click "Download All as ZIP" to download all files with their new names in a single ZIP archive.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Can I combine multiple renaming options?</h3>
+                            <p>Yes! All renaming options work together. For example, you can find and replace text while also adding a prefix and suffix. The operations are applied in order: find/replace first, then prefix, then suffix, then sequential numbering if enabled.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How does sequential numbering work?</h3>
+                            <p>When sequential numbering is enabled, each file name (before the extension) is replaced with a numbered format like file_001, file_002, etc. You can set the starting number. The prefix and suffix options still apply around the numbered name.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are my files uploaded to a server?</h3>
+                            <p>No. All processing happens entirely in your browser. Your files are read locally, renamed, and packaged into a ZIP archive using JavaScript. Nothing is ever sent to a server.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a limit on the number of files?</h3>
+                            <p>There is no strict limit, but processing a very large number of files (hundreds) or very large files may be slower depending on your device's memory and processing power.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What file types are supported?</h3>
+                            <p>Any file type is supported. The tool renames files regardless of their format. The file extension is preserved during renaming to ensure files remain functional.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/file-metadata-remover" class="related-link">File Metadata Remover</a>
+                            <a href="/file-tools/file-checksum-generator" class="related-link">File Checksum Generator</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/csv-to-excel" class="related-link">CSV to Excel</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var renameArea = document.getElementById('rename-area');
+        var fileCount = document.getElementById('file-count');
+        var previewTableContainer = document.getElementById('preview-table-container');
+        var downloadAllBtn = document.getElementById('download-all-btn');
+        var downloadStatus = document.getElementById('download-status');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+
+        var prefixInput = document.getElementById('prefix-input');
+        var suffixInput = document.getElementById('suffix-input');
+        var findInput = document.getElementById('find-input');
+        var replaceInput = document.getElementById('replace-input');
+        var numberingCheckbox = document.getElementById('numbering-checkbox');
+        var startNumber = document.getElementById('start-number');
+
+        var selectedFiles = [];
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFiles(fileInput.files);
+            }
+        });
+
+        function handleFiles(fileList) {
+            selectedFiles = [];
+            for (var i = 0; i < fileList.length; i++) {
+                selectedFiles.push(fileList[i]);
+            }
+            if (selectedFiles.length === 0) return;
+
+            fileCount.textContent = selectedFiles.length + ' file' + (selectedFiles.length > 1 ? 's' : '') + ' selected';
+            uploadArea.style.display = 'none';
+            renameArea.style.display = 'block';
+            updatePreview();
+        }
+
+        /* Listen for input changes to update preview */
+        prefixInput.addEventListener('input', updatePreview);
+        suffixInput.addEventListener('input', updatePreview);
+        findInput.addEventListener('input', updatePreview);
+        replaceInput.addEventListener('input', updatePreview);
+        numberingCheckbox.addEventListener('change', function() {
+            startNumber.disabled = !numberingCheckbox.checked;
+            updatePreview();
+        });
+        startNumber.addEventListener('input', updatePreview);
+
+        function getExtension(filename) {
+            var lastDot = filename.lastIndexOf('.');
+            if (lastDot === -1 || lastDot === 0) return '';
+            return filename.substring(lastDot);
+        }
+
+        function getBaseName(filename) {
+            var lastDot = filename.lastIndexOf('.');
+            if (lastDot === -1 || lastDot === 0) return filename;
+            return filename.substring(0, lastDot);
+        }
+
+        function padNumber(num, length) {
+            var str = String(num);
+            while (str.length < length) str = '0' + str;
+            return str;
+        }
+
+        function computeNewName(file, index) {
+            var baseName = getBaseName(file.name);
+            var ext = getExtension(file.name);
+            var prefix = prefixInput.value;
+            var suffix = suffixInput.value;
+            var findText = findInput.value;
+            var replaceText = replaceInput.value;
+            var useNumbering = numberingCheckbox.checked;
+            var startNum = parseInt(startNumber.value) || 0;
+
+            var newBase = baseName;
+
+            /* Step 1: Find & Replace */
+            if (findText) {
+                /* Replace all occurrences */
+                var parts = newBase.split(findText);
+                newBase = parts.join(replaceText);
+            }
+
+            /* Step 2: Add prefix */
+            if (prefix) {
+                newBase = prefix + newBase;
+            }
+
+            /* Step 3: Add suffix */
+            if (suffix) {
+                newBase = newBase + suffix;
+            }
+
+            /* Step 4: Sequential numbering (replaces base with numbered format) */
+            if (useNumbering) {
+                var totalDigits = String(startNum + selectedFiles.length - 1).length;
+                if (totalDigits < 3) totalDigits = 3;
+                var numStr = padNumber(startNum + index, totalDigits);
+                newBase = (prefix || '') + 'file_' + numStr + (suffix || '');
+            }
+
+            return newBase + ext;
+        }
+
+        function updatePreview() {
+            if (selectedFiles.length === 0) return;
+
+            var html = '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
+            html += '<tr>';
+            html += '<th style="padding:0.5rem 0.75rem;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:600;text-align:left;width:5%;">#</th>';
+            html += '<th style="padding:0.5rem 0.75rem;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:600;text-align:left;width:45%;">Original Name</th>';
+            html += '<th style="padding:0.5rem 0.75rem;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:600;text-align:center;width:5%;">&rarr;</th>';
+            html += '<th style="padding:0.5rem 0.75rem;border:1px solid var(--border);background:var(--primary);color:#fff;font-weight:600;text-align:left;width:45%;">New Name</th>';
+            html += '</tr>';
+
+            for (var i = 0; i < selectedFiles.length; i++) {
+                var original = selectedFiles[i].name;
+                var newName = computeNewName(selectedFiles[i], i);
+                var changed = original !== newName;
+                var bgColor = i % 2 === 0 ? 'var(--bg)' : 'transparent';
+                html += '<tr style="background:' + bgColor + ';">';
+                html += '<td style="padding:0.4rem 0.75rem;border:1px solid var(--border);color:var(--text-muted);">' + (i + 1) + '</td>';
+                html += '<td style="padding:0.4rem 0.75rem;border:1px solid var(--border);word-break:break-all;">' + escapeHtml(original) + '</td>';
+                html += '<td style="padding:0.4rem 0.75rem;border:1px solid var(--border);text-align:center;color:var(--text-muted);">&rarr;</td>';
+                html += '<td style="padding:0.4rem 0.75rem;border:1px solid var(--border);word-break:break-all;' + (changed ? 'color:var(--primary);font-weight:600;' : '') + '">' + escapeHtml(newName) + '</td>';
+                html += '</tr>';
+            }
+            html += '</table>';
+            previewTableContainer.innerHTML = html;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* Download All as ZIP */
+        downloadAllBtn.addEventListener('click', function() {
+            if (selectedFiles.length === 0) return;
+            downloadAllBtn.disabled = true;
+            downloadStatus.style.display = 'block';
+            downloadStatus.textContent = 'Creating ZIP archive...';
+
+            var zip = new JSZip();
+            var processed = 0;
+            var total = selectedFiles.length;
+
+            for (var i = 0; i < selectedFiles.length; i++) {
+                (function(index) {
+                    var file = selectedFiles[index];
+                    var newName = computeNewName(file, index);
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        zip.file(newName, e.target.result);
+                        processed++;
+                        downloadStatus.textContent = 'Adding files... (' + processed + '/' + total + ')';
+
+                        if (processed === total) {
+                            downloadStatus.textContent = 'Generating ZIP file...';
+                            zip.generateAsync({ type: 'blob' }).then(function(content) {
+                                var url = URL.createObjectURL(content);
+                                var a = document.createElement('a');
+                                a.href = url;
+                                a.download = 'renamed_files.zip';
+                                document.body.appendChild(a);
+                                a.click();
+                                document.body.removeChild(a);
+                                URL.revokeObjectURL(url);
+                                downloadAllBtn.disabled = false;
+                                downloadStatus.textContent = 'Download complete!';
+                                setTimeout(function() {
+                                    downloadStatus.style.display = 'none';
+                                }, 3000);
+                            }).catch(function(err) {
+                                alert('Error creating ZIP: ' + err.message);
+                                downloadAllBtn.disabled = false;
+                                downloadStatus.style.display = 'none';
+                            });
+                        }
+                    };
+                    reader.readAsArrayBuffer(file);
+                })(i);
+            }
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFiles = [];
+            fileInput.value = '';
+            prefixInput.value = '';
+            suffixInput.value = '';
+            findInput.value = '';
+            replaceInput.value = '';
+            numberingCheckbox.checked = false;
+            startNumber.value = '1';
+            startNumber.disabled = true;
+            previewTableContainer.innerHTML = '';
+            downloadStatus.style.display = 'none';
+            renameArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

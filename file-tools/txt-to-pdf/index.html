@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TXT to PDF Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert plain text files to PDF format online for free. Create professional PDF documents from your text files with customizable font size, page size, and margins.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/txt-to-pdf">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; TXT to PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>TXT to PDF Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert plain text files to PDF format. Create professional PDF documents from your text files with customizable font size, page size, and margins.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your TXT file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".txt,text/plain" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select TXT File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .txt files (max 50MB)</p>
+                            </div>
+                            <div id="options-area" style="display:none;text-align:left;padding:0 1rem;">
+                                <div id="file-info" style="text-align:center;margin-bottom:1.5rem;"></div>
+                                <h3 style="text-align:center;margin-bottom:1rem;">PDF Options</h3>
+                                <div style="max-width:500px;margin:0 auto;">
+                                    <div class="form-group">
+                                        <label style="font-weight:600;display:block;margin-bottom:0.5rem;">Font Size</label>
+                                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="font-size" value="10"> 10pt
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="font-size" value="12" checked> 12pt
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="font-size" value="14"> 14pt
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="font-size" value="16"> 16pt
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="font-weight:600;display:block;margin-bottom:0.5rem;">Page Size</label>
+                                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="page-size" value="a4" checked> A4
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="page-size" value="letter"> Letter
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="font-weight:600;display:block;margin-bottom:0.5rem;">Margins</label>
+                                        <div style="display:flex;gap:0.75rem;flex-wrap:wrap;">
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="margins" value="narrow"> Narrow
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="margins" value="normal" checked> Normal
+                                            </label>
+                                            <label style="display:flex;align-items:center;gap:0.4rem;cursor:pointer;">
+                                                <input type="radio" name="margins" value="wide"> Wide
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div style="text-align:center;margin-top:1.5rem;">
+                                        <button id="convert-btn" class="btn btn-primary">Convert to PDF</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="processing-area" style="display:none;">
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Converting text to PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">Reading text file...</p>
+                            </div>
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>PDF Created Successfully!</h3>
+                                <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download PDF</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Convert Another File</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert TXT to PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Upload your text file by clicking "Select TXT File" or dragging it into the tool area.</li>
+                            <li>Choose your preferred font size, page size, and margin settings.</li>
+                            <li>Click "Convert to PDF" and download the generated PDF document.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What font is used in the PDF output?</h3>
+                            <p>The PDF is generated using the Helvetica font, which is a clean, professional sans-serif typeface that is universally supported across all PDF readers.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I customize the page layout?</h3>
+                            <p>Yes, you can choose between A4 and Letter page sizes, select from four font sizes (10pt, 12pt, 14pt, 16pt), and pick narrow, normal, or wide margins to suit your needs.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Does the tool handle long text files?</h3>
+                            <p>Yes, the converter automatically splits your text across multiple pages with proper pagination. Long lines are wrapped to fit within the selected margins.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is this tool free and private?</h3>
+                            <p>Absolutely. The conversion happens entirely in your browser using JavaScript. Your text files are never uploaded to any server. The tool is completely free with no limits.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What character encoding is supported?</h3>
+                            <p>The tool reads UTF-8 encoded text files. Most modern text files use UTF-8 by default. Special characters and accented letters are supported to the extent that the PDF font allows.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/docx-to-txt" class="related-link">DOCX to TXT</a>
+                            <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/all-tools" class="related-link">See All Tools</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var optionsArea = document.getElementById('options-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var resultInfo = document.getElementById('result-info');
+        var convertBtn = document.getElementById('convert-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var selectedFile = null;
+        var generatedPdf = null;
+        var pdfFileName = '';
+        var totalPages = 0;
+
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'txt' && file.type !== 'text/plain') {
+                alert('Please select a .txt file.');
+                return;
+            }
+            if (file.size > 50 * 1024 * 1024) {
+                alert('File size exceeds 50MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            var sizeKB = (file.size / 1024).toFixed(1);
+            var sizeStr = file.size > 1048576 ? sizeMB + ' MB' : sizeKB + ' KB';
+            fileInfo.innerHTML = '<span style="font-size:1.5rem;">&#128196;</span> <strong>' + file.name + '</strong> (' + sizeStr + ')';
+            uploadArea.style.display = 'none';
+            optionsArea.style.display = 'block';
+        }
+
+        convertBtn.addEventListener('click', function() {
+            optionsArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            progressBar.style.width = '10%';
+            progressText.textContent = 'Reading text file...';
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var text = e.target.result;
+                progressBar.style.width = '30%';
+                progressText.textContent = 'Generating PDF...';
+
+                setTimeout(function() {
+                    generatePdf(text);
+                }, 200);
+            };
+            reader.onerror = function() {
+                alert('Error reading the file. Please try again.');
+                resetState();
+            };
+            reader.readAsText(selectedFile, 'UTF-8');
+        });
+
+        function generatePdf(text) {
+            var fontSizeRadio = document.querySelector('input[name="font-size"]:checked');
+            var pageSizeRadio = document.querySelector('input[name="page-size"]:checked');
+            var marginsRadio = document.querySelector('input[name="margins"]:checked');
+
+            var fontSize = fontSizeRadio ? parseInt(fontSizeRadio.value) : 12;
+            var pageSize = pageSizeRadio ? pageSizeRadio.value : 'a4';
+            var margins = marginsRadio ? marginsRadio.value : 'normal';
+
+            var marginValues = { narrow: 10, normal: 20, wide: 30 };
+            var margin = marginValues[margins] || 20;
+
+            var jsPDF = window.jspdf.jsPDF;
+            var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: pageSize });
+
+            var pageWidth = doc.internal.pageSize.getWidth();
+            var pageHeight = doc.internal.pageSize.getHeight();
+            var maxWidth = pageWidth - (margin * 2);
+            var lineHeight = fontSize * 0.4;
+            var cursorY = margin;
+            var pageNum = 1;
+
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(fontSize);
+
+            var lines = text.split('\n');
+            var totalLines = lines.length;
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i];
+
+                /* Wrap long lines */
+                var wrappedLines = doc.splitTextToSize(line, maxWidth);
+                if (wrappedLines.length === 0) wrappedLines = [''];
+
+                for (var j = 0; j < wrappedLines.length; j++) {
+                    if (cursorY + lineHeight > pageHeight - margin) {
+                        doc.addPage();
+                        pageNum++;
+                        cursorY = margin;
+                    }
+                    doc.text(wrappedLines[j], margin, cursorY);
+                    cursorY += lineHeight;
+                }
+
+                /* Update progress */
+                if (i % 50 === 0) {
+                    var pct = 30 + Math.round((i / totalLines) * 60);
+                    progressBar.style.width = pct + '%';
+                    progressText.textContent = 'Processing line ' + (i + 1) + ' of ' + totalLines + '...';
+                }
+            }
+
+            totalPages = pageNum;
+            progressBar.style.width = '95%';
+            progressText.textContent = 'Finalizing PDF...';
+
+            generatedPdf = doc.output('blob');
+            pdfFileName = selectedFile.name.replace(/\.txt$/i, '.pdf');
+
+            progressBar.style.width = '100%';
+            progressText.textContent = 'Done!';
+
+            setTimeout(function() {
+                showResult();
+            }, 300);
+        }
+
+        function showResult() {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            var sizeMB = (generatedPdf.size / (1024 * 1024)).toFixed(2);
+            var sizeKB = (generatedPdf.size / 1024).toFixed(1);
+            var sizeStr = generatedPdf.size > 1048576 ? sizeMB + ' MB' : sizeKB + ' KB';
+            resultInfo.textContent = pdfFileName + ' (' + sizeStr + ') | ' + totalPages + ' page' + (totalPages > 1 ? 's' : '') + ' generated.';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            var url = URL.createObjectURL(generatedPdf);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = pdfFileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        function resetState() {
+            selectedFile = null;
+            generatedPdf = null;
+            pdfFileName = '';
+            totalPages = 0;
+            fileInput.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Reading text file...';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            optionsArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+            var defaultFont = document.querySelector('input[name="font-size"][value="12"]');
+            var defaultPage = document.querySelector('input[name="page-size"][value="a4"]');
+            var defaultMargin = document.querySelector('input[name="margins"][value="normal"]');
+            if (defaultFont) defaultFont.checked = true;
+            if (defaultPage) defaultPage.checked = true;
+            if (defaultMargin) defaultMargin.checked = true;
+        }
+
+        resetBtn.addEventListener('click', resetState);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
