@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Grid Splitter - Split Images for IG Profile | ToolsNest</title>
+    <meta name="description" content="Split any image into a perfect Instagram grid layout. Choose 3x1, 3x2, or 3x3 grids and download numbered pieces ready to upload. Free, fast, and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/instagram-grid-splitter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Instagram Grid Splitter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Instagram Grid Splitter</h1>
+                <p class="text-center mb-3">Split any image into a perfect Instagram grid. Choose your layout, preview the pieces, and download them numbered in upload order. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="grid-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Image</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div class="text-center mb-3">
+                            <img id="image-preview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Uploaded image preview">
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Image Dimensions</p>
+                            <p class="text-muted" style="margin: 0;"><span id="img-width">--</span> x <span id="img-height">--</span> pixels</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Grid Layout</label>
+                            <div id="grid-options" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-primary grid-option" data-cols="3" data-rows="1" style="flex: 1; min-width: 120px;">3x1 (3 pieces)</button>
+                                <button class="btn grid-option" data-cols="3" data-rows="2" style="flex: 1; min-width: 120px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">3x2 (6 pieces)</button>
+                                <button class="btn grid-option" data-cols="3" data-rows="3" style="flex: 1; min-width: 120px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">3x3 (9 pieces)</button>
+                            </div>
+                        </div>
+
+                        <div id="grid-preview-container" style="margin-top: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Grid Preview <span class="text-muted" style="font-weight: 400;">(numbers show Instagram upload order)</span></p>
+                            <div id="grid-preview" style="display: grid; gap: 3px; max-width: 480px; margin: 0 auto; border-radius: var(--radius-sm); overflow: hidden;"></div>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 1.5rem;">
+                            <button id="download-all-btn" class="btn btn-accent" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Download All Pieces</button>
+                            <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Each piece is saved as a numbered PNG file</p>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 1rem;">
+                            <button id="reset-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">Upload Different Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" to upload a JPG, PNG, or WebP image from your device.</li>
+                        <li>Choose your desired grid layout: 3x1 (3 pieces), 3x2 (6 pieces), or 3x3 (9 pieces).</li>
+                        <li>Preview the grid to see how your image will be split, with numbered pieces showing the correct Instagram upload order.</li>
+                        <li>Click "Download All Pieces" to save each piece as a numbered PNG file.</li>
+                        <li>Upload the pieces to Instagram in order, starting from piece 1, to complete your grid.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the Instagram grid work?</h3>
+                        <p>Instagram displays your profile photos in a 3-column grid. By splitting a large image into 3, 6, or 9 equal pieces and uploading them in the correct order, you create a seamless panoramic or mosaic effect on your profile page.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What order should I upload the pieces?</h3>
+                        <p>Upload the pieces in reverse order, starting from the highest number down to 1. The last piece you upload (piece 1) will appear in the top-left of your Instagram grid. Each piece is numbered to guide you.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to a server?</h3>
+                        <p>No. All image processing is done entirely in your browser using the HTML5 Canvas API. Your images stay on your device and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image format are the pieces saved as?</h3>
+                        <p>All grid pieces are saved as high-quality PNG files to preserve image clarity and detail, which is important for Instagram's compression.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image size works best?</h3>
+                        <p>For best results, use a high-resolution image. A 3x3 grid on Instagram displays at roughly 1080x1080 pixels total, so an image of at least 1080 pixels wide is recommended. Larger images will produce sharper results.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var imagePreview = document.getElementById('image-preview');
+        var imgWidthEl = document.getElementById('img-width');
+        var imgHeightEl = document.getElementById('img-height');
+        var gridPreview = document.getElementById('grid-preview');
+        var downloadAllBtn = document.getElementById('download-all-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var gridOptions = document.querySelectorAll('.grid-option');
+
+        var currentImage = null;
+        var selectedCols = 3;
+        var selectedRows = 1;
+
+        function updateGridOptionStyles() {
+            gridOptions.forEach(function(btn) {
+                var cols = parseInt(btn.getAttribute('data-cols'));
+                var rows = parseInt(btn.getAttribute('data-rows'));
+                if (cols === selectedCols && rows === selectedRows) {
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.style.border = '';
+                    btn.className = 'btn btn-primary grid-option';
+                } else {
+                    btn.style.background = 'var(--bg-color)';
+                    btn.style.color = 'var(--text-main)';
+                    btn.style.border = '2px solid var(--border)';
+                    btn.className = 'btn grid-option';
+                }
+            });
+        }
+
+        function renderGridPreview() {
+            if (!currentImage) return;
+
+            gridPreview.innerHTML = '';
+            gridPreview.style.gridTemplateColumns = 'repeat(' + selectedCols + ', 1fr)';
+
+            var pieceWidth = currentImage.width / selectedCols;
+            var pieceHeight = currentImage.height / selectedRows;
+            var totalPieces = selectedCols * selectedRows;
+
+            for (var row = 0; row < selectedRows; row++) {
+                for (var col = 0; col < selectedCols; col++) {
+                    var pieceNumber = row * selectedCols + col + 1;
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+
+                    canvas.width = pieceWidth;
+                    canvas.height = pieceHeight;
+                    ctx.drawImage(
+                        currentImage,
+                        col * pieceWidth, row * pieceHeight,
+                        pieceWidth, pieceHeight,
+                        0, 0,
+                        pieceWidth, pieceHeight
+                    );
+
+                    var wrapper = document.createElement('div');
+                    wrapper.style.position = 'relative';
+                    wrapper.style.aspectRatio = '1';
+                    wrapper.style.overflow = 'hidden';
+
+                    var img = document.createElement('img');
+                    img.src = canvas.toDataURL('image/png');
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.style.display = 'block';
+                    img.alt = 'Grid piece ' + pieceNumber;
+
+                    var label = document.createElement('span');
+                    label.textContent = pieceNumber;
+                    label.style.position = 'absolute';
+                    label.style.top = '6px';
+                    label.style.left = '6px';
+                    label.style.background = 'rgba(0, 0, 0, 0.7)';
+                    label.style.color = '#fff';
+                    label.style.fontSize = '0.8rem';
+                    label.style.fontWeight = '700';
+                    label.style.padding = '2px 8px';
+                    label.style.borderRadius = '4px';
+                    label.style.lineHeight = '1.4';
+
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(label);
+                    gridPreview.appendChild(wrapper);
+                }
+            }
+        }
+
+        function splitAndDownload() {
+            if (!currentImage) return;
+
+            var pieceWidth = currentImage.width / selectedCols;
+            var pieceHeight = currentImage.height / selectedRows;
+            var totalPieces = selectedCols * selectedRows;
+            var downloaded = 0;
+
+            for (var row = 0; row < selectedRows; row++) {
+                for (var col = 0; col < selectedCols; col++) {
+                    var pieceNumber = row * selectedCols + col + 1;
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+
+                    canvas.width = pieceWidth;
+                    canvas.height = pieceHeight;
+                    ctx.drawImage(
+                        currentImage,
+                        col * pieceWidth, row * pieceHeight,
+                        pieceWidth, pieceHeight,
+                        0, 0,
+                        pieceWidth, pieceHeight
+                    );
+
+                    (function(num, cvs) {
+                        cvs.toBlob(function(blob) {
+                            var url = URL.createObjectURL(blob);
+                            var a = document.createElement('a');
+                            a.href = url;
+                            a.download = 'grid-piece-' + num + '-of-' + totalPieces + '.png';
+                            document.body.appendChild(a);
+                            a.click();
+                            document.body.removeChild(a);
+                            setTimeout(function() {
+                                URL.revokeObjectURL(url);
+                            }, 1000);
+                        }, 'image/png');
+                    })(pieceNumber, canvas);
+                }
+            }
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    imagePreview.src = e.target.result;
+                    imgWidthEl.textContent = img.width;
+                    imgHeightEl.textContent = img.height;
+
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+
+                    selectedCols = 3;
+                    selectedRows = 1;
+                    updateGridOptionStyles();
+                    renderGridPreview();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        gridOptions.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                selectedCols = parseInt(btn.getAttribute('data-cols'));
+                selectedRows = parseInt(btn.getAttribute('data-rows'));
+                updateGridOptionStyles();
+                renderGridPreview();
+            });
+        });
+
+        downloadAllBtn.addEventListener('click', function() {
+            splitAndDownload();
+        });
+
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            fileInput.value = '';
+            gridPreview.innerHTML = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            selectedCols = 3;
+            selectedRows = 1;
+            updateGridOptionStyles();
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

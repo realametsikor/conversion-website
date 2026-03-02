@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Palette Extractor - Extract Colors from Image | ToolsNest</title>
+    <meta name="description" content="Extract dominant colors from any image instantly. Get HEX and RGB color codes with one click. Free browser-based color palette generator.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/color-palette-extractor/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Color Palette Extractor
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Color Palette Extractor</h1>
+                <p class="text-center mb-3">Upload any image and extract its dominant colors instantly. Get HEX and RGB codes ready to use in your designs. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
+                        <p class="text-muted mb-2">or</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp, image/gif, image/bmp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                        <div style="margin-top: 1.5rem;">
+                            <label for="color-count" style="font-weight: 600; color: var(--text-main);">Number of colors to extract:</label>
+                            <select id="color-count" style="margin-left: 0.5rem; padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-color); color: var(--text-main); font-size: 1rem;">
+                                <option value="3">3</option>
+                                <option value="5" selected>5</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="results-area" style="display: none;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 1.5rem; align-items: flex-start; margin-bottom: 1.5rem;">
+                            <div style="flex: 1; min-width: 200px; text-align: center;">
+                                <img id="image-preview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Uploaded image preview">
+                            </div>
+                            <div id="palette-container" style="flex: 1; min-width: 200px;">
+                                <h3 style="margin-bottom: 1rem; color: var(--text-main);">Extracted Palette</h3>
+                                <div id="palette-swatches"></div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem;">
+                            <label for="color-count-update" style="font-weight: 600; color: var(--text-main); display: flex; align-items: center;">Colors:</label>
+                            <select id="color-count-update" style="padding: 0.4rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-color); color: var(--text-main); font-size: 1rem;">
+                                <option value="3">3</option>
+                                <option value="5">5</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                            </select>
+                            <button id="re-extract-btn" class="btn btn-primary" style="padding: 0.4rem 1rem;">Re-extract</button>
+                            <button id="new-image-btn" class="btn btn-accent" style="padding: 0.4rem 1rem;">New Image</button>
+                        </div>
+                    </div>
+
+                    <canvas id="palette-canvas" style="display: none;"></canvas>
+                </div>
+
+                <div id="copy-toast" style="display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--text-main); color: var(--bg-color); padding: 0.75rem 1.5rem; border-radius: var(--radius-sm); font-weight: 600; z-index: 9999; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">Copied!</div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop an image into the workspace above.</li>
+                        <li>Choose how many dominant colors you want to extract (3, 5, 8, or 10).</li>
+                        <li>View the extracted color palette displayed alongside your image preview.</li>
+                        <li>Click on any color swatch to copy its HEX code, or click the RGB value to copy that instead.</li>
+                        <li>Use the "Re-extract" button to change the number of colors without re-uploading.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to a server?</h3>
+                        <p>No. All color extraction is performed entirely in your browser using the HTML5 Canvas API. Your images never leave your device and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported?</h3>
+                        <p>This tool supports JPEG, PNG, WebP, GIF, and BMP image formats. Any image your browser can display will work with the palette extractor.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the color extraction work?</h3>
+                        <p>The tool uses a median cut color quantization algorithm. It samples pixels from your image, groups them into color buckets by splitting the color space along the axis with the greatest range, and returns the average color of each bucket as a dominant color.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I copy the color codes?</h3>
+                        <p>Yes. Click on any color swatch to copy its HEX code to your clipboard. You can also click the RGB value text to copy that format instead. A confirmation toast will appear when a value is copied.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why do the extracted colors look slightly different from what I see in the image?</h3>
+                        <p>The tool identifies dominant color regions and averages the pixels within each region. This produces representative colors that capture the overall palette rather than picking single exact pixels. The results are ideal for design inspiration and color scheme creation.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/hex-rgb-converter" class="related-link">HEX to RGB Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadSection = document.getElementById('upload-section');
+        var resultsArea = document.getElementById('results-area');
+        var imagePreview = document.getElementById('image-preview');
+        var canvas = document.getElementById('palette-canvas');
+        var palettSwatches = document.getElementById('palette-swatches');
+        var colorCountSelect = document.getElementById('color-count');
+        var colorCountUpdate = document.getElementById('color-count-update');
+        var reExtractBtn = document.getElementById('re-extract-btn');
+        var newImageBtn = document.getElementById('new-image-btn');
+        var copyToast = document.getElementById('copy-toast');
+        var currentImageData = null;
+        var toastTimeout = null;
+
+        function showToast(message) {
+            copyToast.textContent = message;
+            copyToast.style.display = 'block';
+            if (toastTimeout) clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(function() {
+                copyToast.style.display = 'none';
+            }, 1500);
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showToast('Copied: ' + text);
+                });
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('Copied: ' + text);
+            }
+        }
+
+        function rgbToHex(r, g, b) {
+            return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+        }
+
+        function getPixelData(imageEl) {
+            var maxDim = 200;
+            var w = imageEl.naturalWidth || imageEl.width;
+            var h = imageEl.naturalHeight || imageEl.height;
+            var scale = Math.min(maxDim / w, maxDim / h, 1);
+            var sw = Math.floor(w * scale);
+            var sh = Math.floor(h * scale);
+
+            canvas.width = sw;
+            canvas.height = sh;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(imageEl, 0, 0, sw, sh);
+            return ctx.getImageData(0, 0, sw, sh);
+        }
+
+        function getPixelsArray(imgData) {
+            var data = imgData.data;
+            var pixels = [];
+            for (var i = 0; i < data.length; i += 4) {
+                var r = data[i];
+                var g = data[i + 1];
+                var b = data[i + 2];
+                var a = data[i + 3];
+                if (a < 128) continue;
+                pixels.push([r, g, b]);
+            }
+            return pixels;
+        }
+
+        function getChannelRange(pixels, channel) {
+            var min = 255;
+            var max = 0;
+            for (var i = 0; i < pixels.length; i++) {
+                var val = pixels[i][channel];
+                if (val < min) min = val;
+                if (val > max) max = val;
+            }
+            return max - min;
+        }
+
+        function averageColor(pixels) {
+            var rSum = 0, gSum = 0, bSum = 0;
+            var len = pixels.length;
+            if (len === 0) return [0, 0, 0];
+            for (var i = 0; i < len; i++) {
+                rSum += pixels[i][0];
+                gSum += pixels[i][1];
+                bSum += pixels[i][2];
+            }
+            return [
+                Math.round(rSum / len),
+                Math.round(gSum / len),
+                Math.round(bSum / len)
+            ];
+        }
+
+        function medianCut(pixels, depth) {
+            if (depth === 0 || pixels.length === 0) {
+                return [averageColor(pixels)];
+            }
+
+            var rRange = getChannelRange(pixels, 0);
+            var gRange = getChannelRange(pixels, 1);
+            var bRange = getChannelRange(pixels, 2);
+
+            var sortChannel = 0;
+            if (gRange >= rRange && gRange >= bRange) {
+                sortChannel = 1;
+            } else if (bRange >= rRange && bRange >= gRange) {
+                sortChannel = 2;
+            }
+
+            pixels.sort(function(a, b) {
+                return a[sortChannel] - b[sortChannel];
+            });
+
+            var mid = Math.floor(pixels.length / 2);
+            var left = pixels.slice(0, mid);
+            var right = pixels.slice(mid);
+
+            return medianCut(left, depth - 1).concat(medianCut(right, depth - 1));
+        }
+
+        function extractColors(imageEl, numColors) {
+            var imgData = getPixelData(imageEl);
+            var pixels = getPixelsArray(imgData);
+
+            if (pixels.length === 0) return [];
+
+            var depth = Math.ceil(Math.log2(numColors));
+            var colors = medianCut(pixels, depth);
+
+            colors = colors.slice(0, numColors);
+
+            colors.sort(function(a, b) {
+                var brightnessA = a[0] * 0.299 + a[1] * 0.587 + a[2] * 0.114;
+                var brightnessB = b[0] * 0.299 + b[1] * 0.587 + b[2] * 0.114;
+                return brightnessB - brightnessA;
+            });
+
+            return colors;
+        }
+
+        function getContrastColor(r, g, b) {
+            var brightness = (r * 299 + g * 587 + b * 114) / 1000;
+            return brightness > 128 ? '#000000' : '#FFFFFF';
+        }
+
+        function renderPalette(colors) {
+            palettSwatches.innerHTML = '';
+
+            for (var i = 0; i < colors.length; i++) {
+                var r = colors[i][0];
+                var g = colors[i][1];
+                var b = colors[i][2];
+                var hex = rgbToHex(r, g, b);
+                var rgb = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+                var contrast = getContrastColor(r, g, b);
+
+                var swatch = document.createElement('div');
+                swatch.style.cssText = 'display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); cursor: pointer;';
+
+                var colorBlock = document.createElement('div');
+                colorBlock.style.cssText = 'width: 60px; height: 60px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: ' + contrast + ';';
+                colorBlock.style.backgroundColor = hex;
+                colorBlock.title = 'Click to copy HEX';
+
+                var info = document.createElement('div');
+                info.style.cssText = 'padding: 0.5rem; flex: 1; min-width: 0;';
+
+                var hexEl = document.createElement('div');
+                hexEl.style.cssText = 'font-weight: 700; font-size: 1rem; color: var(--text-main); cursor: pointer;';
+                hexEl.textContent = hex;
+                hexEl.title = 'Click to copy HEX';
+
+                var rgbEl = document.createElement('div');
+                rgbEl.style.cssText = 'font-size: 0.85rem; color: var(--text-muted); cursor: pointer; margin-top: 0.2rem;';
+                rgbEl.textContent = rgb;
+                rgbEl.title = 'Click to copy RGB';
+
+                (function(hexVal, rgbVal) {
+                    colorBlock.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyToClipboard(hexVal);
+                    });
+                    hexEl.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyToClipboard(hexVal);
+                    });
+                    rgbEl.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        copyToClipboard(rgbVal);
+                    });
+                    swatch.addEventListener('click', function() {
+                        copyToClipboard(hexVal);
+                    });
+                })(hex, rgb);
+
+                info.appendChild(hexEl);
+                info.appendChild(rgbEl);
+                swatch.appendChild(colorBlock);
+                swatch.appendChild(info);
+                palettSwatches.appendChild(swatch);
+            }
+        }
+
+        function processImage(imageEl) {
+            var numColors = parseInt(colorCountUpdate.value) || parseInt(colorCountSelect.value) || 5;
+            var colors = extractColors(imageEl, numColors);
+            renderPalette(colors);
+            uploadSection.style.display = 'none';
+            resultsArea.style.display = 'block';
+        }
+
+        function loadImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImageData = img;
+                    imagePreview.src = e.target.result;
+                    colorCountUpdate.value = colorCountSelect.value;
+                    processImage(img);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadImage(fileInput.files[0]);
+            }
+        });
+
+        reExtractBtn.addEventListener('click', function() {
+            if (currentImageData) {
+                processImage(currentImageData);
+            }
+        });
+
+        newImageBtn.addEventListener('click', function() {
+            currentImageData = null;
+            fileInput.value = '';
+            palettSwatches.innerHTML = '';
+            resultsArea.style.display = 'none';
+            uploadSection.style.display = 'block';
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0] && files[0].type.match(/^image\//)) {
+                loadImage(files[0]);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

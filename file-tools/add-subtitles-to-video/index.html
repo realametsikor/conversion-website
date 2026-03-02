@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Subtitles to Video - Free Online | ToolsNest</title>
+    <meta name="description" content="Burn subtitles into your video files online for free. Upload an SRT file or type subtitles manually, customize styling, and download with hardcoded captions. No software required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/add-subtitles-to-video/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Add Subtitles to Video
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Add Subtitles to Video</h1>
+                        <p style="margin-bottom:1.5rem;">Burn subtitles directly into your video. Upload an SRT subtitle file or type your own captions, customize the font style and position, then export a new video with permanently embedded subtitles.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <!-- Step 1: Upload Video -->
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#127916;</div>
+                                <h3>Drag & Drop your video here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="video-input" accept=".mp4,.webm,video/mp4,video/webm" style="display:none;">
+                                <label for="video-input" class="btn btn-primary" style="cursor:pointer;">Select Video File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts MP4 and WebM files (max 500MB)</p>
+                            </div>
+
+                            <!-- Step 2: Subtitle Input & Styling -->
+                            <div id="editor-area" style="display:none;text-align:left;padding:0 1rem;">
+                                <div id="video-file-info" style="text-align:center;margin-bottom:1.5rem;"></div>
+
+                                <!-- Video Preview with Subtitle Overlay -->
+                                <div id="preview-container" style="position:relative;max-width:640px;margin:0 auto 1.5rem;background:#000;border-radius:var(--radius-sm);overflow:hidden;">
+                                    <video id="video-el" controls style="display:block;width:100%;max-height:360px;"></video>
+                                    <div id="subtitle-overlay" style="position:absolute;bottom:40px;left:0;right:0;text-align:center;pointer-events:none;padding:0 10px;">
+                                        <span id="subtitle-text" style="background:rgba(0,0,0,0.7);color:#fff;font-size:18px;padding:4px 10px;border-radius:4px;display:none;line-height:1.4;"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Subtitle Source Tabs -->
+                                <div style="display:flex;gap:0;margin-bottom:1rem;border-bottom:2px solid var(--border);">
+                                    <button id="tab-srt" class="btn btn-primary" style="border-radius:var(--radius-sm) var(--radius-sm) 0 0;flex:1;">Upload SRT File</button>
+                                    <button id="tab-manual" class="btn btn-outline" style="border-radius:var(--radius-sm) var(--radius-sm) 0 0;flex:1;">Enter Manually</button>
+                                </div>
+
+                                <!-- SRT Upload -->
+                                <div id="srt-area">
+                                    <div style="text-align:center;padding:1.5rem;border:2px dashed var(--border);border-radius:var(--radius-sm);margin-bottom:1rem;">
+                                        <input type="file" id="srt-input" accept=".srt" style="display:none;">
+                                        <label for="srt-input" class="btn btn-outline" style="cursor:pointer;">Select SRT File</label>
+                                        <p id="srt-file-name" style="margin-top:0.75rem;font-size:0.85rem;color:var(--text-muted);">No file selected</p>
+                                    </div>
+                                    <div id="srt-preview" style="display:none;max-height:180px;overflow-y:auto;background:var(--bg-color);border:1px solid var(--border);border-radius:var(--radius-sm);padding:0.75rem;font-size:0.8rem;font-family:monospace;margin-bottom:1rem;white-space:pre-wrap;"></div>
+                                </div>
+
+                                <!-- Manual Entry -->
+                                <div id="manual-area" style="display:none;">
+                                    <p style="font-size:0.85rem;margin-bottom:0.5rem;">Enter subtitles in SRT format (index, timecodes, text):</p>
+                                    <textarea id="manual-srt" class="form-input" style="min-height:180px;font-family:monospace;font-size:0.8rem;" placeholder="1
+00:00:01,000 --> 00:00:04,000
+Hello and welcome to this video.
+
+2
+00:00:05,000 --> 00:00:08,500
+This is the second subtitle line.
+
+3
+00:00:09,000 --> 00:00:12,000
+You can add as many entries as you need."></textarea>
+                                </div>
+
+                                <!-- Subtitle Styling Options -->
+                                <h3 style="margin:1.5rem 0 1rem;">Subtitle Styling</h3>
+                                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:500px;">
+                                    <div class="form-group">
+                                        <label for="font-size-select">Font Size</label>
+                                        <select id="font-size-select" class="form-input">
+                                            <option value="16">Small (16px)</option>
+                                            <option value="22" selected>Medium (22px)</option>
+                                            <option value="28">Large (28px)</option>
+                                            <option value="36">Extra Large (36px)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="font-color-input">Font Color</label>
+                                        <input type="color" id="font-color-input" class="form-input" value="#ffffff" style="height:42px;padding:4px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bg-color-input">Background Color</label>
+                                        <input type="color" id="bg-color-input" class="form-input" value="#000000" style="height:42px;padding:4px;">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="bg-opacity-select">Background Opacity</label>
+                                        <select id="bg-opacity-select" class="form-input">
+                                            <option value="0">None (0%)</option>
+                                            <option value="0.5">Semi (50%)</option>
+                                            <option value="0.7" selected>Standard (70%)</option>
+                                            <option value="1">Full (100%)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" style="grid-column:1/-1;">
+                                        <label for="position-select">Subtitle Position</label>
+                                        <select id="position-select" class="form-input">
+                                            <option value="bottom" selected>Bottom</option>
+                                            <option value="top">Top</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div style="text-align:center;margin-top:1.5rem;">
+                                    <button id="burn-btn" class="btn btn-primary" style="width:100%;max-width:400px;">Burn Subtitles into Video</button>
+                                    <p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-muted);">Uses Canvas + MediaRecorder for client-side processing</p>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Burning Progress -->
+                            <div id="processing-area" style="display:none;">
+                                <div style="font-size:2rem;margin-bottom:0.75rem;">&#128260;</div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Burning subtitles into video...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">Initializing... 0%</p>
+                                <button id="cancel-btn" class="btn btn-outline" style="margin-top:1rem;">Cancel</button>
+                            </div>
+
+                            <!-- Step 4: Result -->
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Subtitles Burned Successfully!</h3>
+                                <div id="result-stats" style="margin:1rem auto;max-width:400px;background:var(--bg-color);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;"></div>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download Video (WebM)</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Process Another Video</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Add Subtitles to Video</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select Video File" or drag and drop an MP4 or WebM video into the upload area.</li>
+                            <li>Upload an SRT subtitle file or switch to the manual tab and type your subtitles in SRT format.</li>
+                            <li>Customize the subtitle appearance: font size, color, background, and position.</li>
+                            <li>Preview the subtitles on the video player to verify timing and style.</li>
+                            <li>Click "Burn Subtitles into Video" to permanently embed the captions.</li>
+                            <li>Download the new WebM video with hardcoded subtitles.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What subtitle formats are supported?</h3>
+                            <p>This tool supports the SRT (SubRip) format, which is the most widely used subtitle format. SRT files contain sequentially numbered entries with start/end timestamps and the corresponding text.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What is the difference between soft and hard (burned) subtitles?</h3>
+                            <p>Soft subtitles are separate files that can be toggled on or off during playback. Hard (burned) subtitles are permanently embedded into the video frames. This tool burns subtitles into the video so they display on any player without needing a separate subtitle file.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How long does burning subtitles take?</h3>
+                            <p>Processing time depends on the video length, resolution, and your device performance. The video is played through a canvas and re-recorded in real time, so a 2-minute video takes roughly 2 minutes to process.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Why is the output in WebM format?</h3>
+                            <p>The tool uses the browser's built-in MediaRecorder API for client-side processing. Most browsers encode to WebM (VP8/VP9) natively. This avoids requiring any server-side processing or external libraries.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I customize the subtitle appearance?</h3>
+                            <p>Yes. You can adjust the font size, font color, background color, background opacity, and vertical position (top or bottom). Changes are reflected in the live preview before burning.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my video data secure?</h3>
+                            <p>Absolutely. All processing happens entirely in your browser using the Canvas and MediaRecorder APIs. Your video is never uploaded to any server.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is this tool free to use?</h3>
+                            <p>Yes, our Add Subtitles to Video tool is completely free with no registration, watermarks, or usage limits.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/subtitle-editor" class="related-link">Subtitle Editor</a>
+                            <a href="/file-tools/video-trimmer" class="related-link">Video Trimmer</a>
+                            <a href="/file-tools/mp4-to-mp3" class="related-link">MP4 to MP3</a>
+                            <a href="/file-tools/screen-recorder" class="related-link">Screen Recorder</a>
+                            <a href="/file-tools/merge-audio" class="related-link">Merge Audio</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ===== DOM References ===== */
+        var videoInput = document.getElementById('video-input');
+        var srtInput = document.getElementById('srt-input');
+        var workspace = document.getElementById('tool-workspace');
+        var uploadArea = document.getElementById('upload-area');
+        var editorArea = document.getElementById('editor-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var videoEl = document.getElementById('video-el');
+        var subtitleOverlay = document.getElementById('subtitle-overlay');
+        var subtitleText = document.getElementById('subtitle-text');
+        var videoFileInfo = document.getElementById('video-file-info');
+        var srtFileName = document.getElementById('srt-file-name');
+        var srtPreview = document.getElementById('srt-preview');
+        var manualSrt = document.getElementById('manual-srt');
+        var tabSrt = document.getElementById('tab-srt');
+        var tabManual = document.getElementById('tab-manual');
+        var srtArea = document.getElementById('srt-area');
+        var manualArea = document.getElementById('manual-area');
+        var fontSizeSelect = document.getElementById('font-size-select');
+        var fontColorInput = document.getElementById('font-color-input');
+        var bgColorInput = document.getElementById('bg-color-input');
+        var bgOpacitySelect = document.getElementById('bg-opacity-select');
+        var positionSelect = document.getElementById('position-select');
+        var burnBtn = document.getElementById('burn-btn');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var cancelBtn = document.getElementById('cancel-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var resultStats = document.getElementById('result-stats');
+
+        var selectedVideoFile = null;
+        var subtitles = []; /* Array of {start, end, text} in seconds */
+        var srtRawText = '';
+        var activeTab = 'srt';
+        var burningCancelled = false;
+        var outputBlob = null;
+
+        /* ===== Drag & Drop for video ===== */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                var file = e.dataTransfer.files[0];
+                if (file.type === 'video/mp4' || file.type === 'video/webm' || /\.(mp4|webm)$/i.test(file.name)) {
+                    handleVideoFile(file);
+                } else {
+                    alert('Please select an MP4 or WebM video file.');
+                }
+            }
+        });
+
+        videoInput.addEventListener('change', function() {
+            if (videoInput.files.length > 0) handleVideoFile(videoInput.files[0]);
+        });
+
+        /* ===== Handle Video File ===== */
+        function handleVideoFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (file.type !== 'video/mp4' && file.type !== 'video/webm' && ext !== 'mp4' && ext !== 'webm') {
+                alert('Please select an MP4 or WebM video file.');
+                return;
+            }
+            if (file.size > 500 * 1024 * 1024) {
+                alert('File size exceeds the 500MB limit.');
+                return;
+            }
+            selectedVideoFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            videoFileInfo.innerHTML = '<span style="font-size:1.5rem;">&#127916;</span> <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+            var videoURL = URL.createObjectURL(file);
+            videoEl.src = videoURL;
+            uploadArea.style.display = 'none';
+            editorArea.style.display = 'block';
+        }
+
+        /* ===== Tab Switching ===== */
+        tabSrt.addEventListener('click', function() {
+            activeTab = 'srt';
+            tabSrt.className = 'btn btn-primary';
+            tabSrt.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            tabManual.className = 'btn btn-outline';
+            tabManual.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            srtArea.style.display = 'block';
+            manualArea.style.display = 'none';
+        });
+        tabManual.addEventListener('click', function() {
+            activeTab = 'manual';
+            tabManual.className = 'btn btn-primary';
+            tabManual.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            tabSrt.className = 'btn btn-outline';
+            tabSrt.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            srtArea.style.display = 'none';
+            manualArea.style.display = 'block';
+        });
+
+        /* ===== SRT File Upload ===== */
+        srtInput.addEventListener('change', function() {
+            if (srtInput.files.length > 0) {
+                var file = srtInput.files[0];
+                srtFileName.textContent = file.name;
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    srtRawText = e.target.result;
+                    subtitles = parseSRT(srtRawText);
+                    srtPreview.style.display = 'block';
+                    srtPreview.textContent = srtRawText.substring(0, 2000) + (srtRawText.length > 2000 ? '\n...(truncated)' : '');
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        /* ===== SRT Parser ===== */
+        function parseSRT(text) {
+            var result = [];
+            var blocks = text.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n').split(/\n\n+/);
+            for (var i = 0; i < blocks.length; i++) {
+                var lines = blocks[i].trim().split('\n');
+                if (lines.length < 2) continue;
+                /* Find the timecode line */
+                var timeLineIdx = -1;
+                for (var j = 0; j < lines.length; j++) {
+                    if (lines[j].indexOf('-->') !== -1) {
+                        timeLineIdx = j;
+                        break;
+                    }
+                }
+                if (timeLineIdx === -1) continue;
+                var timeParts = lines[timeLineIdx].split('-->');
+                if (timeParts.length !== 2) continue;
+                var start = parseTimestamp(timeParts[0].trim());
+                var end = parseTimestamp(timeParts[1].trim());
+                var textLines = lines.slice(timeLineIdx + 1).join('\n').trim();
+                if (start !== null && end !== null && textLines) {
+                    result.push({ start: start, end: end, text: textLines });
+                }
+            }
+            return result;
+        }
+
+        function parseTimestamp(ts) {
+            /* Accepts HH:MM:SS,mmm or HH:MM:SS.mmm */
+            var m = ts.match(/(\d{1,2}):(\d{2}):(\d{2})[,.](\d{3})/);
+            if (!m) return null;
+            return parseInt(m[1], 10) * 3600 + parseInt(m[2], 10) * 60 + parseInt(m[3], 10) + parseInt(m[4], 10) / 1000;
+        }
+
+        /* ===== Live Preview: Update subtitles during video playback ===== */
+        videoEl.addEventListener('timeupdate', function() {
+            updateSubtitlePreview(videoEl.currentTime);
+        });
+
+        function getActiveSubtitles() {
+            if (activeTab === 'srt') {
+                return subtitles;
+            } else {
+                return parseSRT(manualSrt.value);
+            }
+        }
+
+        function updateSubtitlePreview(time) {
+            var subs = getActiveSubtitles();
+            var currentSub = null;
+            for (var i = 0; i < subs.length; i++) {
+                if (time >= subs[i].start && time <= subs[i].end) {
+                    currentSub = subs[i];
+                    break;
+                }
+            }
+            if (currentSub) {
+                subtitleText.textContent = currentSub.text;
+                subtitleText.style.display = 'inline';
+                applyPreviewStyle();
+            } else {
+                subtitleText.style.display = 'none';
+            }
+        }
+
+        function applyPreviewStyle() {
+            var fontSize = fontSizeSelect.value + 'px';
+            var fontColor = fontColorInput.value;
+            var bgColor = bgColorInput.value;
+            var bgOpacity = parseFloat(bgOpacitySelect.value);
+            var position = positionSelect.value;
+            subtitleText.style.fontSize = fontSize;
+            subtitleText.style.color = fontColor;
+            subtitleText.style.background = hexToRgba(bgColor, bgOpacity);
+            if (position === 'top') {
+                subtitleOverlay.style.top = '10px';
+                subtitleOverlay.style.bottom = 'auto';
+            } else {
+                subtitleOverlay.style.top = 'auto';
+                subtitleOverlay.style.bottom = '40px';
+            }
+        }
+
+        function hexToRgba(hex, alpha) {
+            var r = parseInt(hex.substring(1, 3), 16);
+            var g = parseInt(hex.substring(3, 5), 16);
+            var b = parseInt(hex.substring(5, 7), 16);
+            return 'rgba(' + r + ',' + g + ',' + b + ',' + alpha + ')';
+        }
+
+        /* Update preview style when options change */
+        fontSizeSelect.addEventListener('change', applyPreviewStyle);
+        fontColorInput.addEventListener('input', applyPreviewStyle);
+        bgColorInput.addEventListener('input', applyPreviewStyle);
+        bgOpacitySelect.addEventListener('change', applyPreviewStyle);
+        positionSelect.addEventListener('change', applyPreviewStyle);
+
+        /* ===== Burn Subtitles ===== */
+        burnBtn.addEventListener('click', function() {
+            var subs = getActiveSubtitles();
+            if (!subs || subs.length === 0) {
+                alert('Please add subtitles before burning. Upload an SRT file or enter subtitles manually.');
+                return;
+            }
+            if (!selectedVideoFile) {
+                alert('Please select a video file first.');
+                return;
+            }
+            startBurning(subs);
+        });
+
+        function startBurning(subs) {
+            editorArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            burningCancelled = false;
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Initializing... 0%';
+
+            /* Create offscreen video element for reading frames */
+            var sourceVideo = document.createElement('video');
+            sourceVideo.muted = false;
+            sourceVideo.playsInline = true;
+            sourceVideo.src = URL.createObjectURL(selectedVideoFile);
+
+            sourceVideo.addEventListener('loadedmetadata', function() {
+                var w = sourceVideo.videoWidth;
+                var h = sourceVideo.videoHeight;
+                var duration = sourceVideo.duration;
+                if (!w || !h || !duration || !isFinite(duration)) {
+                    alert('Could not read video dimensions or duration. The file may be corrupted.');
+                    processingArea.style.display = 'none';
+                    editorArea.style.display = 'block';
+                    return;
+                }
+
+                /* Create canvas to composite video + subtitles */
+                var canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                var ctx = canvas.getContext('2d');
+
+                /* Get style values */
+                var fontSize = parseInt(fontSizeSelect.value, 10);
+                /* Scale font relative to video resolution (base: 480p) */
+                var fontScale = h / 480;
+                var scaledFontSize = Math.round(fontSize * fontScale);
+                var fontColor = fontColorInput.value;
+                var bgColor = bgColorInput.value;
+                var bgOpacity = parseFloat(bgOpacitySelect.value);
+                var position = positionSelect.value;
+
+                /* Setup MediaRecorder on canvas stream */
+                var stream = canvas.captureStream(30);
+
+                /* Try to capture audio from the video as well */
+                var audioCtx = null;
+                var audioSource = null;
+                var audioDest = null;
+                try {
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    audioSource = audioCtx.createMediaElementSource(sourceVideo);
+                    audioDest = audioCtx.createMediaStreamDestination();
+                    audioSource.connect(audioDest);
+                    audioSource.connect(audioCtx.destination);
+                    /* Add audio tracks to canvas stream */
+                    var audioTracks = audioDest.stream.getAudioTracks();
+                    for (var t = 0; t < audioTracks.length; t++) {
+                        stream.addTrack(audioTracks[t]);
+                    }
+                } catch (e) {
+                    /* Audio capture not supported; proceed without audio */
+                }
+
+                var mimeType = 'video/webm';
+                if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus')) {
+                    mimeType = 'video/webm;codecs=vp9,opus';
+                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8,opus')) {
+                    mimeType = 'video/webm;codecs=vp8,opus';
+                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+                    mimeType = 'video/webm;codecs=vp9';
+                } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+                    mimeType = 'video/webm;codecs=vp8';
+                }
+
+                var recorder;
+                try {
+                    recorder = new MediaRecorder(stream, { mimeType: mimeType, videoBitsPerSecond: 5000000 });
+                } catch (e) {
+                    recorder = new MediaRecorder(stream);
+                }
+
+                var chunks = [];
+                recorder.ondataavailable = function(e) {
+                    if (e.data && e.data.size > 0) chunks.push(e.data);
+                };
+                recorder.onstop = function() {
+                    if (burningCancelled) {
+                        chunks = [];
+                        return;
+                    }
+                    outputBlob = new Blob(chunks, { type: 'video/webm' });
+                    showResult(duration, subs.length);
+                };
+
+                recorder.start(100);
+
+                /* Play the source video and draw frames to canvas */
+                sourceVideo.currentTime = 0;
+                sourceVideo.play();
+
+                var animFrameId;
+                function drawFrame() {
+                    if (burningCancelled) {
+                        sourceVideo.pause();
+                        recorder.stop();
+                        if (audioCtx) audioCtx.close();
+                        return;
+                    }
+                    if (sourceVideo.ended || sourceVideo.currentTime >= duration) {
+                        recorder.stop();
+                        sourceVideo.pause();
+                        if (audioCtx) audioCtx.close();
+                        return;
+                    }
+
+                    /* Draw video frame */
+                    ctx.drawImage(sourceVideo, 0, 0, w, h);
+
+                    /* Find active subtitle */
+                    var currentTime = sourceVideo.currentTime;
+                    var activeSub = null;
+                    for (var i = 0; i < subs.length; i++) {
+                        if (currentTime >= subs[i].start && currentTime <= subs[i].end) {
+                            activeSub = subs[i];
+                            break;
+                        }
+                    }
+
+                    /* Draw subtitle text */
+                    if (activeSub) {
+                        drawSubtitleOnCanvas(ctx, activeSub.text, w, h, scaledFontSize, fontColor, bgColor, bgOpacity, position);
+                    }
+
+                    /* Update progress */
+                    var pct = Math.min(100, (currentTime / duration) * 100);
+                    progressBar.style.width = pct + '%';
+                    progressText.textContent = 'Burning subtitles... ' + Math.round(pct) + '%';
+
+                    animFrameId = requestAnimationFrame(drawFrame);
+                }
+
+                drawFrame();
+            });
+
+            sourceVideo.addEventListener('error', function() {
+                alert('Error loading the video file. Please try a different file.');
+                processingArea.style.display = 'none';
+                editorArea.style.display = 'block';
+            });
+        }
+
+        function drawSubtitleOnCanvas(ctx, text, canvasW, canvasH, fontSize, fontColor, bgColor, bgOpacity, position) {
+            ctx.save();
+            ctx.font = 'bold ' + fontSize + 'px Inter, Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'top';
+
+            /* Handle multi-line subtitles */
+            var lines = text.split('\n');
+            var lineHeight = fontSize * 1.4;
+            var totalHeight = lines.length * lineHeight;
+            var padding = fontSize * 0.4;
+
+            /* Measure max line width */
+            var maxWidth = 0;
+            for (var i = 0; i < lines.length; i++) {
+                var w = ctx.measureText(lines[i]).width;
+                if (w > maxWidth) maxWidth = w;
+            }
+
+            /* Calculate Y position */
+            var yBase;
+            if (position === 'top') {
+                yBase = canvasH * 0.05;
+            } else {
+                yBase = canvasH - totalHeight - padding * 2 - canvasH * 0.08;
+            }
+
+            /* Draw background rectangle */
+            if (bgOpacity > 0) {
+                var r = parseInt(bgColor.substring(1, 3), 16);
+                var g = parseInt(bgColor.substring(3, 5), 16);
+                var b = parseInt(bgColor.substring(5, 7), 16);
+                ctx.fillStyle = 'rgba(' + r + ',' + g + ',' + b + ',' + bgOpacity + ')';
+                var rectX = (canvasW - maxWidth) / 2 - padding;
+                var rectY = yBase - padding;
+                var rectW = maxWidth + padding * 2;
+                var rectH = totalHeight + padding * 2;
+                var cornerR = fontSize * 0.25;
+                roundRect(ctx, rectX, rectY, rectW, rectH, cornerR);
+                ctx.fill();
+            }
+
+            /* Draw text with outline for readability */
+            ctx.fillStyle = fontColor;
+            ctx.strokeStyle = 'rgba(0,0,0,0.8)';
+            ctx.lineWidth = fontSize * 0.12;
+            ctx.lineJoin = 'round';
+            for (var j = 0; j < lines.length; j++) {
+                var y = yBase + j * lineHeight;
+                ctx.strokeText(lines[j], canvasW / 2, y);
+                ctx.fillText(lines[j], canvasW / 2, y);
+            }
+
+            ctx.restore();
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        /* ===== Cancel Burning ===== */
+        cancelBtn.addEventListener('click', function() {
+            burningCancelled = true;
+            processingArea.style.display = 'none';
+            editorArea.style.display = 'block';
+        });
+
+        /* ===== Show Result ===== */
+        function showResult(duration, subCount) {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+            progressBar.style.width = '100%';
+
+            var durationStr = '--:--';
+            if (duration && isFinite(duration)) {
+                var mins = Math.floor(duration / 60);
+                var secs = Math.floor(duration % 60);
+                durationStr = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            }
+
+            var originalSize = formatFileSize(selectedVideoFile.size);
+            var outputSize = outputBlob ? formatFileSize(outputBlob.size) : 'N/A';
+
+            resultStats.innerHTML =
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original video:</span><strong>' + originalSize + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Duration:</span><strong>' + durationStr + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Subtitle entries:</span><strong>' + subCount + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Output size:</span><strong style="color:var(--accent);">' + outputSize + '</strong></div>';
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        /* ===== Download ===== */
+        downloadBtn.addEventListener('click', function() {
+            if (!outputBlob) {
+                alert('No output video available.');
+                return;
+            }
+            var baseName = selectedVideoFile.name.replace(/\.[^.]+$/, '');
+            var downloadName = baseName + '-subtitled.webm';
+            var url = URL.createObjectURL(outputBlob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = downloadName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        /* ===== Reset ===== */
+        resetBtn.addEventListener('click', function() {
+            selectedVideoFile = null;
+            subtitles = [];
+            srtRawText = '';
+            outputBlob = null;
+            burningCancelled = false;
+            videoInput.value = '';
+            srtInput.value = '';
+            srtFileName.textContent = 'No file selected';
+            srtPreview.style.display = 'none';
+            srtPreview.textContent = '';
+            manualSrt.value = '';
+            subtitleText.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            if (videoEl.src) {
+                URL.revokeObjectURL(videoEl.src);
+                videoEl.src = '';
+            }
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            editorArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+            /* Reset tabs to SRT */
+            activeTab = 'srt';
+            tabSrt.className = 'btn btn-primary';
+            tabSrt.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            tabManual.className = 'btn btn-outline';
+            tabManual.style.borderRadius = 'var(--radius-sm) var(--radius-sm) 0 0';
+            srtArea.style.display = 'block';
+            manualArea.style.display = 'none';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

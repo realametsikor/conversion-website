@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Format Detector Online Free - Identify True File Type | ToolsNest</title>
+    <meta name="description" content="Detect the true format of any image by reading its magic bytes and file signature. Identifies JPEG, PNG, GIF, WebP, BMP, SVG, ICO, TIFF. Shows dimensions, MIME type, transparency, and more. Free and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/image-format-detector/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Image Format Detector
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Image Format Detector</h1>
+                <p class="text-center mb-3">Detect the true format of any image by reading its file signature (magic bytes). All processing happens in your browser — your files never leave your device.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
+                        <p class="text-muted mb-2">or</p>
+                        <input type="file" id="file-input" accept="image/*,.ico,.svg,.bmp,.tiff,.tif,.webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                        <p class="text-muted" style="margin-top: 1rem; font-size: 0.85rem;">Supports JPEG, PNG, GIF, WebP, BMP, SVG, ICO, TIFF and more</p>
+                    </div>
+
+                    <div id="result-area" style="display: none; text-align: left;">
+                        <div class="text-center mb-3">
+                            <img id="image-preview" style="max-width: 100%; max-height: 250px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Image preview">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">True Format</p>
+                                <strong id="true-format" style="font-size: 1.3rem; color: var(--accent);">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">File Extension</p>
+                                <strong id="file-extension" style="font-size: 1.3rem; color: var(--text-main);">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-card, #f9fafb); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">File Details</h3>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                                <tbody>
+                                    <tr style="border-bottom: 1px solid var(--border);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted); width: 40%;">MIME Type</td>
+                                        <td id="mime-type" style="padding: 0.6rem 0;">--</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">File Size</td>
+                                        <td id="file-size" style="padding: 0.6rem 0;">--</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Dimensions</td>
+                                        <td id="dimensions" style="padding: 0.6rem 0;">--</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid var(--border);">
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Color Depth</td>
+                                        <td id="color-depth" style="padding: 0.6rem 0;">--</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 0.6rem 0; font-weight: 600; color: var(--text-muted);">Transparency</td>
+                                        <td id="transparency" style="padding: 0.6rem 0;">--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="background: var(--bg-card, #f9fafb); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.5rem;">
+                            <h3 style="margin-bottom: 0.75rem; font-size: 1.05rem;">Magic Bytes (Hex)</h3>
+                            <code id="magic-bytes" style="display: block; font-family: monospace; font-size: 0.85rem; word-break: break-all; color: var(--accent); background: var(--bg-main, #fff); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">--</code>
+                        </div>
+
+                        <div class="text-center">
+                            <button id="reset-btn" class="btn btn-primary" style="background: var(--text-muted);">Analyze Another Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop any image file into the workspace above.</li>
+                        <li>The tool reads the file's magic bytes (binary signature) to detect its true format, regardless of the file extension.</li>
+                        <li>Review the detailed analysis including true format, MIME type, file size, dimensions, color depth, and transparency support.</li>
+                        <li>Click "Analyze Another Image" to check a different file.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What are magic bytes?</h3>
+                        <p>Magic bytes (also called file signatures) are specific byte sequences at the beginning of a file that identify its true format. For example, JPEG files always start with FF D8 FF, and PNG files start with 89 50 4E 47. This tool reads these bytes to determine the actual format, even if the file extension has been changed or is incorrect.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why does the detected format differ from the file extension?</h3>
+                        <p>File extensions can be easily renamed or may be wrong. For instance, someone might rename a PNG to .jpg, or a file downloaded from the web may have a generic extension. The magic bytes reveal the true format because they are embedded in the file data itself and cannot change without altering the file content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats can this tool detect?</h3>
+                        <p>This tool can detect JPEG, PNG, GIF (both GIF87a and GIF89a), WebP, BMP, SVG, ICO, and TIFF (both little-endian and big-endian). It reads the binary file signature to make an accurate identification regardless of the file extension.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my files uploaded to a server?</h3>
+                        <p>No. All analysis happens entirely in your browser using the JavaScript FileReader API. Your images are never sent to any server and never leave your device. The tool processes everything locally for complete privacy.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is transparency detected?</h3>
+                        <p>The tool draws the image onto an HTML5 Canvas and samples pixel data to check for alpha channel values below 255 (fully opaque). Formats like PNG, WebP, and GIF support transparency, while JPEG and BMP typically do not.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-to-base64" class="related-link">Image to Base64</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadSection = document.getElementById('upload-section');
+        var resultArea = document.getElementById('result-area');
+        var imagePreview = document.getElementById('image-preview');
+        var trueFormatEl = document.getElementById('true-format');
+        var fileExtensionEl = document.getElementById('file-extension');
+        var mimeTypeEl = document.getElementById('mime-type');
+        var fileSizeEl = document.getElementById('file-size');
+        var dimensionsEl = document.getElementById('dimensions');
+        var colorDepthEl = document.getElementById('color-depth');
+        var transparencyEl = document.getElementById('transparency');
+        var magicBytesEl = document.getElementById('magic-bytes');
+        var resetBtn = document.getElementById('reset-btn');
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' bytes';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(2) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function formatFileSize(bytes) {
+            var parts = [bytes.toLocaleString() + ' bytes'];
+            if (bytes >= 1024) parts.push((bytes / 1024).toFixed(2) + ' KB');
+            if (bytes >= 1048576) parts.push((bytes / 1048576).toFixed(2) + ' MB');
+            return parts.join(' / ');
+        }
+
+        function bytesToHex(uint8Array, count) {
+            var hex = [];
+            var len = Math.min(uint8Array.length, count || 16);
+            for (var i = 0; i < len; i++) {
+                hex.push(uint8Array[i].toString(16).toUpperCase().padStart(2, '0'));
+            }
+            return hex.join(' ');
+        }
+
+        function detectFormatFromBytes(uint8Array, file) {
+            var b = uint8Array;
+
+            // JPEG: FF D8 FF
+            if (b[0] === 0xFF && b[1] === 0xD8 && b[2] === 0xFF) {
+                return { format: 'JPEG', mime: 'image/jpeg' };
+            }
+
+            // PNG: 89 50 4E 47 0D 0A 1A 0A
+            if (b[0] === 0x89 && b[1] === 0x50 && b[2] === 0x4E && b[3] === 0x47 &&
+                b[4] === 0x0D && b[5] === 0x0A && b[6] === 0x1A && b[7] === 0x0A) {
+                return { format: 'PNG', mime: 'image/png' };
+            }
+
+            // GIF: 47 49 46 38 (GIF87a or GIF89a)
+            if (b[0] === 0x47 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x38) {
+                var version = (b[4] === 0x39) ? 'GIF89a' : 'GIF87a';
+                return { format: 'GIF (' + version + ')', mime: 'image/gif' };
+            }
+
+            // WebP: 52 49 46 46 ... 57 45 42 50
+            if (b[0] === 0x52 && b[1] === 0x49 && b[2] === 0x46 && b[3] === 0x46 &&
+                b[8] === 0x57 && b[9] === 0x45 && b[10] === 0x42 && b[11] === 0x50) {
+                return { format: 'WebP', mime: 'image/webp' };
+            }
+
+            // BMP: 42 4D
+            if (b[0] === 0x42 && b[1] === 0x4D) {
+                return { format: 'BMP', mime: 'image/bmp' };
+            }
+
+            // TIFF: 49 49 2A 00 (little-endian) or 4D 4D 00 2A (big-endian)
+            if ((b[0] === 0x49 && b[1] === 0x49 && b[2] === 0x2A && b[3] === 0x00) ||
+                (b[0] === 0x4D && b[1] === 0x4D && b[2] === 0x00 && b[3] === 0x2A)) {
+                var endian = (b[0] === 0x49) ? 'Little-Endian' : 'Big-Endian';
+                return { format: 'TIFF (' + endian + ')', mime: 'image/tiff' };
+            }
+
+            // ICO: 00 00 01 00
+            if (b[0] === 0x00 && b[1] === 0x00 && b[2] === 0x01 && b[3] === 0x00) {
+                return { format: 'ICO', mime: 'image/x-icon' };
+            }
+
+            // SVG: check for XML/svg text content
+            try {
+                var textSample = new TextDecoder('utf-8').decode(uint8Array.slice(0, 512));
+                var trimmed = textSample.trim().toLowerCase();
+                if (trimmed.indexOf('<svg') !== -1 || (trimmed.indexOf('<?xml') !== -1 && trimmed.indexOf('<svg') !== -1)) {
+                    return { format: 'SVG', mime: 'image/svg+xml' };
+                }
+                if (trimmed.indexOf('<?xml') !== -1 && file && file.name && file.name.toLowerCase().endsWith('.svg')) {
+                    return { format: 'SVG', mime: 'image/svg+xml' };
+                }
+            } catch (e) {}
+
+            return { format: 'Unknown', mime: file ? file.type || 'unknown' : 'unknown' };
+        }
+
+        function getFileExtension(filename) {
+            var parts = filename.split('.');
+            if (parts.length > 1) {
+                return '.' + parts.pop().toLowerCase();
+            }
+            return 'None';
+        }
+
+        function detectTransparency(img, format) {
+            // Formats that never support transparency
+            if (format === 'JPEG' || format === 'BMP') {
+                return 'No (format does not support transparency)';
+            }
+
+            try {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var w = Math.min(img.naturalWidth, 256);
+                var h = Math.min(img.naturalHeight, 256);
+                canvas.width = w;
+                canvas.height = h;
+                ctx.drawImage(img, 0, 0, w, h);
+                var imageData = ctx.getImageData(0, 0, w, h);
+                var data = imageData.data;
+                for (var i = 3; i < data.length; i += 4) {
+                    if (data[i] < 255) {
+                        return 'Yes (alpha channel detected)';
+                    }
+                }
+                return 'No (all pixels fully opaque)';
+            } catch (e) {
+                return 'Unable to determine (canvas security restriction)';
+            }
+        }
+
+        function getPngBitDepth(uint8Array) {
+            // PNG IHDR chunk starts at byte 8 (after signature)
+            // Chunk structure: length(4) + type(4) + data + crc(4)
+            // IHDR data: width(4) + height(4) + bitDepth(1) + colorType(1)
+            if (uint8Array.length >= 29) {
+                var bitDepth = uint8Array[24];
+                var colorType = uint8Array[25];
+                var colorTypes = {
+                    0: 'Grayscale',
+                    2: 'RGB (Truecolor)',
+                    3: 'Indexed (Palette)',
+                    4: 'Grayscale + Alpha',
+                    6: 'RGBA (Truecolor + Alpha)'
+                };
+                var typeName = colorTypes[colorType] || 'Unknown';
+                var totalBits;
+                switch (colorType) {
+                    case 0: totalBits = bitDepth; break;
+                    case 2: totalBits = bitDepth * 3; break;
+                    case 3: totalBits = bitDepth; break;
+                    case 4: totalBits = bitDepth * 2; break;
+                    case 6: totalBits = bitDepth * 4; break;
+                    default: totalBits = bitDepth;
+                }
+                return totalBits + '-bit (' + typeName + ', ' + bitDepth + ' bits/channel)';
+            }
+            return null;
+        }
+
+        function getBmpBitDepth(uint8Array) {
+            // BMP bit depth is at offset 28 (2 bytes, little-endian)
+            if (uint8Array.length >= 30) {
+                var bitDepth = uint8Array[28] | (uint8Array[29] << 8);
+                return bitDepth + '-bit';
+            }
+            return null;
+        }
+
+        function getColorDepthInfo(formatInfo, uint8Array) {
+            var format = formatInfo.format;
+
+            if (format === 'JPEG') {
+                return '24-bit (8 bits/channel, YCbCr/RGB)';
+            }
+
+            if (format.indexOf('PNG') !== -1) {
+                var pngDepth = getPngBitDepth(uint8Array);
+                if (pngDepth) return pngDepth;
+                return '24-bit or 32-bit (typical)';
+            }
+
+            if (format.indexOf('GIF') !== -1) {
+                return '8-bit (256 colors max, indexed palette)';
+            }
+
+            if (format === 'WebP') {
+                return '24-bit or 32-bit (with alpha)';
+            }
+
+            if (format.indexOf('BMP') !== -1) {
+                var bmpDepth = getBmpBitDepth(uint8Array);
+                if (bmpDepth) return bmpDepth;
+                return 'Variable';
+            }
+
+            if (format.indexOf('TIFF') !== -1) {
+                return 'Variable (typically 24-bit or 48-bit)';
+            }
+
+            if (format === 'ICO') {
+                return 'Variable (typically 32-bit with alpha)';
+            }
+
+            if (format === 'SVG') {
+                return 'N/A (vector format)';
+            }
+
+            return 'Unknown';
+        }
+
+        function processImage(file) {
+            var readerBuf = new FileReader();
+
+            readerBuf.onload = function(e) {
+                var arrayBuffer = e.target.result;
+                var uint8Array = new Uint8Array(arrayBuffer);
+                var hexBytes = bytesToHex(uint8Array, 20);
+
+                var formatInfo = detectFormatFromBytes(uint8Array, file);
+                var extension = getFileExtension(file.name);
+                var colorDepth = getColorDepthInfo(formatInfo, uint8Array);
+
+                trueFormatEl.textContent = formatInfo.format;
+                fileExtensionEl.textContent = extension;
+                mimeTypeEl.textContent = formatInfo.mime;
+                fileSizeEl.textContent = formatFileSize(file.size);
+                magicBytesEl.textContent = hexBytes;
+                colorDepthEl.textContent = colorDepth;
+
+                // Load image to get dimensions and check transparency
+                var readerUrl = new FileReader();
+                readerUrl.onload = function(ev) {
+                    var dataUrl = ev.target.result;
+
+                    if (formatInfo.format === 'SVG') {
+                        imagePreview.src = dataUrl;
+                        // For SVG, try to parse dimensions from content
+                        try {
+                            var text = new TextDecoder('utf-8').decode(uint8Array);
+                            var parser = new DOMParser();
+                            var svgDoc = parser.parseFromString(text, 'image/svg+xml');
+                            var svgEl = svgDoc.querySelector('svg');
+                            if (svgEl) {
+                                var w = svgEl.getAttribute('width');
+                                var h = svgEl.getAttribute('height');
+                                var vb = svgEl.getAttribute('viewBox');
+                                if (w && h) {
+                                    dimensionsEl.textContent = w + ' x ' + h + ' (defined in SVG attributes)';
+                                } else if (vb) {
+                                    var parts = vb.split(/[\s,]+/);
+                                    if (parts.length === 4) {
+                                        dimensionsEl.textContent = parts[2] + ' x ' + parts[3] + ' (from viewBox)';
+                                    } else {
+                                        dimensionsEl.textContent = 'Scalable (viewBox: ' + vb + ')';
+                                    }
+                                } else {
+                                    dimensionsEl.textContent = 'Scalable (no explicit dimensions)';
+                                }
+                            } else {
+                                dimensionsEl.textContent = 'N/A (vector format)';
+                            }
+                        } catch (ex) {
+                            dimensionsEl.textContent = 'N/A (vector format)';
+                        }
+                        transparencyEl.textContent = 'Yes (SVG supports transparency natively)';
+                        uploadSection.style.display = 'none';
+                        resultArea.style.display = 'block';
+                        return;
+                    }
+
+                    var img = new Image();
+                    img.onload = function() {
+                        dimensionsEl.textContent = img.naturalWidth + ' x ' + img.naturalHeight + ' pixels';
+                        var transpResult = detectTransparency(img, formatInfo.format);
+                        transparencyEl.textContent = transpResult;
+                        uploadSection.style.display = 'none';
+                        resultArea.style.display = 'block';
+                    };
+                    img.onerror = function() {
+                        dimensionsEl.textContent = 'Unable to load image';
+                        transparencyEl.textContent = 'Unable to determine';
+                        imagePreview.style.display = 'none';
+                        uploadSection.style.display = 'none';
+                        resultArea.style.display = 'block';
+                    };
+                    imagePreview.src = dataUrl;
+                    img.src = dataUrl;
+                };
+                readerUrl.readAsDataURL(file);
+            };
+
+            readerBuf.readAsArrayBuffer(file);
+        }
+
+        function resetTool() {
+            uploadSection.style.display = '';
+            resultArea.style.display = 'none';
+            imagePreview.style.display = '';
+            fileInput.value = '';
+            trueFormatEl.textContent = '--';
+            fileExtensionEl.textContent = '--';
+            mimeTypeEl.textContent = '--';
+            fileSizeEl.textContent = '--';
+            dimensionsEl.textContent = '--';
+            colorDepthEl.textContent = '--';
+            transparencyEl.textContent = '--';
+            magicBytesEl.textContent = '--';
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                processImage(fileInput.files[0]);
+            }
+        });
+
+        resetBtn.addEventListener('click', resetTool);
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0]) {
+                fileInput.files = files;
+                processImage(files[0]);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

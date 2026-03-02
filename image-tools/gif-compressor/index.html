@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress GIF Online Free - Reduce GIF File Size | ToolsNest</title>
+    <meta name="description" content="Compress GIF files instantly in your browser. Reduce GIF size by scaling dimensions, reducing colors, and skipping frames. Free, fast, and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/gif-compressor/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; GIF Compressor
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">GIF Compressor</h1>
+                <p class="text-center mb-3">Reduce GIF file size by scaling dimensions, reducing colors, and removing frames. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Drag &amp; Drop Your GIF Here</h3>
+                        <p class="text-muted mb-2">or</p>
+                        <input type="file" id="file-input" accept="image/gif" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select GIF</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none; text-align: left;">
+                        <div class="text-center mb-3">
+                            <img id="gif-preview" style="max-width: 100%; max-height: 300px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="GIF Preview">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Original Size</p>
+                                <strong id="original-size" style="font-size: 1.5rem; color: var(--text-main);">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Dimensions</p>
+                                <strong id="original-dims" style="font-size: 1.5rem; color: var(--text-main);">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; color: var(--text-main);">Compression Options</h3>
+
+                            <div class="form-group">
+                                <label for="scale-select">Scale Dimensions</label>
+                                <select id="scale-select" class="form-input">
+                                    <option value="1">Original (100%)</option>
+                                    <option value="0.75">75%</option>
+                                    <option value="0.5" selected>50%</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="colors-select">Color Reduction</label>
+                                <select id="colors-select" class="form-input">
+                                    <option value="256">256 colors (original)</option>
+                                    <option value="128" selected>128 colors</option>
+                                    <option value="64">64 colors</option>
+                                    <option value="32">32 colors</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="frameskip-select">Frame Skipping</label>
+                                <select id="frameskip-select" class="form-input">
+                                    <option value="1">Keep all frames</option>
+                                    <option value="2" selected>Keep every 2nd frame</option>
+                                    <option value="3">Keep every 3rd frame</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <button id="compress-btn" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Compress GIF</button>
+                        </div>
+
+                        <div id="progress-area" style="display: none; margin-bottom: 1.5rem;">
+                            <p id="progress-text" class="text-center text-muted mb-1">Processing frames...</p>
+                            <div style="width: 100%; background: var(--border); border-radius: var(--radius-sm); height: 8px; overflow: hidden;">
+                                <div id="progress-bar" style="width: 0%; height: 100%; background: var(--primary); transition: width 0.2s;"></div>
+                            </div>
+                        </div>
+
+                        <div id="result-area" style="display: none;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                                <div class="card" style="text-align: center;">
+                                    <p class="text-muted mb-1">Compressed Size</p>
+                                    <strong id="compressed-size" style="font-size: 1.5rem; color: var(--accent);">--</strong>
+                                </div>
+                                <div class="card" style="text-align: center;">
+                                    <p class="text-muted mb-1">Savings</p>
+                                    <strong id="savings-pct" style="font-size: 1.5rem; color: var(--accent);">--</strong>
+                                </div>
+                            </div>
+                            <p id="result-info" class="text-center text-muted mb-2"></p>
+                            <div class="text-center mb-3">
+                                <a id="download-btn" class="btn btn-accent" download="compressed.gif">Download Compressed GIF</a>
+                            </div>
+
+                            <div style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm);">
+                                <h3 style="margin-bottom: 0.75rem; color: var(--text-main);">Extracted Frames</h3>
+                                <p class="text-muted mb-2" style="font-size: 0.9rem;">Click any frame to download it as a PNG image.</p>
+                                <div id="frames-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 0.5rem;"></div>
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-3">
+                            <button id="reset-btn" class="btn" style="color: var(--text-muted);">Upload Another GIF</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select GIF" or drag and drop a GIF file into the workspace above.</li>
+                        <li>View the original file size and dimensions displayed after upload.</li>
+                        <li>Adjust compression options: scale down dimensions, reduce the number of colors, or skip frames to lower file size.</li>
+                        <li>Click "Compress GIF" to start the compression process.</li>
+                        <li>Review the compressed size and savings percentage, then click "Download Compressed GIF" to save the result.</li>
+                        <li>Optionally, click any extracted frame to download it as a standalone PNG image.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my GIF files secure?</h3>
+                        <p>Yes. This tool processes GIF files entirely in your browser using the HTML5 Canvas API. Your files are never uploaded to any server and never leave your device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the compression work?</h3>
+                        <p>The tool extracts individual frames from your GIF, optionally scales them down, reduces the color palette, and removes intermediate frames. The remaining frames are re-encoded into a new, smaller GIF file.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How much can the file size be reduced?</h3>
+                        <p>Typical reductions range from 30% to 70% depending on the original GIF and the options selected. Scaling down to 50% combined with frame skipping produces the largest savings.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will the animation still look smooth?</h3>
+                        <p>Skipping frames removes some in-between frames, which may make the animation slightly less smooth. Keeping every 2nd frame is a good balance between size and smoothness. The frame delay is adjusted to maintain similar playback speed.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I download individual frames?</h3>
+                        <p>Yes. After compression, all extracted frames are displayed in a grid. Click any frame to download it as a high-quality PNG image.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var gifPreview = document.getElementById('gif-preview');
+        var originalSizeEl = document.getElementById('original-size');
+        var originalDimsEl = document.getElementById('original-dims');
+        var scaleSelect = document.getElementById('scale-select');
+        var colorsSelect = document.getElementById('colors-select');
+        var frameskipSelect = document.getElementById('frameskip-select');
+        var compressBtn = document.getElementById('compress-btn');
+        var progressArea = document.getElementById('progress-area');
+        var progressText = document.getElementById('progress-text');
+        var progressBar = document.getElementById('progress-bar');
+        var resultArea = document.getElementById('result-area');
+        var compressedSizeEl = document.getElementById('compressed-size');
+        var savingsPctEl = document.getElementById('savings-pct');
+        var resultInfo = document.getElementById('result-info');
+        var downloadBtn = document.getElementById('download-btn');
+        var framesGrid = document.getElementById('frames-grid');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var originalFile = null;
+        var gifFrames = [];
+        var gifWidth = 0;
+        var gifHeight = 0;
+        var gifDelays = [];
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        /* ---- GIF Decoder ---- */
+        function parseGIF(arrayBuffer) {
+            var bytes = new Uint8Array(arrayBuffer);
+            var pos = 0;
+
+            function readByte() { return bytes[pos++]; }
+            function readUint16() { var v = bytes[pos] | (bytes[pos + 1] << 8); pos += 2; return v; }
+            function readBytes(n) { var b = bytes.slice(pos, pos + n); pos += n; return b; }
+
+            var sig = String.fromCharCode.apply(null, readBytes(6));
+            if (sig.indexOf('GIF') !== 0) throw new Error('Not a valid GIF file');
+
+            var width = readUint16();
+            var height = readUint16();
+            var packed = readByte();
+            var gctFlag = (packed >> 7) & 1;
+            var gctSize = packed & 7;
+            readByte(); // bg color
+            readByte(); // pixel aspect
+
+            var globalColorTable = null;
+            if (gctFlag) {
+                var gctLen = 3 * (1 << (gctSize + 1));
+                globalColorTable = readBytes(gctLen);
+            }
+
+            var frames = [];
+            var gce = null;
+
+            while (pos < bytes.length) {
+                var introducer = readByte();
+
+                if (introducer === 0x3B) break; // trailer
+
+                if (introducer === 0x21) { // extension
+                    var label = readByte();
+                    if (label === 0xF9) { // GCE
+                        readByte(); // block size (always 4)
+                        var gcePacked = readByte();
+                        var delay = readUint16();
+                        var transparentIndex = readByte();
+                        var hasTransparency = (gcePacked & 1) === 1;
+                        var disposalMethod = (gcePacked >> 2) & 7;
+                        readByte(); // terminator
+                        gce = { delay: delay, transparentIndex: hasTransparency ? transparentIndex : -1, disposal: disposalMethod };
+                    } else {
+                        // skip sub-blocks
+                        while (true) {
+                            var blockSize = readByte();
+                            if (blockSize === 0) break;
+                            pos += blockSize;
+                        }
+                    }
+                    continue;
+                }
+
+                if (introducer === 0x2C) { // image descriptor
+                    var left = readUint16();
+                    var top = readUint16();
+                    var w = readUint16();
+                    var h = readUint16();
+                    var imgPacked = readByte();
+                    var lctFlag = (imgPacked >> 7) & 1;
+                    var interlaced = (imgPacked >> 6) & 1;
+                    var lctSize = imgPacked & 7;
+
+                    var colorTable = globalColorTable;
+                    if (lctFlag) {
+                        var lctLen = 3 * (1 << (lctSize + 1));
+                        colorTable = readBytes(lctLen);
+                    }
+
+                    // LZW decode
+                    var minCodeSize = readByte();
+                    var lzwData = [];
+                    while (true) {
+                        var blockSize = readByte();
+                        if (blockSize === 0) break;
+                        for (var i = 0; i < blockSize; i++) lzwData.push(readByte());
+                    }
+
+                    var pixels = lzwDecode(minCodeSize, lzwData);
+                    var frameDelay = gce ? Math.max(gce.delay * 10, 20) : 100;
+                    var transparentIndex = gce ? gce.transparentIndex : -1;
+                    var disposal = gce ? gce.disposal : 0;
+
+                    frames.push({
+                        left: left, top: top, width: w, height: h,
+                        pixels: pixels, colorTable: colorTable,
+                        delay: frameDelay, transparentIndex: transparentIndex,
+                        disposal: disposal, interlaced: interlaced
+                    });
+
+                    gce = null;
+                    continue;
+                }
+
+                // unknown block - skip
+                if (introducer === 0x00) continue;
+            }
+
+            return { width: width, height: height, frames: frames };
+        }
+
+        function lzwDecode(minCodeSize, data) {
+            var clearCode = 1 << minCodeSize;
+            var eoiCode = clearCode + 1;
+            var codeSize = minCodeSize + 1;
+            var codeMask = (1 << codeSize) - 1;
+            var nextCode = eoiCode + 1;
+            var maxCode = 1 << codeSize;
+
+            var table = [];
+            for (var i = 0; i < clearCode; i++) table[i] = [i];
+
+            var output = [];
+            var bitBuf = 0;
+            var bitCount = 0;
+            var dataPos = 0;
+            var prev = null;
+
+            function readCode() {
+                while (bitCount < codeSize) {
+                    if (dataPos >= data.length) return -1;
+                    bitBuf |= data[dataPos++] << bitCount;
+                    bitCount += 8;
+                }
+                var code = bitBuf & codeMask;
+                bitBuf >>= codeSize;
+                bitCount -= codeSize;
+                return code;
+            }
+
+            // initial clear
+            var code = readCode();
+            if (code !== clearCode) return output;
+
+            while (true) {
+                code = readCode();
+                if (code === -1 || code === eoiCode) break;
+
+                if (code === clearCode) {
+                    table = [];
+                    for (var j = 0; j < clearCode; j++) table[j] = [j];
+                    codeSize = minCodeSize + 1;
+                    codeMask = (1 << codeSize) - 1;
+                    nextCode = eoiCode + 1;
+                    maxCode = 1 << codeSize;
+                    prev = null;
+                    continue;
+                }
+
+                var entry;
+                if (code < nextCode) {
+                    entry = table[code];
+                } else if (code === nextCode && prev) {
+                    entry = prev.concat(prev[0]);
+                } else {
+                    break;
+                }
+
+                for (var k = 0; k < entry.length; k++) output.push(entry[k]);
+
+                if (prev && nextCode < 4096) {
+                    table[nextCode++] = prev.concat(entry[0]);
+                    if (nextCode > codeMask && codeSize < 12) {
+                        codeSize++;
+                        codeMask = (1 << codeSize) - 1;
+                        maxCode = 1 << codeSize;
+                    }
+                }
+
+                prev = entry;
+            }
+
+            return output;
+        }
+
+        function deinterlace(pixels, width, height) {
+            var output = new Array(pixels.length);
+            var passes = [
+                { start: 0, step: 8 },
+                { start: 4, step: 8 },
+                { start: 2, step: 4 },
+                { start: 1, step: 2 }
+            ];
+            var srcRow = 0;
+            for (var p = 0; p < passes.length; p++) {
+                for (var y = passes[p].start; y < height; y += passes[p].step) {
+                    var srcOffset = srcRow * width;
+                    var dstOffset = y * width;
+                    for (var x = 0; x < width; x++) {
+                        output[dstOffset + x] = pixels[srcOffset + x];
+                    }
+                    srcRow++;
+                }
+            }
+            return output;
+        }
+
+        function renderFrames(gifData) {
+            var compCanvas = document.createElement('canvas');
+            compCanvas.width = gifData.width;
+            compCanvas.height = gifData.height;
+            var compCtx = compCanvas.getContext('2d');
+
+            var prevCanvas = document.createElement('canvas');
+            prevCanvas.width = gifData.width;
+            prevCanvas.height = gifData.height;
+            var prevCtx = prevCanvas.getContext('2d');
+
+            var renderedFrames = [];
+
+            for (var f = 0; f < gifData.frames.length; f++) {
+                var frame = gifData.frames[f];
+                var pixels = frame.interlaced ? deinterlace(frame.pixels, frame.width, frame.height) : frame.pixels;
+                var ct = frame.colorTable;
+
+                // Save state for disposal
+                if (frame.disposal === 3) {
+                    prevCtx.clearRect(0, 0, prevCanvas.width, prevCanvas.height);
+                    prevCtx.drawImage(compCanvas, 0, 0);
+                }
+
+                var imgData = compCtx.createImageData(frame.width, frame.height);
+                for (var i = 0; i < pixels.length; i++) {
+                    var ci = pixels[i];
+                    if (ci === frame.transparentIndex) {
+                        imgData.data[i * 4 + 3] = 0;
+                    } else {
+                        imgData.data[i * 4] = ct[ci * 3];
+                        imgData.data[i * 4 + 1] = ct[ci * 3 + 1];
+                        imgData.data[i * 4 + 2] = ct[ci * 3 + 2];
+                        imgData.data[i * 4 + 3] = 255;
+                    }
+                }
+
+                var tmpCanvas = document.createElement('canvas');
+                tmpCanvas.width = frame.width;
+                tmpCanvas.height = frame.height;
+                var tmpCtx = tmpCanvas.getContext('2d');
+                tmpCtx.putImageData(imgData, 0, 0);
+                compCtx.drawImage(tmpCanvas, frame.left, frame.top);
+
+                // Capture composed frame
+                var outCanvas = document.createElement('canvas');
+                outCanvas.width = gifData.width;
+                outCanvas.height = gifData.height;
+                var outCtx = outCanvas.getContext('2d');
+                outCtx.drawImage(compCanvas, 0, 0);
+
+                renderedFrames.push({ canvas: outCanvas, delay: frame.delay });
+
+                // Apply disposal
+                if (frame.disposal === 2) {
+                    compCtx.clearRect(frame.left, frame.top, frame.width, frame.height);
+                } else if (frame.disposal === 3) {
+                    compCtx.clearRect(0, 0, compCanvas.width, compCanvas.height);
+                    compCtx.drawImage(prevCanvas, 0, 0);
+                }
+            }
+
+            return renderedFrames;
+        }
+
+        /* ---- GIF Encoder ---- */
+        function GIFEncoder(width, height) {
+            this.width = width;
+            this.height = height;
+            this.data = [];
+            this.frames = [];
+        }
+
+        GIFEncoder.prototype.addFrame = function(imageData, delay, numColors) {
+            this.frames.push({ imageData: imageData, delay: delay, numColors: numColors || 256 });
+        };
+
+        GIFEncoder.prototype.encode = function() {
+            var out = this.data;
+            // Header
+            this._writeString('GIF89a');
+            this._writeUint16(this.width);
+            this._writeUint16(this.height);
+            out.push(0x70); // packed: no GCT, 8-bit color resolution
+            out.push(0); // bg color
+            out.push(0); // pixel aspect
+
+            // Netscape extension for looping
+            out.push(0x21); // extension
+            out.push(0xFF); // app extension
+            out.push(11); // block size
+            this._writeString('NETSCAPE2.0');
+            out.push(3); // sub-block size
+            out.push(1); // loop sub-block ID
+            this._writeUint16(0); // loop forever
+            out.push(0); // terminator
+
+            for (var f = 0; f < this.frames.length; f++) {
+                var frame = this.frames[f];
+                var quantized = this._quantize(frame.imageData, frame.numColors);
+                var palette = quantized.palette;
+                var indices = quantized.indices;
+                var transparentIndex = quantized.transparentIndex;
+                var paletteSize = palette.length / 3;
+                var paletteBits = this._paletteBits(paletteSize);
+
+                // GCE
+                out.push(0x21);
+                out.push(0xF9);
+                out.push(4);
+                var disposalByte = (2 << 2); // restore to bg
+                if (transparentIndex >= 0) disposalByte |= 1;
+                out.push(disposalByte);
+                this._writeUint16(Math.round(frame.delay / 10));
+                out.push(transparentIndex >= 0 ? transparentIndex : 0);
+                out.push(0);
+
+                // Image descriptor
+                out.push(0x2C);
+                this._writeUint16(0); // left
+                this._writeUint16(0); // top
+                this._writeUint16(this.width);
+                this._writeUint16(this.height);
+                var lctPacked = 0x80 | (paletteBits - 1); // local color table
+                out.push(lctPacked);
+
+                // Local color table
+                var fullPaletteSize = 1 << paletteBits;
+                for (var c = 0; c < fullPaletteSize; c++) {
+                    if (c < paletteSize) {
+                        out.push(palette[c * 3]);
+                        out.push(palette[c * 3 + 1]);
+                        out.push(palette[c * 3 + 2]);
+                    } else {
+                        out.push(0); out.push(0); out.push(0);
+                    }
+                }
+
+                // LZW encode
+                var minCodeSize = Math.max(2, paletteBits);
+                out.push(minCodeSize);
+                var encoded = this._lzwEncode(indices, minCodeSize);
+                // Write sub-blocks
+                var offset = 0;
+                while (offset < encoded.length) {
+                    var chunkSize = Math.min(255, encoded.length - offset);
+                    out.push(chunkSize);
+                    for (var b = 0; b < chunkSize; b++) {
+                        out.push(encoded[offset + b]);
+                    }
+                    offset += chunkSize;
+                }
+                out.push(0); // block terminator
+            }
+
+            out.push(0x3B); // trailer
+            return new Uint8Array(out);
+        };
+
+        GIFEncoder.prototype._writeString = function(s) {
+            for (var i = 0; i < s.length; i++) this.data.push(s.charCodeAt(i));
+        };
+
+        GIFEncoder.prototype._writeUint16 = function(v) {
+            this.data.push(v & 0xFF);
+            this.data.push((v >> 8) & 0xFF);
+        };
+
+        GIFEncoder.prototype._paletteBits = function(size) {
+            var bits = 1;
+            while ((1 << bits) < size) bits++;
+            return Math.max(2, Math.min(8, bits));
+        };
+
+        GIFEncoder.prototype._quantize = function(imageData, numColors) {
+            var data = imageData.data;
+            var len = data.length / 4;
+            numColors = Math.min(256, Math.max(2, numColors));
+
+            // Median-cut-like quantization using sampling
+            var colorMap = {};
+            var colors = [];
+            var step = Math.max(1, Math.floor(len / 10000)); // sample for speed
+
+            for (var i = 0; i < len; i += step) {
+                var r = data[i * 4];
+                var g = data[i * 4 + 1];
+                var b = data[i * 4 + 2];
+                var a = data[i * 4 + 3];
+                if (a < 128) continue;
+                // Reduce to 5-bit per channel for grouping
+                var qr = (r >> 3) << 3;
+                var qg = (g >> 3) << 3;
+                var qb = (b >> 3) << 3;
+                var key = (qr << 16) | (qg << 8) | qb;
+                if (!colorMap[key]) {
+                    colorMap[key] = { r: qr, g: qg, b: qb, count: 0 };
+                    colors.push(colorMap[key]);
+                }
+                colorMap[key].count++;
+            }
+
+            // Sort by frequency and pick top colors
+            colors.sort(function(a, b) { return b.count - a.count; });
+            var maxPalette = numColors - 1; // reserve one for transparency
+            var palette = [];
+            var paletteColors = [];
+            for (var p = 0; p < Math.min(maxPalette, colors.length); p++) {
+                palette.push(colors[p].r, colors[p].g, colors[p].b);
+                paletteColors.push(colors[p]);
+            }
+            // Fill to at least 2 colors
+            while (paletteColors.length < 2) {
+                palette.push(0, 0, 0);
+                paletteColors.push({ r: 0, g: 0, b: 0 });
+            }
+            // Add transparent color at the end
+            var transparentIndex = paletteColors.length;
+            palette.push(0, 0, 0);
+
+            // Map all pixels to palette indices
+            var indices = new Uint8Array(len);
+            for (var j = 0; j < len; j++) {
+                var pr = data[j * 4];
+                var pg = data[j * 4 + 1];
+                var pb = data[j * 4 + 2];
+                var pa = data[j * 4 + 3];
+
+                if (pa < 128) {
+                    indices[j] = transparentIndex;
+                    continue;
+                }
+
+                var bestDist = Infinity;
+                var bestIdx = 0;
+                for (var c = 0; c < paletteColors.length; c++) {
+                    var dr = pr - paletteColors[c].r;
+                    var dg = pg - paletteColors[c].g;
+                    var db = pb - paletteColors[c].b;
+                    var dist = dr * dr + dg * dg + db * db;
+                    if (dist < bestDist) {
+                        bestDist = dist;
+                        bestIdx = c;
+                    }
+                    if (dist === 0) break;
+                }
+                indices[j] = bestIdx;
+            }
+
+            var hasTransparency = false;
+            for (var t = 0; t < len; t++) {
+                if (data[t * 4 + 3] < 128) { hasTransparency = true; break; }
+            }
+
+            return {
+                palette: palette,
+                indices: indices,
+                transparentIndex: hasTransparency ? transparentIndex : -1
+            };
+        };
+
+        GIFEncoder.prototype._lzwEncode = function(indices, minCodeSize) {
+            var clearCode = 1 << minCodeSize;
+            var eoiCode = clearCode + 1;
+            var output = [];
+            var bitBuf = 0;
+            var bitCount = 0;
+            var codeSize = minCodeSize + 1;
+            var nextCode = eoiCode + 1;
+            var table = {};
+
+            function emit(code) {
+                bitBuf |= code << bitCount;
+                bitCount += codeSize;
+                while (bitCount >= 8) {
+                    output.push(bitBuf & 0xFF);
+                    bitBuf >>= 8;
+                    bitCount -= 8;
+                }
+            }
+
+            emit(clearCode);
+
+            if (indices.length === 0) {
+                emit(eoiCode);
+                if (bitCount > 0) output.push(bitBuf & 0xFF);
+                return output;
+            }
+
+            var current = String(indices[0]);
+
+            for (var i = 1; i < indices.length; i++) {
+                var next = current + ',' + indices[i];
+                if (table[next] !== undefined) {
+                    current = next;
+                } else {
+                    // Emit code for current
+                    var code;
+                    if (current.indexOf(',') === -1) {
+                        code = parseInt(current);
+                    } else {
+                        code = table[current];
+                    }
+                    emit(code);
+
+                    if (nextCode < 4096) {
+                        table[next] = nextCode++;
+                        if (nextCode > (1 << codeSize) && codeSize < 12) {
+                            codeSize++;
+                        }
+                    } else {
+                        emit(clearCode);
+                        table = {};
+                        codeSize = minCodeSize + 1;
+                        nextCode = eoiCode + 1;
+                    }
+
+                    current = String(indices[i]);
+                }
+            }
+
+            // Emit last code
+            var lastCode;
+            if (current.indexOf(',') === -1) {
+                lastCode = parseInt(current);
+            } else {
+                lastCode = table[current];
+            }
+            emit(lastCode);
+            emit(eoiCode);
+
+            if (bitCount > 0) output.push(bitBuf & 0xFF);
+
+            return output;
+        };
+
+        /* ---- Main logic ---- */
+
+        function loadGIF(file) {
+            originalFile = file;
+            originalSizeEl.textContent = formatBytes(file.size);
+            gifPreview.src = URL.createObjectURL(file);
+            uploadSection.style.display = 'none';
+            editorSection.style.display = 'block';
+            resultArea.style.display = 'none';
+            progressArea.style.display = 'none';
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    var gifData = parseGIF(e.target.result);
+                    gifWidth = gifData.width;
+                    gifHeight = gifData.height;
+                    originalDimsEl.textContent = gifWidth + ' x ' + gifHeight;
+
+                    gifFrames = renderFrames(gifData);
+                    gifDelays = gifFrames.map(function(f) { return f.delay; });
+                } catch (err) {
+                    originalDimsEl.textContent = 'Error';
+                    alert('Could not parse GIF file. The file may be corrupted or use an unsupported format.');
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function compressGIF() {
+            if (!gifFrames || gifFrames.length === 0) {
+                alert('Please wait for the GIF to finish loading, or try uploading again.');
+                return;
+            }
+
+            var scale = parseFloat(scaleSelect.value);
+            var numColors = parseInt(colorsSelect.value);
+            var frameSkip = parseInt(frameskipSelect.value);
+
+            var newWidth = Math.max(1, Math.round(gifWidth * scale));
+            var newHeight = Math.max(1, Math.round(gifHeight * scale));
+
+            // Filter frames by skip
+            var selectedFrames = [];
+            for (var i = 0; i < gifFrames.length; i++) {
+                if (i % frameSkip === 0) {
+                    selectedFrames.push(gifFrames[i]);
+                }
+            }
+            if (selectedFrames.length === 0) selectedFrames.push(gifFrames[0]);
+
+            progressArea.style.display = 'block';
+            resultArea.style.display = 'none';
+            compressBtn.disabled = true;
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Processing ' + selectedFrames.length + ' frames...';
+
+            var encoder = new GIFEncoder(newWidth, newHeight);
+            var scaleCanvas = document.createElement('canvas');
+            scaleCanvas.width = newWidth;
+            scaleCanvas.height = newHeight;
+            var scaleCtx = scaleCanvas.getContext('2d');
+            scaleCtx.imageSmoothingEnabled = true;
+            scaleCtx.imageSmoothingQuality = 'medium';
+
+            var processedFrameCanvases = [];
+            var frameIndex = 0;
+
+            function processNextFrame() {
+                if (frameIndex >= selectedFrames.length) {
+                    finishEncoding();
+                    return;
+                }
+
+                var frame = selectedFrames[frameIndex];
+                scaleCtx.clearRect(0, 0, newWidth, newHeight);
+                scaleCtx.drawImage(frame.canvas, 0, 0, newWidth, newHeight);
+
+                var imgData = scaleCtx.getImageData(0, 0, newWidth, newHeight);
+                var delay = frame.delay * frameSkip; // adjust delay for skipped frames
+                encoder.addFrame(imgData, delay, numColors);
+
+                // Store frame canvas for frame grid
+                var fc = document.createElement('canvas');
+                fc.width = newWidth;
+                fc.height = newHeight;
+                fc.getContext('2d').drawImage(scaleCanvas, 0, 0);
+                processedFrameCanvases.push(fc);
+
+                frameIndex++;
+                var pct = Math.round((frameIndex / selectedFrames.length) * 100);
+                progressBar.style.width = pct + '%';
+                progressText.textContent = 'Processing frame ' + frameIndex + ' of ' + selectedFrames.length + '...';
+
+                setTimeout(processNextFrame, 0);
+            }
+
+            function finishEncoding() {
+                progressText.textContent = 'Encoding GIF...';
+                progressBar.style.width = '100%';
+
+                setTimeout(function() {
+                    try {
+                        var encoded = encoder.encode();
+                        var blob = new Blob([encoded], { type: 'image/gif' });
+                        var compressedSize = blob.size;
+                        var originalSize = originalFile.size;
+                        var savings = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+
+                        compressedSizeEl.textContent = formatBytes(compressedSize);
+
+                        if (savings > 0) {
+                            savingsPctEl.textContent = savings + '%';
+                            savingsPctEl.style.color = 'var(--accent)';
+                        } else {
+                            savingsPctEl.textContent = '0%';
+                            savingsPctEl.style.color = 'var(--text-muted)';
+                        }
+
+                        resultInfo.textContent = newWidth + 'x' + newHeight + ' px, ' + selectedFrames.length + ' frames, ' + numColors + ' colors';
+
+                        var url = URL.createObjectURL(blob);
+                        downloadBtn.href = url;
+                        var baseName = originalFile.name.replace(/\.[^.]+$/, '');
+                        downloadBtn.download = baseName + '-compressed.gif';
+
+                        // Render extracted frames grid
+                        framesGrid.innerHTML = '';
+                        for (var i = 0; i < processedFrameCanvases.length; i++) {
+                            (function(idx) {
+                                var wrapper = document.createElement('div');
+                                wrapper.style.cssText = 'cursor:pointer; border:1px solid var(--border); border-radius:var(--radius-sm); overflow:hidden; position:relative;';
+                                wrapper.title = 'Click to download frame ' + (idx + 1) + ' as PNG';
+
+                                var img = document.createElement('img');
+                                img.src = processedFrameCanvases[idx].toDataURL('image/png');
+                                img.style.cssText = 'width:100%; display:block;';
+                                img.alt = 'Frame ' + (idx + 1);
+
+                                var label = document.createElement('span');
+                                label.textContent = '#' + (idx + 1);
+                                label.style.cssText = 'position:absolute; bottom:2px; right:4px; font-size:0.7rem; background:rgba(0,0,0,0.6); color:#fff; padding:1px 4px; border-radius:3px;';
+
+                                wrapper.appendChild(img);
+                                wrapper.appendChild(label);
+
+                                wrapper.addEventListener('click', function() {
+                                    var a = document.createElement('a');
+                                    a.href = processedFrameCanvases[idx].toDataURL('image/png');
+                                    a.download = baseName + '-frame-' + (idx + 1) + '.png';
+                                    document.body.appendChild(a);
+                                    a.click();
+                                    document.body.removeChild(a);
+                                });
+
+                                framesGrid.appendChild(wrapper);
+                            })(i);
+                        }
+
+                        progressArea.style.display = 'none';
+                        resultArea.style.display = 'block';
+                    } catch (err) {
+                        progressText.textContent = 'Encoding failed. Try different settings.';
+                    }
+
+                    compressBtn.disabled = false;
+                }, 50);
+            }
+
+            processNextFrame();
+        }
+
+        function resetTool() {
+            originalFile = null;
+            gifFrames = [];
+            gifWidth = 0;
+            gifHeight = 0;
+            gifDelays = [];
+            uploadSection.style.display = '';
+            editorSection.style.display = 'none';
+            resultArea.style.display = 'none';
+            progressArea.style.display = 'none';
+            compressBtn.disabled = false;
+            fileInput.value = '';
+            framesGrid.innerHTML = '';
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadGIF(fileInput.files[0]);
+            }
+        });
+
+        compressBtn.addEventListener('click', compressGIF);
+        resetBtn.addEventListener('click', resetTool);
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0] && files[0].type === 'image/gif') {
+                fileInput.files = files;
+                loadGIF(files[0]);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

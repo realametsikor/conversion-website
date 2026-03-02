@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot to PDF Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert screenshots and images to PDF online for free. Combine multiple screenshots into one PDF document. Choose page size, orientation, and margins. Works entirely in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/screenshot-to-pdf/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Screenshot to PDF
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Screenshot to PDF Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert one or multiple screenshots into a single PDF document. Each image gets its own page. Choose page size, orientation, and margins. Everything runs locally in your browser.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128248;</div>
+                                <h3>Drag & Drop your screenshots here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select Screenshots</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts JPG, PNG, and WebP images. Select multiple files at once.</p>
+                            </div>
+
+                            <div id="editor-area" style="display:none;text-align:left;padding:0 1rem;">
+                                <h3 style="text-align:center;margin-bottom:1rem;">Selected Screenshots</h3>
+
+                                <div id="thumbnails" style="display:flex;flex-wrap:wrap;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;"></div>
+
+                                <div style="display:flex;gap:0.75rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap;">
+                                    <label for="file-input-more" class="btn btn-outline" style="cursor:pointer;">Add More</label>
+                                    <input type="file" id="file-input-more" accept="image/jpeg,image/png,image/webp,.jpg,.jpeg,.png,.webp" multiple style="display:none;">
+                                </div>
+
+                                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem;padding:1rem;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--card-bg);">
+                                    <div>
+                                        <label style="display:block;font-weight:600;margin-bottom:0.4rem;font-size:0.9rem;">Page Size</label>
+                                        <select id="page-size" style="width:100%;padding:0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem;background:var(--bg);color:var(--text);">
+                                            <option value="a4">A4 (210 x 297 mm)</option>
+                                            <option value="letter">Letter (8.5 x 11 in)</option>
+                                            <option value="fit">Fit to Image</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display:block;font-weight:600;margin-bottom:0.4rem;font-size:0.9rem;">Orientation</label>
+                                        <select id="orientation" style="width:100%;padding:0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem;background:var(--bg);color:var(--text);">
+                                            <option value="portrait">Portrait</option>
+                                            <option value="landscape">Landscape</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="display:block;font-weight:600;margin-bottom:0.4rem;font-size:0.9rem;">Margin</label>
+                                        <select id="margin" style="width:100%;padding:0.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-size:0.9rem;background:var(--bg);color:var(--text);">
+                                            <option value="none">None</option>
+                                            <option value="small">Small (10mm)</option>
+                                            <option value="medium" selected>Medium (20mm)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div style="text-align:center;">
+                                    <button id="generate-btn" class="btn btn-primary">Generate PDF</button>
+                                </div>
+                            </div>
+
+                            <div id="processing-area" style="display:none;">
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Generating your PDF...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">0%</p>
+                            </div>
+
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>PDF Generated Successfully!</h3>
+                                <p id="result-info" style="margin:0.75rem 0;color:var(--text-muted);"></p>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download PDF</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Convert More Screenshots</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert Screenshots to PDF</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select Screenshots" or drag and drop one or more images (JPG, PNG, or WebP) into the upload area.</li>
+                            <li>Preview your screenshots as thumbnails. Drag to reorder or remove any you do not need.</li>
+                            <li>Choose your preferred page size (A4, Letter, or Fit to Image), orientation, and margin settings.</li>
+                            <li>Click "Generate PDF" to create your document. Each screenshot becomes its own page.</li>
+                            <li>Click "Download PDF" to save the finished file to your device.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What image formats are supported?</h3>
+                            <p>This tool accepts JPG/JPEG, PNG, and WebP image formats. These cover the vast majority of screenshot formats across all operating systems and devices.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I combine multiple screenshots into one PDF?</h3>
+                            <p>Yes! You can select multiple images at once or add more after your initial selection. Each screenshot will be placed on its own page in the final PDF document.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I reorder the screenshots before generating the PDF?</h3>
+                            <p>Yes. After uploading your screenshots, you can drag the thumbnails to rearrange them in the order you want. You can also remove individual images by clicking the remove button on each thumbnail.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What page sizes are available?</h3>
+                            <p>You can choose A4 (210 x 297 mm), US Letter (8.5 x 11 inches), or Fit to Image which sets each page to match the exact dimensions of the screenshot.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are my screenshots uploaded to a server?</h3>
+                            <p>No. All processing happens entirely in your browser using JavaScript. Your images never leave your device, ensuring complete privacy and security.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a limit on how many screenshots I can convert?</h3>
+                            <p>There is no strict limit. However, since everything is processed in your browser, very large batches (over 50 high-resolution images) may be slower depending on your device capabilities.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG</a>
+                            <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                            <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var fileInputMore = document.getElementById('file-input-more');
+        var uploadArea = document.getElementById('upload-area');
+        var editorArea = document.getElementById('editor-area');
+        var thumbnails = document.getElementById('thumbnails');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var resultInfo = document.getElementById('result-info');
+        var generateBtn = document.getElementById('generate-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var pageSizeSelect = document.getElementById('page-size');
+        var orientationSelect = document.getElementById('orientation');
+        var marginSelect = document.getElementById('margin');
+
+        var imageFiles = [];
+        var imageDataItems = []; /* { dataUrl, width, height, name } */
+        var pdfBlob = null;
+        var dragSrcIndex = null;
+
+        /* Drag and drop on workspace */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            if (e.dataTransfer.types.indexOf('Files') !== -1) {
+                workspace.style.borderColor = 'var(--primary)';
+                workspace.style.background = '#EFF6FF';
+            }
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+                addFiles(e.dataTransfer.files);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) addFiles(fileInput.files);
+        });
+        fileInputMore.addEventListener('change', function() {
+            if (fileInputMore.files.length > 0) addFiles(fileInputMore.files);
+        });
+
+        function isValidImage(file) {
+            var validTypes = ['image/jpeg', 'image/png', 'image/webp'];
+            if (validTypes.indexOf(file.type) !== -1) return true;
+            var ext = file.name.toLowerCase().split('.').pop();
+            return ['jpg', 'jpeg', 'png', 'webp'].indexOf(ext) !== -1;
+        }
+
+        function addFiles(files) {
+            var pending = 0;
+            for (var i = 0; i < files.length; i++) {
+                if (!isValidImage(files[i])) continue;
+                pending++;
+                (function(file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        var img = new Image();
+                        img.onload = function() {
+                            imageDataItems.push({
+                                dataUrl: e.target.result,
+                                width: img.width,
+                                height: img.height,
+                                name: file.name
+                            });
+                            pending--;
+                            if (pending === 0) {
+                                showEditor();
+                            }
+                        };
+                        img.onerror = function() {
+                            pending--;
+                            if (pending === 0 && imageDataItems.length > 0) showEditor();
+                        };
+                        img.src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                })(files[i]);
+            }
+            if (pending === 0 && imageDataItems.length > 0) showEditor();
+        }
+
+        function showEditor() {
+            uploadArea.style.display = 'none';
+            editorArea.style.display = 'block';
+            renderThumbnails();
+        }
+
+        function renderThumbnails() {
+            thumbnails.innerHTML = '';
+            for (var i = 0; i < imageDataItems.length; i++) {
+                var item = imageDataItems[i];
+                var thumb = document.createElement('div');
+                thumb.style.cssText = 'position:relative;width:120px;border:2px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--card-bg);cursor:grab;';
+                thumb.draggable = true;
+                thumb.setAttribute('data-index', i);
+
+                var img = document.createElement('img');
+                img.src = item.dataUrl;
+                img.style.cssText = 'width:100%;height:80px;object-fit:cover;display:block;';
+                img.alt = item.name;
+
+                var info = document.createElement('div');
+                info.style.cssText = 'padding:0.25rem 0.4rem;font-size:0.7rem;color:var(--text-muted);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;';
+                info.textContent = (i + 1) + '. ' + item.name;
+
+                var removeBtn = document.createElement('button');
+                removeBtn.style.cssText = 'position:absolute;top:2px;right:2px;background:rgba(0,0,0,0.6);color:#fff;border:none;border-radius:50%;width:20px;height:20px;font-size:14px;line-height:18px;cursor:pointer;text-align:center;padding:0;';
+                removeBtn.innerHTML = '&times;';
+                removeBtn.setAttribute('data-index', i);
+                removeBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var idx = parseInt(this.getAttribute('data-index'));
+                    imageDataItems.splice(idx, 1);
+                    if (imageDataItems.length === 0) {
+                        editorArea.style.display = 'none';
+                        uploadArea.style.display = 'block';
+                    } else {
+                        renderThumbnails();
+                    }
+                });
+
+                thumb.appendChild(img);
+                thumb.appendChild(info);
+                thumb.appendChild(removeBtn);
+
+                /* Drag reorder for thumbnails */
+                thumb.addEventListener('dragstart', function(e) {
+                    dragSrcIndex = parseInt(this.getAttribute('data-index'));
+                    this.style.opacity = '0.4';
+                    e.dataTransfer.effectAllowed = 'move';
+                    e.dataTransfer.setData('text/plain', '');
+                });
+                thumb.addEventListener('dragend', function() {
+                    this.style.opacity = '1';
+                    dragSrcIndex = null;
+                });
+                thumb.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'move';
+                });
+                thumb.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (dragSrcIndex === null) return;
+                    var dropIdx = parseInt(this.getAttribute('data-index'));
+                    if (dragSrcIndex !== dropIdx) {
+                        var moved = imageDataItems.splice(dragSrcIndex, 1)[0];
+                        imageDataItems.splice(dropIdx, 0, moved);
+                        renderThumbnails();
+                    }
+                    dragSrcIndex = null;
+                });
+
+                thumbnails.appendChild(thumb);
+            }
+        }
+
+        generateBtn.addEventListener('click', function() {
+            if (imageDataItems.length === 0) {
+                alert('Please add at least one screenshot.');
+                return;
+            }
+            editorArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            generatePDF();
+        });
+
+        /* ========== Minimal PDF Generator ========== */
+
+        function getPageDimensions(imgW, imgH) {
+            /* Returns [width, height] in PDF points (1 pt = 1/72 inch) */
+            var size = pageSizeSelect.value;
+            var orient = orientationSelect.value;
+            var w, h;
+
+            if (size === 'a4') {
+                w = 595.28; h = 841.89; /* A4 in points */
+            } else if (size === 'letter') {
+                w = 612; h = 792; /* Letter in points */
+            } else {
+                /* fit to image: convert pixels to points at 96 DPI */
+                w = imgW * 72 / 96;
+                h = imgH * 72 / 96;
+                return [w, h]; /* No orientation swap for fit */
+            }
+
+            if (orient === 'landscape') {
+                var tmp = w; w = h; h = tmp;
+            }
+            return [w, h];
+        }
+
+        function getMarginPt() {
+            var m = marginSelect.value;
+            if (m === 'none') return 0;
+            if (m === 'small') return 28.35; /* 10mm */
+            return 56.69; /* 20mm */
+        }
+
+        function imageToJpegBytes(dataUrl, width, height) {
+            /* Draw image onto a canvas and export as JPEG ArrayBuffer */
+            var canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            var ctx = canvas.getContext('2d');
+
+            /* Create temp image already loaded from dataUrl */
+            var img = new Image();
+            img.src = dataUrl;
+            ctx.drawImage(img, 0, 0, width, height);
+
+            var jpegDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+            var base64 = jpegDataUrl.split(',')[1];
+            var binary = atob(base64);
+            var bytes = new Uint8Array(binary.length);
+            for (var i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes;
+        }
+
+        function buildPDF(imageEntries) {
+            /*
+             * imageEntries: array of { jpegBytes, imgW, imgH, pageW, pageH, drawX, drawY, drawW, drawH }
+             *
+             * Builds a minimal valid PDF with one JPEG image per page.
+             * PDF structure:
+             *   obj 1: Catalog
+             *   obj 2: Pages
+             *   obj 3..3+N-1: Page objects
+             *   obj 3+N..3+2N-1: Image XObjects
+             *   obj 3+2N..3+3N-1: Page content streams
+             */
+
+            var numPages = imageEntries.length;
+            var objOffsets = [];
+            var chunks = [];
+            var offset = 0;
+
+            function write(str) {
+                var bytes = stringToBytes(str);
+                chunks.push(bytes);
+                offset += bytes.length;
+            }
+
+            function writeBytes(arr) {
+                chunks.push(arr);
+                offset += arr.length;
+            }
+
+            function stringToBytes(s) {
+                var arr = new Uint8Array(s.length);
+                for (var i = 0; i < s.length; i++) arr[i] = s.charCodeAt(i);
+                return arr;
+            }
+
+            function markObj(n) {
+                objOffsets[n] = offset;
+            }
+
+            /* Header */
+            write('%PDF-1.4\n%\xC0\xC1\xC2\xC3\n');
+
+            /* Object numbering plan:
+             * 1: Catalog
+             * 2: Pages
+             * 3 to 2+N: Page[i]
+             * 3+N to 2+2N: Image XObject[i]
+             * 3+2N to 2+3N: Content stream[i]
+             */
+            var pageObjStart = 3;
+            var imgObjStart = 3 + numPages;
+            var contentObjStart = 3 + 2 * numPages;
+            var totalObjects = 2 + 3 * numPages;
+
+            /* Obj 1: Catalog */
+            markObj(1);
+            write('1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n');
+
+            /* Obj 2: Pages */
+            markObj(2);
+            var kidsStr = '';
+            for (var p = 0; p < numPages; p++) {
+                kidsStr += (pageObjStart + p) + ' 0 R ';
+            }
+            write('2 0 obj\n<< /Type /Pages /Kids [' + kidsStr.trim() + '] /Count ' + numPages + ' >>\nendobj\n');
+
+            /* Page objects */
+            for (var p = 0; p < numPages; p++) {
+                var entry = imageEntries[p];
+                var pageObj = pageObjStart + p;
+                var imgObj = imgObjStart + p;
+                var contentObj = contentObjStart + p;
+                markObj(pageObj);
+                write(pageObj + ' 0 obj\n');
+                write('<< /Type /Page /Parent 2 0 R ');
+                write('/MediaBox [0 0 ' + entry.pageW.toFixed(2) + ' ' + entry.pageH.toFixed(2) + '] ');
+                write('/Contents ' + contentObj + ' 0 R ');
+                write('/Resources << /XObject << /Img' + p + ' ' + imgObj + ' 0 R >> >> ');
+                write('>>\nendobj\n');
+            }
+
+            /* Image XObjects (JPEG streams) */
+            for (var p = 0; p < numPages; p++) {
+                var entry = imageEntries[p];
+                var imgObj = imgObjStart + p;
+                var jpegLen = entry.jpegBytes.length;
+                markObj(imgObj);
+                write(imgObj + ' 0 obj\n');
+                write('<< /Type /XObject /Subtype /Image ');
+                write('/Width ' + entry.imgW + ' /Height ' + entry.imgH + ' ');
+                write('/ColorSpace /DeviceRGB /BitsPerComponent 8 ');
+                write('/Filter /DCTDecode /Length ' + jpegLen + ' >>\n');
+                write('stream\n');
+                writeBytes(entry.jpegBytes);
+                write('\nendstream\nendobj\n');
+            }
+
+            /* Content streams (draws each image) */
+            for (var p = 0; p < numPages; p++) {
+                var entry = imageEntries[p];
+                var contentObj = contentObjStart + p;
+                var streamContent = 'q ' +
+                    entry.drawW.toFixed(2) + ' 0 0 ' + entry.drawH.toFixed(2) + ' ' +
+                    entry.drawX.toFixed(2) + ' ' + entry.drawY.toFixed(2) + ' cm ' +
+                    '/Img' + p + ' Do Q';
+                markObj(contentObj);
+                write(contentObj + ' 0 obj\n');
+                write('<< /Length ' + streamContent.length + ' >>\n');
+                write('stream\n');
+                write(streamContent);
+                write('\nendstream\nendobj\n');
+            }
+
+            /* Xref table */
+            var xrefOffset = offset;
+            write('xref\n');
+            write('0 ' + (totalObjects + 1) + '\n');
+            write('0000000000 65535 f \n');
+            for (var i = 1; i <= totalObjects; i++) {
+                var off = objOffsets[i] || 0;
+                var offStr = ('0000000000' + off).slice(-10);
+                write(offStr + ' 00000 n \n');
+            }
+
+            /* Trailer */
+            write('trailer\n');
+            write('<< /Size ' + (totalObjects + 1) + ' /Root 1 0 R >>\n');
+            write('startxref\n');
+            write(xrefOffset + '\n');
+            write('%%EOF\n');
+
+            /* Combine all chunks into a single Uint8Array */
+            var totalLen = 0;
+            for (var c = 0; c < chunks.length; c++) totalLen += chunks[c].length;
+            var result = new Uint8Array(totalLen);
+            var pos = 0;
+            for (var c = 0; c < chunks.length; c++) {
+                result.set(chunks[c], pos);
+                pos += chunks[c].length;
+            }
+            return result;
+        }
+
+        function generatePDF() {
+            var marginPt = getMarginPt();
+            var entries = [];
+            var processed = 0;
+            var total = imageDataItems.length;
+
+            function processNext() {
+                if (processed >= total) {
+                    finalizePDF(entries);
+                    return;
+                }
+
+                var item = imageDataItems[processed];
+                var imgW = item.width;
+                var imgH = item.height;
+                var dims = getPageDimensions(imgW, imgH);
+                var pageW = dims[0];
+                var pageH = dims[1];
+
+                /* Compute drawing rect inside margins */
+                var availW = pageW - 2 * marginPt;
+                var availH = pageH - 2 * marginPt;
+                if (availW <= 0) availW = pageW;
+                if (availH <= 0) availH = pageH;
+
+                /* Scale image to fit available area while preserving aspect ratio */
+                var imgAspect = imgW / imgH;
+                var drawW, drawH;
+                if (pageSizeSelect.value === 'fit' && marginPt === 0) {
+                    drawW = pageW;
+                    drawH = pageH;
+                } else {
+                    if (availW / availH > imgAspect) {
+                        drawH = availH;
+                        drawW = drawH * imgAspect;
+                    } else {
+                        drawW = availW;
+                        drawH = drawW / imgAspect;
+                    }
+                }
+
+                /* Center on page */
+                var drawX = (pageW - drawW) / 2;
+                var drawY = (pageH - drawH) / 2;
+
+                /* Convert image to JPEG bytes */
+                var jpegBytes = imageToJpegBytes(item.dataUrl, imgW, imgH);
+
+                entries.push({
+                    jpegBytes: jpegBytes,
+                    imgW: imgW,
+                    imgH: imgH,
+                    pageW: pageW,
+                    pageH: pageH,
+                    drawX: drawX,
+                    drawY: drawY,
+                    drawW: drawW,
+                    drawH: drawH
+                });
+
+                processed++;
+                var pct = Math.round((processed / total) * 90);
+                progressBar.style.width = pct + '%';
+                progressText.textContent = pct + '% - Processing image ' + processed + ' of ' + total;
+
+                /* Use setTimeout to allow UI updates */
+                setTimeout(processNext, 50);
+            }
+
+            processNext();
+        }
+
+        function finalizePDF(entries) {
+            progressBar.style.width = '95%';
+            progressText.textContent = '95% - Building PDF...';
+
+            setTimeout(function() {
+                try {
+                    var pdfBytes = buildPDF(entries);
+                    pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+
+                    progressBar.style.width = '100%';
+                    progressText.textContent = '100%';
+
+                    setTimeout(function() {
+                        processingArea.style.display = 'none';
+                        resultArea.style.display = 'block';
+                        var sizeMB = (pdfBlob.size / (1024 * 1024)).toFixed(2);
+                        resultInfo.textContent = imageDataItems.length + ' screenshot' + (imageDataItems.length > 1 ? 's' : '') + ' converted to PDF (' + sizeMB + ' MB)';
+                    }, 300);
+                } catch (err) {
+                    alert('An error occurred while generating the PDF: ' + err.message);
+                    processingArea.style.display = 'none';
+                    editorArea.style.display = 'block';
+                }
+            }, 100);
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            if (!pdfBlob) return;
+            var url = URL.createObjectURL(pdfBlob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'screenshots.pdf';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            setTimeout(function() { URL.revokeObjectURL(url); }, 1000);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            imageDataItems = [];
+            pdfBlob = null;
+            fileInput.value = '';
+            fileInputMore.value = '';
+            progressBar.style.width = '0%';
+            progressText.textContent = '0%';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            editorArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

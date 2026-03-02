@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Recorder - Free Browser-Based | ToolsNest</title>
+    <meta name="description" content="Record your screen directly in the browser for free. Capture screen with optional microphone audio, preview recordings, and download as WebM. No software required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/screen-recorder/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Screen Recorder
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Screen Recorder</h1>
+                        <p style="margin-bottom:1.5rem;">Record your screen directly in the browser with optional microphone audio. Preview your recording and download it as a WebM video file. Everything runs locally in your browser — nothing is uploaded to any server.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <!-- Setup Area -->
+                            <div id="setup-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#127909;</div>
+                                <h3>Browser Screen Recorder</h3>
+                                <p style="margin:0.75rem 0 1.25rem;color:var(--text-muted);max-width:480px;margin-left:auto;margin-right:auto;">Choose your recording options below and click Start Recording. Your browser will ask you to select which screen, window, or tab to capture.</p>
+
+                                <div style="max-width:400px;margin:0 auto;text-align:left;">
+                                    <div class="form-group">
+                                        <label for="audio-source" style="font-size:0.9rem;">Audio Source</label>
+                                        <select id="audio-source" class="form-input">
+                                            <option value="none">Screen only (no audio)</option>
+                                            <option value="mic">Screen + Microphone audio</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div style="text-align:center;margin-top:1.5rem;">
+                                    <button id="start-btn" class="btn btn-primary" style="min-width:200px;">Start Recording</button>
+                                </div>
+                                <p id="error-msg" style="margin-top:1rem;font-size:0.85rem;color:#dc2626;display:none;"></p>
+                                <p id="compat-msg" style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);"></p>
+                            </div>
+
+                            <!-- Recording Area -->
+                            <div id="recording-area" style="display:none;">
+                                <div style="display:flex;align-items:center;justify-content:center;gap:0.75rem;margin-bottom:1rem;">
+                                    <span id="rec-indicator" style="width:14px;height:14px;background:#dc2626;border-radius:50%;display:inline-block;animation:pulse-rec 1s infinite;"></span>
+                                    <span id="rec-status" style="font-weight:600;font-size:1.1rem;">Recording</span>
+                                    <span id="rec-timer" style="font-family:monospace;font-size:1.1rem;color:var(--text-muted);margin-left:0.5rem;">00:00</span>
+                                </div>
+                                <div style="margin-bottom:1rem;">
+                                    <video id="live-preview" autoplay muted playsinline style="max-width:100%;max-height:350px;border-radius:var(--radius-sm);background:#000;display:block;margin:0 auto;"></video>
+                                </div>
+                                <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;">
+                                    <button id="pause-btn" class="btn btn-outline">Pause</button>
+                                    <button id="stop-btn" class="btn btn-accent">Stop Recording</button>
+                                </div>
+                            </div>
+
+                            <!-- Result Area -->
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Recording Complete!</h3>
+                                <div id="result-stats" style="margin:1rem auto;max-width:350px;background:var(--bg-color);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;"></div>
+                                <div style="margin:1rem auto;max-width:640px;">
+                                    <video id="playback-video" controls playsinline style="max-width:100%;max-height:350px;border-radius:var(--radius-sm);background:#000;display:block;margin:0 auto;"></video>
+                                </div>
+                                <div style="display:flex;justify-content:center;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;">
+                                    <button id="download-btn" class="btn btn-accent">Download WebM</button>
+                                    <button id="reset-btn" class="btn btn-outline">Record Again</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Use the Screen Recorder</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Select whether you want to record screen only or screen with microphone audio.</li>
+                            <li>Click "Start Recording" and choose which screen, window, or browser tab to capture.</li>
+                            <li>Use the Pause button to temporarily halt the recording, and Resume to continue.</li>
+                            <li>Click "Stop Recording" when finished to end the capture.</li>
+                            <li>Preview your recording in the built-in video player.</li>
+                            <li>Click "Download WebM" to save the recorded video to your device.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What format is the recording saved in?</h3>
+                            <p>Recordings are saved in WebM format, which is a widely supported open video format. Most modern video players and browsers can play WebM files natively. You can convert to MP4 using a video converter if needed.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my recording uploaded to any server?</h3>
+                            <p>No. All recording and processing happens entirely in your browser using the Screen Capture API and MediaRecorder API. Your screen content never leaves your device.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I record with microphone audio?</h3>
+                            <p>Yes. Select "Screen + Microphone audio" from the audio source dropdown before starting the recording. Your browser will ask for permission to access your microphone.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Which browsers support this tool?</h3>
+                            <p>This tool works in modern Chromium-based browsers (Chrome, Edge, Brave) and Firefox. Safari has limited support for the Screen Capture API. For best results, use Google Chrome or Microsoft Edge.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a time limit on recordings?</h3>
+                            <p>There is no artificial time limit set by this tool. However, very long recordings will use more memory in your browser. For recordings over 30 minutes, ensure you have enough available RAM and disk space.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I pause and resume the recording?</h3>
+                            <p>Yes. Click the "Pause" button to temporarily stop recording and "Resume" to continue. The final video will be seamless without any gaps from the paused periods.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/mp4-to-mp3" class="related-link">MP4 to MP3</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG</a>
+                            <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                            <a href="/ai-tools/speech-to-text" class="related-link">Speech to Text</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ---- Element references ---- */
+        var setupArea = document.getElementById('setup-area');
+        var recordingArea = document.getElementById('recording-area');
+        var resultArea = document.getElementById('result-area');
+        var audioSource = document.getElementById('audio-source');
+        var startBtn = document.getElementById('start-btn');
+        var pauseBtn = document.getElementById('pause-btn');
+        var stopBtn = document.getElementById('stop-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var livePreview = document.getElementById('live-preview');
+        var playbackVideo = document.getElementById('playback-video');
+        var recTimer = document.getElementById('rec-timer');
+        var recStatus = document.getElementById('rec-status');
+        var recIndicator = document.getElementById('rec-indicator');
+        var resultStats = document.getElementById('result-stats');
+        var errorMsg = document.getElementById('error-msg');
+        var compatMsg = document.getElementById('compat-msg');
+
+        /* ---- State ---- */
+        var mediaRecorder = null;
+        var recordedChunks = [];
+        var displayStream = null;
+        var combinedStream = null;
+        var timerInterval = null;
+        var elapsedSeconds = 0;
+        var recordedBlob = null;
+
+        /* ---- Pulse animation for recording indicator ---- */
+        var styleEl = document.createElement('style');
+        styleEl.textContent = '@keyframes pulse-rec{0%,100%{opacity:1;}50%{opacity:0.3;}}';
+        document.head.appendChild(styleEl);
+
+        /* ---- Browser compatibility check ---- */
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getDisplayMedia) {
+            compatMsg.textContent = 'Your browser does not support screen recording. Please use a modern browser like Chrome, Edge, or Firefox.';
+            compatMsg.style.color = '#dc2626';
+            startBtn.disabled = true;
+            startBtn.style.opacity = '0.5';
+            startBtn.style.cursor = 'not-allowed';
+        }
+
+        /* ---- Helper: format seconds as MM:SS ---- */
+        function formatTime(sec) {
+            var m = Math.floor(sec / 60);
+            var s = sec % 60;
+            return (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+        }
+
+        /* ---- Helper: format bytes ---- */
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        /* ---- Helper: show error message ---- */
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.style.display = 'block';
+            setTimeout(function() {
+                errorMsg.style.display = 'none';
+            }, 6000);
+        }
+
+        /* ---- Helper: start elapsed timer ---- */
+        function startTimer() {
+            elapsedSeconds = 0;
+            recTimer.textContent = '00:00';
+            timerInterval = setInterval(function() {
+                elapsedSeconds++;
+                recTimer.textContent = formatTime(elapsedSeconds);
+            }, 1000);
+        }
+
+        /* ---- Helper: stop elapsed timer ---- */
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+        }
+
+        /* ---- Helper: clean up streams ---- */
+        function stopAllStreams() {
+            if (displayStream) {
+                displayStream.getTracks().forEach(function(track) { track.stop(); });
+                displayStream = null;
+            }
+            if (combinedStream) {
+                combinedStream.getTracks().forEach(function(track) { track.stop(); });
+                combinedStream = null;
+            }
+            livePreview.srcObject = null;
+        }
+
+        /* ---- Helper: determine supported MIME type ---- */
+        function getSupportedMimeType() {
+            var types = [
+                'video/webm;codecs=vp9,opus',
+                'video/webm;codecs=vp9',
+                'video/webm;codecs=vp8,opus',
+                'video/webm;codecs=vp8',
+                'video/webm'
+            ];
+            for (var i = 0; i < types.length; i++) {
+                if (MediaRecorder.isTypeSupported(types[i])) {
+                    return types[i];
+                }
+            }
+            return '';
+        }
+
+        /* ---- Start Recording ---- */
+        startBtn.addEventListener('click', function() {
+            errorMsg.style.display = 'none';
+            var wantMic = audioSource.value === 'mic';
+
+            var displayOptions = { video: true, audio: false };
+
+            navigator.mediaDevices.getDisplayMedia(displayOptions).then(function(screen) {
+                displayStream = screen;
+
+                /* If user wants mic audio, get mic stream and combine */
+                if (wantMic) {
+                    return navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(function(micStream) {
+                        /* Combine display video + mic audio into one stream */
+                        var tracks = [];
+                        screen.getVideoTracks().forEach(function(t) { tracks.push(t); });
+                        micStream.getAudioTracks().forEach(function(t) { tracks.push(t); });
+                        combinedStream = new MediaStream(tracks);
+                        return combinedStream;
+                    }).catch(function(err) {
+                        /* Mic denied — fall back to screen only */
+                        console.warn('Microphone access denied, recording screen only:', err);
+                        combinedStream = screen;
+                        return screen;
+                    });
+                } else {
+                    combinedStream = screen;
+                    return screen;
+                }
+            }).then(function(stream) {
+                if (!stream) return;
+
+                /* Show live preview */
+                livePreview.srcObject = stream;
+
+                /* Detect when user stops sharing via browser UI */
+                stream.getVideoTracks()[0].addEventListener('ended', function() {
+                    if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                        mediaRecorder.stop();
+                    }
+                });
+
+                /* Set up MediaRecorder */
+                recordedChunks = [];
+                var mimeType = getSupportedMimeType();
+                var options = {};
+                if (mimeType) {
+                    options.mimeType = mimeType;
+                }
+
+                try {
+                    mediaRecorder = new MediaRecorder(stream, options);
+                } catch (e) {
+                    showError('Failed to create MediaRecorder: ' + e.message);
+                    stopAllStreams();
+                    return;
+                }
+
+                mediaRecorder.ondataavailable = function(e) {
+                    if (e.data && e.data.size > 0) {
+                        recordedChunks.push(e.data);
+                    }
+                };
+
+                mediaRecorder.onstop = function() {
+                    stopTimer();
+                    stopAllStreams();
+
+                    if (recordedChunks.length === 0) {
+                        showError('No data was recorded. Please try again.');
+                        showSetup();
+                        return;
+                    }
+
+                    var mType = mimeType || 'video/webm';
+                    recordedBlob = new Blob(recordedChunks, { type: mType });
+
+                    /* Populate result stats */
+                    resultStats.innerHTML =
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Duration:</span><strong>' + formatTime(elapsedSeconds) + '</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">File size:</span><strong>' + formatSize(recordedBlob.size) + '</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Format:</span><strong>WebM</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Audio:</span><strong>' + (audioSource.value === 'mic' ? 'Microphone' : 'None') + '</strong></div>';
+
+                    /* Set playback preview */
+                    var videoURL = URL.createObjectURL(recordedBlob);
+                    playbackVideo.src = videoURL;
+
+                    /* Show result area */
+                    recordingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                };
+
+                mediaRecorder.onerror = function(e) {
+                    showError('Recording error: ' + (e.error ? e.error.message : 'Unknown error'));
+                    stopTimer();
+                    stopAllStreams();
+                    showSetup();
+                };
+
+                /* Start recording with timeslice for periodic data chunks */
+                mediaRecorder.start(1000);
+                startTimer();
+
+                /* Switch to recording UI */
+                setupArea.style.display = 'none';
+                recordingArea.style.display = 'block';
+                recStatus.textContent = 'Recording';
+                recIndicator.style.animationPlayState = 'running';
+                pauseBtn.textContent = 'Pause';
+
+            }).catch(function(err) {
+                stopAllStreams();
+                if (err.name === 'NotAllowedError') {
+                    showError('Screen sharing permission was denied. Please allow screen access to record.');
+                } else if (err.name === 'NotFoundError') {
+                    showError('No screen source was selected. Please try again and choose a screen to share.');
+                } else if (err.name === 'NotSupportedError') {
+                    showError('Screen recording is not supported in this browser. Please try Chrome or Edge.');
+                } else {
+                    showError('Could not start screen recording: ' + err.message);
+                }
+            });
+        });
+
+        /* ---- Pause / Resume ---- */
+        pauseBtn.addEventListener('click', function() {
+            if (!mediaRecorder) return;
+
+            if (mediaRecorder.state === 'recording') {
+                mediaRecorder.pause();
+                stopTimer();
+                recStatus.textContent = 'Paused';
+                recIndicator.style.animationPlayState = 'paused';
+                recIndicator.style.opacity = '0.4';
+                pauseBtn.textContent = 'Resume';
+            } else if (mediaRecorder.state === 'paused') {
+                mediaRecorder.resume();
+                /* Resume timer from where it left off */
+                timerInterval = setInterval(function() {
+                    elapsedSeconds++;
+                    recTimer.textContent = formatTime(elapsedSeconds);
+                }, 1000);
+                recStatus.textContent = 'Recording';
+                recIndicator.style.animationPlayState = 'running';
+                recIndicator.style.opacity = '1';
+                pauseBtn.textContent = 'Pause';
+            }
+        });
+
+        /* ---- Stop Recording ---- */
+        stopBtn.addEventListener('click', function() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+        });
+
+        /* ---- Download ---- */
+        downloadBtn.addEventListener('click', function() {
+            if (!recordedBlob) return;
+            var timestamp = new Date().toISOString().replace(/[:.]/g, '-').slice(0, 19);
+            var filename = 'screen-recording-' + timestamp + '.webm';
+            var url = URL.createObjectURL(recordedBlob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        /* ---- Reset / Record Again ---- */
+        function showSetup() {
+            setupArea.style.display = 'block';
+            recordingArea.style.display = 'none';
+            resultArea.style.display = 'none';
+        }
+
+        resetBtn.addEventListener('click', function() {
+            /* Clean up previous recording */
+            if (playbackVideo.src) {
+                URL.revokeObjectURL(playbackVideo.src);
+                playbackVideo.src = '';
+            }
+            recordedBlob = null;
+            recordedChunks = [];
+            mediaRecorder = null;
+            elapsedSeconds = 0;
+            recTimer.textContent = '00:00';
+            errorMsg.style.display = 'none';
+            showSetup();
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

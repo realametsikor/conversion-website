@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID & Passport Photo Resizer Online Free - Standard Sizes | ToolsNest</title>
+    <meta name="description" content="Resize photos to exact ID and passport dimensions instantly. US Passport, UK Passport, EU ID, Visa photos and more. Set DPI, add white background. Free and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/id-photo-resizer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; ID Photo Resizer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">ID & Passport Photo Resizer</h1>
+                <p class="text-center mb-3">Resize your photo to exact ID and passport dimensions for any country. All processing happens in your browser — your images stay private.</p>
+
+                <div class="tool-workspace" id="id-photo-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Photo</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Photo</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none; text-align: left;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); text-align: center;">Original</p>
+                                <div style="text-align: center;">
+                                    <img id="image-preview" style="max-width: 100%; max-height: 250px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Original photo preview">
+                                </div>
+                                <p class="text-muted text-center" style="margin-top: 0.5rem; font-size: 0.85rem;"><span id="orig-dimensions">--</span></p>
+                            </div>
+                            <div>
+                                <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main); text-align: center;">Preview</p>
+                                <div style="text-align: center; background: repeating-conic-gradient(#f0f0f0 0% 25%, #fff 0% 50%) 50%/16px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border); padding: 0.5rem; min-height: 100px; display: flex; align-items: center; justify-content: center;">
+                                    <canvas id="preview-canvas" style="max-width: 100%; max-height: 250px;"></canvas>
+                                </div>
+                                <p class="text-muted text-center" style="margin-top: 0.5rem; font-size: 0.85rem;"><span id="output-dimensions">--</span></p>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Photo Size Preset</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+                                <button class="btn preset-btn" data-w="600" data-h="600" data-label="US Passport (2x2 in)">US Passport (2x2 in)</button>
+                                <button class="btn preset-btn" data-w="413" data-h="531" data-label="UK Passport (35x45mm)">UK Passport (35x45mm)</button>
+                                <button class="btn preset-btn" data-w="413" data-h="531" data-label="EU ID (35x45mm)">EU ID (35x45mm)</button>
+                                <button class="btn preset-btn" data-w="600" data-h="600" data-label="Visa Photo (2x2 in)">Visa Photo (2x2 in)</button>
+                                <button class="btn preset-btn" data-w="600" data-h="600" data-label="Indian Passport (51x51mm)">Indian Passport (51x51mm)</button>
+                                <button class="btn preset-btn active" data-w="0" data-h="0" data-label="Custom Size">Custom Size</button>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label>Width (px)</label>
+                                <input type="number" id="target-width" class="form-input" min="50" max="5000" value="600" placeholder="Width">
+                            </div>
+                            <div class="form-group">
+                                <label>Height (px)</label>
+                                <input type="number" id="target-height" class="form-input" min="50" max="5000" value="600" placeholder="Height">
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+                            <div class="form-group">
+                                <label>DPI</label>
+                                <input type="number" id="dpi-input" class="form-input" min="72" max="1200" value="300" placeholder="300">
+                            </div>
+                            <div class="form-group">
+                                <label>Format</label>
+                                <select id="format-select" class="form-input">
+                                    <option value="jpeg">JPG</option>
+                                    <option value="png">PNG</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                                <input type="checkbox" id="white-bg" checked>
+                                <span>Add white background</span>
+                            </label>
+                        </div>
+
+                        <canvas id="output-canvas" style="display: none;"></canvas>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <button id="preview-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Update Preview</button>
+                            <button id="download-btn" class="btn btn-accent" style="width: 100%; padding: 0.85rem;">Download Photo</button>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 1rem;">
+                            <button id="reset-btn" class="btn" style="font-size: 0.9rem;">Upload Different Photo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Photo" to upload a JPG, PNG, or WebP photo from your device.</li>
+                        <li>Choose a preset size for your document type (US Passport, UK Passport, EU ID, Visa, Indian Passport) or enter a custom width and height in pixels.</li>
+                        <li>Adjust the DPI if needed (300 DPI is standard for print-quality ID photos).</li>
+                        <li>Enable "Add white background" to fill any empty space with a clean white background.</li>
+                        <li>Click "Update Preview" to see how your resized photo will look.</li>
+                        <li>Choose JPG or PNG format and click "Download Photo" to save the result.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool upload my photo to a server?</h3>
+                        <p>No. All processing is done entirely in your browser using the HTML5 Canvas API. Your photo never leaves your device and is never uploaded to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What size should a US passport photo be?</h3>
+                        <p>A US passport photo must be 2x2 inches (51x51mm). At 300 DPI, this translates to 600x600 pixels. Select the "US Passport" preset to automatically set the correct dimensions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What size is a UK or EU passport photo?</h3>
+                        <p>UK and most EU passport and ID photos are 35x45mm. At 300 DPI, this translates to approximately 413x531 pixels. Use the "UK Passport" or "EU ID" preset for the correct size.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What DPI should I use for ID photos?</h3>
+                        <p>300 DPI is the standard resolution for print-quality ID and passport photos. This is the default setting. You can increase it for higher resolution prints, but 300 DPI meets the requirements of virtually all official documents.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I download the photo as PNG or JPG?</h3>
+                        <p>Yes. Use the format dropdown to choose between JPG (smaller file size, ideal for online submissions) and PNG (lossless quality, ideal for printing). Both formats are widely accepted.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why is the white background option useful?</h3>
+                        <p>Many ID and passport photos require a plain white background. Enabling this option fills any transparent or empty areas with solid white, ensuring your photo meets official requirements.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var imagePreview = document.getElementById('image-preview');
+        var origDimensions = document.getElementById('orig-dimensions');
+        var outputDimensions = document.getElementById('output-dimensions');
+        var previewCanvas = document.getElementById('preview-canvas');
+        var outputCanvas = document.getElementById('output-canvas');
+        var targetWidth = document.getElementById('target-width');
+        var targetHeight = document.getElementById('target-height');
+        var dpiInput = document.getElementById('dpi-input');
+        var formatSelect = document.getElementById('format-select');
+        var whiteBg = document.getElementById('white-bg');
+        var previewBtn = document.getElementById('preview-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var presetBtns = document.querySelectorAll('.preset-btn');
+
+        var currentImage = null;
+        var originalWidth = 0;
+        var originalHeight = 0;
+
+        function setActivePreset(btn) {
+            presetBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+        }
+
+        presetBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                setActivePreset(btn);
+                var w = parseInt(btn.getAttribute('data-w'));
+                var h = parseInt(btn.getAttribute('data-h'));
+                if (w > 0 && h > 0) {
+                    targetWidth.value = w;
+                    targetHeight.value = h;
+                    targetWidth.disabled = true;
+                    targetHeight.disabled = true;
+                } else {
+                    targetWidth.disabled = false;
+                    targetHeight.disabled = false;
+                }
+                if (currentImage) {
+                    renderPreview();
+                }
+            });
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    originalWidth = img.width;
+                    originalHeight = img.height;
+                    currentImage = img;
+
+                    imagePreview.src = e.target.result;
+                    origDimensions.textContent = originalWidth + ' x ' + originalHeight + ' px';
+
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+
+                    // Default to US Passport preset
+                    var firstPreset = presetBtns[0];
+                    setActivePreset(firstPreset);
+                    targetWidth.value = firstPreset.getAttribute('data-w');
+                    targetHeight.value = firstPreset.getAttribute('data-h');
+                    targetWidth.disabled = true;
+                    targetHeight.disabled = true;
+
+                    renderPreview();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function renderPreview() {
+            if (!currentImage) return;
+
+            var tw = parseInt(targetWidth.value) || 600;
+            var th = parseInt(targetHeight.value) || 600;
+            var useWhiteBg = whiteBg.checked;
+
+            previewCanvas.width = tw;
+            previewCanvas.height = th;
+            var ctx = previewCanvas.getContext('2d');
+
+            // Fill background
+            if (useWhiteBg) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, tw, th);
+            } else {
+                ctx.clearRect(0, 0, tw, th);
+            }
+
+            // Calculate cover crop to fill the target area
+            var srcW = currentImage.width;
+            var srcH = currentImage.height;
+            var srcAspect = srcW / srcH;
+            var dstAspect = tw / th;
+
+            var sx, sy, sw, sh;
+            if (srcAspect > dstAspect) {
+                // Source is wider: crop sides
+                sh = srcH;
+                sw = srcH * dstAspect;
+                sx = (srcW - sw) / 2;
+                sy = 0;
+            } else {
+                // Source is taller: crop top/bottom
+                sw = srcW;
+                sh = srcW / dstAspect;
+                sx = 0;
+                sy = (srcH - sh) / 2;
+            }
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(currentImage, sx, sy, sw, sh, 0, 0, tw, th);
+
+            outputDimensions.textContent = tw + ' x ' + th + ' px @ ' + (parseInt(dpiInput.value) || 300) + ' DPI';
+        }
+
+        previewBtn.addEventListener('click', function() {
+            renderPreview();
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            if (!currentImage) return;
+
+            var tw = parseInt(targetWidth.value) || 600;
+            var th = parseInt(targetHeight.value) || 600;
+            var dpi = parseInt(dpiInput.value) || 300;
+            var format = formatSelect.value;
+            var useWhiteBg = whiteBg.checked;
+
+            outputCanvas.width = tw;
+            outputCanvas.height = th;
+            var ctx = outputCanvas.getContext('2d');
+
+            // Fill background
+            if (useWhiteBg) {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, tw, th);
+            } else {
+                ctx.clearRect(0, 0, tw, th);
+            }
+
+            // Calculate cover crop
+            var srcW = currentImage.width;
+            var srcH = currentImage.height;
+            var srcAspect = srcW / srcH;
+            var dstAspect = tw / th;
+
+            var sx, sy, sw, sh;
+            if (srcAspect > dstAspect) {
+                sh = srcH;
+                sw = srcH * dstAspect;
+                sx = (srcW - sw) / 2;
+                sy = 0;
+            } else {
+                sw = srcW;
+                sh = srcW / dstAspect;
+                sx = 0;
+                sy = (srcH - sh) / 2;
+            }
+
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(currentImage, sx, sy, sw, sh, 0, 0, tw, th);
+
+            var mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+            var quality = format === 'png' ? undefined : 0.95;
+            var ext = format === 'png' ? 'png' : 'jpg';
+
+            outputCanvas.toBlob(function(blob) {
+                // Inject DPI metadata for JPEG
+                if (format === 'jpeg') {
+                    injectDpiAndDownload(blob, dpi, tw, th, ext);
+                } else {
+                    injectPngDpiAndDownload(blob, dpi, tw, th, ext);
+                }
+            }, mimeType, quality);
+        });
+
+        function injectDpiAndDownload(blob, dpi, tw, th, ext) {
+            // For simplicity, download directly. DPI metadata embedding
+            // for JPEG requires modifying JFIF/EXIF headers.
+            // We use a practical approach: set canvas size based on DPI.
+            var reader = new FileReader();
+            reader.onload = function() {
+                var arr = new Uint8Array(reader.result);
+                var dpiHex = dpi;
+
+                // Find and modify JFIF header DPI fields if present
+                var modified = setJfifDpi(arr, dpiHex);
+
+                var newBlob = new Blob([modified], { type: 'image/jpeg' });
+                triggerDownload(newBlob, 'id-photo-' + tw + 'x' + th + '.' + ext);
+            };
+            reader.readAsArrayBuffer(blob);
+        }
+
+        function setJfifDpi(data, dpi) {
+            // JFIF APP0 marker starts with FF E0
+            // Structure: FF E0 [length 2 bytes] "JFIF\0" [version 2 bytes] [units 1 byte] [Xdensity 2 bytes] [Ydensity 2 bytes]
+            var arr = new Uint8Array(data);
+            for (var i = 0; i < arr.length - 20; i++) {
+                if (arr[i] === 0xFF && arr[i + 1] === 0xE0) {
+                    // Check for JFIF identifier
+                    if (arr[i + 4] === 0x4A && arr[i + 5] === 0x46 && arr[i + 6] === 0x49 && arr[i + 7] === 0x46) {
+                        // Set units to 1 (dots per inch)
+                        arr[i + 11] = 1;
+                        // Set X density
+                        arr[i + 12] = (dpi >> 8) & 0xFF;
+                        arr[i + 13] = dpi & 0xFF;
+                        // Set Y density
+                        arr[i + 14] = (dpi >> 8) & 0xFF;
+                        arr[i + 15] = dpi & 0xFF;
+                        break;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        function injectPngDpiAndDownload(blob, dpi, tw, th, ext) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var arr = new Uint8Array(reader.result);
+                // PNG pHYs chunk: pixels per meter
+                var ppm = Math.round(dpi / 0.0254);
+                var modified = insertPngPhys(arr, ppm);
+                var newBlob = new Blob([modified], { type: 'image/png' });
+                triggerDownload(newBlob, 'id-photo-' + tw + 'x' + th + '.' + ext);
+            };
+            reader.readAsArrayBuffer(blob);
+        }
+
+        function insertPngPhys(data, ppm) {
+            // PNG structure: 8-byte signature, then chunks
+            // Insert pHYs chunk before the first IDAT chunk
+            var sig = data.slice(0, 8);
+            var chunks = [];
+            var pos = 8;
+
+            var physInserted = false;
+            while (pos < data.length) {
+                var len = (data[pos] << 24) | (data[pos + 1] << 16) | (data[pos + 2] << 8) | data[pos + 3];
+                var chunkType = String.fromCharCode(data[pos + 4], data[pos + 5], data[pos + 6], data[pos + 7]);
+                var chunkData = data.slice(pos, pos + 12 + len);
+
+                if (chunkType === 'IDAT' && !physInserted) {
+                    // Create pHYs chunk
+                    var phys = createPhysChunk(ppm);
+                    chunks.push(phys);
+                    physInserted = true;
+                }
+
+                if (chunkType === 'pHYs') {
+                    // Skip existing pHYs, we insert our own
+                    pos += 12 + len;
+                    continue;
+                }
+
+                chunks.push(chunkData);
+                pos += 12 + len;
+            }
+
+            var totalLen = sig.length;
+            chunks.forEach(function(c) { totalLen += c.length; });
+            var result = new Uint8Array(totalLen);
+            result.set(sig, 0);
+            var offset = sig.length;
+            chunks.forEach(function(c) {
+                result.set(c, offset);
+                offset += c.length;
+            });
+
+            return result;
+        }
+
+        function createPhysChunk(ppm) {
+            // pHYs chunk: 4 bytes length, 4 bytes type, 4 bytes X ppm, 4 bytes Y ppm, 1 byte unit(1=meter), 4 bytes CRC
+            var chunkBody = new Uint8Array(9);
+            chunkBody[0] = (ppm >> 24) & 0xFF;
+            chunkBody[1] = (ppm >> 16) & 0xFF;
+            chunkBody[2] = (ppm >> 8) & 0xFF;
+            chunkBody[3] = ppm & 0xFF;
+            chunkBody[4] = (ppm >> 24) & 0xFF;
+            chunkBody[5] = (ppm >> 16) & 0xFF;
+            chunkBody[6] = (ppm >> 8) & 0xFF;
+            chunkBody[7] = ppm & 0xFF;
+            chunkBody[8] = 1; // unit: meter
+
+            var typeBytes = [0x70, 0x48, 0x59, 0x73]; // "pHYs"
+            var crcInput = new Uint8Array(4 + 9);
+            crcInput.set(typeBytes, 0);
+            crcInput.set(chunkBody, 4);
+            var crc = crc32(crcInput);
+
+            var chunk = new Uint8Array(4 + 4 + 9 + 4);
+            // Length
+            chunk[0] = 0; chunk[1] = 0; chunk[2] = 0; chunk[3] = 9;
+            // Type
+            chunk[4] = 0x70; chunk[5] = 0x48; chunk[6] = 0x59; chunk[7] = 0x73;
+            // Data
+            chunk.set(chunkBody, 8);
+            // CRC
+            chunk[17] = (crc >> 24) & 0xFF;
+            chunk[18] = (crc >> 16) & 0xFF;
+            chunk[19] = (crc >> 8) & 0xFF;
+            chunk[20] = crc & 0xFF;
+
+            return chunk;
+        }
+
+        // CRC32 for PNG chunks
+        var crcTable = null;
+        function makeCrcTable() {
+            var table = new Uint32Array(256);
+            for (var n = 0; n < 256; n++) {
+                var c = n;
+                for (var k = 0; k < 8; k++) {
+                    c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+                }
+                table[n] = c;
+            }
+            return table;
+        }
+
+        function crc32(buf) {
+            if (!crcTable) crcTable = makeCrcTable();
+            var crc = 0xFFFFFFFF;
+            for (var i = 0; i < buf.length; i++) {
+                crc = crcTable[(crc ^ buf[i]) & 0xFF] ^ (crc >>> 8);
+            }
+            return (crc ^ 0xFFFFFFFF) >>> 0;
+        }
+
+        function triggerDownload(blob, filename) {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            // Reset to Custom preset
+            var customBtn = presetBtns[presetBtns.length - 1];
+            setActivePreset(customBtn);
+            targetWidth.disabled = false;
+            targetHeight.disabled = false;
+            targetWidth.value = 600;
+            targetHeight.value = 600;
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

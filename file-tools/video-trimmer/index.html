@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Trimmer - Free Online | ToolsNest</title>
+    <meta name="description" content="Trim and cut video files online for free. Select start and end points to extract clips from MP4 and WebM videos. No upload required - works in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/video-trimmer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Video Trimmer
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Video Trimmer</h1>
+                        <p style="margin-bottom:1.5rem;">Trim and cut your video files directly in the browser. Set precise start and end times to extract the exact clip you need. Supports MP4 and WebM formats with no server upload required.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#9986;</div>
+                                <h3>Drag & Drop your video here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".mp4,.webm,video/mp4,video/webm" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select Video File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts MP4 and WebM files (max 500MB)</p>
+                            </div>
+
+                            <div id="editor-area" style="display:none;text-align:left;padding:0 1rem;">
+                                <div id="file-info" style="text-align:center;margin-bottom:1rem;"></div>
+
+                                <div id="video-container" style="text-align:center;margin-bottom:1.5rem;">
+                                    <video id="video-el" style="max-width:100%;max-height:360px;border-radius:var(--radius-sm);background:#000;" playsinline></video>
+                                    <div style="margin-top:0.75rem;display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+                                        <button id="play-btn" class="btn btn-outline" style="min-width:100px;">&#9654; Play</button>
+                                        <button id="preview-btn" class="btn btn-outline" style="min-width:140px;">&#9654; Preview Trim</button>
+                                    </div>
+                                    <p id="duration-info" style="margin-top:0.5rem;font-size:0.85rem;color:var(--text-muted);"></p>
+                                </div>
+
+                                <div style="max-width:600px;margin:0 auto;">
+                                    <h3 style="text-align:center;margin-bottom:1rem;">Set Trim Range</h3>
+
+                                    <div style="margin-bottom:1rem;">
+                                        <label style="font-size:0.85rem;font-weight:600;display:block;margin-bottom:0.25rem;">Timeline</label>
+                                        <div id="range-container" style="position:relative;height:40px;background:var(--border);border-radius:var(--radius-sm);overflow:hidden;cursor:pointer;">
+                                            <div id="range-highlight" style="position:absolute;top:0;height:100%;background:rgba(59,130,246,0.3);pointer-events:none;"></div>
+                                            <div id="range-playhead" style="position:absolute;top:0;width:2px;height:100%;background:var(--primary);pointer-events:none;display:none;"></div>
+                                            <input type="range" id="start-slider" min="0" max="100" step="0.1" value="0" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2;">
+                                            <input type="range" id="end-slider" min="0" max="100" step="0.1" value="100" style="position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:3;">
+                                            <div id="start-handle" style="position:absolute;top:0;width:14px;height:100%;background:var(--primary);border-radius:3px;cursor:ew-resize;z-index:4;pointer-events:none;left:0;"></div>
+                                            <div id="end-handle" style="position:absolute;top:0;width:14px;height:100%;background:var(--primary);border-radius:3px;cursor:ew-resize;z-index:4;pointer-events:none;right:0;"></div>
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem;">
+                                        <div class="form-group" style="flex:1;min-width:140px;">
+                                            <label for="start-time-input" style="font-size:0.85rem;">Start Time</label>
+                                            <input type="text" id="start-time-input" class="form-input" value="00:00.000" placeholder="mm:ss.ms" style="font-family:monospace;">
+                                        </div>
+                                        <div class="form-group" style="flex:1;min-width:140px;">
+                                            <label for="end-time-input" style="font-size:0.85rem;">End Time</label>
+                                            <input type="text" id="end-time-input" class="form-input" value="00:00.000" placeholder="mm:ss.ms" style="font-family:monospace;">
+                                        </div>
+                                        <div class="form-group" style="flex:1;min-width:140px;">
+                                            <label style="font-size:0.85rem;">Clip Duration</label>
+                                            <input type="text" id="clip-duration" class="form-input" value="00:00.000" readonly style="font-family:monospace;background:var(--bg-color);cursor:default;">
+                                        </div>
+                                    </div>
+
+                                    <div style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;">
+                                        <button id="set-start-btn" class="btn btn-outline" style="font-size:0.85rem;">Set Start to Current</button>
+                                        <button id="set-end-btn" class="btn btn-outline" style="font-size:0.85rem;">Set End to Current</button>
+                                    </div>
+
+                                    <div style="text-align:center;margin-top:1.5rem;">
+                                        <button id="trim-btn" class="btn btn-primary" style="width:100%;max-width:300px;">Trim Video</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="processing-area" style="display:none;">
+                                <div style="font-size:2rem;margin-bottom:0.75rem;">&#9986;</div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Trimming your video...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">Preparing... 0%</p>
+                                <button id="cancel-btn" class="btn btn-outline" style="margin-top:1rem;">Cancel</button>
+                            </div>
+
+                            <div id="result-area" style="display:none;">
+                                <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
+                                <h3>Video Trimmed Successfully!</h3>
+                                <div id="result-stats" style="margin:1rem auto;max-width:400px;background:var(--bg-color);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;"></div>
+                                <div id="result-preview" style="text-align:center;margin:1rem auto;max-width:500px;">
+                                    <video id="result-video" controls playsinline style="max-width:100%;max-height:280px;border-radius:var(--radius-sm);background:#000;"></video>
+                                </div>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:0.75rem;">Download Trimmed Video</button>
+                                <br>
+                                <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Trim Another Video</button>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Use the Video Trimmer</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select Video File" or drag and drop an MP4 or WebM video into the upload area.</li>
+                            <li>Use the timeline slider or type exact times to set the start and end points for your clip.</li>
+                            <li>Click "Preview Trim" to watch just the selected portion before trimming.</li>
+                            <li>Click "Trim Video" to process and extract your clip entirely in the browser.</li>
+                            <li>Preview the result, then click "Download Trimmed Video" to save the WebM file.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What video formats are supported?</h3>
+                            <p>This tool supports MP4 and WebM video files, which are the most common web-compatible formats. The trimmed output is saved as a WebM file using your browser's built-in MediaRecorder API.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my video uploaded to a server?</h3>
+                            <p>No. All processing happens entirely in your browser using the HTML5 Video element and MediaRecorder API. Your video never leaves your device, ensuring complete privacy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How long does the trimming take?</h3>
+                            <p>The trimming process plays the selected portion in real-time while recording, so a 30-second clip takes approximately 30 seconds to process. Shorter clips are processed faster.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Why is the output in WebM format?</h3>
+                            <p>WebM is the format natively supported by the browser's MediaRecorder API, which allows client-side video encoding without any server processing. WebM files are widely compatible and offer good quality at smaller file sizes.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a file size limit?</h3>
+                            <p>We recommend files under 500MB for the best experience. Since processing happens in your browser, very large files may be slow depending on your device's memory and processing power.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I trim videos on my phone?</h3>
+                            <p>Yes, this tool works on most modern mobile browsers that support the MediaRecorder API. Performance may vary depending on your device.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/mp4-to-mp3" class="related-link">MP4 to MP3</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                            <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG</a>
+                            <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var editorArea = document.getElementById('editor-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfo = document.getElementById('file-info');
+        var durationInfo = document.getElementById('duration-info');
+        var resultStats = document.getElementById('result-stats');
+        var videoEl = document.getElementById('video-el');
+        var resultVideo = document.getElementById('result-video');
+        var playBtn = document.getElementById('play-btn');
+        var previewBtn = document.getElementById('preview-btn');
+        var trimBtn = document.getElementById('trim-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var cancelBtn = document.getElementById('cancel-btn');
+        var setStartBtn = document.getElementById('set-start-btn');
+        var setEndBtn = document.getElementById('set-end-btn');
+        var startSlider = document.getElementById('start-slider');
+        var endSlider = document.getElementById('end-slider');
+        var startTimeInput = document.getElementById('start-time-input');
+        var endTimeInput = document.getElementById('end-time-input');
+        var clipDuration = document.getElementById('clip-duration');
+        var rangeHighlight = document.getElementById('range-highlight');
+        var rangePlayhead = document.getElementById('range-playhead');
+        var startHandle = document.getElementById('start-handle');
+        var endHandle = document.getElementById('end-handle');
+        var workspace = document.getElementById('tool-workspace');
+
+        var selectedFile = null;
+        var videoDuration = 0;
+        var trimStart = 0;
+        var trimEnd = 0;
+        var isPreviewingTrim = false;
+        var trimCancelled = false;
+        var trimmedBlobURL = null;
+        var animFrameId = null;
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function formatTime(seconds) {
+            if (!isFinite(seconds) || seconds < 0) seconds = 0;
+            var mins = Math.floor(seconds / 60);
+            var secs = Math.floor(seconds % 60);
+            var ms = Math.round((seconds % 1) * 1000);
+            return (mins < 10 ? '0' : '') + mins + ':' + (secs < 10 ? '0' : '') + secs + '.' + (ms < 10 ? '00' : ms < 100 ? '0' : '') + ms;
+        }
+
+        function parseTime(str) {
+            str = str.trim();
+            var parts = str.split(':');
+            if (parts.length === 2) {
+                var mins = parseInt(parts[0], 10) || 0;
+                var secParts = parts[1].split('.');
+                var secs = parseInt(secParts[0], 10) || 0;
+                var ms = 0;
+                if (secParts.length > 1) {
+                    var msStr = secParts[1].substring(0, 3);
+                    while (msStr.length < 3) msStr += '0';
+                    ms = parseInt(msStr, 10) || 0;
+                }
+                return mins * 60 + secs + ms / 1000;
+            }
+            var val = parseFloat(str);
+            return isFinite(val) ? val : 0;
+        }
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        function updateRangeUI() {
+            if (videoDuration <= 0) return;
+            var startPct = (trimStart / videoDuration) * 100;
+            var endPct = (trimEnd / videoDuration) * 100;
+            rangeHighlight.style.left = startPct + '%';
+            rangeHighlight.style.width = (endPct - startPct) + '%';
+            startHandle.style.left = 'calc(' + startPct + '% - 7px)';
+            endHandle.style.left = 'calc(' + endPct + '% - 7px)';
+            startTimeInput.value = formatTime(trimStart);
+            endTimeInput.value = formatTime(trimEnd);
+            var dur = trimEnd - trimStart;
+            clipDuration.value = formatTime(dur > 0 ? dur : 0);
+        }
+
+        function updatePlayhead() {
+            if (videoDuration <= 0) return;
+            var pct = (videoEl.currentTime / videoDuration) * 100;
+            rangePlayhead.style.left = pct + '%';
+            rangePlayhead.style.display = 'block';
+        }
+
+        function handleFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            var validTypes = ['video/mp4', 'video/webm'];
+            var validExts = ['mp4', 'webm'];
+            if (validTypes.indexOf(file.type) === -1 && validExts.indexOf(ext) === -1) {
+                alert('Please select an MP4 or WebM video file.');
+                return;
+            }
+            if (file.size > 500 * 1024 * 1024) {
+                alert('File size exceeds 500MB limit.');
+                return;
+            }
+            selectedFile = file;
+            var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            fileInfo.innerHTML = '<span style="font-size:1.5rem;">&#127909;</span> <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
+
+            var videoURL = URL.createObjectURL(file);
+            videoEl.src = videoURL;
+
+            videoEl.addEventListener('loadedmetadata', function onMeta() {
+                videoEl.removeEventListener('loadedmetadata', onMeta);
+                videoDuration = videoEl.duration;
+                trimStart = 0;
+                trimEnd = videoDuration;
+
+                startSlider.max = videoDuration;
+                startSlider.step = 0.001;
+                startSlider.value = 0;
+                endSlider.max = videoDuration;
+                endSlider.step = 0.001;
+                endSlider.value = videoDuration;
+
+                durationInfo.textContent = 'Duration: ' + formatTime(videoDuration);
+                updateRangeUI();
+            });
+
+            uploadArea.style.display = 'none';
+            editorArea.style.display = 'block';
+        }
+
+        /* Slider events */
+        startSlider.addEventListener('input', function() {
+            var val = parseFloat(startSlider.value);
+            if (val >= trimEnd - 0.1) val = trimEnd - 0.1;
+            if (val < 0) val = 0;
+            trimStart = val;
+            startSlider.value = val;
+            updateRangeUI();
+            videoEl.currentTime = trimStart;
+        });
+
+        endSlider.addEventListener('input', function() {
+            var val = parseFloat(endSlider.value);
+            if (val <= trimStart + 0.1) val = trimStart + 0.1;
+            if (val > videoDuration) val = videoDuration;
+            trimEnd = val;
+            endSlider.value = val;
+            updateRangeUI();
+            videoEl.currentTime = trimEnd;
+        });
+
+        /* Time input events */
+        startTimeInput.addEventListener('change', function() {
+            var val = parseTime(startTimeInput.value);
+            if (val < 0) val = 0;
+            if (val >= trimEnd - 0.1) val = trimEnd - 0.1;
+            if (val > videoDuration) val = videoDuration;
+            trimStart = val;
+            startSlider.value = val;
+            updateRangeUI();
+            videoEl.currentTime = trimStart;
+        });
+
+        endTimeInput.addEventListener('change', function() {
+            var val = parseTime(endTimeInput.value);
+            if (val <= trimStart + 0.1) val = trimStart + 0.1;
+            if (val > videoDuration) val = videoDuration;
+            trimEnd = val;
+            endSlider.value = val;
+            updateRangeUI();
+            videoEl.currentTime = trimEnd;
+        });
+
+        /* Set start/end to current playback time */
+        setStartBtn.addEventListener('click', function() {
+            var cur = videoEl.currentTime;
+            if (cur >= trimEnd - 0.1) cur = trimEnd - 0.1;
+            if (cur < 0) cur = 0;
+            trimStart = cur;
+            startSlider.value = cur;
+            updateRangeUI();
+        });
+
+        setEndBtn.addEventListener('click', function() {
+            var cur = videoEl.currentTime;
+            if (cur <= trimStart + 0.1) cur = trimStart + 0.1;
+            if (cur > videoDuration) cur = videoDuration;
+            trimEnd = cur;
+            endSlider.value = cur;
+            updateRangeUI();
+        });
+
+        /* Play / pause */
+        playBtn.addEventListener('click', function() {
+            isPreviewingTrim = false;
+            if (videoEl.paused) {
+                videoEl.play();
+                playBtn.innerHTML = '&#10074;&#10074; Pause';
+            } else {
+                videoEl.pause();
+                playBtn.innerHTML = '&#9654; Play';
+            }
+        });
+
+        /* Preview trim range */
+        previewBtn.addEventListener('click', function() {
+            isPreviewingTrim = true;
+            videoEl.currentTime = trimStart;
+            videoEl.play();
+            playBtn.innerHTML = '&#10074;&#10074; Pause';
+        });
+
+        /* Playhead tracking */
+        videoEl.addEventListener('timeupdate', function() {
+            updatePlayhead();
+            if (isPreviewingTrim && videoEl.currentTime >= trimEnd) {
+                videoEl.pause();
+                videoEl.currentTime = trimEnd;
+                isPreviewingTrim = false;
+                playBtn.innerHTML = '&#9654; Play';
+            }
+        });
+
+        videoEl.addEventListener('pause', function() {
+            playBtn.innerHTML = '&#9654; Play';
+        });
+        videoEl.addEventListener('play', function() {
+            playBtn.innerHTML = '&#10074;&#10074; Pause';
+        });
+
+        /* Trim the video using captureStream + MediaRecorder */
+        trimBtn.addEventListener('click', function() {
+            if (trimEnd - trimStart < 0.1) {
+                alert('Please select a trim range of at least 0.1 seconds.');
+                return;
+            }
+
+            editorArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            trimCancelled = false;
+            videoEl.pause();
+
+            /* Create an offscreen video element for recording */
+            var recVideo = document.createElement('video');
+            recVideo.src = videoEl.src;
+            recVideo.muted = false;
+            recVideo.playsInline = true;
+            recVideo.preload = 'auto';
+
+            /* Use a canvas to capture frames */
+            var canvas = document.createElement('canvas');
+            var ctx = canvas.getContext('2d');
+
+            recVideo.addEventListener('loadedmetadata', function() {
+                canvas.width = recVideo.videoWidth;
+                canvas.height = recVideo.videoHeight;
+
+                recVideo.currentTime = trimStart;
+            });
+
+            recVideo.addEventListener('seeked', function onSeeked() {
+                recVideo.removeEventListener('seeked', onSeeked);
+
+                /* Capture video stream from canvas */
+                var canvasStream = canvas.captureStream(30);
+
+                /* Capture audio from the video element */
+                var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                var source = audioCtx.createMediaElementSource(recVideo);
+                var destination = audioCtx.createMediaStreamDestination();
+                source.connect(destination);
+                source.connect(audioCtx.destination);
+
+                /* Combine canvas video track with audio track */
+                var combinedStream = new MediaStream();
+                canvasStream.getVideoTracks().forEach(function(track) {
+                    combinedStream.addTrack(track);
+                });
+                destination.stream.getAudioTracks().forEach(function(track) {
+                    combinedStream.addTrack(track);
+                });
+
+                /* Determine supported MIME type */
+                var mimeType = 'video/webm;codecs=vp8,opus';
+                if (!MediaRecorder.isTypeSupported(mimeType)) {
+                    mimeType = 'video/webm;codecs=vp8';
+                    if (!MediaRecorder.isTypeSupported(mimeType)) {
+                        mimeType = 'video/webm';
+                    }
+                }
+
+                var recorder;
+                try {
+                    recorder = new MediaRecorder(combinedStream, {
+                        mimeType: mimeType,
+                        videoBitsPerSecond: 2500000
+                    });
+                } catch (err) {
+                    alert('MediaRecorder is not supported in this browser. Please try a recent version of Chrome or Firefox.');
+                    processingArea.style.display = 'none';
+                    editorArea.style.display = 'block';
+                    audioCtx.close();
+                    return;
+                }
+
+                var chunks = [];
+                recorder.ondataavailable = function(e) {
+                    if (e.data && e.data.size > 0) {
+                        chunks.push(e.data);
+                    }
+                };
+
+                recorder.onstop = function() {
+                    cancelAnimationFrame(animFrameId);
+                    audioCtx.close();
+                    recVideo.pause();
+
+                    if (trimCancelled) {
+                        processingArea.style.display = 'none';
+                        editorArea.style.display = 'block';
+                        return;
+                    }
+
+                    var blob = new Blob(chunks, { type: 'video/webm' });
+                    if (trimmedBlobURL) URL.revokeObjectURL(trimmedBlobURL);
+                    trimmedBlobURL = URL.createObjectURL(blob);
+
+                    showResult(blob);
+                };
+
+                /* Draw frames to canvas */
+                function drawFrame() {
+                    if (trimCancelled) return;
+                    ctx.drawImage(recVideo, 0, 0, canvas.width, canvas.height);
+
+                    /* Update progress */
+                    var elapsed = recVideo.currentTime - trimStart;
+                    var total = trimEnd - trimStart;
+                    var pct = Math.min((elapsed / total) * 100, 100);
+                    progressBar.style.width = pct + '%';
+                    progressText.textContent = 'Recording... ' + Math.round(pct) + '% (' + formatTime(elapsed) + ' / ' + formatTime(total) + ')';
+
+                    if (recVideo.currentTime >= trimEnd || recVideo.ended) {
+                        recVideo.pause();
+                        recorder.stop();
+                        return;
+                    }
+
+                    animFrameId = requestAnimationFrame(drawFrame);
+                }
+
+                recorder.start(100);
+                recVideo.play().then(function() {
+                    drawFrame();
+                }).catch(function(err) {
+                    /* Autoplay might be blocked, try muted */
+                    recVideo.muted = true;
+                    recVideo.play().then(function() {
+                        drawFrame();
+                    }).catch(function() {
+                        alert('Unable to play the video for recording. Please try a different browser.');
+                        recorder.stop();
+                    });
+                });
+
+                /* Stop when time exceeds trim end */
+                recVideo.addEventListener('timeupdate', function onTimeUpdate() {
+                    if (recVideo.currentTime >= trimEnd || trimCancelled) {
+                        recVideo.removeEventListener('timeupdate', onTimeUpdate);
+                        if (recorder.state === 'recording') {
+                            recVideo.pause();
+                            recorder.stop();
+                        }
+                    }
+                });
+            });
+        });
+
+        cancelBtn.addEventListener('click', function() {
+            trimCancelled = true;
+        });
+
+        function showResult(blob) {
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+
+            resultVideo.src = trimmedBlobURL;
+
+            var originalDur = formatTime(videoDuration);
+            var clipDur = formatTime(trimEnd - trimStart);
+            var startStr = formatTime(trimStart);
+            var endStr = formatTime(trimEnd);
+
+            resultStats.innerHTML =
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original file:</span><strong>' + selectedFile.name + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original duration:</span><strong>' + originalDur + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original size:</span><strong>' + formatSize(selectedFile.size) + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Trim range:</span><strong>' + startStr + ' - ' + endStr + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Clip duration:</span><strong>' + clipDur + '</strong></div>' +
+                '<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Output size:</span><strong style="color:var(--accent);">' + formatSize(blob.size) + '</strong></div>';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            if (!trimmedBlobURL) return;
+            var baseName = selectedFile.name.replace(/\.[^.]+$/, '');
+            var downloadName = baseName + '_trimmed.webm';
+            var a = document.createElement('a');
+            a.href = trimmedBlobURL;
+            a.download = downloadName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            selectedFile = null;
+            fileInput.value = '';
+            videoDuration = 0;
+            trimStart = 0;
+            trimEnd = 0;
+            isPreviewingTrim = false;
+            trimCancelled = false;
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Preparing... 0%';
+            rangePlayhead.style.display = 'none';
+
+            if (videoEl.src) {
+                URL.revokeObjectURL(videoEl.src);
+                videoEl.src = '';
+            }
+            if (trimmedBlobURL) {
+                URL.revokeObjectURL(trimmedBlobURL);
+                trimmedBlobURL = null;
+            }
+            if (resultVideo.src) {
+                resultVideo.src = '';
+            }
+
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            editorArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

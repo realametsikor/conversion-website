@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Cropper / Passport Photo Maker Online Free | ToolsNest</title>
+    <meta name="description" content="Crop and resize photos for passports, visas, and ID cards. Supports 2x2 inch, 35x45mm, and 51x51mm presets. Free, private, and browser-based.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/face-cropper/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Face Cropper
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Face Cropper / Passport Photo Maker</h1>
+                <p class="text-center mb-3">Create perfectly cropped passport and ID photos with preset dimensions. Drag and resize the crop area to frame your face. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="face-cropper-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Photo</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Photo</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 1rem;">
+                                <button class="btn btn-primary preset-btn active" data-preset="2x2">2x2 inch (US Passport)</button>
+                                <button class="btn btn-primary preset-btn" data-preset="35x45">35x45 mm (EU / UK)</button>
+                                <button class="btn btn-primary preset-btn" data-preset="51x51">51x51 mm (India / China)</button>
+                            </div>
+                            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; align-items: center;">
+                                <label style="display: inline-flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: var(--text-main);">
+                                    <input type="checkbox" id="white-bg-toggle" checked>
+                                    <span>White Background</span>
+                                </label>
+                                <div style="display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.95rem; font-weight: 500; color: var(--text-main);">
+                                    <label for="format-select">Format:</label>
+                                    <select id="format-select" class="form-input" style="width: auto; padding: 0.5rem 0.75rem;">
+                                        <option value="png">PNG</option>
+                                        <option value="jpg">JPG</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="canvas-container" style="position: relative; display: inline-block; margin: 0 auto; cursor: default; user-select: none; max-width: 100%; overflow: hidden;">
+                            <canvas id="photo-canvas"></canvas>
+                            <div id="crop-overlay" style="position: absolute; border: 2px solid var(--primary); box-shadow: 0 0 0 9999px rgba(0,0,0,0.45); cursor: move;">
+                                <div class="crop-handle" data-handle="nw" style="position:absolute;top:-5px;left:-5px;width:10px;height:10px;background:var(--primary);border-radius:50%;cursor:nw-resize;"></div>
+                                <div class="crop-handle" data-handle="ne" style="position:absolute;top:-5px;right:-5px;width:10px;height:10px;background:var(--primary);border-radius:50%;cursor:ne-resize;"></div>
+                                <div class="crop-handle" data-handle="sw" style="position:absolute;bottom:-5px;left:-5px;width:10px;height:10px;background:var(--primary);border-radius:50%;cursor:sw-resize;"></div>
+                                <div class="crop-handle" data-handle="se" style="position:absolute;bottom:-5px;right:-5px;width:10px;height:10px;background:var(--primary);border-radius:50%;cursor:se-resize;"></div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.5rem;">
+                            <p id="crop-info" class="text-muted" style="width: 100%; text-align: center; margin-bottom: 0.5rem;"></p>
+                            <button id="crop-btn" class="btn btn-accent" style="padding: 0.85rem 2.5rem; font-size: 1.05rem;">Crop &amp; Download</button>
+                            <button id="reset-btn" class="btn btn-primary" style="padding: 0.85rem 1.5rem; font-size: 1.05rem; background: var(--text-muted);">Upload New Photo</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Photo" to upload a JPG, PNG, or WebP image from your device.</li>
+                        <li>Choose a passport photo preset: 2x2 inch (US), 35x45 mm (EU/UK), or 51x51 mm (India/China).</li>
+                        <li>Drag the crop rectangle over your face. Use the corner handles to resize it while maintaining the correct aspect ratio.</li>
+                        <li>Optionally enable "White Background" to replace the area around your crop with a clean white fill.</li>
+                        <li>Select your preferred output format (PNG or JPG) and click "Crop &amp; Download" to save the photo.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my photos secure?</h3>
+                        <p>Yes. This tool processes images entirely in your browser using the HTML5 Canvas API. Your photos never leave your device and are never uploaded to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What passport photo sizes are supported?</h3>
+                        <p>The tool includes three common presets: 2x2 inches (600x600px at 300 DPI, used for US passports), 35x45mm (413x531px, used for EU and UK documents), and 51x51mm (602x602px, used for India and China visas). The crop overlay locks to the correct aspect ratio for each preset.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for visa and ID card photos?</h3>
+                        <p>Yes. The preset dimensions cover the most common international passport and visa photo requirements. You can use any of the three presets depending on the country and document type you need.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does the white background option do?</h3>
+                        <p>When enabled, the exported photo will have a solid white background behind the cropped area. This is required by many passport and visa authorities for official photos.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What output formats are available?</h3>
+                        <p>You can export your cropped photo as PNG (lossless, larger file) or JPG (compressed, smaller file). Both formats are widely accepted for online document applications.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ── Preset definitions (output pixels at 300 DPI) ── */
+        var presets = {
+            '2x2':   { label: '2x2 inch', w: 600, h: 600, ratio: 1 },
+            '35x45': { label: '35x45 mm', w: 413, h: 531, ratio: 413 / 531 },
+            '51x51': { label: '51x51 mm', w: 602, h: 602, ratio: 1 }
+        };
+
+        var currentPreset = presets['2x2'];
+
+        /* ── DOM refs ── */
+        var fileInput      = document.getElementById('file-input');
+        var uploadSection   = document.getElementById('upload-section');
+        var editorSection   = document.getElementById('editor-section');
+        var canvas          = document.getElementById('photo-canvas');
+        var ctx             = canvas.getContext('2d');
+        var container       = document.getElementById('canvas-container');
+        var overlay         = document.getElementById('crop-overlay');
+        var cropBtn         = document.getElementById('crop-btn');
+        var resetBtn        = document.getElementById('reset-btn');
+        var whiteBgToggle   = document.getElementById('white-bg-toggle');
+        var formatSelect    = document.getElementById('format-select');
+        var cropInfo        = document.getElementById('crop-info');
+        var presetBtns      = document.querySelectorAll('.preset-btn');
+
+        /* ── State ── */
+        var sourceImage     = null;   // original Image element
+        var displayScale    = 1;      // ratio: displayed size / original size
+        var crop = { x: 0, y: 0, w: 0, h: 0 }; // in display-pixel coords
+
+        var dragging   = false;
+        var resizing   = false;
+        var activeHandle = null;
+        var dragStart  = { mx: 0, my: 0, cx: 0, cy: 0, cw: 0, ch: 0 };
+
+        /* ── Helpers ── */
+        function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+
+        function setOverlayStyle() {
+            overlay.style.left   = crop.x + 'px';
+            overlay.style.top    = crop.y + 'px';
+            overlay.style.width  = crop.w + 'px';
+            overlay.style.height = crop.h + 'px';
+        }
+
+        function updateCropInfo() {
+            var realW = Math.round(crop.w / displayScale);
+            var realH = Math.round(crop.h / displayScale);
+            cropInfo.textContent = 'Crop area: ' + realW + ' x ' + realH + ' px  |  Output: ' + currentPreset.w + ' x ' + currentPreset.h + ' px';
+        }
+
+        function initCropRect() {
+            var ratio = currentPreset.ratio;
+            var canvasW = canvas.offsetWidth;
+            var canvasH = canvas.offsetHeight;
+            var size, cropW, cropH;
+
+            if (ratio >= 1) {
+                size = Math.min(canvasW * 0.6, canvasH * 0.6 * ratio);
+                cropW = size;
+                cropH = size / ratio;
+            } else {
+                size = Math.min(canvasH * 0.6, canvasW * 0.6 / ratio);
+                cropH = size;
+                cropW = size * ratio;
+            }
+
+            crop.w = Math.round(cropW);
+            crop.h = Math.round(cropH);
+            crop.x = Math.round((canvasW - crop.w) / 2);
+            crop.y = Math.round((canvasH - crop.h) / 2);
+
+            setOverlayStyle();
+            updateCropInfo();
+        }
+
+        /* ── Draw source image onto canvas (scaled to fit) ── */
+        function drawImage() {
+            var maxW = container.parentElement.clientWidth;
+            var maxH = window.innerHeight * 0.6;
+            var imgW = sourceImage.width;
+            var imgH = sourceImage.height;
+
+            displayScale = Math.min(maxW / imgW, maxH / imgH, 1);
+
+            var drawW = Math.round(imgW * displayScale);
+            var drawH = Math.round(imgH * displayScale);
+
+            canvas.width  = drawW;
+            canvas.height = drawH;
+            canvas.style.width  = drawW + 'px';
+            canvas.style.height = drawH + 'px';
+            container.style.width  = drawW + 'px';
+            container.style.height = drawH + 'px';
+
+            ctx.drawImage(sourceImage, 0, 0, drawW, drawH);
+        }
+
+        /* ── File load ── */
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    sourceImage = img;
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+                    drawImage();
+                    initCropRect();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        });
+
+        /* ── Preset switching ── */
+        presetBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                presetBtns.forEach(function(b) { b.classList.remove('active'); b.style.opacity = '0.65'; });
+                btn.classList.add('active');
+                btn.style.opacity = '1';
+                currentPreset = presets[btn.getAttribute('data-preset')];
+                initCropRect();
+            });
+        });
+
+        /* initialise inactive button styles */
+        presetBtns.forEach(function(btn) {
+            if (!btn.classList.contains('active')) btn.style.opacity = '0.65';
+        });
+
+        /* ── Mouse / touch helpers ── */
+        function pointerPos(e) {
+            var rect = container.getBoundingClientRect();
+            var clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        /* ── Pointer down (drag or resize) ── */
+        function onPointerDown(e) {
+            var pos = pointerPos(e);
+
+            /* Check if a handle was clicked */
+            var handle = e.target.getAttribute('data-handle');
+            if (handle) {
+                resizing = true;
+                activeHandle = handle;
+                dragStart.mx = pos.x;
+                dragStart.my = pos.y;
+                dragStart.cx = crop.x;
+                dragStart.cy = crop.y;
+                dragStart.cw = crop.w;
+                dragStart.ch = crop.h;
+                e.preventDefault();
+                return;
+            }
+
+            /* Check if inside overlay for dragging */
+            if (pos.x >= crop.x && pos.x <= crop.x + crop.w &&
+                pos.y >= crop.y && pos.y <= crop.y + crop.h) {
+                dragging = true;
+                dragStart.mx = pos.x;
+                dragStart.my = pos.y;
+                dragStart.cx = crop.x;
+                dragStart.cy = crop.y;
+                e.preventDefault();
+            }
+        }
+
+        function onPointerMove(e) {
+            if (!dragging && !resizing) return;
+            e.preventDefault();
+            var pos = pointerPos(e);
+            var dx = pos.x - dragStart.mx;
+            var dy = pos.y - dragStart.my;
+            var canvasW = canvas.offsetWidth;
+            var canvasH = canvas.offsetHeight;
+            var ratio = currentPreset.ratio;
+
+            if (dragging) {
+                crop.x = clamp(dragStart.cx + dx, 0, canvasW - crop.w);
+                crop.y = clamp(dragStart.cy + dy, 0, canvasH - crop.h);
+            }
+
+            if (resizing) {
+                var newW, newH, newX, newY;
+
+                if (activeHandle === 'se') {
+                    newW = clamp(dragStart.cw + dx, 40, canvasW - dragStart.cx);
+                    newH = newW / ratio;
+                    if (dragStart.cy + newH > canvasH) {
+                        newH = canvasH - dragStart.cy;
+                        newW = newH * ratio;
+                    }
+                    crop.w = Math.round(newW);
+                    crop.h = Math.round(newH);
+                } else if (activeHandle === 'sw') {
+                    newW = clamp(dragStart.cw - dx, 40, dragStart.cx + dragStart.cw);
+                    newH = newW / ratio;
+                    if (dragStart.cy + newH > canvasH) {
+                        newH = canvasH - dragStart.cy;
+                        newW = newH * ratio;
+                    }
+                    newX = dragStart.cx + dragStart.cw - newW;
+                    if (newX < 0) { newX = 0; newW = dragStart.cx + dragStart.cw; newH = newW / ratio; }
+                    crop.x = Math.round(newX);
+                    crop.w = Math.round(newW);
+                    crop.h = Math.round(newH);
+                } else if (activeHandle === 'ne') {
+                    newW = clamp(dragStart.cw + dx, 40, canvasW - dragStart.cx);
+                    newH = newW / ratio;
+                    newY = dragStart.cy + dragStart.ch - newH;
+                    if (newY < 0) { newY = 0; newH = dragStart.cy + dragStart.ch; newW = newH * ratio; }
+                    crop.y = Math.round(newY);
+                    crop.w = Math.round(newW);
+                    crop.h = Math.round(newH);
+                } else if (activeHandle === 'nw') {
+                    newW = clamp(dragStart.cw - dx, 40, dragStart.cx + dragStart.cw);
+                    newH = newW / ratio;
+                    newX = dragStart.cx + dragStart.cw - newW;
+                    newY = dragStart.cy + dragStart.ch - newH;
+                    if (newX < 0) { newX = 0; newW = dragStart.cx + dragStart.cw; newH = newW / ratio; }
+                    if (newY < 0) { newY = 0; newH = dragStart.cy + dragStart.ch; newW = newH * ratio; newX = dragStart.cx + dragStart.cw - newW; }
+                    crop.x = Math.round(newX);
+                    crop.y = Math.round(newY);
+                    crop.w = Math.round(newW);
+                    crop.h = Math.round(newH);
+                }
+            }
+
+            setOverlayStyle();
+            updateCropInfo();
+        }
+
+        function onPointerUp() {
+            dragging = false;
+            resizing = false;
+            activeHandle = null;
+        }
+
+        /* Mouse events */
+        container.addEventListener('mousedown', onPointerDown);
+        document.addEventListener('mousemove', onPointerMove);
+        document.addEventListener('mouseup', onPointerUp);
+
+        /* Touch events */
+        container.addEventListener('touchstart', onPointerDown, { passive: false });
+        document.addEventListener('touchmove', onPointerMove, { passive: false });
+        document.addEventListener('touchend', onPointerUp);
+
+        /* ── Crop & Download ── */
+        cropBtn.addEventListener('click', function() {
+            if (!sourceImage) return;
+
+            var srcX = Math.round(crop.x / displayScale);
+            var srcY = Math.round(crop.y / displayScale);
+            var srcW = Math.round(crop.w / displayScale);
+            var srcH = Math.round(crop.h / displayScale);
+
+            var outW = currentPreset.w;
+            var outH = currentPreset.h;
+
+            var outCanvas = document.createElement('canvas');
+            outCanvas.width  = outW;
+            outCanvas.height = outH;
+            var outCtx = outCanvas.getContext('2d');
+
+            if (whiteBgToggle.checked) {
+                outCtx.fillStyle = '#FFFFFF';
+                outCtx.fillRect(0, 0, outW, outH);
+            }
+
+            outCtx.imageSmoothingEnabled = true;
+            outCtx.imageSmoothingQuality = 'high';
+            outCtx.drawImage(sourceImage, srcX, srcY, srcW, srcH, 0, 0, outW, outH);
+
+            var format = formatSelect.value;
+            var mimeType = format === 'jpg' ? 'image/jpeg' : 'image/png';
+            var quality  = format === 'jpg' ? 0.92 : undefined;
+            var ext      = format === 'jpg' ? 'jpg' : 'png';
+
+            outCanvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'passport-photo-' + currentPreset.w + 'x' + currentPreset.h + '.' + ext;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, mimeType, quality);
+        });
+
+        /* ── Reset ── */
+        resetBtn.addEventListener('click', function() {
+            sourceImage = null;
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
