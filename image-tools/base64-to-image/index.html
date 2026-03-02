@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 to Image Converter Online Free - Decode & Download | ToolsNest</title>
+    <meta name="description" content="Convert Base64 encoded strings to images instantly in your browser. Supports PNG, JPG, GIF, WebP and data URI format. Free, fast, and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/base64-to-image/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Base64 to Image
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Base64 to Image Converter</h1>
+                <p class="text-center mb-3">Decode any Base64 encoded string into a viewable and downloadable image. Supports raw Base64 and data URI format. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="b64-workspace">
+                    <div id="input-section">
+                        <h3 class="mb-2">Paste Your Base64 String</h3>
+                        <p class="text-muted mb-2">Accepts raw Base64 or data URI (data:image/...;base64,...)</p>
+                        <textarea id="base64-input" class="form-input" rows="8" placeholder="Paste your Base64 encoded image string here..." style="width: 100%; resize: vertical; font-family: monospace; font-size: 0.85rem;"></textarea>
+                        <div class="text-center mt-2">
+                            <button id="convert-btn" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Convert to Image</button>
+                        </div>
+                    </div>
+
+                    <div id="result-section" style="display: none; margin-top: 2rem;">
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.5rem; color: var(--text-main);">Image Details</p>
+                            <p class="text-muted" style="margin: 0 0 0.25rem 0;">Format: <strong id="img-format">--</strong></p>
+                            <p class="text-muted" style="margin: 0 0 0.25rem 0;">Dimensions: <strong id="img-dimensions">--</strong></p>
+                            <p class="text-muted" style="margin: 0;">Estimated File Size: <strong id="img-size">--</strong></p>
+                        </div>
+
+                        <div class="text-center mb-3">
+                            <img id="image-preview" style="max-width: 100%; max-height: 400px; border-radius: var(--radius-sm); border: 1px solid var(--border);" alt="Decoded image preview">
+                        </div>
+
+                        <div class="text-center" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button id="download-btn" class="btn btn-accent" style="padding: 0.75rem 2rem; font-size: 1rem;">Download Image</button>
+                            <button id="clear-btn" class="btn btn-secondary" style="padding: 0.75rem 2rem; font-size: 1rem;">Clear</button>
+                        </div>
+                    </div>
+
+                    <div id="error-section" style="display: none; margin-top: 1.5rem;">
+                        <div style="background: #fff5f5; border: 1px solid #feb2b2; padding: 1rem; border-radius: var(--radius-sm); color: #c53030; text-align: center;">
+                            <p id="error-message" style="margin: 0; font-weight: 500;">Invalid Base64 string. Please check your input and try again.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste your Base64 encoded image string into the text area above. Both raw Base64 and data URI format (data:image/png;base64,...) are accepted.</li>
+                        <li>Click "Convert to Image" to decode and display the image preview.</li>
+                        <li>View the detected image format, dimensions, and estimated file size in the details panel.</li>
+                        <li>Click "Download Image" to save the decoded image to your device in its original format.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool upload my data to a server?</h3>
+                        <p>No. All decoding and image processing is done entirely in your browser using JavaScript. Your Base64 data never leaves your device and is never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What Base64 formats are supported?</h3>
+                        <p>This tool accepts both raw Base64 strings and full data URI strings (e.g., data:image/png;base64,...). If you paste a raw Base64 string without a data URI prefix, the tool will attempt to auto-detect the image format.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats can be decoded?</h3>
+                        <p>Any image format supported by your browser can be decoded, including PNG, JPEG, GIF, WebP, SVG, and BMP. The format is auto-detected from the data URI or from the image content itself.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a size limit for the Base64 string?</h3>
+                        <p>There is no hard limit enforced by the tool. However, very large Base64 strings (representing images over 20MB) may cause your browser to slow down depending on your device's available memory.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format will the downloaded image be in?</h3>
+                        <p>If you provide a data URI, the image is downloaded in its original format (PNG, JPEG, etc.). For raw Base64 input without a data URI prefix, the image is downloaded as PNG by default.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var base64Input = document.getElementById('base64-input');
+        var convertBtn = document.getElementById('convert-btn');
+        var resultSection = document.getElementById('result-section');
+        var errorSection = document.getElementById('error-section');
+        var errorMessage = document.getElementById('error-message');
+        var imagePreview = document.getElementById('image-preview');
+        var imgFormat = document.getElementById('img-format');
+        var imgDimensions = document.getElementById('img-dimensions');
+        var imgSize = document.getElementById('img-size');
+        var downloadBtn = document.getElementById('download-btn');
+        var clearBtn = document.getElementById('clear-btn');
+
+        var currentDataURL = '';
+        var detectedMime = 'image/png';
+        var detectedExt = 'png';
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function getMimeAndExt(dataURI) {
+            var mime = 'image/png';
+            var ext = 'png';
+            var match = dataURI.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,/);
+            if (match) {
+                mime = match[1].toLowerCase();
+                var type = mime.split('/')[1];
+                if (type === 'jpeg') ext = 'jpg';
+                else if (type === 'svg+xml') ext = 'svg';
+                else ext = type;
+            }
+            return { mime: mime, ext: ext };
+        }
+
+        function detectFormatFromBytes(base64Str) {
+            try {
+                var raw = atob(base64Str.substring(0, 16));
+                var bytes = [];
+                for (var i = 0; i < raw.length; i++) {
+                    bytes.push(raw.charCodeAt(i));
+                }
+
+                if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4E && bytes[3] === 0x47) {
+                    return { mime: 'image/png', ext: 'png' };
+                }
+                if (bytes[0] === 0xFF && bytes[1] === 0xD8 && bytes[2] === 0xFF) {
+                    return { mime: 'image/jpeg', ext: 'jpg' };
+                }
+                if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+                    return { mime: 'image/gif', ext: 'gif' };
+                }
+                if (bytes[0] === 0x52 && bytes[1] === 0x49 && bytes[2] === 0x46 && bytes[3] === 0x46 &&
+                    bytes[8] === 0x57 && bytes[9] === 0x45 && bytes[10] === 0x42 && bytes[11] === 0x50) {
+                    return { mime: 'image/webp', ext: 'webp' };
+                }
+                if (bytes[0] === 0x42 && bytes[1] === 0x4D) {
+                    return { mime: 'image/bmp', ext: 'bmp' };
+                }
+            } catch (e) {}
+            return { mime: 'image/png', ext: 'png' };
+        }
+
+        function estimateFileSize(base64Str) {
+            var padding = 0;
+            if (base64Str.endsWith('==')) padding = 2;
+            else if (base64Str.endsWith('=')) padding = 1;
+            return Math.floor((base64Str.length * 3) / 4) - padding;
+        }
+
+        function showError(msg) {
+            errorMessage.textContent = msg;
+            errorSection.style.display = 'block';
+            resultSection.style.display = 'none';
+        }
+
+        function hideError() {
+            errorSection.style.display = 'none';
+        }
+
+        function convertBase64() {
+            var input = base64Input.value.trim();
+            hideError();
+
+            if (!input) {
+                showError('Please paste a Base64 string before converting.');
+                return;
+            }
+
+            var dataURL = '';
+            var rawBase64 = '';
+
+            if (input.match(/^data:image\/[a-zA-Z0-9.+-]+;base64,/)) {
+                dataURL = input;
+                rawBase64 = input.split(',')[1];
+                var info = getMimeAndExt(input);
+                detectedMime = info.mime;
+                detectedExt = info.ext;
+            } else {
+                rawBase64 = input.replace(/\s+/g, '');
+                var detected = detectFormatFromBytes(rawBase64);
+                detectedMime = detected.mime;
+                detectedExt = detected.ext;
+                dataURL = 'data:' + detectedMime + ';base64,' + rawBase64;
+            }
+
+            try {
+                atob(rawBase64.substring(0, 100));
+            } catch (e) {
+                showError('Invalid Base64 string. Please check your input and try again.');
+                return;
+            }
+
+            var fileSize = estimateFileSize(rawBase64);
+            currentDataURL = dataURL;
+
+            var img = new Image();
+            img.onload = function() {
+                imagePreview.src = dataURL;
+
+                var formatLabel = detectedExt.toUpperCase();
+                if (formatLabel === 'JPG') formatLabel = 'JPEG';
+                imgFormat.textContent = formatLabel;
+                imgDimensions.textContent = img.width + ' x ' + img.height + ' pixels';
+                imgSize.textContent = formatBytes(fileSize);
+
+                resultSection.style.display = 'block';
+            };
+            img.onerror = function() {
+                showError('Could not decode the image. The Base64 string may be corrupted or not a valid image.');
+            };
+            img.src = dataURL;
+        }
+
+        convertBtn.addEventListener('click', convertBase64);
+
+        downloadBtn.addEventListener('click', function() {
+            if (!currentDataURL) return;
+
+            var a = document.createElement('a');
+            a.href = currentDataURL;
+            a.download = 'decoded-image.' + detectedExt;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+        clearBtn.addEventListener('click', function() {
+            base64Input.value = '';
+            resultSection.style.display = 'none';
+            hideError();
+            imagePreview.src = '';
+            currentDataURL = '';
+            imgFormat.textContent = '--';
+            imgDimensions.textContent = '--';
+            imgSize.textContent = '--';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subtitle (.srt) Editor - Free Online | ToolsNest</title>
+    <meta name="description" content="Edit, create, and sync SRT subtitle files online for free. Upload an .srt file or start from scratch. Shift timecodes, search and replace text, re-number entries, and download. No software needed.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/subtitle-editor/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Subtitle Editor
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>Subtitle (.srt) Editor</h1>
+                        <p style="margin-bottom:1.5rem;">Upload an existing .srt subtitle file or create one from scratch. Edit timecodes and text, shift timing for syncing, search and replace across all entries, and download the finished file. Everything runs in your browser.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <!-- Upload / Start Area -->
+                            <div id="start-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#127916;</div>
+                                <h3>Drag & Drop your .srt file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".srt" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select .srt File</label>
+                                <p style="margin-top:1rem;">
+                                    <button id="create-new-btn" class="btn btn-outline">Create New Subtitle File</button>
+                                </p>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .srt subtitle files</p>
+                            </div>
+
+                            <!-- Editor Area -->
+                            <div id="editor-area" style="display:none;text-align:left;">
+                                <!-- Toolbar -->
+                                <div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;align-items:center;">
+                                    <button id="add-entry-btn" class="btn btn-primary" style="font-size:0.85rem;">+ Add Entry</button>
+                                    <button id="renumber-btn" class="btn btn-outline" style="font-size:0.85rem;">Re-number</button>
+                                    <button id="sort-btn" class="btn btn-outline" style="font-size:0.85rem;">Sort by Time</button>
+                                    <button id="preview-btn" class="btn btn-outline" style="font-size:0.85rem;">Preview SRT</button>
+                                    <button id="download-btn" class="btn btn-accent" style="font-size:0.85rem;">Download .srt</button>
+                                    <button id="reset-btn" class="btn btn-outline" style="font-size:0.85rem;">Reset</button>
+                                </div>
+
+                                <!-- Time Shift -->
+                                <div style="background:var(--bg-color);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;">
+                                    <h4 style="margin-bottom:0.5rem;">Shift All Timecodes</h4>
+                                    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">
+                                        <input type="number" id="shift-seconds" class="form-input" placeholder="Seconds" step="0.1" style="width:120px;">
+                                        <button id="shift-btn" class="btn btn-primary" style="font-size:0.85rem;">Shift</button>
+                                        <span style="font-size:0.8rem;color:var(--text-muted);">Use negative value to shift earlier</span>
+                                    </div>
+                                </div>
+
+                                <!-- Search & Replace -->
+                                <div style="background:var(--bg-color);border:1px solid var(--border);border-radius:var(--radius-sm);padding:1rem;margin-bottom:1rem;">
+                                    <h4 style="margin-bottom:0.5rem;">Search & Replace</h4>
+                                    <div style="display:flex;flex-wrap:wrap;gap:0.5rem;align-items:center;">
+                                        <input type="text" id="search-text" class="form-input" placeholder="Search for..." style="width:180px;">
+                                        <input type="text" id="replace-text" class="form-input" placeholder="Replace with..." style="width:180px;">
+                                        <button id="replace-btn" class="btn btn-primary" style="font-size:0.85rem;">Replace All</button>
+                                    </div>
+                                </div>
+
+                                <!-- Subtitle Entries Table -->
+                                <div style="overflow-x:auto;">
+                                    <table id="subtitle-table" style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+                                        <thead>
+                                            <tr style="background:var(--bg-color);">
+                                                <th style="padding:0.5rem;border:1px solid var(--border);width:50px;text-align:center;">#</th>
+                                                <th style="padding:0.5rem;border:1px solid var(--border);width:150px;">Start Time</th>
+                                                <th style="padding:0.5rem;border:1px solid var(--border);width:150px;">End Time</th>
+                                                <th style="padding:0.5rem;border:1px solid var(--border);">Subtitle Text</th>
+                                                <th style="padding:0.5rem;border:1px solid var(--border);width:60px;text-align:center;">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="subtitle-body">
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <!-- SRT Preview -->
+                                <div id="preview-area" style="display:none;margin-top:1rem;">
+                                    <h4 style="margin-bottom:0.5rem;">SRT Preview</h4>
+                                    <textarea id="srt-preview" class="form-input" readonly style="width:100%;height:300px;font-family:monospace;font-size:0.85rem;white-space:pre;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Use the Subtitle Editor</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select .srt File" to upload an existing subtitle file, or click "Create New Subtitle File" to start from scratch.</li>
+                            <li>Edit timecodes and subtitle text directly in the table. Use the "Add Entry" button to insert new lines.</li>
+                            <li>Use "Shift All Timecodes" to adjust timing for syncing subtitles to a video.</li>
+                            <li>Use "Search & Replace" to correct recurring errors across all entries.</li>
+                            <li>Click "Sort by Time" to reorder entries and "Re-number" to fix sequence numbers.</li>
+                            <li>Click "Preview SRT" to see the formatted output, then "Download .srt" to save your file.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What is an SRT file?</h3>
+                            <p>SRT (SubRip Subtitle) is one of the most common subtitle file formats. It contains numbered subtitle entries, each with a start and end timecode and the text to display. Most video players and platforms support .srt files.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>How do I sync subtitles that are out of time?</h3>
+                            <p>Use the "Shift All Timecodes" feature. If subtitles appear too early, enter a positive number of seconds. If they appear too late, enter a negative number. You can use decimal values like 1.5 for fine adjustments.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I create subtitles from scratch?</h3>
+                            <p>Yes. Click "Create New Subtitle File" to start with a blank editor. Add entries one by one using the "Add Entry" button, filling in timecodes and text for each line.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What timecode format does the editor use?</h3>
+                            <p>The standard SRT timecode format: HH:MM:SS,mmm (hours, minutes, seconds, milliseconds). For example, 00:01:23,456 means 1 minute, 23 seconds, and 456 milliseconds.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my subtitle file uploaded to a server?</h3>
+                            <p>No. All processing happens entirely in your browser using JavaScript. Your file never leaves your device, ensuring complete privacy.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is this tool free to use?</h3>
+                            <p>Yes, the Subtitle Editor is completely free with no registration, limits, or watermarks.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/mp4-to-mp3" class="related-link">MP4 to MP3</a>
+                            <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                            <a href="/file-tools/split-pdf" class="related-link">Split PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var startArea = document.getElementById('start-area');
+        var editorArea = document.getElementById('editor-area');
+        var workspace = document.getElementById('tool-workspace');
+        var createNewBtn = document.getElementById('create-new-btn');
+        var addEntryBtn = document.getElementById('add-entry-btn');
+        var renumberBtn = document.getElementById('renumber-btn');
+        var sortBtn = document.getElementById('sort-btn');
+        var previewBtn = document.getElementById('preview-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var shiftBtn = document.getElementById('shift-btn');
+        var shiftSeconds = document.getElementById('shift-seconds');
+        var replaceBtn = document.getElementById('replace-btn');
+        var searchText = document.getElementById('search-text');
+        var replaceText = document.getElementById('replace-text');
+        var subtitleBody = document.getElementById('subtitle-body');
+        var previewArea = document.getElementById('preview-area');
+        var srtPreview = document.getElementById('srt-preview');
+
+        var subtitles = [];
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                loadFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                loadFile(fileInput.files[0]);
+            }
+        });
+
+        createNewBtn.addEventListener('click', function() {
+            subtitles = [];
+            addSubtitle('00:00:01,000', '00:00:04,000', 'First subtitle line');
+            showEditor();
+        });
+
+        /* Parse SRT file */
+        function loadFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'srt') {
+                alert('Please select an .srt subtitle file.');
+                return;
+            }
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var content = e.target.result;
+                parseSRT(content);
+                showEditor();
+            };
+            reader.readAsText(file);
+        }
+
+        function parseSRT(text) {
+            subtitles = [];
+            /* Normalize line endings */
+            text = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+            /* Split by blank lines to get blocks */
+            var blocks = text.split(/\n\n+/);
+            for (var i = 0; i < blocks.length; i++) {
+                var block = blocks[i].trim();
+                if (!block) continue;
+                var lines = block.split('\n');
+                if (lines.length < 3) continue;
+                /* First line: sequence number */
+                var seq = parseInt(lines[0].trim(), 10);
+                if (isNaN(seq)) continue;
+                /* Second line: timecodes */
+                var timeParts = lines[1].split('-->');
+                if (timeParts.length !== 2) continue;
+                var startTime = timeParts[0].trim();
+                var endTime = timeParts[1].trim();
+                /* Remaining lines: subtitle text */
+                var subtitleText = lines.slice(2).join('\n');
+                subtitles.push({
+                    seq: seq,
+                    start: startTime,
+                    end: endTime,
+                    text: subtitleText
+                });
+            }
+            if (subtitles.length === 0) {
+                alert('Could not parse any subtitle entries from this file. Please check the SRT format.');
+            }
+        }
+
+        function showEditor() {
+            startArea.style.display = 'none';
+            editorArea.style.display = 'block';
+            renderTable();
+        }
+
+        function renderTable() {
+            subtitleBody.innerHTML = '';
+            for (var i = 0; i < subtitles.length; i++) {
+                var sub = subtitles[i];
+                var tr = document.createElement('tr');
+
+                /* Sequence number */
+                var tdSeq = document.createElement('td');
+                tdSeq.style.cssText = 'padding:0.4rem;border:1px solid var(--border);text-align:center;font-weight:600;';
+                tdSeq.textContent = sub.seq;
+                tr.appendChild(tdSeq);
+
+                /* Start time */
+                var tdStart = document.createElement('td');
+                tdStart.style.cssText = 'padding:0.4rem;border:1px solid var(--border);';
+                var inputStart = document.createElement('input');
+                inputStart.type = 'text';
+                inputStart.className = 'form-input';
+                inputStart.value = sub.start;
+                inputStart.style.cssText = 'font-size:0.85rem;padding:0.3rem 0.4rem;font-family:monospace;';
+                inputStart.setAttribute('data-index', i);
+                inputStart.setAttribute('data-field', 'start');
+                inputStart.addEventListener('change', onFieldChange);
+                tdStart.appendChild(inputStart);
+                tr.appendChild(tdStart);
+
+                /* End time */
+                var tdEnd = document.createElement('td');
+                tdEnd.style.cssText = 'padding:0.4rem;border:1px solid var(--border);';
+                var inputEnd = document.createElement('input');
+                inputEnd.type = 'text';
+                inputEnd.className = 'form-input';
+                inputEnd.value = sub.end;
+                inputEnd.style.cssText = 'font-size:0.85rem;padding:0.3rem 0.4rem;font-family:monospace;';
+                inputEnd.setAttribute('data-index', i);
+                inputEnd.setAttribute('data-field', 'end');
+                inputEnd.addEventListener('change', onFieldChange);
+                tdEnd.appendChild(inputEnd);
+                tr.appendChild(tdEnd);
+
+                /* Text */
+                var tdText = document.createElement('td');
+                tdText.style.cssText = 'padding:0.4rem;border:1px solid var(--border);';
+                var textarea = document.createElement('textarea');
+                textarea.className = 'form-input';
+                textarea.value = sub.text;
+                textarea.rows = 2;
+                textarea.style.cssText = 'font-size:0.85rem;padding:0.3rem 0.4rem;resize:vertical;width:100%;';
+                textarea.setAttribute('data-index', i);
+                textarea.setAttribute('data-field', 'text');
+                textarea.addEventListener('change', onFieldChange);
+                tdText.appendChild(textarea);
+                tr.appendChild(tdText);
+
+                /* Delete button */
+                var tdDel = document.createElement('td');
+                tdDel.style.cssText = 'padding:0.4rem;border:1px solid var(--border);text-align:center;';
+                var delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-outline';
+                delBtn.style.cssText = 'font-size:0.75rem;padding:0.25rem 0.5rem;color:#e74c3c;border-color:#e74c3c;';
+                delBtn.textContent = 'Delete';
+                delBtn.setAttribute('data-index', i);
+                delBtn.addEventListener('click', onDeleteEntry);
+                tdDel.appendChild(delBtn);
+                tr.appendChild(tdDel);
+
+                subtitleBody.appendChild(tr);
+            }
+        }
+
+        function onFieldChange(e) {
+            var idx = parseInt(e.target.getAttribute('data-index'), 10);
+            var field = e.target.getAttribute('data-field');
+            if (idx >= 0 && idx < subtitles.length) {
+                subtitles[idx][field] = e.target.value;
+            }
+            updatePreview();
+        }
+
+        function onDeleteEntry(e) {
+            var idx = parseInt(e.target.getAttribute('data-index'), 10);
+            if (idx >= 0 && idx < subtitles.length) {
+                subtitles.splice(idx, 1);
+                renderTable();
+                updatePreview();
+            }
+        }
+
+        /* Add entry */
+        addEntryBtn.addEventListener('click', function() {
+            var lastEnd = '00:00:01,000';
+            var newEnd = '00:00:04,000';
+            if (subtitles.length > 0) {
+                lastEnd = subtitles[subtitles.length - 1].end;
+                newEnd = shiftTimecode(lastEnd, 3);
+            }
+            addSubtitle(lastEnd, newEnd, '');
+            renderTable();
+            updatePreview();
+            /* Scroll to bottom of table */
+            var rows = subtitleBody.querySelectorAll('tr');
+            if (rows.length > 0) {
+                rows[rows.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+
+        function addSubtitle(start, end, text) {
+            var seq = subtitles.length > 0 ? subtitles[subtitles.length - 1].seq + 1 : 1;
+            subtitles.push({
+                seq: seq,
+                start: start,
+                end: end,
+                text: text
+            });
+        }
+
+        /* Re-number */
+        renumberBtn.addEventListener('click', function() {
+            for (var i = 0; i < subtitles.length; i++) {
+                subtitles[i].seq = i + 1;
+            }
+            renderTable();
+            updatePreview();
+        });
+
+        /* Sort by time */
+        sortBtn.addEventListener('click', function() {
+            subtitles.sort(function(a, b) {
+                return timecodeToMs(a.start) - timecodeToMs(b.start);
+            });
+            /* Re-number after sort */
+            for (var i = 0; i < subtitles.length; i++) {
+                subtitles[i].seq = i + 1;
+            }
+            renderTable();
+            updatePreview();
+        });
+
+        /* Shift timecodes */
+        shiftBtn.addEventListener('click', function() {
+            var seconds = parseFloat(shiftSeconds.value);
+            if (isNaN(seconds) || seconds === 0) {
+                alert('Please enter a valid number of seconds to shift.');
+                return;
+            }
+            for (var i = 0; i < subtitles.length; i++) {
+                subtitles[i].start = shiftTimecode(subtitles[i].start, seconds);
+                subtitles[i].end = shiftTimecode(subtitles[i].end, seconds);
+            }
+            renderTable();
+            updatePreview();
+        });
+
+        /* Search and replace */
+        replaceBtn.addEventListener('click', function() {
+            var search = searchText.value;
+            var replace = replaceText.value;
+            if (!search) {
+                alert('Please enter text to search for.');
+                return;
+            }
+            var count = 0;
+            for (var i = 0; i < subtitles.length; i++) {
+                var original = subtitles[i].text;
+                var updated = original.split(search).join(replace);
+                if (updated !== original) {
+                    subtitles[i].text = updated;
+                    count++;
+                }
+            }
+            renderTable();
+            updatePreview();
+            alert('Replaced in ' + count + ' subtitle entr' + (count === 1 ? 'y' : 'ies') + '.');
+        });
+
+        /* Preview toggle */
+        previewBtn.addEventListener('click', function() {
+            if (previewArea.style.display === 'none') {
+                previewArea.style.display = 'block';
+                previewBtn.textContent = 'Hide Preview';
+                updatePreview();
+            } else {
+                previewArea.style.display = 'none';
+                previewBtn.textContent = 'Preview SRT';
+            }
+        });
+
+        function updatePreview() {
+            if (previewArea.style.display !== 'none') {
+                srtPreview.value = generateSRT();
+            }
+        }
+
+        /* Generate SRT content */
+        function generateSRT() {
+            var lines = [];
+            for (var i = 0; i < subtitles.length; i++) {
+                var sub = subtitles[i];
+                lines.push(sub.seq);
+                lines.push(sub.start + ' --> ' + sub.end);
+                lines.push(sub.text);
+                lines.push('');
+            }
+            return lines.join('\n');
+        }
+
+        /* Download */
+        downloadBtn.addEventListener('click', function() {
+            if (subtitles.length === 0) {
+                alert('No subtitle entries to download.');
+                return;
+            }
+            var content = generateSRT();
+            var blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'subtitles.srt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        /* Reset */
+        resetBtn.addEventListener('click', function() {
+            if (!confirm('Are you sure you want to reset? All unsaved changes will be lost.')) return;
+            subtitles = [];
+            fileInput.value = '';
+            previewArea.style.display = 'none';
+            previewBtn.textContent = 'Preview SRT';
+            shiftSeconds.value = '';
+            searchText.value = '';
+            replaceText.value = '';
+            editorArea.style.display = 'none';
+            startArea.style.display = 'block';
+        });
+
+        /* Timecode helpers */
+        function timecodeToMs(tc) {
+            /* Parse HH:MM:SS,mmm to total milliseconds */
+            tc = tc.trim();
+            var parts = tc.split(':');
+            if (parts.length !== 3) return 0;
+            var hours = parseInt(parts[0], 10) || 0;
+            var minutes = parseInt(parts[1], 10) || 0;
+            var secParts = parts[2].split(',');
+            var seconds = parseInt(secParts[0], 10) || 0;
+            var ms = parseInt(secParts[1], 10) || 0;
+            return (hours * 3600 + minutes * 60 + seconds) * 1000 + ms;
+        }
+
+        function msToTimecode(totalMs) {
+            /* Convert milliseconds to HH:MM:SS,mmm */
+            if (totalMs < 0) totalMs = 0;
+            var ms = totalMs % 1000;
+            var totalSec = Math.floor(totalMs / 1000);
+            var hours = Math.floor(totalSec / 3600);
+            var minutes = Math.floor((totalSec % 3600) / 60);
+            var seconds = totalSec % 60;
+            return pad(hours, 2) + ':' + pad(minutes, 2) + ':' + pad(seconds, 2) + ',' + pad(ms, 3);
+        }
+
+        function shiftTimecode(tc, shiftSec) {
+            var ms = timecodeToMs(tc);
+            ms += Math.round(shiftSec * 1000);
+            return msToTimecode(ms);
+        }
+
+        function pad(num, digits) {
+            var s = '' + num;
+            while (s.length < digits) s = '0' + s;
+            return s;
+        }
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

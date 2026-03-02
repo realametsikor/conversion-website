@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Generator Online Free - Create Memes Instantly | ToolsNest</title>
+    <meta name="description" content="Create memes instantly in your browser. Upload an image or choose a template, add top and bottom text, customize fonts, and download as PNG. Free, fast, and private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/meme-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Meme Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Meme Generator Online</h1>
+                <p class="text-center mb-3">Create custom memes in seconds. Upload your own image or pick a template, add text, and download. Everything runs in your browser.</p>
+
+                <div class="tool-workspace" id="meme-workspace">
+                    <div id="source-section">
+                        <h3 class="mb-2">Choose an Image Source</h3>
+                        <p class="text-muted mb-2">Upload your own image or select a preset template</p>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                            <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp, image/gif" style="display: none;">
+                            <label for="file-input" class="btn btn-primary">Upload Image</label>
+                        </div>
+
+                        <p class="text-muted mb-2" style="font-weight: 600;">Or choose a template:</p>
+                        <div id="template-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+                            <button class="btn" data-template="drake" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Drake Meme</button>
+                            <button class="btn" data-template="distracted" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Distracted BF</button>
+                            <button class="btn" data-template="brain" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Expanding Brain</button>
+                            <button class="btn" data-template="twobuttons" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Two Buttons</button>
+                            <button class="btn" data-template="changemymind" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Change My Mind</button>
+                            <button class="btn" data-template="rollsafe" style="padding: 0.75rem 0.5rem; font-size: 0.85rem; border: 2px solid var(--border); background: var(--bg-color);">Roll Safe</button>
+                        </div>
+                    </div>
+
+                    <div id="editor-section" style="display: none; text-align: left;">
+                        <div class="text-center mb-3">
+                            <canvas id="meme-canvas" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: default;"></canvas>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Top Text</label>
+                            <input type="text" id="top-text" class="form-input" placeholder="Enter top text">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Bottom Text</label>
+                            <input type="text" id="bottom-text" class="form-input" placeholder="Enter bottom text">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Font Size</label>
+                                <input type="range" id="font-size" min="16" max="80" value="40" style="width: 100%;">
+                                <span id="font-size-label" class="text-muted" style="font-size: 0.85rem;">40px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Text Color</label>
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.25rem;">
+                                    <button class="color-btn" data-color="#FFFFFF" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: #FFFFFF; cursor: pointer;" title="White"></button>
+                                    <button class="color-btn" data-color="#000000" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: #000000; cursor: pointer;" title="Black"></button>
+                                    <button class="color-btn" data-color="#FF0000" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: #FF0000; cursor: pointer;" title="Red"></button>
+                                    <button class="color-btn" data-color="#FFFF00" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: #FFFF00; cursor: pointer;" title="Yellow"></button>
+                                    <button class="color-btn" data-color="#00FF00" style="width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); background: #00FF00; cursor: pointer;" title="Green"></button>
+                                    <input type="color" id="custom-color" value="#FFFFFF" style="width: 32px; height: 32px; border: 2px solid var(--border); border-radius: 50%; padding: 0; cursor: pointer;" title="Custom color">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Stroke (Outline)</label>
+                                <select id="stroke-width" class="form-input">
+                                    <option value="0">None</option>
+                                    <option value="2" selected>Thin</option>
+                                    <option value="4">Medium</option>
+                                    <option value="6">Thick</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Stroke Color</label>
+                                <select id="stroke-color" class="form-input">
+                                    <option value="#000000" selected>Black</option>
+                                    <option value="#FFFFFF">White</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="text-center" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button id="download-btn" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.1rem;">Download Meme (PNG)</button>
+                            <button id="reset-btn" class="btn" style="padding: 1rem 2rem; font-size: 1.1rem; border: 2px solid var(--border); background: var(--bg-color);">Start Over</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Upload your own image or select one of the preset meme templates to get started.</li>
+                        <li>Type your desired text into the "Top Text" and "Bottom Text" fields.</li>
+                        <li>Adjust the font size with the slider and pick a text color using the color buttons or the custom color picker.</li>
+                        <li>Optionally change the text stroke (outline) width and color for better readability.</li>
+                        <li>Preview your meme in real-time on the canvas, then click "Download Meme (PNG)" to save it.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to a server?</h3>
+                        <p>No. All meme creation happens entirely in your browser using the HTML5 Canvas API. Your images and text never leave your device and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats can I upload?</h3>
+                        <p>You can upload JPG, PNG, WebP, and GIF images. The finished meme is always exported as a high-quality PNG file.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use my own images instead of templates?</h3>
+                        <p>Yes. Click "Upload Image" to use any image from your device as the meme background. You can also choose from the built-in preset templates for classic meme formats.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do the preset templates work?</h3>
+                        <p>Preset templates are drawn directly on the canvas using simple colored layouts that mimic popular meme formats. They provide a quick starting point without needing to upload any image.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I customize the text appearance?</h3>
+                        <p>Yes. You can adjust the font size using the slider, choose from preset colors or pick a custom color, and configure the text stroke (outline) width and color for maximum readability on any background.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var sourceSection = document.getElementById('source-section');
+        var editorSection = document.getElementById('editor-section');
+        var canvas = document.getElementById('meme-canvas');
+        var ctx = canvas.getContext('2d');
+        var topTextInput = document.getElementById('top-text');
+        var bottomTextInput = document.getElementById('bottom-text');
+        var fontSizeInput = document.getElementById('font-size');
+        var fontSizeLabel = document.getElementById('font-size-label');
+        var customColorInput = document.getElementById('custom-color');
+        var strokeWidthSelect = document.getElementById('stroke-width');
+        var strokeColorSelect = document.getElementById('stroke-color');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var currentImage = null;
+        var textColor = '#FFFFFF';
+        var CANVAS_WIDTH = 600;
+        var CANVAS_HEIGHT = 600;
+
+        // Preset template drawing functions
+        var templates = {
+            drake: function(ctx, w, h) {
+                ctx.fillStyle = '#f5f5dc';
+                ctx.fillRect(0, 0, w, h);
+                // Top panel
+                ctx.fillStyle = '#ffcccc';
+                ctx.fillRect(0, 0, w / 2, h / 2);
+                ctx.fillStyle = '#cc0000';
+                ctx.font = 'bold 28px Impact, Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('NAH', w / 4, h / 4 + 10);
+                // Bottom panel
+                ctx.fillStyle = '#ccffcc';
+                ctx.fillRect(0, h / 2, w / 2, h / 2);
+                ctx.fillStyle = '#006600';
+                ctx.fillText('YEAH', w / 4, h * 3 / 4 + 10);
+                // Right panels
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(w / 2, 0, w / 2, h / 2);
+                ctx.fillRect(w / 2, h / 2, w / 2, h / 2);
+                // Dividers
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.moveTo(0, h / 2);
+                ctx.lineTo(w, h / 2);
+                ctx.moveTo(w / 2, 0);
+                ctx.lineTo(w / 2, h);
+                ctx.stroke();
+            },
+            distracted: function(ctx, w, h) {
+                ctx.fillStyle = '#ffe0b2';
+                ctx.fillRect(0, 0, w, h);
+                // Three figures
+                var colors = ['#e57373', '#64b5f6', '#81c784'];
+                var labels = ['Other', 'You', 'Your Work'];
+                for (var i = 0; i < 3; i++) {
+                    var x = (w / 3) * i + w / 6;
+                    ctx.fillStyle = colors[i];
+                    ctx.beginPath();
+                    ctx.arc(x, h / 2 - 30, 40, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = colors[i];
+                    ctx.fillRect(x - 25, h / 2 + 10, 50, 80);
+                    ctx.fillStyle = '#333';
+                    ctx.font = 'bold 18px Impact, Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(labels[i], x, h / 2 + 120);
+                }
+            },
+            brain: function(ctx, w, h) {
+                ctx.fillStyle = '#f0f0f0';
+                ctx.fillRect(0, 0, w, h);
+                var rows = 4;
+                var rowH = h / rows;
+                var brainColors = ['#ccc', '#aaa', '#88f', '#f0f'];
+                var brainLabels = ['Small', 'Medium', 'Big', 'Galaxy'];
+                for (var i = 0; i < rows; i++) {
+                    ctx.fillStyle = '#fff';
+                    ctx.fillRect(0, i * rowH, w / 2, rowH);
+                    ctx.fillStyle = brainColors[i];
+                    ctx.fillRect(w / 2, i * rowH, w / 2, rowH);
+                    // Brain circle
+                    ctx.beginPath();
+                    ctx.arc(w * 3 / 4, i * rowH + rowH / 2, 20 + i * 15, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.fillStyle = '#333';
+                    ctx.font = '16px Impact, Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(brainLabels[i], w * 3 / 4, i * rowH + rowH / 2 + 50);
+                    // Divider
+                    ctx.strokeStyle = '#ddd';
+                    ctx.lineWidth = 1;
+                    ctx.beginPath();
+                    ctx.moveTo(0, i * rowH);
+                    ctx.lineTo(w, i * rowH);
+                    ctx.stroke();
+                }
+                ctx.strokeStyle = '#ddd';
+                ctx.beginPath();
+                ctx.moveTo(w / 2, 0);
+                ctx.lineTo(w / 2, h);
+                ctx.stroke();
+            },
+            twobuttons: function(ctx, w, h) {
+                ctx.fillStyle = '#e8eaf6';
+                ctx.fillRect(0, 0, w, h);
+                // Figure
+                ctx.fillStyle = '#ffcc80';
+                ctx.beginPath();
+                ctx.arc(w / 2, h / 2 + 40, 35, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#ffcc80';
+                ctx.fillRect(w / 2 - 20, h / 2 + 75, 40, 70);
+                // Sweat
+                ctx.fillStyle = '#4fc3f7';
+                ctx.beginPath();
+                ctx.arc(w / 2 + 30, h / 2 + 25, 6, 0, Math.PI * 2);
+                ctx.fill();
+                // Two buttons
+                ctx.fillStyle = '#ef5350';
+                ctx.beginPath();
+                ctx.arc(w / 3, h / 3, 50, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 16px Impact, Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Button 1', w / 3, h / 3 + 6);
+                ctx.fillStyle = '#42a5f5';
+                ctx.beginPath();
+                ctx.arc(w * 2 / 3, h / 3, 50, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.fillText('Button 2', w * 2 / 3, h / 3 + 6);
+            },
+            changemymind: function(ctx, w, h) {
+                ctx.fillStyle = '#c8e6c9';
+                ctx.fillRect(0, 0, w, h);
+                // Table
+                ctx.fillStyle = '#795548';
+                ctx.fillRect(w / 4, h / 2, w / 2, 10);
+                ctx.fillRect(w / 4 + 20, h / 2 + 10, 8, 80);
+                ctx.fillRect(w * 3 / 4 - 28, h / 2 + 10, 8, 80);
+                // Sign
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(w / 4 + 10, h / 2 - 60, w / 2 - 20, 55);
+                ctx.strokeStyle = '#333';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(w / 4 + 10, h / 2 - 60, w / 2 - 20, 55);
+                ctx.fillStyle = '#333';
+                ctx.font = 'bold 18px Impact, Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('CHANGE MY MIND', w / 2, h / 2 - 28);
+                // Figure
+                ctx.fillStyle = '#ffcc80';
+                ctx.beginPath();
+                ctx.arc(w / 2 + 100, h / 2 - 30, 25, 0, Math.PI * 2);
+                ctx.fill();
+            },
+            rollsafe: function(ctx, w, h) {
+                ctx.fillStyle = '#263238';
+                ctx.fillRect(0, 0, w, h);
+                // Figure
+                ctx.fillStyle = '#8d6e63';
+                ctx.beginPath();
+                ctx.arc(w / 2, h / 2 - 20, 50, 0, Math.PI * 2);
+                ctx.fill();
+                // Hand pointing to head
+                ctx.fillStyle = '#8d6e63';
+                ctx.beginPath();
+                ctx.moveTo(w / 2 + 40, h / 2 - 50);
+                ctx.lineTo(w / 2 + 80, h / 2 - 70);
+                ctx.lineTo(w / 2 + 85, h / 2 - 60);
+                ctx.lineTo(w / 2 + 45, h / 2 - 40);
+                ctx.closePath();
+                ctx.fill();
+                // Smile
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                ctx.arc(w / 2, h / 2 - 10, 20, 0.1 * Math.PI, 0.9 * Math.PI);
+                ctx.stroke();
+                // Eyes
+                ctx.fillStyle = '#fff';
+                ctx.beginPath();
+                ctx.arc(w / 2 - 15, h / 2 - 35, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.beginPath();
+                ctx.arc(w / 2 + 15, h / 2 - 35, 5, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#fff';
+                ctx.font = 'bold 20px Impact, Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Think about it', w / 2, h / 2 + 80);
+            }
+        };
+
+        function showEditor() {
+            sourceSection.style.display = 'none';
+            editorSection.style.display = 'block';
+        }
+
+        function drawMeme() {
+            var topText = topTextInput.value;
+            var bottomText = bottomTextInput.value;
+            var fontSize = parseInt(fontSizeInput.value);
+            var strokeWidth = parseInt(strokeWidthSelect.value);
+            var strokeColor = strokeColorSelect.value;
+
+            // Clear and draw base image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (currentImage) {
+                ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+            }
+
+            // Configure text style
+            ctx.font = 'bold ' + fontSize + 'px Impact, Arial, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillStyle = textColor;
+            ctx.strokeStyle = strokeColor;
+            ctx.lineWidth = strokeWidth;
+            ctx.lineJoin = 'round';
+
+            var padding = fontSize * 0.6;
+            var maxWidth = canvas.width - 40;
+
+            // Draw top text
+            if (topText) {
+                var topLines = wrapText(topText, maxWidth, ctx);
+                for (var i = 0; i < topLines.length; i++) {
+                    var y = padding + (i * (fontSize + 4));
+                    if (strokeWidth > 0) {
+                        ctx.strokeText(topLines[i], canvas.width / 2, y);
+                    }
+                    ctx.fillText(topLines[i], canvas.width / 2, y);
+                }
+            }
+
+            // Draw bottom text
+            if (bottomText) {
+                var bottomLines = wrapText(bottomText, maxWidth, ctx);
+                var startY = canvas.height - padding - ((bottomLines.length - 1) * (fontSize + 4));
+                for (var j = 0; j < bottomLines.length; j++) {
+                    var yb = startY + (j * (fontSize + 4));
+                    if (strokeWidth > 0) {
+                        ctx.strokeText(bottomLines[j], canvas.width / 2, yb);
+                    }
+                    ctx.fillText(bottomLines[j], canvas.width / 2, yb);
+                }
+            }
+        }
+
+        function wrapText(text, maxWidth, context) {
+            var words = text.split(' ');
+            var lines = [];
+            var currentLine = words[0] || '';
+
+            for (var i = 1; i < words.length; i++) {
+                var testLine = currentLine + ' ' + words[i];
+                var metrics = context.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine !== '') {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        function loadImageToCanvas(img) {
+            currentImage = img;
+            var ratio = img.width / img.height;
+            if (ratio >= 1) {
+                canvas.width = CANVAS_WIDTH;
+                canvas.height = Math.round(CANVAS_WIDTH / ratio);
+            } else {
+                canvas.height = CANVAS_HEIGHT;
+                canvas.width = Math.round(CANVAS_HEIGHT * ratio);
+            }
+            drawMeme();
+            showEditor();
+        }
+
+        function loadTemplate(templateName) {
+            canvas.width = CANVAS_WIDTH;
+            canvas.height = CANVAS_HEIGHT;
+
+            // Draw the template onto a temporary canvas, then treat it as an image
+            var tempCanvas = document.createElement('canvas');
+            tempCanvas.width = CANVAS_WIDTH;
+            tempCanvas.height = CANVAS_HEIGHT;
+            var tempCtx = tempCanvas.getContext('2d');
+
+            if (templates[templateName]) {
+                templates[templateName](tempCtx, CANVAS_WIDTH, CANVAS_HEIGHT);
+            }
+
+            var img = new Image();
+            img.onload = function() {
+                loadImageToCanvas(img);
+            };
+            img.src = tempCanvas.toDataURL('image/png');
+        }
+
+        // File upload handler
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    loadImageToCanvas(img);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // Template button handlers
+        var templateBtns = document.querySelectorAll('[data-template]');
+        for (var i = 0; i < templateBtns.length; i++) {
+            templateBtns[i].addEventListener('click', function() {
+                loadTemplate(this.getAttribute('data-template'));
+            });
+        }
+
+        // Color button handlers
+        var colorBtns = document.querySelectorAll('.color-btn');
+        for (var c = 0; c < colorBtns.length; c++) {
+            colorBtns[c].addEventListener('click', function() {
+                textColor = this.getAttribute('data-color');
+                customColorInput.value = textColor;
+                // Highlight active
+                for (var k = 0; k < colorBtns.length; k++) {
+                    colorBtns[k].style.outline = 'none';
+                }
+                this.style.outline = '3px solid var(--primary)';
+                drawMeme();
+            });
+        }
+
+        customColorInput.addEventListener('input', function() {
+            textColor = customColorInput.value;
+            for (var k = 0; k < colorBtns.length; k++) {
+                colorBtns[k].style.outline = 'none';
+            }
+            drawMeme();
+        });
+
+        // Real-time preview listeners
+        topTextInput.addEventListener('input', drawMeme);
+        bottomTextInput.addEventListener('input', drawMeme);
+        fontSizeInput.addEventListener('input', function() {
+            fontSizeLabel.textContent = fontSizeInput.value + 'px';
+            drawMeme();
+        });
+        strokeWidthSelect.addEventListener('change', drawMeme);
+        strokeColorSelect.addEventListener('change', drawMeme);
+
+        // Download handler
+        downloadBtn.addEventListener('click', function() {
+            var link = document.createElement('a');
+            link.download = 'meme.png';
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+
+        // Reset handler
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            topTextInput.value = '';
+            bottomTextInput.value = '';
+            fontSizeInput.value = 40;
+            fontSizeLabel.textContent = '40px';
+            textColor = '#FFFFFF';
+            customColorInput.value = '#FFFFFF';
+            strokeWidthSelect.value = '2';
+            strokeColorSelect.value = '#000000';
+            for (var k = 0; k < colorBtns.length; k++) {
+                colorBtns[k].style.outline = 'none';
+            }
+            fileInput.value = '';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            editorSection.style.display = 'none';
+            sourceSection.style.display = 'block';
+        });
+
+        // Set initial active color indicator on white
+        if (colorBtns.length > 0) {
+            colorBtns[0].style.outline = '3px solid var(--primary)';
+        }
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
