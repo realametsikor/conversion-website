@@ -10,6 +10,7 @@ function renderHeader() {
                 <a href="/image-tools">Image Tools</a>
                 <a href="/calculators">Calculators</a>
                 <a href="/ai-tools">AI Tools</a>
+                <a href="/student-tools">Student Tools</a>
                 <a href="/all-tools">All Tools</a>
                 <a href="/blog">Blog</a>
             </nav>

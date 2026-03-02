@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citation Generator - Create APA, MLA, Chicago Citations Free | ToolsNest</title>
+    <meta name="description" content="Generate accurate citations in APA 7th, MLA 9th, Chicago, and Harvard formats. Supports books, journals, websites, and videos. Free, no sign-up required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/student-tools/citation-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Citation Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Citation Generator</h1>
+                <p class="text-center mb-3">Create properly formatted citations in APA, MLA, Chicago, and Harvard styles. Works entirely in your browser -- no API calls, no sign-up needed.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+
+                    <!-- Citation Format Selector -->
+                    <div class="form-group">
+                        <label>Citation Format</label>
+                        <div id="format-selector" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">
+                                <input type="radio" name="cite-format" value="apa" checked> APA 7th
+                            </label>
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">
+                                <input type="radio" name="cite-format" value="mla"> MLA 9th
+                            </label>
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">
+                                <input type="radio" name="cite-format" value="chicago"> Chicago
+                            </label>
+                            <label style="display: inline-flex; align-items: center; gap: 0.35rem; cursor: pointer; padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">
+                                <input type="radio" name="cite-format" value="harvard"> Harvard
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Source Type -->
+                    <div class="form-group">
+                        <label for="source-type">Source Type</label>
+                        <select id="source-type" class="form-input">
+                            <option value="book">Book</option>
+                            <option value="journal">Journal Article</option>
+                            <option value="website">Website</option>
+                            <option value="video">Video</option>
+                        </select>
+                    </div>
+
+                    <!-- Author(s) -->
+                    <div class="form-group">
+                        <label for="authors">Author(s) <span style="font-weight: 400; color: var(--text-muted); font-size: 0.85rem;">-- separate multiple authors with semicolons</span></label>
+                        <input type="text" id="authors" class="form-input" placeholder="e.g. John Smith; Jane Doe">
+                    </div>
+
+                    <!-- Title -->
+                    <div class="form-group">
+                        <label for="source-title">Title</label>
+                        <input type="text" id="source-title" class="form-input" placeholder="Title of the work">
+                    </div>
+
+                    <!-- Publisher / Journal Name -->
+                    <div class="form-group" id="group-publisher">
+                        <label for="publisher" id="label-publisher">Publisher</label>
+                        <input type="text" id="publisher" class="form-input" placeholder="Publisher name">
+                    </div>
+
+                    <!-- Year -->
+                    <div class="form-group">
+                        <label for="year">Year</label>
+                        <input type="text" id="year" class="form-input" placeholder="e.g. 2024">
+                    </div>
+
+                    <!-- Edition (books only) -->
+                    <div class="form-group" id="group-edition">
+                        <label for="edition">Edition <span style="font-weight: 400; color: var(--text-muted); font-size: 0.85rem;">-- optional</span></label>
+                        <input type="text" id="edition" class="form-input" placeholder="e.g. 3">
+                    </div>
+
+                    <!-- Volume (journals only) -->
+                    <div class="form-group" id="group-volume" style="display: none;">
+                        <label for="volume">Volume</label>
+                        <input type="text" id="volume" class="form-input" placeholder="e.g. 12">
+                    </div>
+
+                    <!-- Issue (journals only) -->
+                    <div class="form-group" id="group-issue" style="display: none;">
+                        <label for="issue">Issue</label>
+                        <input type="text" id="issue" class="form-input" placeholder="e.g. 3">
+                    </div>
+
+                    <!-- Page Numbers -->
+                    <div class="form-group" id="group-pages">
+                        <label for="pages">Page Numbers <span style="font-weight: 400; color: var(--text-muted); font-size: 0.85rem;">-- optional</span></label>
+                        <input type="text" id="pages" class="form-input" placeholder="e.g. 45-67">
+                    </div>
+
+                    <!-- URL -->
+                    <div class="form-group" id="group-url">
+                        <label for="url">URL <span style="font-weight: 400; color: var(--text-muted); font-size: 0.85rem;">-- optional for print sources</span></label>
+                        <input type="text" id="url" class="form-input" placeholder="https://example.com/article">
+                    </div>
+
+                    <!-- Access Date -->
+                    <div class="form-group" id="group-access-date" style="display: none;">
+                        <label for="access-date">Access Date</label>
+                        <input type="date" id="access-date" class="form-input">
+                    </div>
+
+                    <button id="generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Citation</button>
+
+                    <!-- Citation Output -->
+                    <div id="citation-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Your Citation</h3>
+                            <div id="citation-text" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary);"></div>
+                            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Citation</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select your desired citation format (APA, MLA, Chicago, or Harvard) using the radio buttons at the top.</li>
+                        <li>Choose the source type -- book, journal article, website, or video. The form fields will adjust automatically.</li>
+                        <li>Fill in the available details such as author(s), title, publisher, year, and any other relevant fields.</li>
+                        <li>Click "Generate Citation" to produce a properly formatted reference.</li>
+                        <li>Click "Copy Citation" to copy the result to your clipboard and paste it into your paper or bibliography.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How accurate are the citations?</h3>
+                        <p>This tool follows the official guidelines for APA 7th Edition, MLA 9th Edition, Chicago (Notes-Bibliography), and Harvard referencing. However, always double-check citations against your institution's specific requirements, as some departments may have additional formatting rules.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I enter multiple authors?</h3>
+                        <p>Separate each author's full name with a semicolon. For example: "John Smith; Jane Doe; Robert Johnson". The tool will handle the proper formatting of author names for each citation style, including the use of "et al." when appropriate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool store my data?</h3>
+                        <p>No. All citation generation happens entirely in your browser using client-side JavaScript. Your information is never sent to any server or stored anywhere.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What source types are supported?</h3>
+                        <p>Currently, the tool supports books, journal articles, websites, and videos. Each source type presents the relevant fields needed for a complete citation. More source types may be added in future updates.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I generate in-text citations?</h3>
+                        <p>This tool generates full reference list entries (the bibliography or works cited entry). For in-text or parenthetical citations, refer to the author-date or numbering conventions described in your chosen style guide.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/student-tools/study-timer" class="related-link">Study Timer</a>
+                    <a href="/student-tools/flashcard-maker" class="related-link">Flashcard Maker</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ---- DOM references ---- */
+        var sourceType = document.getElementById('source-type');
+        var authors = document.getElementById('authors');
+        var sourceTitle = document.getElementById('source-title');
+        var publisher = document.getElementById('publisher');
+        var labelPublisher = document.getElementById('label-publisher');
+        var year = document.getElementById('year');
+        var edition = document.getElementById('edition');
+        var volume = document.getElementById('volume');
+        var issue = document.getElementById('issue');
+        var pages = document.getElementById('pages');
+        var url = document.getElementById('url');
+        var accessDate = document.getElementById('access-date');
+        var generateBtn = document.getElementById('generate-btn');
+        var citationOutput = document.getElementById('citation-output');
+        var citationText = document.getElementById('citation-text');
+        var copyBtn = document.getElementById('copy-btn');
+
+        var groupEdition = document.getElementById('group-edition');
+        var groupVolume = document.getElementById('group-volume');
+        var groupIssue = document.getElementById('group-issue');
+        var groupPages = document.getElementById('group-pages');
+        var groupUrl = document.getElementById('group-url');
+        var groupAccessDate = document.getElementById('group-access-date');
+        var groupPublisher = document.getElementById('group-publisher');
+
+        /* ---- Set today's date as default access date ---- */
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+        accessDate.value = yyyy + '-' + mm + '-' + dd;
+
+        /* ---- Show/hide fields based on source type ---- */
+        function updateFields() {
+            var type = sourceType.value;
+
+            groupEdition.style.display = (type === 'book') ? '' : 'none';
+            groupVolume.style.display = (type === 'journal') ? '' : 'none';
+            groupIssue.style.display = (type === 'journal') ? '' : 'none';
+            groupPages.style.display = (type === 'book' || type === 'journal') ? '' : 'none';
+            groupAccessDate.style.display = (type === 'website' || type === 'video') ? '' : 'none';
+
+            /* Always show URL but mark required for website/video */
+            groupUrl.style.display = '';
+
+            /* Update publisher label based on type */
+            if (type === 'journal') {
+                labelPublisher.textContent = 'Journal Name';
+                publisher.placeholder = 'e.g. Journal of Psychology';
+            } else if (type === 'website') {
+                labelPublisher.textContent = 'Website Name';
+                publisher.placeholder = 'e.g. BBC News';
+            } else if (type === 'video') {
+                labelPublisher.textContent = 'Platform / Channel';
+                publisher.placeholder = 'e.g. YouTube; TED';
+            } else {
+                labelPublisher.textContent = 'Publisher';
+                publisher.placeholder = 'Publisher name';
+            }
+        }
+
+        sourceType.addEventListener('change', updateFields);
+        updateFields();
+
+        /* ---- Highlight selected format radio ---- */
+        function highlightFormat() {
+            var labels = document.querySelectorAll('#format-selector label');
+            for (var i = 0; i < labels.length; i++) {
+                var radio = labels[i].querySelector('input[type="radio"]');
+                if (radio.checked) {
+                    labels[i].style.borderColor = 'var(--primary)';
+                    labels[i].style.background = '#EFF6FF';
+                } else {
+                    labels[i].style.borderColor = 'var(--border)';
+                    labels[i].style.background = 'transparent';
+                }
+            }
+        }
+
+        var formatRadios = document.querySelectorAll('input[name="cite-format"]');
+        for (var r = 0; r < formatRadios.length; r++) {
+            formatRadios[r].addEventListener('change', highlightFormat);
+        }
+        highlightFormat();
+
+        /* ---- Helper: get selected format ---- */
+        function getFormat() {
+            var radios = document.querySelectorAll('input[name="cite-format"]');
+            for (var i = 0; i < radios.length; i++) {
+                if (radios[i].checked) return radios[i].value;
+            }
+            return 'apa';
+        }
+
+        /* ---- Helper: parse authors string into array of {first, last} ---- */
+        function parseAuthors(str) {
+            if (!str.trim()) return [];
+            var parts = str.split(';');
+            var result = [];
+            for (var i = 0; i < parts.length; i++) {
+                var name = parts[i].trim();
+                if (!name) continue;
+                var words = name.split(/\s+/);
+                if (words.length === 1) {
+                    result.push({ first: '', last: words[0] });
+                } else {
+                    var last = words[words.length - 1];
+                    var first = words.slice(0, words.length - 1).join(' ');
+                    result.push({ first: first, last: last });
+                }
+            }
+            return result;
+        }
+
+        /* ---- Helper: get first initial(s) from first name ---- */
+        function getInitials(firstName) {
+            if (!firstName) return '';
+            var parts = firstName.split(/[\s.-]+/).filter(function(p) { return p.length > 0; });
+            return parts.map(function(p) { return p.charAt(0).toUpperCase() + '.'; }).join(' ');
+        }
+
+        /* ---- Helper: format a date string nicely ---- */
+        function formatDate(dateStr, style) {
+            if (!dateStr) return '';
+            var d = new Date(dateStr + 'T00:00:00');
+            if (isNaN(d.getTime())) return dateStr;
+            var months = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+            var monthsShort = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June',
+                               'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
+            var day = d.getDate();
+            var month = d.getMonth();
+            var yr = d.getFullYear();
+
+            if (style === 'mla') {
+                return day + ' ' + monthsShort[month] + ' ' + yr;
+            } else if (style === 'chicago') {
+                return months[month] + ' ' + day + ', ' + yr;
+            } else {
+                /* APA, Harvard */
+                return months[month] + ' ' + day + ', ' + yr;
+            }
+        }
+
+        /* ---- Helper: italicize text for output ---- */
+        function italic(text) {
+            return '<i>' + escapeHtml(text) + '</i>';
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        /* ================================================
+           CITATION FORMATTERS
+           ================================================ */
+
+        /* ---- APA 7th Edition ---- */
+        function formatAPA(data) {
+            var parts = [];
+            var authorList = data.authors;
+
+            /* Authors */
+            if (authorList.length === 0) {
+                /* no author */
+            } else if (authorList.length === 1) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first)));
+            } else if (authorList.length === 2) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first))
+                    + ', &amp; ' + escapeHtml(authorList[1].last) + ', ' + escapeHtml(getInitials(authorList[1].first)));
+            } else if (authorList.length <= 20) {
+                var apaAuthors = [];
+                for (var i = 0; i < authorList.length - 1; i++) {
+                    apaAuthors.push(escapeHtml(authorList[i].last) + ', ' + escapeHtml(getInitials(authorList[i].first)));
+                }
+                var lastA = authorList[authorList.length - 1];
+                apaAuthors.push('&amp; ' + escapeHtml(lastA.last) + ', ' + escapeHtml(getInitials(lastA.first)));
+                parts.push(apaAuthors.join(', '));
+            } else {
+                /* 21+ authors: first 19, ..., last */
+                var apaAuthors2 = [];
+                for (var i2 = 0; i2 < 19; i2++) {
+                    apaAuthors2.push(escapeHtml(authorList[i2].last) + ', ' + escapeHtml(getInitials(authorList[i2].first)));
+                }
+                var lastA2 = authorList[authorList.length - 1];
+                apaAuthors2.push('. . . ' + escapeHtml(lastA2.last) + ', ' + escapeHtml(getInitials(lastA2.first)));
+                parts.push(apaAuthors2.join(', '));
+            }
+
+            /* Year */
+            if (data.year) {
+                parts.push('(' + escapeHtml(data.year) + ').');
+            } else {
+                parts.push('(n.d.).');
+            }
+
+            var type = data.type;
+
+            if (type === 'book') {
+                /* Title in italics */
+                var titleStr = italic(data.title);
+                if (data.edition) {
+                    titleStr += ' (' + escapeHtml(data.edition) + (data.edition.match(/\d$/) ? 'th' : '') + ' ed.)';
+                }
+                parts.push(titleStr + '.');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+                if (data.url) parts.push(escapeHtml(data.url));
+            } else if (type === 'journal') {
+                /* Article title (not italic), journal name italic */
+                parts.push(escapeHtml(data.title) + '.');
+                var journalPart = italic(data.publisher);
+                if (data.volume) {
+                    journalPart += ', ' + italic(data.volume);
+                }
+                if (data.issue) {
+                    journalPart += '(' + escapeHtml(data.issue) + ')';
+                }
+                if (data.pages) {
+                    journalPart += ', ' + escapeHtml(data.pages);
+                }
+                parts.push(journalPart + '.');
+                if (data.url) parts.push(escapeHtml(data.url));
+            } else if (type === 'website') {
+                parts.push(escapeHtml(data.title) + '.');
+                if (data.publisher) parts.push(italic(data.publisher) + '.');
+                if (data.url) parts.push(escapeHtml(data.url));
+            } else if (type === 'video') {
+                parts.push(escapeHtml(data.title) + ' [Video].');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+                if (data.url) parts.push(escapeHtml(data.url));
+            }
+
+            return parts.join(' ');
+        }
+
+        /* ---- MLA 9th Edition ---- */
+        function formatMLA(data) {
+            var parts = [];
+            var authorList = data.authors;
+
+            /* Authors */
+            if (authorList.length === 1) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first) + '.');
+            } else if (authorList.length === 2) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first)
+                    + ', and ' + escapeHtml(authorList[1].first) + ' ' + escapeHtml(authorList[1].last) + '.');
+            } else if (authorList.length >= 3) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first) + ', et al.');
+            }
+
+            var type = data.type;
+
+            if (type === 'book') {
+                parts.push(italic(data.title) + '.');
+                if (data.edition) {
+                    parts.push(escapeHtml(data.edition) + (data.edition.match(/\d$/) ? 'th' : '') + ' ed.,');
+                }
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + ',');
+                if (data.year) parts.push(escapeHtml(data.year) + '.');
+            } else if (type === 'journal') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                var journalPart = italic(data.publisher);
+                if (data.volume) {
+                    journalPart += ', vol. ' + escapeHtml(data.volume);
+                }
+                if (data.issue) {
+                    journalPart += ', no. ' + escapeHtml(data.issue);
+                }
+                if (data.year) {
+                    journalPart += ', ' + escapeHtml(data.year);
+                }
+                if (data.pages) {
+                    journalPart += ', pp. ' + escapeHtml(data.pages);
+                }
+                parts.push(journalPart + '.');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+            } else if (type === 'website') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                if (data.publisher) parts.push(italic(data.publisher) + ',');
+                if (data.year) parts.push(escapeHtml(data.year) + ',');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+                if (data.accessDate) parts.push('Accessed ' + formatDate(data.accessDate, 'mla') + '.');
+            } else if (type === 'video') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                if (data.publisher) parts.push(italic(data.publisher) + ',');
+                if (data.year) parts.push(escapeHtml(data.year) + ',');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+            }
+
+            return parts.join(' ');
+        }
+
+        /* ---- Chicago (Notes-Bibliography) ---- */
+        function formatChicago(data) {
+            var parts = [];
+            var authorList = data.authors;
+
+            /* Authors: first author Last, First; subsequent First Last */
+            if (authorList.length === 1) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first) + '.');
+            } else if (authorList.length === 2) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first)
+                    + ', and ' + escapeHtml(authorList[1].first) + ' ' + escapeHtml(authorList[1].last) + '.');
+            } else if (authorList.length === 3) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first)
+                    + ', ' + escapeHtml(authorList[1].first) + ' ' + escapeHtml(authorList[1].last)
+                    + ', and ' + escapeHtml(authorList[2].first) + ' ' + escapeHtml(authorList[2].last) + '.');
+            } else if (authorList.length >= 4) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(authorList[0].first) + ', et al.');
+            }
+
+            var type = data.type;
+
+            if (type === 'book') {
+                var titleStr = italic(data.title) + '.';
+                parts.push(titleStr);
+                if (data.edition) {
+                    parts.push(escapeHtml(data.edition) + (data.edition.match(/\d$/) ? 'th' : '') + ' ed.');
+                }
+                if (data.publisher) {
+                    var pubStr = escapeHtml(data.publisher);
+                    if (data.year) pubStr += ', ' + escapeHtml(data.year);
+                    parts.push(pubStr + '.');
+                } else if (data.year) {
+                    parts.push(escapeHtml(data.year) + '.');
+                }
+            } else if (type === 'journal') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                var journalPart = italic(data.publisher);
+                if (data.volume) journalPart += ' ' + escapeHtml(data.volume);
+                if (data.issue) journalPart += ', no. ' + escapeHtml(data.issue);
+                if (data.year) journalPart += ' (' + escapeHtml(data.year) + ')';
+                if (data.pages) journalPart += ': ' + escapeHtml(data.pages);
+                parts.push(journalPart + '.');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+            } else if (type === 'website') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+                if (data.year) parts.push(escapeHtml(data.year) + '.');
+                if (data.accessDate) parts.push('Accessed ' + formatDate(data.accessDate, 'chicago') + '.');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+            } else if (type === 'video') {
+                parts.push('&ldquo;' + escapeHtml(data.title) + '.&rdquo;');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+                if (data.year) parts.push(escapeHtml(data.year) + '.');
+                if (data.url) parts.push(escapeHtml(data.url) + '.');
+            }
+
+            return parts.join(' ');
+        }
+
+        /* ---- Harvard ---- */
+        function formatHarvard(data) {
+            var parts = [];
+            var authorList = data.authors;
+
+            /* Authors: Last, F.I. */
+            if (authorList.length === 1) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first)));
+            } else if (authorList.length === 2) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first))
+                    + ' and ' + escapeHtml(authorList[1].last) + ', ' + escapeHtml(getInitials(authorList[1].first)));
+            } else if (authorList.length === 3) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first))
+                    + ', ' + escapeHtml(authorList[1].last) + ', ' + escapeHtml(getInitials(authorList[1].first))
+                    + ' and ' + escapeHtml(authorList[2].last) + ', ' + escapeHtml(getInitials(authorList[2].first)));
+            } else if (authorList.length >= 4) {
+                parts.push(escapeHtml(authorList[0].last) + ', ' + escapeHtml(getInitials(authorList[0].first)) + ' et al.');
+            }
+
+            /* Year */
+            if (data.year) {
+                parts.push('(' + escapeHtml(data.year) + ')');
+            } else {
+                parts.push('(n.d.)');
+            }
+
+            var type = data.type;
+
+            if (type === 'book') {
+                var titleStr = italic(data.title);
+                if (data.edition) {
+                    titleStr += ', ' + escapeHtml(data.edition) + (data.edition.match(/\d$/) ? 'th' : '') + ' edn';
+                }
+                parts.push(titleStr + '.');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+            } else if (type === 'journal') {
+                parts.push('&lsquo;' + escapeHtml(data.title) + '&rsquo;,');
+                var journalPart = italic(data.publisher);
+                if (data.volume) journalPart += ', ' + escapeHtml(data.volume);
+                if (data.issue) journalPart += '(' + escapeHtml(data.issue) + ')';
+                if (data.pages) journalPart += ', pp. ' + escapeHtml(data.pages);
+                parts.push(journalPart + '.');
+                if (data.url) parts.push('Available at: ' + escapeHtml(data.url));
+                if (data.accessDate) parts.push('(Accessed: ' + formatDate(data.accessDate, 'harvard') + ').');
+            } else if (type === 'website') {
+                parts.push(escapeHtml(data.title) + '.');
+                if (data.publisher) parts.push(italic(data.publisher) + '.');
+                if (data.url) parts.push('Available at: ' + escapeHtml(data.url));
+                if (data.accessDate) parts.push('(Accessed: ' + formatDate(data.accessDate, 'harvard') + ').');
+            } else if (type === 'video') {
+                parts.push(escapeHtml(data.title) + ' [Video].');
+                if (data.publisher) parts.push(escapeHtml(data.publisher) + '.');
+                if (data.url) parts.push('Available at: ' + escapeHtml(data.url));
+                if (data.accessDate) parts.push('(Accessed: ' + formatDate(data.accessDate, 'harvard') + ').');
+            }
+
+            return parts.join(' ');
+        }
+
+        /* ================================================
+           GENERATE CITATION
+           ================================================ */
+        generateBtn.addEventListener('click', function() {
+            var titleVal = sourceTitle.value.trim();
+
+            if (!titleVal) {
+                citationOutput.style.display = 'block';
+                citationText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter at least a title to generate a citation.</p>';
+                return;
+            }
+
+            var data = {
+                type: sourceType.value,
+                authors: parseAuthors(authors.value),
+                title: titleVal,
+                publisher: publisher.value.trim(),
+                year: year.value.trim(),
+                edition: edition.value.trim(),
+                volume: volume.value.trim(),
+                issue: issue.value.trim(),
+                pages: pages.value.trim(),
+                url: url.value.trim(),
+                accessDate: accessDate.value
+            };
+
+            var format = getFormat();
+            var result = '';
+
+            if (format === 'apa') {
+                result = formatAPA(data);
+            } else if (format === 'mla') {
+                result = formatMLA(data);
+            } else if (format === 'chicago') {
+                result = formatChicago(data);
+            } else if (format === 'harvard') {
+                result = formatHarvard(data);
+            }
+
+            citationOutput.style.display = 'block';
+            citationText.innerHTML = '<p style="margin: 0; color: var(--text-main); line-height: 1.8; padding-left: 2em; text-indent: -2em;">' + result + '</p>';
+        });
+
+        /* ================================================
+           COPY CITATION
+           ================================================ */
+        copyBtn.addEventListener('click', function() {
+            var text = citationText.textContent || citationText.innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Citation'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Citation'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
