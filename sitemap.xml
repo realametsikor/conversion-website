@@ -526,6 +526,13 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.usetoolnest.com/image-tools/background-remover</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/about</loc>
+    <priority>0.5</priority>
     <loc>https://www.usetoolnest.com/student-tools/study-timer</loc>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
