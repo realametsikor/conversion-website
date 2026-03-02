@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Checksum Generator - Free Online | ToolsNest</title>
+    <meta name="description" content="Generate MD5, SHA-1, SHA-256, and SHA-512 checksums for any file online for free. Verify file integrity, detect tampering, and compare hashes instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/file-checksum-generator">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; File Checksum Generator
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>File Checksum Generator</h1>
+                        <p style="margin-bottom:1.5rem;">Generate MD5, SHA-1, SHA-256, and SHA-512 checksums for any file. Verify file integrity and detect tampering by comparing cryptographic hashes.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128274;</div>
+                                <h3>Drag & Drop any file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Any file type is accepted</p>
+                            </div>
+
+                            <div id="processing-area" style="display:none;">
+                                <div id="file-info-proc" style="margin-bottom:1rem;"></div>
+                                <p style="font-weight:600;margin-bottom:0.75rem;">Generating checksums...</p>
+                                <div style="background:var(--border);border-radius:20px;height:12px;width:100%;max-width:400px;margin:0 auto;overflow:hidden;">
+                                    <div id="progress-bar" style="background:var(--primary);height:100%;width:0%;border-radius:20px;transition:width 0.3s ease;"></div>
+                                </div>
+                                <p id="progress-text" style="margin-top:0.75rem;font-size:0.9rem;color:var(--text-muted);">Reading file...</p>
+                            </div>
+
+                            <div id="result-area" style="display:none;">
+                                <div id="file-info" style="margin-bottom:1.5rem;padding:1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:left;"></div>
+
+                                <div id="checksums-container" style="text-align:left;"></div>
+
+                                <div style="margin-top:1.5rem;padding:1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);text-align:left;">
+                                    <h3 style="margin-bottom:0.75rem;font-size:1rem;">Verify Checksum</h3>
+                                    <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem;">Paste an expected checksum below to compare against the generated values:</p>
+                                    <div style="display:flex;gap:0.5rem;">
+                                        <input type="text" id="verify-input" placeholder="Paste expected checksum here..." style="flex:1;padding:0.5rem 0.75rem;border:1px solid var(--border);border-radius:var(--radius-sm);font-family:monospace;font-size:0.8rem;">
+                                        <button id="verify-btn" class="btn btn-primary" style="white-space:nowrap;">Verify</button>
+                                    </div>
+                                    <div id="verify-result" style="margin-top:0.75rem;display:none;"></div>
+                                </div>
+
+                                <div style="margin-top:1.5rem;">
+                                    <button id="reset-btn" class="btn btn-outline">Check Another File</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Generate File Checksums</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select File" or drag and drop any file into the upload area above.</li>
+                            <li>The tool reads your file and computes MD5, SHA-1, SHA-256, and SHA-512 hashes using cryptographic algorithms.</li>
+                            <li>Copy any checksum with the "Copy" button, or paste an expected hash into the verify section to compare.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>What is a file checksum?</h3>
+                            <p>A checksum (or hash) is a fixed-length string generated from a file's contents using a cryptographic algorithm. Even a tiny change in the file produces a completely different checksum, making it useful for verifying file integrity and detecting corruption or tampering.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Which checksum algorithm should I use?</h3>
+                            <p>SHA-256 is the most commonly recommended algorithm for general use. It offers a strong balance of security and performance. SHA-512 provides even more security. MD5 and SHA-1 are included for compatibility but are considered cryptographically weaker.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Are the checksums computed locally?</h3>
+                            <p>Yes. All checksum calculations happen entirely in your browser using the Web Crypto API (for SHA algorithms) and a JavaScript implementation (for MD5). Your files are never uploaded to any server.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Can I verify a downloaded file with this tool?</h3>
+                            <p>Absolutely. Upload the downloaded file, then paste the checksum provided by the file source into the "Verify Checksum" field. The tool will tell you if they match, confirming the file was not corrupted or tampered with during download.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a file size limit?</h3>
+                            <p>There is no strict limit, but very large files (over 2GB) may be slow to process since the entire file must be read into browser memory. For most files, checksum generation is nearly instant.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/file-metadata-remover" class="related-link">File Metadata Remover</a>
+                            <a href="/file-tools/batch-file-renamer" class="related-link">Batch File Renamer</a>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/csv-to-excel" class="related-link">CSV to Excel</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var processingArea = document.getElementById('processing-area');
+        var resultArea = document.getElementById('result-area');
+        var progressBar = document.getElementById('progress-bar');
+        var progressText = document.getElementById('progress-text');
+        var fileInfoProc = document.getElementById('file-info-proc');
+        var fileInfo = document.getElementById('file-info');
+        var checksumsContainer = document.getElementById('checksums-container');
+        var verifyInput = document.getElementById('verify-input');
+        var verifyBtn = document.getElementById('verify-btn');
+        var verifyResult = document.getElementById('verify-result');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var generatedChecksums = {};
+
+        /* MD5 implementation (RFC 1321) */
+        function md5(buffer) {
+            var bytes = new Uint8Array(buffer);
+            function safeAdd(x, y) { var lsw = (x & 0xFFFF) + (y & 0xFFFF); return (((x >> 16) + (y >> 16) + (lsw >> 16)) << 16) | (lsw & 0xFFFF); }
+            function bitRotateLeft(num, cnt) { return (num << cnt) | (num >>> (32 - cnt)); }
+            function md5cmn(q, a, b, x, s, t) { return safeAdd(bitRotateLeft(safeAdd(safeAdd(a, q), safeAdd(x, t)), s), b); }
+            function md5ff(a, b, c, d, x, s, t) { return md5cmn((b & c) | ((~b) & d), a, b, x, s, t); }
+            function md5gg(a, b, c, d, x, s, t) { return md5cmn((b & d) | (c & (~d)), a, b, x, s, t); }
+            function md5hh(a, b, c, d, x, s, t) { return md5cmn(b ^ c ^ d, a, b, x, s, t); }
+            function md5ii(a, b, c, d, x, s, t) { return md5cmn(c ^ (b | (~d)), a, b, x, s, t); }
+
+            function binlMD5(x, len) {
+                x[len >> 5] |= 0x80 << (len % 32);
+                x[((len + 64) >>> 9 << 4) + 14] = len;
+                var a = 1732584193, b = -271733879, c = -1732584194, d = 271733878;
+                for (var i = 0; i < x.length; i += 16) {
+                    var olda = a, oldb = b, oldc = c, oldd = d;
+                    a = md5ff(a, b, c, d, x[i], 7, -680876936); d = md5ff(d, a, b, c, x[i+1], 12, -389564586);
+                    c = md5ff(c, d, a, b, x[i+2], 17, 606105819); b = md5ff(b, c, d, a, x[i+3], 22, -1044525330);
+                    a = md5ff(a, b, c, d, x[i+4], 7, -176418897); d = md5ff(d, a, b, c, x[i+5], 12, 1200080426);
+                    c = md5ff(c, d, a, b, x[i+6], 17, -1473231341); b = md5ff(b, c, d, a, x[i+7], 22, -45705983);
+                    a = md5ff(a, b, c, d, x[i+8], 7, 1770035416); d = md5ff(d, a, b, c, x[i+9], 12, -1958414417);
+                    c = md5ff(c, d, a, b, x[i+10], 17, -42063); b = md5ff(b, c, d, a, x[i+11], 22, -1990404162);
+                    a = md5ff(a, b, c, d, x[i+12], 7, 1804603682); d = md5ff(d, a, b, c, x[i+13], 12, -40341101);
+                    c = md5ff(c, d, a, b, x[i+14], 17, -1502002290); b = md5ff(b, c, d, a, x[i+15], 22, 1236535329);
+                    a = md5gg(a, b, c, d, x[i+1], 5, -165796510); d = md5gg(d, a, b, c, x[i+6], 9, -1069501632);
+                    c = md5gg(c, d, a, b, x[i+11], 14, 643717713); b = md5gg(b, c, d, a, x[i], 20, -373897302);
+                    a = md5gg(a, b, c, d, x[i+5], 5, -701558691); d = md5gg(d, a, b, c, x[i+10], 9, 38016083);
+                    c = md5gg(c, d, a, b, x[i+15], 14, -660478335); b = md5gg(b, c, d, a, x[i+4], 20, -405537848);
+                    a = md5gg(a, b, c, d, x[i+9], 5, 568446438); d = md5gg(d, a, b, c, x[i+14], 9, -1019803690);
+                    c = md5gg(c, d, a, b, x[i+3], 14, -187363961); b = md5gg(b, c, d, a, x[i+8], 20, 1163531501);
+                    a = md5gg(a, b, c, d, x[i+13], 5, -1444681467); d = md5gg(d, a, b, c, x[i+2], 9, -51403784);
+                    c = md5gg(c, d, a, b, x[i+7], 14, 1735328473); b = md5gg(b, c, d, a, x[i+12], 20, -1926607734);
+                    a = md5hh(a, b, c, d, x[i+5], 4, -378558); d = md5hh(d, a, b, c, x[i+8], 11, -2022574463);
+                    c = md5hh(c, d, a, b, x[i+11], 16, 1839030562); b = md5hh(b, c, d, a, x[i+14], 23, -35309556);
+                    a = md5hh(a, b, c, d, x[i+1], 4, -1530992060); d = md5hh(d, a, b, c, x[i+4], 11, 1272893353);
+                    c = md5hh(c, d, a, b, x[i+7], 16, -155497632); b = md5hh(b, c, d, a, x[i+10], 23, -1094730640);
+                    a = md5hh(a, b, c, d, x[i+13], 4, 681279174); d = md5hh(d, a, b, c, x[i], 11, -358537222);
+                    c = md5hh(c, d, a, b, x[i+3], 16, -722521979); b = md5hh(b, c, d, a, x[i+6], 23, 76029189);
+                    a = md5hh(a, b, c, d, x[i+9], 4, -640364487); d = md5hh(d, a, b, c, x[i+12], 11, -421815835);
+                    c = md5hh(c, d, a, b, x[i+15], 16, 530742520); b = md5hh(b, c, d, a, x[i+2], 23, -995338651);
+                    a = md5ii(a, b, c, d, x[i], 6, -198630844); d = md5ii(d, a, b, c, x[i+7], 10, 1126891415);
+                    c = md5ii(c, d, a, b, x[i+14], 15, -1416354905); b = md5ii(b, c, d, a, x[i+5], 21, -57434055);
+                    a = md5ii(a, b, c, d, x[i+12], 6, 1700485571); d = md5ii(d, a, b, c, x[i+3], 10, -1894986606);
+                    c = md5ii(c, d, a, b, x[i+10], 15, -1051523); b = md5ii(b, c, d, a, x[i+1], 21, -2054922799);
+                    a = md5ii(a, b, c, d, x[i+8], 6, 1873313359); d = md5ii(d, a, b, c, x[i+15], 10, -30611744);
+                    c = md5ii(c, d, a, b, x[i+6], 15, -1560198380); b = md5ii(b, c, d, a, x[i+13], 21, 1309151649);
+                    a = md5ii(a, b, c, d, x[i+4], 6, -145523070); d = md5ii(d, a, b, c, x[i+11], 10, -1120210379);
+                    c = md5ii(c, d, a, b, x[i+2], 15, 718787259); b = md5ii(b, c, d, a, x[i+9], 21, -343485551);
+                    a = safeAdd(a, olda); b = safeAdd(b, oldb); c = safeAdd(c, oldc); d = safeAdd(d, oldd);
+                }
+                return [a, b, c, d];
+            }
+
+            function bytesToWords(bytes) {
+                var words = [];
+                for (var i = 0; i < bytes.length; i++) {
+                    words[i >> 2] |= bytes[i] << ((i % 4) * 8);
+                }
+                return words;
+            }
+
+            function wordsToHex(words) {
+                var hex = '';
+                var hexChars = '0123456789abcdef';
+                for (var i = 0; i < words.length * 4; i++) {
+                    hex += hexChars[(words[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF];
+                    hex += hexChars[(words[i >> 2] >> ((i % 4) * 8)) & 0xF];
+                }
+                return hex;
+            }
+
+            var wordsInput = bytesToWords(bytes);
+            var hash = binlMD5(wordsInput, bytes.length * 8);
+            return wordsToHex(hash);
+        }
+
+        /* SHA hash using Web Crypto API */
+        function shaHash(algorithm, buffer) {
+            return crypto.subtle.digest(algorithm, buffer).then(function(hashBuffer) {
+                var hashArray = new Uint8Array(hashBuffer);
+                var hex = '';
+                for (var i = 0; i < hashArray.length; i++) {
+                    hex += hashArray[i].toString(16).padStart(2, '0');
+                }
+                return hex;
+            });
+        }
+
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            fileInfoProc.innerHTML = '<strong>' + file.name + '</strong> (' + formatFileSize(file.size) + ')';
+            uploadArea.style.display = 'none';
+            processingArea.style.display = 'block';
+            progressBar.style.width = '10%';
+            progressText.textContent = 'Reading file...';
+
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var buffer = e.target.result;
+                progressBar.style.width = '30%';
+                progressText.textContent = 'Computing checksums...';
+
+                /* Compute MD5 synchronously */
+                var md5Hash = md5(buffer);
+                progressBar.style.width = '50%';
+
+                /* Compute SHA hashes */
+                Promise.all([
+                    shaHash('SHA-1', buffer),
+                    shaHash('SHA-256', buffer),
+                    shaHash('SHA-512', buffer)
+                ]).then(function(results) {
+                    progressBar.style.width = '100%';
+                    progressText.textContent = 'Complete!';
+
+                    generatedChecksums = {
+                        'MD5': md5Hash,
+                        'SHA-1': results[0],
+                        'SHA-256': results[1],
+                        'SHA-512': results[2]
+                    };
+
+                    setTimeout(function() {
+                        showResults(file);
+                    }, 300);
+                }).catch(function(err) {
+                    alert('Error computing checksums: ' + err.message);
+                    resetTool();
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function showResults(file) {
+            /* File info */
+            fileInfo.innerHTML =
+                '<div style="display:flex;gap:1.5rem;flex-wrap:wrap;">' +
+                    '<div><strong>File:</strong> ' + file.name + '</div>' +
+                    '<div><strong>Size:</strong> ' + formatFileSize(file.size) + '</div>' +
+                    '<div><strong>Type:</strong> ' + (file.type || 'Unknown') + '</div>' +
+                '</div>';
+
+            /* Checksums */
+            var html = '';
+            var algorithms = ['MD5', 'SHA-1', 'SHA-256', 'SHA-512'];
+            for (var i = 0; i < algorithms.length; i++) {
+                var algo = algorithms[i];
+                var hash = generatedChecksums[algo];
+                html +=
+                    '<div style="margin-bottom:0.75rem;padding:0.75rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);">' +
+                        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">' +
+                            '<strong style="font-size:0.9rem;">' + algo + '</strong>' +
+                            '<button class="btn btn-outline copy-btn" data-hash="' + hash + '" style="font-size:0.75rem;padding:0.2rem 0.6rem;">Copy</button>' +
+                        '</div>' +
+                        '<div style="font-family:monospace;font-size:0.78rem;word-break:break-all;color:var(--text-muted);line-height:1.5;user-select:all;">' + hash + '</div>' +
+                    '</div>';
+            }
+            checksumsContainer.innerHTML = html;
+
+            /* Add copy button listeners */
+            var copyBtns = checksumsContainer.querySelectorAll('.copy-btn');
+            for (var j = 0; j < copyBtns.length; j++) {
+                copyBtns[j].addEventListener('click', function() {
+                    var hashVal = this.getAttribute('data-hash');
+                    var btn = this;
+                    navigator.clipboard.writeText(hashVal).then(function() {
+                        var origText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(function() { btn.textContent = origText; }, 1500);
+                    }).catch(function() {
+                        /* Fallback */
+                        var ta = document.createElement('textarea');
+                        ta.value = hashVal;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(ta);
+                        var origText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(function() { btn.textContent = origText; }, 1500);
+                    });
+                });
+            }
+
+            processingArea.style.display = 'none';
+            resultArea.style.display = 'block';
+        }
+
+        /* Verify checksum */
+        verifyBtn.addEventListener('click', function() {
+            var expected = verifyInput.value.trim().toLowerCase();
+            if (!expected) {
+                alert('Please paste a checksum to verify.');
+                return;
+            }
+            var matched = false;
+            var matchedAlgo = '';
+            var algorithms = ['MD5', 'SHA-1', 'SHA-256', 'SHA-512'];
+            for (var i = 0; i < algorithms.length; i++) {
+                if (generatedChecksums[algorithms[i]] === expected) {
+                    matched = true;
+                    matchedAlgo = algorithms[i];
+                    break;
+                }
+            }
+            verifyResult.style.display = 'block';
+            if (matched) {
+                verifyResult.innerHTML =
+                    '<div style="padding:0.75rem;background:#ECFDF5;border:1px solid #6EE7B7;border-radius:var(--radius-sm);color:#065F46;">' +
+                        '<strong>Match found!</strong> The provided checksum matches the <strong>' + matchedAlgo + '</strong> hash. The file integrity is verified.' +
+                    '</div>';
+            } else {
+                verifyResult.innerHTML =
+                    '<div style="padding:0.75rem;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:var(--radius-sm);color:#991B1B;">' +
+                        '<strong>No match.</strong> The provided checksum does not match any of the generated hashes. The file may have been modified or corrupted.' +
+                    '</div>';
+            }
+        });
+
+        function resetTool() {
+            fileInput.value = '';
+            generatedChecksums = {};
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Reading file...';
+            verifyInput.value = '';
+            verifyResult.style.display = 'none';
+            verifyResult.innerHTML = '';
+            resultArea.style.display = 'none';
+            processingArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        }
+
+        resetBtn.addEventListener('click', resetTool);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

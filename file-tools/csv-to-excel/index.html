@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to Excel Converter - Free Online | ToolsNest</title>
+    <meta name="description" content="Convert CSV files to Excel spreadsheets (.xlsx) online for free. Preview your data, preserve formatting, and download instantly. No signup required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/csv-to-excel">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main>
+        <section class="section">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; CSV to Excel
+                </div>
+
+                <div class="tool-layout">
+                    <div>
+                        <h1>CSV to Excel Converter</h1>
+                        <p style="margin-bottom:1.5rem;">Convert CSV files to Excel spreadsheets (.xlsx) instantly. Open your data in Excel with proper formatting, column structure, and full compatibility.</p>
+
+                        <div class="tool-workspace" id="tool-workspace">
+                            <div id="upload-area">
+                                <div style="font-size:3rem;margin-bottom:1rem;">&#128196;</div>
+                                <h3>Drag & Drop your CSV file here</h3>
+                                <p style="margin:0.75rem 0;">or</p>
+                                <input type="file" id="file-input" accept=".csv,text/csv" style="display:none;">
+                                <label for="file-input" class="btn btn-primary" style="cursor:pointer;">Select CSV File</label>
+                                <p style="margin-top:1rem;font-size:0.8rem;color:var(--text-muted);">Accepts .csv files</p>
+                            </div>
+
+                            <div id="preview-area" style="display:none;">
+                                <div id="file-stats" style="margin-bottom:1rem;display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;"></div>
+                                <h3 style="margin-bottom:0.75rem;">Data Preview (first 10 rows)</h3>
+                                <div id="table-container" style="overflow-x:auto;margin-bottom:1.5rem;border:1px solid var(--border);border-radius:var(--radius-sm);"></div>
+                                <div style="display:flex;gap:0.75rem;justify-content:center;">
+                                    <button id="download-btn" class="btn btn-accent">Download Excel (.xlsx)</button>
+                                    <button id="reset-btn" class="btn btn-outline">Convert Another</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">How to Convert CSV to Excel</h2>
+                        <ol style="margin:1rem 0 2rem 1.5rem;line-height:2;">
+                            <li>Click "Select CSV File" or drag and drop your CSV file into the upload area above.</li>
+                            <li>Preview your data in the table. The tool shows the first 10 rows along with row and column counts.</li>
+                            <li>Click "Download Excel (.xlsx)" to save the converted spreadsheet to your device.</li>
+                        </ol>
+
+                        <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+                        <h2 style="margin-top:2rem;">Frequently Asked Questions</h2>
+                        <div class="faq-item">
+                            <h3>Does this tool actually create a real .xlsx file?</h3>
+                            <p>Yes! This converter uses the SheetJS library to generate a genuine Excel-compatible .xlsx file. The output can be opened directly in Microsoft Excel, Google Sheets, LibreOffice Calc, and other spreadsheet applications.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is my data uploaded to a server?</h3>
+                            <p>No. All processing happens entirely in your browser using JavaScript. Your CSV data never leaves your device, ensuring complete privacy and security.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>What delimiters are supported?</h3>
+                            <p>The converter automatically handles standard comma-separated CSV files. Most CSV files exported from databases, spreadsheets, and other applications are supported.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Is there a row limit?</h3>
+                            <p>There is no strict row limit, but very large files (hundreds of thousands of rows) may take longer to process depending on your device. The Excel format supports up to 1,048,576 rows.</p>
+                        </div>
+                        <div class="faq-item">
+                            <h3>Will my column headers be preserved?</h3>
+                            <p>Yes. The first row of your CSV file is treated as the header row and is preserved exactly as-is in the Excel output. All data types including numbers, dates, and text are maintained.</p>
+                        </div>
+                    </div>
+
+                    <aside class="tool-sidebar">
+                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Sidebar</div>
+                        <div class="related-tools">
+                            <h3>Related Tools</h3>
+                            <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                            <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                            <a href="/file-tools/compress-pdf" class="related-link">Compress PDF</a>
+                            <a href="/file-tools/html-to-pdf" class="related-link">HTML to PDF</a>
+                            <a href="/file-tools/batch-file-renamer" class="related-link">Batch File Renamer</a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadArea = document.getElementById('upload-area');
+        var previewArea = document.getElementById('preview-area');
+        var fileStats = document.getElementById('file-stats');
+        var tableContainer = document.getElementById('table-container');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var workspace = document.getElementById('tool-workspace');
+        var workbookData = null;
+        var csvFileName = '';
+
+        /* Drag and drop */
+        workspace.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = 'var(--primary)';
+            workspace.style.background = '#EFF6FF';
+        });
+        workspace.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+        });
+        workspace.addEventListener('drop', function(e) {
+            e.preventDefault();
+            workspace.style.borderColor = '';
+            workspace.style.background = '';
+            if (e.dataTransfer.files.length > 0) {
+                handleFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        function handleFile(file) {
+            var ext = file.name.toLowerCase().split('.').pop();
+            if (ext !== 'csv') {
+                alert('Please select a CSV file.');
+                return;
+            }
+            csvFileName = file.name;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var csvText = e.target.result;
+                processCSV(csvText, file);
+            };
+            reader.readAsText(file);
+        }
+
+        function processCSV(csvText, file) {
+            /* Parse CSV using SheetJS */
+            var wb = XLSX.read(csvText, { type: 'string' });
+            workbookData = wb;
+            var ws = wb.Sheets[wb.SheetNames[0]];
+            var jsonData = XLSX.utils.sheet_to_json(ws, { header: 1 });
+
+            var totalRows = jsonData.length;
+            var totalCols = 0;
+            for (var i = 0; i < jsonData.length; i++) {
+                if (jsonData[i].length > totalCols) totalCols = jsonData[i].length;
+            }
+
+            /* Show file stats */
+            var sizeKB = (file.size / 1024).toFixed(1);
+            fileStats.innerHTML =
+                '<div style="text-align:center;padding:0.5rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);">' +
+                    '<div style="font-size:1.5rem;font-weight:700;color:var(--primary);">' + totalRows + '</div>' +
+                    '<div style="font-size:0.8rem;color:var(--text-muted);">Rows</div>' +
+                '</div>' +
+                '<div style="text-align:center;padding:0.5rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);">' +
+                    '<div style="font-size:1.5rem;font-weight:700;color:var(--primary);">' + totalCols + '</div>' +
+                    '<div style="font-size:0.8rem;color:var(--text-muted);">Columns</div>' +
+                '</div>' +
+                '<div style="text-align:center;padding:0.5rem 1rem;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);">' +
+                    '<div style="font-size:1.5rem;font-weight:700;color:var(--primary);">' + sizeKB + '</div>' +
+                    '<div style="font-size:0.8rem;color:var(--text-muted);">KB</div>' +
+                '</div>';
+
+            /* Build preview table (first 10 rows) */
+            var previewRows = jsonData.slice(0, 10);
+            var html = '<table style="width:100%;border-collapse:collapse;font-size:0.85rem;">';
+            for (var r = 0; r < previewRows.length; r++) {
+                html += '<tr>';
+                var tag = r === 0 ? 'th' : 'td';
+                for (var c = 0; c < totalCols; c++) {
+                    var val = previewRows[r][c] !== undefined ? previewRows[r][c] : '';
+                    var cellStyle = 'padding:0.4rem 0.75rem;border:1px solid var(--border);text-align:left;';
+                    if (r === 0) cellStyle += 'background:var(--primary);color:#fff;font-weight:600;';
+                    else if (r % 2 === 0) cellStyle += 'background:var(--bg);';
+                    html += '<' + tag + ' style="' + cellStyle + '">' + String(val).replace(/</g, '&lt;').replace(/>/g, '&gt;') + '</' + tag + '>';
+                }
+                html += '</tr>';
+            }
+            html += '</table>';
+            if (totalRows > 10) {
+                html += '<p style="text-align:center;font-size:0.8rem;color:var(--text-muted);padding:0.5rem;">Showing 10 of ' + totalRows + ' rows</p>';
+            }
+            tableContainer.innerHTML = html;
+
+            /* Show preview */
+            uploadArea.style.display = 'none';
+            previewArea.style.display = 'block';
+        }
+
+        downloadBtn.addEventListener('click', function() {
+            if (!workbookData) return;
+            var xlsxData = XLSX.write(workbookData, { bookType: 'xlsx', type: 'array' });
+            var blob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = csvFileName.replace(/\.csv$/i, '.xlsx');
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+
+        resetBtn.addEventListener('click', function() {
+            workbookData = null;
+            csvFileName = '';
+            fileInput.value = '';
+            tableContainer.innerHTML = '';
+            fileStats.innerHTML = '';
+            previewArea.style.display = 'none';
+            uploadArea.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
