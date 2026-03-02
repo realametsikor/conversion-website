@@ -12,11 +12,6 @@
 <body data-social-bar>
     <script src="/components/header.js"></script>
 
-    <!-- Ad: Banner Top -->
-    <div class="container">
-        <div class="ad-placeholder ad-banner-top ad-native">Ad Banner Top</div>
-    </div>
-
     <main>
         <!-- 1. Hero with Search -->
         <section class="hero section">
@@ -29,6 +24,11 @@
                 </div>
             </div>
         </section>
+
+        <!-- Ad: Responsive Banner after Hero (high viewability) -->
+        <div class="container">
+            <div class="ad-placeholder ad-responsive ad-native">Ad Banner</div>
+        </div>
 
         <!-- 2. Categories Grid (5) -->
         <section class="section" style="padding-top: 0;">
@@ -94,6 +94,8 @@
                             <p>Convert JPG images to PNG format instantly.</p>
                         </div>
                     </a>
+                    <!-- In-feed ad: blends naturally within the tools grid -->
+                    <div class="ad-placeholder ad-in-feed ad-native">Sponsored</div>
                     <a href="/calculators/gpa-calculator" class="card tool-card">
                         <div class="card-icon">&#127891;</div>
                         <div>
@@ -244,9 +246,9 @@
             </div>
         </section>
 
-        <!-- Ad: Inline -->
+        <!-- Ad: Responsive (between Recently Added and Blog) -->
         <div class="container">
-            <div class="ad-placeholder ad-inline ad-native">Ad Inline</div>
+            <div class="ad-placeholder ad-responsive ad-native">Ad</div>
         </div>
 
         <!-- 7. Blog Preview -->
@@ -272,6 +274,8 @@
                         <p class="mt-1">Resize images for web, social media, and print using a free online tool.</p>
                         <a href="/blog/resize-images-online" class="mt-2" style="display:inline-block; font-size:0.9rem; font-weight:600;">Read More &rarr;</a>
                     </div>
+                    <!-- In-feed ad within blog grid -->
+                    <div class="ad-placeholder ad-in-feed ad-native">Sponsored</div>
                 </div>
             </div>
         </section>

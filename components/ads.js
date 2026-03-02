@@ -5,6 +5,9 @@
    - .ad-banner-top / .ad-between-sections: 728x90 banner ad (iframe)
    - .ad-inline / .ad-native (fallback): Native content widget
    - .ad-sidebar-slot: 160x600 sidebar ad (iframe)
+   - .ad-in-feed: In-feed native ad (blends with content grids)
+   - .ad-responsive: Auto-sizes (728x90 desktop / 300x250 mobile)
+   - .ad-post-action: Shown after user completes an action
    - .ad-social-bar / data-social-bar: Social bar (loaded once globally)
 */
 (function () {
@@ -61,9 +64,24 @@
         (parent || document.body).appendChild(s);
     }
 
+    /* Add professional "Advertisement" disclosure label */
+    function addDisclosure(el) {
+        if (el.querySelector('.ad-disclosure')) return;
+        var label = document.createElement('span');
+        label.className = 'ad-disclosure';
+        label.textContent = 'Advertisement';
+        el.insertBefore(label, el.firstChild);
+    }
+
     /* Mark element as loaded (removes placeholder styling) */
     function markLoaded(el) {
         el.classList.add('ad-loaded');
+        addDisclosure(el);
+    }
+
+    /* Detect mobile viewport */
+    function isMobile() {
+        return window.innerWidth < 768;
     }
 
     /* ── Banner ad (728x90 iframe) ────────────────────────────── */
@@ -77,12 +95,12 @@
     }
 
     /* ── Native content widget ────────────────────────────────── */
-    var nativeLoaded = false;
+    var nativeCount = 0;
     function initNativeAd(el) {
         el.innerHTML = '';
         markLoaded(el);
-        if (!nativeLoaded) {
-            nativeLoaded = true;
+        nativeCount++;
+        if (nativeCount <= 1) {
             var div = document.createElement('div');
             div.id = ADS.native.containerId;
             el.appendChild(div);
@@ -101,6 +119,37 @@
         optScript.textContent = "atOptions = { 'key' : '" + ADS.sidebar.key + "', 'format' : 'iframe', 'height' : " + ADS.sidebar.height + ", 'width' : " + ADS.sidebar.width + ", 'params' : {} };";
         el.appendChild(optScript);
         loadScript(ADS.sidebar.scriptSrc, el);
+    }
+
+    /* ── Responsive ad (auto-sizes: 728x90 on desktop, 300x250 on mobile) ── */
+    function initResponsiveAd(el) {
+        el.innerHTML = '';
+        markLoaded(el);
+        if (isMobile()) {
+            /* Mobile: use native content widget for better RPM */
+            initNativeAd(el);
+        } else {
+            /* Desktop: use banner */
+            initBannerAd(el);
+        }
+    }
+
+    /* ── In-feed ad (blends with content) ──────────────────────── */
+    function initInFeedAd(el) {
+        el.innerHTML = '';
+        markLoaded(el);
+        /* Use native ad for in-feed since it blends better with content */
+        var div = document.createElement('div');
+        div.id = ADS.native.containerId + '-feed-' + Math.random().toString(36).substr(2, 6);
+        el.appendChild(div);
+        /* Fall back to banner if native already used */
+        if (nativeCount > 0) {
+            initBannerAd(el);
+        } else {
+            nativeCount++;
+            div.id = ADS.native.containerId;
+            loadScript(ADS.native.scriptSrc, el);
+        }
     }
 
     /* ── Social bar (global, once) ─────────────────────────────── */
@@ -134,6 +183,27 @@
         for (var k = 0; k < inlines.length; k++) {
             processed.push(inlines[k]);
             (function (el) { lazyLoad(el, initNativeAd); })(inlines[k]);
+        }
+
+        /* Responsive ads → auto-size based on viewport */
+        var responsives = document.querySelectorAll('.ad-responsive');
+        for (var r = 0; r < responsives.length; r++) {
+            processed.push(responsives[r]);
+            (function (el) { lazyLoad(el, initResponsiveAd); })(responsives[r]);
+        }
+
+        /* In-feed ads → blends with content grids */
+        var infeeds = document.querySelectorAll('.ad-in-feed');
+        for (var f = 0; f < infeeds.length; f++) {
+            processed.push(infeeds[f]);
+            (function (el) { lazyLoad(el, initInFeedAd); })(infeeds[f]);
+        }
+
+        /* Post-action ads → shown after tool use */
+        var postActions = document.querySelectorAll('.ad-post-action');
+        for (var p = 0; p < postActions.length; p++) {
+            processed.push(postActions[p]);
+            (function (el) { lazyLoad(el, initResponsiveAd); })(postActions[p]);
         }
 
         /* Any remaining .ad-native elements not yet handled */
