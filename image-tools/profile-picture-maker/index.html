@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Picture Maker Online Free - Crop & Resize | ToolsNest</title>
+    <meta name="description" content="Create perfect profile pictures instantly. Crop to circle or square, resize to standard sizes, add borders. Free, fast, and private — all processing in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/profile-picture-maker/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Profile Picture Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Profile Picture Maker</h1>
+                <p class="text-center mb-3">Create perfectly cropped and sized profile pictures for any platform. Circle or square, with optional borders. Everything happens in your browser.</p>
+
+                <div class="tool-workspace" id="pfp-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Photo</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Source Image</p>
+                            <div id="source-container" style="position: relative; display: inline-block; max-width: 100%; cursor: crosshair; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+                                <img id="source-image" style="display: block; max-width: 100%; max-height: 400px;" alt="Source">
+                                <div id="crop-overlay" style="position: absolute; border: 2px dashed rgba(255,255,255,0.9); box-shadow: 0 0 0 9999px rgba(0,0,0,0.45); pointer-events: none;"></div>
+                            </div>
+                            <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Click and drag on the image to select the crop area.</p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Shape</label>
+                                <select id="shape-select" class="form-input">
+                                    <option value="circle">Circle</option>
+                                    <option value="square">Square</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Output Size</label>
+                                <select id="size-select" class="form-input">
+                                    <option value="100">100 x 100 px</option>
+                                    <option value="200" selected>200 x 200 px</option>
+                                    <option value="400">400 x 400 px</option>
+                                    <option value="500">500 x 500 px</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Border Width (px)</label>
+                                <input type="number" id="border-width" class="form-input" min="0" max="20" value="0" placeholder="0">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Border Color</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <input type="color" id="border-color" value="#ffffff" style="width: 40px; height: 38px; padding: 2px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;">
+                                    <span id="border-color-label" class="text-muted" style="font-size: 0.85rem;">#ffffff</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <button id="generate-btn" class="btn btn-primary" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Generate Profile Picture</button>
+                        </div>
+
+                        <div id="result-section" style="display: none;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main); text-align: center;">Preview</p>
+                            <div style="text-align: center; margin-bottom: 1rem; background: repeating-conic-gradient(#d0d0d0 0% 25%, #f0f0f0 0% 50%) 50% / 16px 16px; padding: 1.5rem; border-radius: var(--radius-sm);">
+                                <canvas id="output-canvas" style="max-width: 100%;"></canvas>
+                            </div>
+                            <div class="text-center">
+                                <a id="download-btn" class="btn btn-accent" download="profile-picture.png">Download PNG</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas id="work-canvas" style="display: none;"></canvas>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" to upload a JPG, PNG, or WebP photo from your device.</li>
+                        <li>Click and drag on the image to select the area you want to crop for your profile picture.</li>
+                        <li>Choose a shape (circle or square) and your desired output size from the dropdowns.</li>
+                        <li>Optionally add a border by setting a width in pixels and picking a color.</li>
+                        <li>Click "Generate Profile Picture" to see a preview of your result.</li>
+                        <li>Click "Download PNG" to save your finished profile picture.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are my photos uploaded to a server?</h3>
+                        <p>No. All processing is done entirely in your browser using the HTML5 Canvas API. Your images never leave your device and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What sizes are available for profile pictures?</h3>
+                        <p>You can export at 100x100, 200x200, 400x400, or 500x500 pixels. These cover the most common profile picture requirements for social media platforms, forums, and messaging apps.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I make a circular profile picture?</h3>
+                        <p>Yes. Select "Circle" from the shape dropdown to crop your image into a perfect circle. The transparent corners are preserved in the downloaded PNG file.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format is the output image?</h3>
+                        <p>Profile pictures are exported as PNG files. PNG supports transparency, which is important for circular crops where the corners need to be transparent.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I add a border to my profile picture?</h3>
+                        <p>Set the "Border Width" to a value greater than 0 (up to 20 pixels) and choose your preferred border color using the color picker. The border will appear around your cropped profile picture.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var sourceImage = document.getElementById('source-image');
+        var sourceContainer = document.getElementById('source-container');
+        var cropOverlay = document.getElementById('crop-overlay');
+        var shapeSelect = document.getElementById('shape-select');
+        var sizeSelect = document.getElementById('size-select');
+        var borderWidthInput = document.getElementById('border-width');
+        var borderColorInput = document.getElementById('border-color');
+        var borderColorLabel = document.getElementById('border-color-label');
+        var generateBtn = document.getElementById('generate-btn');
+        var resultSection = document.getElementById('result-section');
+        var outputCanvas = document.getElementById('output-canvas');
+        var workCanvas = document.getElementById('work-canvas');
+        var downloadBtn = document.getElementById('download-btn');
+
+        var currentImage = null;
+        var naturalWidth = 0;
+        var naturalHeight = 0;
+        var cropStartX = 0;
+        var cropStartY = 0;
+        var cropX = 0;
+        var cropY = 0;
+        var cropSize = 0;
+        var isDragging = false;
+        var hasCrop = false;
+
+        borderColorInput.addEventListener('input', function() {
+            borderColorLabel.textContent = borderColorInput.value;
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || !fileInput.files[0]) return;
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    naturalWidth = img.naturalWidth;
+                    naturalHeight = img.naturalHeight;
+
+                    sourceImage.src = e.target.result;
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+                    resultSection.style.display = 'none';
+                    hasCrop = false;
+
+                    // Set default crop to center square
+                    var minDim = Math.min(naturalWidth, naturalHeight);
+                    cropX = Math.round((naturalWidth - minDim) / 2);
+                    cropY = Math.round((naturalHeight - minDim) / 2);
+                    cropSize = minDim;
+                    hasCrop = true;
+                    updateCropOverlay();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+
+        function getScaleFactors() {
+            var displayWidth = sourceImage.clientWidth;
+            var displayHeight = sourceImage.clientHeight;
+            return {
+                sx: naturalWidth / displayWidth,
+                sy: naturalHeight / displayHeight
+            };
+        }
+
+        function updateCropOverlay() {
+            if (!hasCrop) {
+                cropOverlay.style.display = 'none';
+                return;
+            }
+            var scale = getScaleFactors();
+            var left = cropX / scale.sx;
+            var top = cropY / scale.sy;
+            var size = cropSize / scale.sx;
+
+            cropOverlay.style.display = 'block';
+            cropOverlay.style.left = left + 'px';
+            cropOverlay.style.top = top + 'px';
+            cropOverlay.style.width = size + 'px';
+            cropOverlay.style.height = size + 'px';
+            cropOverlay.style.borderRadius = shapeSelect.value === 'circle' ? '50%' : '0';
+        }
+
+        sourceContainer.addEventListener('mousedown', function(e) {
+            if (e.target !== sourceImage && e.target !== cropOverlay) return;
+            e.preventDefault();
+            var rect = sourceImage.getBoundingClientRect();
+            var scale = getScaleFactors();
+
+            cropStartX = (e.clientX - rect.left) * scale.sx;
+            cropStartY = (e.clientY - rect.top) * scale.sy;
+            isDragging = true;
+            hasCrop = false;
+            cropOverlay.style.display = 'none';
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            var rect = sourceImage.getBoundingClientRect();
+            var scale = getScaleFactors();
+
+            var currentX = (e.clientX - rect.left) * scale.sx;
+            var currentY = (e.clientY - rect.top) * scale.sy;
+
+            // Calculate square crop from drag
+            var dx = currentX - cropStartX;
+            var dy = currentY - cropStartY;
+            var side = Math.min(Math.abs(dx), Math.abs(dy));
+            if (side < 5) return;
+
+            // Determine direction
+            var signX = dx >= 0 ? 1 : -1;
+            var signY = dy >= 0 ? 1 : -1;
+
+            var x = signX >= 0 ? cropStartX : cropStartX - side;
+            var y = signY >= 0 ? cropStartY : cropStartY - side;
+
+            // Clamp to image bounds
+            x = Math.max(0, Math.min(x, naturalWidth - side));
+            y = Math.max(0, Math.min(y, naturalHeight - side));
+            side = Math.min(side, naturalWidth - x, naturalHeight - y);
+
+            cropX = Math.round(x);
+            cropY = Math.round(y);
+            cropSize = Math.round(side);
+            hasCrop = true;
+            updateCropOverlay();
+        });
+
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                if (!hasCrop) {
+                    // If no meaningful drag happened, reset to center crop
+                    var minDim = Math.min(naturalWidth, naturalHeight);
+                    cropX = Math.round((naturalWidth - minDim) / 2);
+                    cropY = Math.round((naturalHeight - minDim) / 2);
+                    cropSize = minDim;
+                    hasCrop = true;
+                    updateCropOverlay();
+                }
+            }
+        });
+
+        // Touch support
+        sourceContainer.addEventListener('touchstart', function(e) {
+            if (e.target !== sourceImage && e.target !== cropOverlay) return;
+            e.preventDefault();
+            var touch = e.touches[0];
+            var rect = sourceImage.getBoundingClientRect();
+            var scale = getScaleFactors();
+
+            cropStartX = (touch.clientX - rect.left) * scale.sx;
+            cropStartY = (touch.clientY - rect.top) * scale.sy;
+            isDragging = true;
+            hasCrop = false;
+            cropOverlay.style.display = 'none';
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            var touch = e.touches[0];
+            var rect = sourceImage.getBoundingClientRect();
+            var scale = getScaleFactors();
+
+            var currentX = (touch.clientX - rect.left) * scale.sx;
+            var currentY = (touch.clientY - rect.top) * scale.sy;
+
+            var dx = currentX - cropStartX;
+            var dy = currentY - cropStartY;
+            var side = Math.min(Math.abs(dx), Math.abs(dy));
+            if (side < 5) return;
+
+            var signX = dx >= 0 ? 1 : -1;
+            var signY = dy >= 0 ? 1 : -1;
+
+            var x = signX >= 0 ? cropStartX : cropStartX - side;
+            var y = signY >= 0 ? cropStartY : cropStartY - side;
+
+            x = Math.max(0, Math.min(x, naturalWidth - side));
+            y = Math.max(0, Math.min(y, naturalHeight - side));
+            side = Math.min(side, naturalWidth - x, naturalHeight - y);
+
+            cropX = Math.round(x);
+            cropY = Math.round(y);
+            cropSize = Math.round(side);
+            hasCrop = true;
+            updateCropOverlay();
+        }, { passive: false });
+
+        document.addEventListener('touchend', function() {
+            if (isDragging) {
+                isDragging = false;
+                if (!hasCrop) {
+                    var minDim = Math.min(naturalWidth, naturalHeight);
+                    cropX = Math.round((naturalWidth - minDim) / 2);
+                    cropY = Math.round((naturalHeight - minDim) / 2);
+                    cropSize = minDim;
+                    hasCrop = true;
+                    updateCropOverlay();
+                }
+            }
+        });
+
+        shapeSelect.addEventListener('change', function() {
+            updateCropOverlay();
+        });
+
+        window.addEventListener('resize', function() {
+            if (hasCrop) updateCropOverlay();
+        });
+
+        generateBtn.addEventListener('click', function() {
+            if (!currentImage || !hasCrop) return;
+
+            var outputSize = parseInt(sizeSelect.value);
+            var borderW = parseInt(borderWidthInput.value) || 0;
+            var borderColor = borderColorInput.value;
+            var shape = shapeSelect.value;
+            var totalSize = outputSize + borderW * 2;
+
+            outputCanvas.width = totalSize;
+            outputCanvas.height = totalSize;
+            var ctx = outputCanvas.getContext('2d');
+
+            // Clear canvas with transparency
+            ctx.clearRect(0, 0, totalSize, totalSize);
+
+            // Draw border if needed
+            if (borderW > 0) {
+                ctx.fillStyle = borderColor;
+                if (shape === 'circle') {
+                    ctx.beginPath();
+                    ctx.arc(totalSize / 2, totalSize / 2, totalSize / 2, 0, Math.PI * 2);
+                    ctx.fill();
+                } else {
+                    ctx.fillRect(0, 0, totalSize, totalSize);
+                }
+            }
+
+            // Create clipping path for the image area
+            ctx.save();
+            if (shape === 'circle') {
+                ctx.beginPath();
+                ctx.arc(totalSize / 2, totalSize / 2, outputSize / 2, 0, Math.PI * 2);
+                ctx.clip();
+            } else {
+                ctx.beginPath();
+                ctx.rect(borderW, borderW, outputSize, outputSize);
+                ctx.clip();
+            }
+
+            // Draw the cropped image
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(
+                currentImage,
+                cropX, cropY, cropSize, cropSize,
+                borderW, borderW, outputSize, outputSize
+            );
+            ctx.restore();
+
+            // For circle shape without border, apply circular mask to whole canvas
+            if (shape === 'circle' && borderW === 0) {
+                // Use a work canvas to apply circular mask
+                workCanvas.width = totalSize;
+                workCanvas.height = totalSize;
+                var wCtx = workCanvas.getContext('2d');
+                wCtx.clearRect(0, 0, totalSize, totalSize);
+
+                wCtx.beginPath();
+                wCtx.arc(totalSize / 2, totalSize / 2, totalSize / 2, 0, Math.PI * 2);
+                wCtx.clip();
+                wCtx.drawImage(outputCanvas, 0, 0);
+
+                ctx.clearRect(0, 0, totalSize, totalSize);
+                ctx.drawImage(workCanvas, 0, 0);
+            }
+
+            // Set canvas display size
+            outputCanvas.style.width = Math.min(totalSize, 300) + 'px';
+            outputCanvas.style.height = Math.min(totalSize, 300) + 'px';
+            if (shape === 'circle') {
+                outputCanvas.style.borderRadius = '50%';
+            } else {
+                outputCanvas.style.borderRadius = '0';
+            }
+
+            // Prepare download link
+            outputCanvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                downloadBtn.href = url;
+                downloadBtn.download = 'profile-picture-' + outputSize + 'x' + outputSize + '.png';
+                resultSection.style.display = 'block';
+            }, 'image/png');
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

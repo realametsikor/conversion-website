@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEX to RGB Converter Online Free - Color Code Converter | ToolsNest</title>
+    <meta name="description" content="Convert HEX color codes to RGB and RGB to HEX instantly. View HSL values, preview colors in real-time, and copy CSS color formats. Free and easy to use.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/hex-rgb-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; HEX &harr; RGB Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">HEX &harr; RGB Color Converter</h1>
+                <p class="text-center mb-3">Convert between HEX and RGB color formats instantly. Preview colors in real-time and copy CSS-ready values. All processing happens in your browser.</p>
+
+                <div class="tool-workspace">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <!-- HEX Input -->
+                        <div class="card" style="padding: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; color: var(--text-main);">HEX Color</h3>
+                            <div class="form-group" style="margin-bottom: 0.5rem;">
+                                <label for="hex-input">HEX Value</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <span style="font-size: 1.2rem; font-weight: 600; color: var(--text-muted);">#</span>
+                                    <input type="text" id="hex-input" class="form-input" maxlength="6" placeholder="FF5733" style="font-family: monospace; font-size: 1.1rem; letter-spacing: 1px;">
+                                </div>
+                            </div>
+                            <div id="hex-error" style="color: #e74c3c; font-size: 0.85rem; min-height: 1.2rem;"></div>
+                            <button id="copy-hex" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;">Copy HEX</button>
+                        </div>
+
+                        <!-- RGB Input -->
+                        <div class="card" style="padding: 1.5rem;">
+                            <h3 style="margin-bottom: 1rem; color: var(--text-main);">RGB Color</h3>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem;">
+                                <div class="form-group" style="margin-bottom: 0.5rem;">
+                                    <label for="r-input">R</label>
+                                    <input type="number" id="r-input" class="form-input" min="0" max="255" placeholder="255" style="font-family: monospace; text-align: center;">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0.5rem;">
+                                    <label for="g-input">G</label>
+                                    <input type="number" id="g-input" class="form-input" min="0" max="255" placeholder="87" style="font-family: monospace; text-align: center;">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0.5rem;">
+                                    <label for="b-input">B</label>
+                                    <input type="number" id="b-input" class="form-input" min="0" max="255" placeholder="51" style="font-family: monospace; text-align: center;">
+                                </div>
+                            </div>
+                            <div id="rgb-error" style="color: #e74c3c; font-size: 0.85rem; min-height: 1.2rem;"></div>
+                            <button id="copy-rgb" class="btn btn-outline" style="width: 100%; margin-top: 0.5rem;">Copy RGB</button>
+                        </div>
+                    </div>
+
+                    <!-- Color Preview -->
+                    <div id="color-preview" style="width: 100%; height: 120px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: #FF5733; margin-bottom: 1.5rem; transition: background-color 0.15s ease;"></div>
+
+                    <!-- CSS Formats Output -->
+                    <div class="card" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem; color: var(--text-main);">CSS Color Formats</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label class="text-muted" style="font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">HEX</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <code id="css-hex" style="font-size: 0.95rem; color: var(--text-main);">#FF5733</code>
+                                    <button id="copy-css-hex" class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Copy</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">RGB</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <code id="css-rgb" style="font-size: 0.95rem; color: var(--text-main);">rgb(255, 87, 51)</code>
+                                    <button id="copy-css-rgb" class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Copy</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-muted" style="font-size: 0.85rem; display: block; margin-bottom: 0.25rem;">HSL</label>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <code id="css-hsl" style="font-size: 0.95rem; color: var(--text-main);">hsl(11, 100%, 60%)</code>
+                                    <button id="copy-css-hsl" class="btn btn-outline" style="padding: 0.2rem 0.5rem; font-size: 0.75rem;">Copy</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter a HEX color code (3 or 6 digits) in the HEX input field, or enter individual R, G, B values (0-255) in the RGB fields.</li>
+                        <li>The color preview swatch updates in real-time as you type, showing the selected color.</li>
+                        <li>The opposite format is automatically calculated and displayed alongside HSL values.</li>
+                        <li>View all three CSS color formats (HEX, RGB, HSL) in the output section below the preview.</li>
+                        <li>Click any "Copy" button to copy the color value to your clipboard in the desired format.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between HEX and RGB?</h3>
+                        <p>HEX and RGB are two ways to represent the same color. HEX uses a six-character hexadecimal string (e.g., #FF5733), while RGB uses three decimal values from 0 to 255 for Red, Green, and Blue channels (e.g., rgb(255, 87, 51)). Both are widely used in CSS and web design.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use 3-digit HEX codes?</h3>
+                        <p>Yes. This tool accepts both 3-digit shorthand (e.g., #F00) and full 6-digit HEX codes (e.g., #FF0000). Three-digit codes are automatically expanded to their 6-digit equivalent for conversion.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is HSL and why is it shown?</h3>
+                        <p>HSL stands for Hue, Saturation, and Lightness. It is another CSS color format that describes colors in a more human-readable way. Hue is the color angle (0-360), Saturation is the intensity (0-100%), and Lightness is the brightness (0-100%). It is displayed as a bonus alongside HEX and RGB.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data processed on a server?</h3>
+                        <p>No. All color conversions are performed entirely in your browser using JavaScript. No data is sent to any server, making this tool fast, private, and available offline.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var hexInput = document.getElementById('hex-input');
+        var rInput = document.getElementById('r-input');
+        var gInput = document.getElementById('g-input');
+        var bInput = document.getElementById('b-input');
+        var hexError = document.getElementById('hex-error');
+        var rgbError = document.getElementById('rgb-error');
+        var colorPreview = document.getElementById('color-preview');
+        var cssHex = document.getElementById('css-hex');
+        var cssRgb = document.getElementById('css-rgb');
+        var cssHsl = document.getElementById('css-hsl');
+
+        function clamp(val, min, max) {
+            return Math.min(Math.max(val, min), max);
+        }
+
+        function isValidHex(hex) {
+            return /^[0-9A-Fa-f]{3}$|^[0-9A-Fa-f]{6}$/.test(hex);
+        }
+
+        function expandHex(hex) {
+            if (hex.length === 3) {
+                return hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+            }
+            return hex;
+        }
+
+        function hexToRgb(hex) {
+            hex = expandHex(hex);
+            var r = parseInt(hex.substring(0, 2), 16);
+            var g = parseInt(hex.substring(2, 4), 16);
+            var b = parseInt(hex.substring(4, 6), 16);
+            return { r: r, g: g, b: b };
+        }
+
+        function rgbToHex(r, g, b) {
+            var rHex = r.toString(16).padStart(2, '0').toUpperCase();
+            var gHex = g.toString(16).padStart(2, '0').toUpperCase();
+            var bHex = b.toString(16).padStart(2, '0').toUpperCase();
+            return rHex + gHex + bHex;
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255;
+            g /= 255;
+            b /= 255;
+            var max = Math.max(r, g, b);
+            var min = Math.min(r, g, b);
+            var h, s, l = (max + min) / 2;
+
+            if (max === min) {
+                h = 0;
+                s = 0;
+            } else {
+                var d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r:
+                        h = ((g - b) / d + (g < b ? 6 : 0)) / 6;
+                        break;
+                    case g:
+                        h = ((b - r) / d + 2) / 6;
+                        break;
+                    case b:
+                        h = ((r - g) / d + 4) / 6;
+                        break;
+                }
+            }
+
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                l: Math.round(l * 100)
+            };
+        }
+
+        function updateDisplay(r, g, b) {
+            var hex = rgbToHex(r, g, b);
+            var hsl = rgbToHsl(r, g, b);
+
+            colorPreview.style.backgroundColor = '#' + hex;
+            cssHex.textContent = '#' + hex;
+            cssRgb.textContent = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+            cssHsl.textContent = 'hsl(' + hsl.h + ', ' + hsl.s + '%, ' + hsl.l + '%)';
+        }
+
+        function onHexInput() {
+            var val = hexInput.value.replace(/^#/, '').trim();
+            hexError.textContent = '';
+
+            if (val === '') {
+                hexError.textContent = '';
+                return;
+            }
+
+            if (!isValidHex(val)) {
+                hexError.textContent = 'Enter a valid 3 or 6 digit HEX code.';
+                return;
+            }
+
+            var rgb = hexToRgb(val);
+            rInput.value = rgb.r;
+            gInput.value = rgb.g;
+            bInput.value = rgb.b;
+            rgbError.textContent = '';
+            updateDisplay(rgb.r, rgb.g, rgb.b);
+        }
+
+        function onRgbInput() {
+            rgbError.textContent = '';
+
+            var rVal = rInput.value.trim();
+            var gVal = gInput.value.trim();
+            var bVal = bInput.value.trim();
+
+            if (rVal === '' && gVal === '' && bVal === '') {
+                return;
+            }
+
+            var r = rVal === '' ? 0 : parseInt(rVal, 10);
+            var g = gVal === '' ? 0 : parseInt(gVal, 10);
+            var b = bVal === '' ? 0 : parseInt(bVal, 10);
+
+            if (isNaN(r) || isNaN(g) || isNaN(b)) {
+                rgbError.textContent = 'Enter valid numbers for R, G, and B.';
+                return;
+            }
+
+            if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
+                rgbError.textContent = 'Values must be between 0 and 255.';
+                return;
+            }
+
+            r = clamp(r, 0, 255);
+            g = clamp(g, 0, 255);
+            b = clamp(b, 0, 255);
+
+            var hex = rgbToHex(r, g, b);
+            hexInput.value = hex;
+            hexError.textContent = '';
+            updateDisplay(r, g, b);
+        }
+
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(function() {
+                var original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(function() {
+                    btn.textContent = original;
+                }, 1500);
+            }).catch(function() {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                var original = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(function() {
+                    btn.textContent = original;
+                }, 1500);
+            });
+        }
+
+        hexInput.addEventListener('input', onHexInput);
+        rInput.addEventListener('input', onRgbInput);
+        gInput.addEventListener('input', onRgbInput);
+        bInput.addEventListener('input', onRgbInput);
+
+        document.getElementById('copy-hex').addEventListener('click', function() {
+            copyToClipboard('#' + hexInput.value.toUpperCase(), this);
+        });
+
+        document.getElementById('copy-rgb').addEventListener('click', function() {
+            copyToClipboard(cssRgb.textContent, this);
+        });
+
+        document.getElementById('copy-css-hex').addEventListener('click', function() {
+            copyToClipboard(cssHex.textContent, this);
+        });
+
+        document.getElementById('copy-css-rgb').addEventListener('click', function() {
+            copyToClipboard(cssRgb.textContent, this);
+        });
+
+        document.getElementById('copy-css-hsl').addEventListener('click', function() {
+            copyToClipboard(cssHsl.textContent, this);
+        });
+
+        // Initialize with default color
+        hexInput.value = 'FF5733';
+        onHexInput();
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

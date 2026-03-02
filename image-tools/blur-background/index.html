@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blur Background Online Free - Selective Blur Tool | ToolsNest</title>
+    <meta name="description" content="Blur image backgrounds online for free. Paint over foreground areas to keep them sharp while blurring the rest. Adjustable intensity, instant preview, 100% private.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/blur-background/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Blur Background
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Blur Background Online</h1>
+                <p class="text-center mb-3">Blur image backgrounds with a simple brush tool. Paint over the areas you want to keep sharp, and the rest gets blurred. All processing happens in your browser.</p>
+
+                <div class="tool-workspace" id="blur-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Image</h3>
+                        <p class="text-muted mb-2">Supports JPG, PNG, and WebP formats</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <label for="blur-intensity" style="font-weight: 600; white-space: nowrap;">Blur Intensity:</label>
+                                <input type="range" id="blur-intensity" min="1" max="20" value="10" style="width: 140px;">
+                                <span id="blur-value" style="min-width: 40px; font-weight: 600;">10px</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <label for="brush-size" style="font-weight: 600; white-space: nowrap;">Brush Size:</label>
+                                <input type="range" id="brush-size" min="5" max="100" value="30" style="width: 120px;">
+                                <span id="brush-value" style="min-width: 40px; font-weight: 600;">30px</span>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 1rem;">
+                            <button id="mode-foreground" class="btn btn-primary" title="Paint areas to keep sharp">Paint Foreground (Keep Sharp)</button>
+                            <button id="mode-eraser" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);" title="Erase painted areas to blur them again">Eraser</button>
+                            <button id="clear-mask-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Clear Mask</button>
+                            <button id="toggle-preview-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Show Preview</button>
+                        </div>
+
+                        <p class="text-muted text-center mb-2" id="editor-hint" style="font-size: 0.9rem;">Paint over the foreground areas you want to keep sharp. Unpainted areas will be blurred.</p>
+
+                        <div style="position: relative; display: inline-block; width: 100%; text-align: center;">
+                            <canvas id="display-canvas" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border); cursor: crosshair;"></canvas>
+                        </div>
+
+                        <canvas id="source-canvas" style="display: none;"></canvas>
+                        <canvas id="mask-canvas" style="display: none;"></canvas>
+                        <canvas id="blurred-canvas" style="display: none;"></canvas>
+                        <canvas id="output-canvas" style="display: none;"></canvas>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 1.5rem;">
+                            <button id="apply-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.05rem;">Download Result (PNG)</button>
+                            <button id="reset-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Upload New Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" to upload a JPG, PNG, or WebP image from your device.</li>
+                        <li>Use the brush tool to paint over the foreground areas you want to keep sharp (shown as a red overlay).</li>
+                        <li>Switch to "Eraser" mode to remove any areas you painted by mistake.</li>
+                        <li>Adjust the "Blur Intensity" slider to control how strongly the background is blurred (1-20 pixels).</li>
+                        <li>Adjust the "Brush Size" slider for finer or broader strokes.</li>
+                        <li>Click "Show Preview" to see the blurred result with your foreground kept sharp.</li>
+                        <li>Click "Download Result (PNG)" to save the final image to your device.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool upload my images to a server?</h3>
+                        <p>No. All image processing is done entirely in your browser using the HTML5 Canvas API. Your images stay on your device at all times and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the foreground/background selection work?</h3>
+                        <p>You manually paint over the areas you want to keep sharp (the foreground). Everything you leave unpainted is treated as background and gets the blur effect applied. A red overlay shows you which areas are marked as foreground.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I adjust the blur strength after painting?</h3>
+                        <p>Yes. The blur intensity slider can be changed at any time. Simply adjust it and click "Show Preview" again to see the updated result with your new blur level.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format is the downloaded image?</h3>
+                        <p>The result is exported as a PNG file to preserve quality and transparency. PNG is lossless, so the blurred output matches exactly what you see in the preview.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a maximum image size?</h3>
+                        <p>The tool can handle any image your browser can load. Very large images (over 50MP) may be slow depending on your device's processing power and memory.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/profile-picture-maker" class="related-link">Profile Picture Maker</a>
+                    <a href="/image-tools/color-palette-extractor" class="related-link">Color Palette Extractor</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var blurIntensity = document.getElementById('blur-intensity');
+        var blurValue = document.getElementById('blur-value');
+        var brushSize = document.getElementById('brush-size');
+        var brushValue = document.getElementById('brush-value');
+        var modeForeground = document.getElementById('mode-foreground');
+        var modeEraser = document.getElementById('mode-eraser');
+        var clearMaskBtn = document.getElementById('clear-mask-btn');
+        var togglePreviewBtn = document.getElementById('toggle-preview-btn');
+        var editorHint = document.getElementById('editor-hint');
+        var displayCanvas = document.getElementById('display-canvas');
+        var sourceCanvas = document.getElementById('source-canvas');
+        var maskCanvas = document.getElementById('mask-canvas');
+        var blurredCanvas = document.getElementById('blurred-canvas');
+        var outputCanvas = document.getElementById('output-canvas');
+        var applyBtn = document.getElementById('apply-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var displayCtx = displayCanvas.getContext('2d');
+        var sourceCtx = sourceCanvas.getContext('2d');
+        var maskCtx = maskCanvas.getContext('2d');
+        var blurredCtx = blurredCanvas.getContext('2d');
+        var outputCtx = outputCanvas.getContext('2d');
+
+        var currentImage = null;
+        var imgWidth = 0;
+        var imgHeight = 0;
+        var painting = false;
+        var brushMode = 'foreground';
+        var previewMode = false;
+
+        blurIntensity.addEventListener('input', function() {
+            blurValue.textContent = blurIntensity.value + 'px';
+        });
+
+        brushSize.addEventListener('input', function() {
+            brushValue.textContent = brushSize.value + 'px';
+        });
+
+        modeForeground.addEventListener('click', function() {
+            brushMode = 'foreground';
+            modeForeground.className = 'btn btn-primary';
+            modeEraser.className = 'btn';
+            modeEraser.style.background = 'var(--bg-color)';
+            modeEraser.style.color = 'var(--text-main)';
+            modeEraser.style.border = '1px solid var(--border)';
+        });
+
+        modeEraser.addEventListener('click', function() {
+            brushMode = 'eraser';
+            modeEraser.className = 'btn btn-primary';
+            modeForeground.className = 'btn';
+            modeForeground.style.background = 'var(--bg-color)';
+            modeForeground.style.color = 'var(--text-main)';
+            modeForeground.style.border = '1px solid var(--border)';
+        });
+
+        function getCanvasCoords(e) {
+            var rect = displayCanvas.getBoundingClientRect();
+            var scaleX = imgWidth / rect.width;
+            var scaleY = imgHeight / rect.height;
+            var clientX, clientY;
+            if (e.touches && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            return {
+                x: (clientX - rect.left) * scaleX,
+                y: (clientY - rect.top) * scaleY
+            };
+        }
+
+        function paintOnMask(x, y) {
+            var size = parseInt(brushSize.value);
+            var scaledSize = size * (imgWidth / displayCanvas.getBoundingClientRect().width);
+            maskCtx.beginPath();
+            maskCtx.arc(x, y, scaledSize / 2, 0, Math.PI * 2);
+            if (brushMode === 'foreground') {
+                maskCtx.fillStyle = 'rgba(255, 255, 255, 1)';
+            } else {
+                maskCtx.globalCompositeOperation = 'destination-out';
+                maskCtx.fillStyle = 'rgba(0, 0, 0, 1)';
+            }
+            maskCtx.fill();
+            maskCtx.globalCompositeOperation = 'source-over';
+        }
+
+        function renderDisplay() {
+            if (previewMode) {
+                renderPreview();
+                return;
+            }
+            displayCtx.clearRect(0, 0, imgWidth, imgHeight);
+            displayCtx.drawImage(sourceCanvas, 0, 0);
+            displayCtx.save();
+            displayCtx.globalAlpha = 0.35;
+            displayCtx.globalCompositeOperation = 'source-atop';
+            var tempCanvas = document.createElement('canvas');
+            tempCanvas.width = imgWidth;
+            tempCanvas.height = imgHeight;
+            var tempCtx = tempCanvas.getContext('2d');
+            tempCtx.fillStyle = 'rgba(255, 0, 0, 1)';
+            tempCtx.fillRect(0, 0, imgWidth, imgHeight);
+            tempCtx.globalCompositeOperation = 'destination-in';
+            tempCtx.drawImage(maskCanvas, 0, 0);
+            displayCtx.drawImage(tempCanvas, 0, 0);
+            displayCtx.restore();
+        }
+
+        function generateBlurred() {
+            var blur = parseInt(blurIntensity.value);
+            blurredCanvas.width = imgWidth;
+            blurredCanvas.height = imgHeight;
+            blurredCtx.filter = 'blur(' + blur + 'px)';
+            blurredCtx.drawImage(sourceCanvas, 0, 0);
+            blurredCtx.filter = 'none';
+        }
+
+        function renderPreview() {
+            generateBlurred();
+            outputCanvas.width = imgWidth;
+            outputCanvas.height = imgHeight;
+            outputCtx.clearRect(0, 0, imgWidth, imgHeight);
+            outputCtx.drawImage(blurredCanvas, 0, 0);
+            var sharpParts = document.createElement('canvas');
+            sharpParts.width = imgWidth;
+            sharpParts.height = imgHeight;
+            var sharpCtx = sharpParts.getContext('2d');
+            sharpCtx.drawImage(sourceCanvas, 0, 0);
+            sharpCtx.globalCompositeOperation = 'destination-in';
+            sharpCtx.drawImage(maskCanvas, 0, 0);
+            outputCtx.drawImage(sharpParts, 0, 0);
+            displayCtx.clearRect(0, 0, imgWidth, imgHeight);
+            displayCtx.drawImage(outputCanvas, 0, 0);
+        }
+
+        function onPointerDown(e) {
+            if (previewMode) return;
+            e.preventDefault();
+            painting = true;
+            var coords = getCanvasCoords(e);
+            paintOnMask(coords.x, coords.y);
+            renderDisplay();
+        }
+
+        function onPointerMove(e) {
+            if (!painting || previewMode) return;
+            e.preventDefault();
+            var coords = getCanvasCoords(e);
+            paintOnMask(coords.x, coords.y);
+            renderDisplay();
+        }
+
+        function onPointerUp(e) {
+            painting = false;
+        }
+
+        displayCanvas.addEventListener('mousedown', onPointerDown);
+        displayCanvas.addEventListener('mousemove', onPointerMove);
+        displayCanvas.addEventListener('mouseup', onPointerUp);
+        displayCanvas.addEventListener('mouseleave', onPointerUp);
+        displayCanvas.addEventListener('touchstart', onPointerDown, { passive: false });
+        displayCanvas.addEventListener('touchmove', onPointerMove, { passive: false });
+        displayCanvas.addEventListener('touchend', onPointerUp);
+
+        clearMaskBtn.addEventListener('click', function() {
+            maskCtx.clearRect(0, 0, imgWidth, imgHeight);
+            if (previewMode) {
+                previewMode = false;
+                togglePreviewBtn.textContent = 'Show Preview';
+                editorHint.textContent = 'Paint over the foreground areas you want to keep sharp. Unpainted areas will be blurred.';
+            }
+            renderDisplay();
+        });
+
+        togglePreviewBtn.addEventListener('click', function() {
+            previewMode = !previewMode;
+            if (previewMode) {
+                togglePreviewBtn.textContent = 'Back to Editor';
+                editorHint.textContent = 'Preview mode: showing the blurred result. Click "Back to Editor" to continue painting.';
+            } else {
+                togglePreviewBtn.textContent = 'Show Preview';
+                editorHint.textContent = 'Paint over the foreground areas you want to keep sharp. Unpainted areas will be blurred.';
+            }
+            renderDisplay();
+        });
+
+        function loadImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    imgWidth = img.width;
+                    imgHeight = img.height;
+
+                    sourceCanvas.width = imgWidth;
+                    sourceCanvas.height = imgHeight;
+                    sourceCtx.drawImage(img, 0, 0);
+
+                    maskCanvas.width = imgWidth;
+                    maskCanvas.height = imgHeight;
+                    maskCtx.clearRect(0, 0, imgWidth, imgHeight);
+
+                    blurredCanvas.width = imgWidth;
+                    blurredCanvas.height = imgHeight;
+
+                    outputCanvas.width = imgWidth;
+                    outputCanvas.height = imgHeight;
+
+                    displayCanvas.width = imgWidth;
+                    displayCanvas.height = imgHeight;
+
+                    previewMode = false;
+                    togglePreviewBtn.textContent = 'Show Preview';
+                    editorHint.textContent = 'Paint over the foreground areas you want to keep sharp. Unpainted areas will be blurred.';
+
+                    renderDisplay();
+
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadImage(fileInput.files[0]);
+            }
+        });
+
+        applyBtn.addEventListener('click', function() {
+            if (!currentImage) return;
+            generateBlurred();
+            outputCanvas.width = imgWidth;
+            outputCanvas.height = imgHeight;
+            outputCtx.clearRect(0, 0, imgWidth, imgHeight);
+            outputCtx.drawImage(blurredCanvas, 0, 0);
+            var sharpParts = document.createElement('canvas');
+            sharpParts.width = imgWidth;
+            sharpParts.height = imgHeight;
+            var sharpCtx = sharpParts.getContext('2d');
+            sharpCtx.drawImage(sourceCanvas, 0, 0);
+            sharpCtx.globalCompositeOperation = 'destination-in';
+            sharpCtx.drawImage(maskCanvas, 0, 0);
+            outputCtx.drawImage(sharpParts, 0, 0);
+            outputCanvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'blurred-background.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        });
+
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            previewMode = false;
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            togglePreviewBtn.textContent = 'Show Preview';
+            editorHint.textContent = 'Paint over the foreground areas you want to keep sharp. Unpainted areas will be blurred.';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
