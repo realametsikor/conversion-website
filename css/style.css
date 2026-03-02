@@ -337,37 +337,91 @@ p { color: var(--text-muted); }
    10. AD PLACEHOLDERS & AD CONTAINERS (live ads)
    ========================================= */
 
-/* Original ad placeholder styling */
+/* Professional "Advertisement" disclosure label */
+.ad-disclosure {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-bottom: 4px;
+    line-height: 1;
+}
+
+/* Base ad placeholder styling */
 .ad-placeholder {
     background: var(--bg-color);
     border: 1px dashed var(--border);
     border-radius: var(--radius-sm);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: var(--text-muted);
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
 }
+
+/* Banner top ad */
 .ad-banner-top {
     width: 100%;
     height: 90px;
     margin: 1rem 0;
 }
+
+/* Between-sections ad */
 .ad-between-sections {
     width: 100%;
     height: 90px;
     margin: 2rem 0;
 }
+
+/* Sidebar placeholder */
 .ad-sidebar-placeholder {
     width: 100%;
     min-height: 600px;
 }
+
+/* Inline ad (larger format) */
 .ad-inline {
     width: 100%;
     height: 250px;
     margin: 2rem 0;
+}
+
+/* In-feed ad — blends within content grids */
+.ad-in-feed {
+    width: 100%;
+    min-height: 120px;
+    margin: 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Responsive ad — auto-sizes by viewport */
+.ad-responsive {
+    width: 100%;
+    min-height: 90px;
+    margin: 1.5rem 0;
+}
+
+/* Post-action ad — shown after tool use */
+.ad-post-action {
+    width: 100%;
+    min-height: 250px;
+    margin: 2rem 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem;
 }
 
 /* Legacy ad containers */
@@ -398,7 +452,7 @@ p { color: var(--text-muted); }
     top: 80px;
 }
 
-/* When ad loads, remove placeholder visual styling */
+/* When ad loads, remove placeholder visual styling but keep disclosure */
 .ad-placeholder.ad-loaded {
     background: transparent;
     border: none;
@@ -407,10 +461,36 @@ p { color: var(--text-muted); }
     text-transform: none;
     letter-spacing: normal;
 }
+.ad-placeholder.ad-loaded .ad-disclosure {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* In-feed ad loaded state keeps card appearance */
+.ad-in-feed.ad-loaded {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Post-action ad loaded state */
+.ad-post-action.ad-loaded {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 0.75rem;
+}
 
 /* Ensure sidebar ad wrapper doesn't break tool layout */
 .tool-sidebar .sidebar-ad {
     margin-bottom: 1.5rem;
+}
+
+/* Mobile-only ad — hidden on desktop, shown on mobile */
+.ad-mobile-only {
+    display: none;
 }
 
 /* =========================================
@@ -500,6 +580,9 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .tool-layout { grid-template-columns: 1fr; }
     .tool-layout aside { display: none; }
     .sidebar-ad { position: static; }
+
+    /* Show mobile-only ads when sidebar disappears */
+    .ad-mobile-only { display: flex; }
 }
 
 @media screen and (max-width: 768px) {
@@ -510,6 +593,10 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .section { padding: 2.5rem 0; }
     h1 { font-size: 2rem; }
     h2 { font-size: 1.5rem; }
+
+    /* Responsive ads switch to taller format on mobile */
+    .ad-responsive { min-height: 250px; }
+    .ad-post-action { min-height: 250px; }
 }
 
 @media screen and (max-width: 600px) {
@@ -538,4 +625,7 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .desktop-ad { display: none !important; }
     .mobile-ad { display: flex !important; justify-content: center; margin: 1.5rem 0; overflow: hidden; }
     .ad-banner-top, .ad-between-sections { height: 250px; }
+
+    /* In-feed ads on mobile get full width */
+    .ad-in-feed { min-height: 250px; }
 }
