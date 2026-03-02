@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes Summarizer - Organize Messy Notes Instantly | ToolsNest</title>
+    <meta name="description" content="Transform messy notes into organized summaries, bullet points, action items, or topic clusters. Smart note organization that works in your browser. Free.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/notes-summarizer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Notes Summarizer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Notes Summarizer</h1>
+                <p class="text-center mb-3">Turn messy, unstructured notes into clean, organized summaries. Automatically extract key points, action items, and group related ideas by topic.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="notes-input">Paste Your Raw Notes</label>
+                        <textarea id="notes-input" class="form-input" rows="14" placeholder="Paste your messy notes here. Meeting notes, lecture notes, brainstorm dumps, research notes -- anything goes.
+
+Example:
+- discussed Q3 targets with marketing team
+- TODO: send updated budget to Sarah by Friday
+- website traffic up 23% this month
+- need to hire two more developers
+- Sarah mentioned new competitor launched last week
+- should review the analytics dashboard
+- Q3 revenue target is $2.4M
+- action item: schedule follow-up meeting with design team
+- marketing budget needs reallocation..." style="min-height: 260px;"></textarea>
+                        <p id="input-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="output-format">Output Format</label>
+                        <select id="output-format" class="form-input">
+                            <option value="structured">Structured Summary</option>
+                            <option value="bullets">Key Bullet Points</option>
+                            <option value="actions">Action Items Only</option>
+                            <option value="clusters">Topic Clusters</option>
+                            <option value="cornell">Cornell Notes Format</option>
+                        </select>
+                    </div>
+
+                    <button id="summarize-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Summarize Notes</button>
+
+                    <div id="stats-panel" style="display: none; margin-top: 1.5rem;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.75rem;">
+                            <div style="background: #EFF6FF; border-radius: var(--radius-sm); padding: 0.85rem; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="stat-original">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Original Words</div>
+                            </div>
+                            <div style="background: #F0FDF4; border-radius: var(--radius-sm); padding: 0.85rem; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #16a34a;" id="stat-summary">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Summary Words</div>
+                            </div>
+                            <div style="background: #FFF7ED; border-radius: var(--radius-sm); padding: 0.85rem; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #ea580c;" id="stat-reduction">0%</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Reduction</div>
+                            </div>
+                            <div style="background: #FAF5FF; border-radius: var(--radius-sm); padding: 0.85rem; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #9333ea;" id="stat-topics">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Topics Found</div>
+                            </div>
+                            <div style="background: #FEF2F2; border-radius: var(--radius-sm); padding: 0.85rem; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: #dc2626;" id="stat-actions">0</div>
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 500;">Action Items</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="output-panel" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--text-main); margin: 0;">Results</h3>
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Output</button>
+                            </div>
+                            <div id="output-content" style="background: var(--bg-color); padding: 1.5rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary);"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your raw, unstructured notes into the text area above. Meeting notes, lecture notes, brainstorm dumps, and research notes all work great.</li>
+                        <li>Choose an output format: Structured Summary organizes everything under topic headings, Key Bullet Points extracts the most important ideas, Action Items Only pulls out tasks and to-dos, Topic Clusters groups related ideas together, and Cornell Notes Format creates a study-ready layout.</li>
+                        <li>Click "Summarize Notes" and review the organized output along with statistics about your notes.</li>
+                        <li>Use the "Copy Output" button to copy the formatted result to your clipboard for use in documents, emails, or task managers.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the notes summarizer organize my notes?</h3>
+                        <p>The tool uses TF-IDF-inspired word frequency analysis to identify key topics in your notes. It detects action items using pattern matching for common task indicators (TODO, "need to", "should", "must", etc.), groups related lines by shared significant words, removes duplicate or near-duplicate content, and produces a clean hierarchical output.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data sent to any server?</h3>
+                        <p>No. All processing happens entirely in your browser using client-side JavaScript. Your notes never leave your device, making this tool completely private and safe for sensitive meeting notes or confidential information.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the Cornell Notes format?</h3>
+                        <p>Cornell Notes is a proven study method that divides notes into three sections: a narrow cue/keyword column on the left, a wider notes column on the right, and a summary section at the bottom. This format is excellent for studying, reviewing, and retaining information from lectures or readings.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What types of notes work best with this tool?</h3>
+                        <p>This tool works best with notes that contain distinct ideas, points, or tasks -- such as meeting notes, lecture notes, brainstorming sessions, research notes, or project planning notes. Notes with at least 5-10 distinct lines or ideas produce the best results. Single short paragraphs may not benefit as much from reorganization.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/essay-outline-generator" class="related-link">Essay Outline Generator</a>
+                    <a href="/ai-tools/quiz-generator" class="related-link">Quiz Generator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =============================================
+           DOM REFERENCES
+           ============================================= */
+        var notesInput = document.getElementById('notes-input');
+        var inputWordCount = document.getElementById('input-word-count');
+        var outputFormat = document.getElementById('output-format');
+        var summarizeBtn = document.getElementById('summarize-btn');
+        var statsPanel = document.getElementById('stats-panel');
+        var outputPanel = document.getElementById('output-panel');
+        var outputContent = document.getElementById('output-content');
+        var copyBtn = document.getElementById('copy-btn');
+
+        var statOriginal = document.getElementById('stat-original');
+        var statSummary = document.getElementById('stat-summary');
+        var statReduction = document.getElementById('stat-reduction');
+        var statTopics = document.getElementById('stat-topics');
+        var statActions = document.getElementById('stat-actions');
+
+        /* =============================================
+           STOP WORDS SET
+           ============================================= */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','because','as','until','while','about',
+            'between','through','during','before','after','above','below','up','down',
+            'out','off','over','under','again','further','then','once','if','also',
+            'into','there','here','new','one','two','said','like','get','make','go',
+            'know','take','see','come','think','look','want','give','use','find','tell',
+            'ask','work','seem','feel','try','leave','call','need','become','keep','let',
+            'begin','show','hear','play','run','move','live','believe','bring','happen',
+            'write','provide','sit','stand','lose','pay','meet','include','continue',
+            'set','learn','change','lead','understand','watch','follow','stop','create',
+            'speak','read','allow','add','spend','grow','open','walk','win','offer',
+            'remember','love','consider','appear','buy','wait','serve','die','send',
+            'expect','build','stay','fall','cut','reach','kill','remain','am','able',
+            'much','many','well','back','still','even','any','right','now','going',
+            'thing','way','may','then','around','long','really','great','part','over',
+            'three','four','five','six','seven','eight','nine','ten','first','second',
+            'last','got','put','us','just','also','etc','yes','no','ok','okay','oh',
+            're','ve','ll','don','t','s','d','m','didn','doesn','isn','aren','wasn',
+            'weren','won','wouldn','couldn','shouldn','haven','hasn','hadn','been'
+        ]);
+
+        /* =============================================
+           UTILITY FUNCTIONS
+           ============================================= */
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 2;
+            });
+        }
+
+        function getSignificantWords(text) {
+            return tokenize(text).filter(function(w) {
+                return !stopWords.has(w);
+            });
+        }
+
+        /* =============================================
+           LIVE WORD COUNT
+           ============================================= */
+        notesInput.addEventListener('input', function() {
+            inputWordCount.textContent = countWords(notesInput.value) + ' words';
+        });
+
+        /* =============================================
+           LINE PARSING -- split notes into distinct lines/points
+           ============================================= */
+        function parseLines(text) {
+            var raw = text.split(/\n/).map(function(line) {
+                return line.replace(/^[\s\-\*\u2022\u2023\u25E6\u2043\d+\.\)\]]+\s*/, '').trim();
+            }).filter(function(line) {
+                return line.length > 3;
+            });
+            return raw;
+        }
+
+        /* =============================================
+           TF-IDF-LIKE WORD FREQUENCY ANALYSIS
+           ============================================= */
+        function computeTFIDF(lines) {
+            var totalDocs = lines.length;
+            /* Document frequency: how many lines each word appears in */
+            var df = {};
+            /* Term frequency per line */
+            var tfPerLine = [];
+
+            for (var i = 0; i < lines.length; i++) {
+                var words = getSignificantWords(lines[i]);
+                var tf = {};
+                var seenInDoc = {};
+                for (var j = 0; j < words.length; j++) {
+                    var w = words[j];
+                    tf[w] = (tf[w] || 0) + 1;
+                    if (!seenInDoc[w]) {
+                        df[w] = (df[w] || 0) + 1;
+                        seenInDoc[w] = true;
+                    }
+                }
+                tfPerLine.push(tf);
+            }
+
+            /* Compute IDF */
+            var idf = {};
+            var allWords = Object.keys(df);
+            for (var k = 0; k < allWords.length; k++) {
+                var word = allWords[k];
+                idf[word] = Math.log((totalDocs + 1) / (df[word] + 1)) + 1;
+            }
+
+            /* Compute TF-IDF scores for each word globally */
+            var globalScores = {};
+            for (var m = 0; m < allWords.length; m++) {
+                var gw = allWords[m];
+                var totalTF = 0;
+                for (var n = 0; n < tfPerLine.length; n++) {
+                    totalTF += (tfPerLine[n][gw] || 0);
+                }
+                globalScores[gw] = totalTF * idf[gw];
+            }
+
+            return {
+                df: df,
+                idf: idf,
+                tfPerLine: tfPerLine,
+                globalScores: globalScores
+            };
+        }
+
+        /* =============================================
+           TOPIC EXTRACTION using TF-IDF scores
+           ============================================= */
+        function extractTopics(lines, tfidf) {
+            var scores = tfidf.globalScores;
+            /* Sort words by global TF-IDF score */
+            var sorted = Object.keys(scores).sort(function(a, b) {
+                return scores[b] - scores[a];
+            });
+
+            /* Select top topic words: pick words that aren't too common (df < 70% of lines) and not too rare (df >= 2) */
+            var topics = [];
+            var usedWords = new Set();
+            var maxTopics = Math.min(8, Math.max(3, Math.ceil(lines.length / 5)));
+
+            for (var i = 0; i < sorted.length && topics.length < maxTopics; i++) {
+                var word = sorted[i];
+                var docFreqRatio = (tfidf.df[word] || 0) / lines.length;
+                if (docFreqRatio < 0.7 && (tfidf.df[word] || 0) >= 1 && !usedWords.has(word)) {
+                    /* Check if this word is too similar to an already-picked topic */
+                    var tooSimilar = false;
+                    topics.forEach(function(t) {
+                        if (word.indexOf(t) === 0 || t.indexOf(word) === 0) tooSimilar = true;
+                    });
+                    if (!tooSimilar) {
+                        topics.push(word);
+                        usedWords.add(word);
+                    }
+                }
+            }
+
+            /* Capitalize topic labels */
+            return topics.map(function(t) {
+                return t.charAt(0).toUpperCase() + t.slice(1);
+            });
+        }
+
+        /* =============================================
+           ACTION ITEM DETECTION
+           ============================================= */
+        var actionPatterns = [
+            /\bTODO\b/i,
+            /\baction\s*item\b/i,
+            /\bfollow\s*up\b/i,
+            /\bfollow\-up\b/i,
+            /\bdeadline\b/i,
+            /\bneed\s+to\b/i,
+            /\bneeds\s+to\b/i,
+            /\bmust\b/i,
+            /\bshould\b/i,
+            /\bhave\s+to\b/i,
+            /\bhas\s+to\b/i,
+            /\bremember\s+to\b/i,
+            /\bdon'?t\s+forget\b/i,
+            /\bdo\s+not\s+forget\b/i,
+            /\bmake\s+sure\b/i,
+            /\bensure\b/i,
+            /\bschedule\b/i,
+            /\bassign\b/i,
+            /\bcomplete\s+by\b/i,
+            /\bdue\s+(by|on|date)\b/i,
+            /\btask\s*:/i,
+            /\baction\s*:/i,
+            /\bpriority\b/i,
+            /\burgent\b/i,
+            /\basap\b/i,
+            /\bby\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday|tomorrow|end\s+of|next\s+week|eow|eod)\b/i
+        ];
+
+        function isActionItem(line) {
+            for (var i = 0; i < actionPatterns.length; i++) {
+                if (actionPatterns[i].test(line)) return true;
+            }
+            return false;
+        }
+
+        function extractActionItems(lines) {
+            return lines.filter(function(line) {
+                return isActionItem(line);
+            });
+        }
+
+        /* =============================================
+           JACCARD SIMILARITY for duplicate detection
+           ============================================= */
+        function jaccardSimilarity(setA, setB) {
+            if (setA.length === 0 && setB.length === 0) return 1;
+            var a = new Set(setA);
+            var b = new Set(setB);
+            var intersection = 0;
+            a.forEach(function(word) {
+                if (b.has(word)) intersection++;
+            });
+            var union = a.size + b.size - intersection;
+            return union === 0 ? 0 : intersection / union;
+        }
+
+        function removeDuplicates(lines) {
+            var unique = [];
+            var wordSets = [];
+
+            for (var i = 0; i < lines.length; i++) {
+                var words = getSignificantWords(lines[i]);
+                var isDuplicate = false;
+
+                for (var j = 0; j < unique.length; j++) {
+                    var similarity = jaccardSimilarity(words, wordSets[j]);
+                    if (similarity > 0.65) {
+                        /* Keep the longer (more detailed) version */
+                        if (lines[i].length > unique[j].length) {
+                            unique[j] = lines[i];
+                            wordSets[j] = words;
+                        }
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+
+                if (!isDuplicate) {
+                    unique.push(lines[i]);
+                    wordSets.push(words);
+                }
+            }
+
+            return unique;
+        }
+
+        /* =============================================
+           TOPIC CLUSTERING -- group lines by shared topic words
+           ============================================= */
+        function clusterByTopics(lines, topics) {
+            var clusters = {};
+            var unclustered = [];
+
+            /* Initialize clusters */
+            for (var t = 0; t < topics.length; t++) {
+                clusters[topics[t]] = [];
+            }
+
+            for (var i = 0; i < lines.length; i++) {
+                var lineWords = getSignificantWords(lines[i]);
+                var bestTopic = null;
+                var bestScore = 0;
+
+                for (var j = 0; j < topics.length; j++) {
+                    var topicWord = topics[j].toLowerCase();
+                    var score = 0;
+
+                    for (var k = 0; k < lineWords.length; k++) {
+                        if (lineWords[k] === topicWord) {
+                            score += 3;
+                        } else if (lineWords[k].indexOf(topicWord) >= 0 || topicWord.indexOf(lineWords[k]) >= 0) {
+                            score += 1.5;
+                        }
+                    }
+
+                    if (score > bestScore) {
+                        bestScore = score;
+                        bestTopic = topics[j];
+                    }
+                }
+
+                if (bestTopic && bestScore >= 1.5) {
+                    clusters[bestTopic].push(lines[i]);
+                } else {
+                    unclustered.push(lines[i]);
+                }
+            }
+
+            /* If there are many unclustered items, try to assign them to closest topic */
+            if (unclustered.length > 0 && topics.length > 0) {
+                var stillUnclustered = [];
+                for (var u = 0; u < unclustered.length; u++) {
+                    var uWords = new Set(getSignificantWords(unclustered[u]));
+                    var bestMatch = null;
+                    var bestMatchCount = 0;
+
+                    for (var c = 0; c < topics.length; c++) {
+                        var clusterLines = clusters[topics[c]];
+                        var matchCount = 0;
+                        for (var cl = 0; cl < clusterLines.length; cl++) {
+                            var clWords = getSignificantWords(clusterLines[cl]);
+                            for (var cw = 0; cw < clWords.length; cw++) {
+                                if (uWords.has(clWords[cw])) matchCount++;
+                            }
+                        }
+                        if (matchCount > bestMatchCount) {
+                            bestMatchCount = matchCount;
+                            bestMatch = topics[c];
+                        }
+                    }
+
+                    if (bestMatch && bestMatchCount >= 2) {
+                        clusters[bestMatch].push(unclustered[u]);
+                    } else {
+                        stillUnclustered.push(unclustered[u]);
+                    }
+                }
+                unclustered = stillUnclustered;
+            }
+
+            /* Add unclustered items under "General Notes" */
+            if (unclustered.length > 0) {
+                clusters['General Notes'] = unclustered;
+            }
+
+            /* Remove empty clusters */
+            var result = {};
+            var keys = Object.keys(clusters);
+            for (var r = 0; r < keys.length; r++) {
+                if (clusters[keys[r]].length > 0) {
+                    result[keys[r]] = clusters[keys[r]];
+                }
+            }
+
+            return result;
+        }
+
+        /* =============================================
+           SCORE LINES BY IMPORTANCE
+           ============================================= */
+        function scoreLine(line, tfidf, lineIndex) {
+            var words = getSignificantWords(line);
+            if (words.length === 0) return 0;
+            var score = 0;
+            for (var i = 0; i < words.length; i++) {
+                score += (tfidf.globalScores[words[i]] || 0);
+            }
+            score = score / words.length;
+            /* Boost action items */
+            if (isActionItem(line)) score *= 1.3;
+            /* Small position bonus for early lines */
+            if (lineIndex < 3) score *= 1.1;
+            return score;
+        }
+
+        /* =============================================
+           FORMAT: STRUCTURED SUMMARY
+           ============================================= */
+        function formatStructuredSummary(lines, topics, tfidf) {
+            var actionItems = extractActionItems(lines);
+            var nonActionLines = lines.filter(function(l) { return !isActionItem(l); });
+            var clusters = clusterByTopics(nonActionLines, topics);
+
+            var html = '';
+
+            /* Topic sections */
+            var clusterKeys = Object.keys(clusters);
+            for (var i = 0; i < clusterKeys.length; i++) {
+                var topic = clusterKeys[i];
+                var items = clusters[topic];
+                html += '<div style="margin-bottom: 1.25rem;">';
+                html += '<h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35rem;">' + escapeHtml(topic) + '</h4>';
+                html += '<ul style="margin-left: 1.25rem; margin-bottom: 0.5rem;">';
+                for (var j = 0; j < items.length; j++) {
+                    html += '<li style="margin-bottom: 0.3rem; color: var(--text-main); font-size: 0.93rem;">' + escapeHtml(items[j]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            /* Action Items section */
+            if (actionItems.length > 0) {
+                html += '<div style="margin-bottom: 1.25rem;">';
+                html += '<h4 style="color: #dc2626; margin-bottom: 0.5rem; font-size: 1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.35rem;">Action Items</h4>';
+                html += '<ul style="margin-left: 1.25rem;">';
+                for (var a = 0; a < actionItems.length; a++) {
+                    html += '<li style="margin-bottom: 0.3rem; color: var(--text-main); font-size: 0.93rem;">' + escapeHtml(actionItems[a]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            return html;
+        }
+
+        /* =============================================
+           FORMAT: KEY BULLET POINTS
+           ============================================= */
+        function formatBulletPoints(lines, tfidf) {
+            /* Score and rank lines, pick top ones */
+            var scored = lines.map(function(line, idx) {
+                return { text: line, score: scoreLine(line, tfidf, idx) };
+            });
+            scored.sort(function(a, b) { return b.score - a.score; });
+
+            var numPoints = Math.min(scored.length, Math.max(5, Math.ceil(lines.length * 0.5)));
+            var topPoints = scored.slice(0, numPoints);
+
+            /* Re-sort by original order for readability */
+            topPoints.sort(function(a, b) {
+                return lines.indexOf(a.text) - lines.indexOf(b.text);
+            });
+
+            var html = '<h4 style="color: var(--primary); margin-bottom: 0.75rem; font-size: 1rem;">Key Points</h4>';
+            html += '<ul style="margin-left: 1.25rem;">';
+            for (var i = 0; i < topPoints.length; i++) {
+                var isAction = isActionItem(topPoints[i].text);
+                var style = 'margin-bottom: 0.45rem; color: var(--text-main); font-size: 0.93rem;';
+                if (isAction) style += ' font-weight: 600;';
+                html += '<li style="' + style + '">' + escapeHtml(topPoints[i].text);
+                if (isAction) html += ' <span style="color: #dc2626; font-size: 0.8rem; font-weight: 500;">[ACTION]</span>';
+                html += '</li>';
+            }
+            html += '</ul>';
+
+            return html;
+        }
+
+        /* =============================================
+           FORMAT: ACTION ITEMS ONLY
+           ============================================= */
+        function formatActionItems(lines) {
+            var actions = extractActionItems(lines);
+
+            if (actions.length === 0) {
+                return '<p style="color: var(--text-muted); font-style: italic;">No action items detected in your notes. Action items are identified by keywords like TODO, "need to", "should", "must", "follow up", "deadline", "schedule", "assign", etc.</p>';
+            }
+
+            /* Categorize by urgency/type */
+            var urgent = [];
+            var standard = [];
+            var followups = [];
+
+            for (var i = 0; i < actions.length; i++) {
+                var line = actions[i];
+                if (/\burgent\b/i.test(line) || /\basap\b/i.test(line) || /\bpriority\b/i.test(line) || /\bimmediately\b/i.test(line)) {
+                    urgent.push(line);
+                } else if (/\bfollow\s*up\b/i.test(line) || /\bfollow\-up\b/i.test(line) || /\bschedule\b/i.test(line) || /\breview\b/i.test(line)) {
+                    followups.push(line);
+                } else {
+                    standard.push(line);
+                }
+            }
+
+            var html = '';
+
+            if (urgent.length > 0) {
+                html += '<div style="margin-bottom: 1rem;">';
+                html += '<h4 style="color: #dc2626; margin-bottom: 0.5rem; font-size: 1rem;">Urgent / High Priority</h4>';
+                html += '<ul style="margin-left: 1.25rem;">';
+                for (var u = 0; u < urgent.length; u++) {
+                    html += '<li style="margin-bottom: 0.35rem; color: var(--text-main); font-size: 0.93rem; font-weight: 500;">' + escapeHtml(urgent[u]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            if (standard.length > 0) {
+                html += '<div style="margin-bottom: 1rem;">';
+                html += '<h4 style="color: var(--primary); margin-bottom: 0.5rem; font-size: 1rem;">Tasks</h4>';
+                html += '<ul style="margin-left: 1.25rem;">';
+                for (var s = 0; s < standard.length; s++) {
+                    html += '<li style="margin-bottom: 0.35rem; color: var(--text-main); font-size: 0.93rem;">' + escapeHtml(standard[s]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            if (followups.length > 0) {
+                html += '<div style="margin-bottom: 1rem;">';
+                html += '<h4 style="color: #ea580c; margin-bottom: 0.5rem; font-size: 1rem;">Follow-ups & Reviews</h4>';
+                html += '<ul style="margin-left: 1.25rem;">';
+                for (var f = 0; f < followups.length; f++) {
+                    html += '<li style="margin-bottom: 0.35rem; color: var(--text-main); font-size: 0.93rem;">' + escapeHtml(followups[f]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            return html;
+        }
+
+        /* =============================================
+           FORMAT: TOPIC CLUSTERS
+           ============================================= */
+        function formatTopicClusters(lines, topics, tfidf) {
+            var allLines = lines.slice();
+            var clusters = clusterByTopics(allLines, topics);
+            var clusterKeys = Object.keys(clusters);
+
+            var html = '';
+            var colors = ['#2563EB', '#16a34a', '#ea580c', '#9333ea', '#dc2626', '#0891b2', '#ca8a04', '#6366f1'];
+
+            for (var i = 0; i < clusterKeys.length; i++) {
+                var topic = clusterKeys[i];
+                var items = clusters[topic];
+                var color = colors[i % colors.length];
+
+                html += '<div style="margin-bottom: 1.5rem; border-left: 3px solid ' + color + '; padding-left: 1rem;">';
+                html += '<h4 style="color: ' + color + '; margin-bottom: 0.5rem; font-size: 1.05rem;">' + escapeHtml(topic) + ' <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 400;">(' + items.length + ' item' + (items.length !== 1 ? 's' : '') + ')</span></h4>';
+                html += '<ul style="margin-left: 1rem; list-style-type: disc;">';
+                for (var j = 0; j < items.length; j++) {
+                    var itemStyle = 'margin-bottom: 0.3rem; color: var(--text-main); font-size: 0.93rem;';
+                    if (isActionItem(items[j])) itemStyle += ' font-weight: 600;';
+                    html += '<li style="' + itemStyle + '">' + escapeHtml(items[j]);
+                    if (isActionItem(items[j])) html += ' <span style="color: #dc2626; font-size: 0.75rem;">[ACTION]</span>';
+                    html += '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            return html;
+        }
+
+        /* =============================================
+           FORMAT: CORNELL NOTES
+           ============================================= */
+        function formatCornellNotes(lines, topics, tfidf) {
+            var clusters = clusterByTopics(lines, topics);
+            var clusterKeys = Object.keys(clusters);
+            var actionItems = extractActionItems(lines);
+
+            /* Build cues from topics, notes from clustered lines */
+            var html = '<div style="border: 2px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;">';
+
+            /* Header */
+            html += '<div style="background: var(--primary); color: white; padding: 0.75rem 1rem; font-weight: 600; font-size: 0.95rem;">Cornell Notes</div>';
+
+            /* Main grid: Cue Column | Notes Column */
+            html += '<div style="display: grid; grid-template-columns: 200px 1fr; min-height: 200px;">';
+
+            /* Cue column */
+            html += '<div style="border-right: 2px solid var(--border); padding: 1rem; background: #FAFBFC;">';
+            html += '<div style="font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Key Concepts</div>';
+            for (var t = 0; t < clusterKeys.length; t++) {
+                if (clusterKeys[t] !== 'General Notes') {
+                    html += '<div style="margin-bottom: 0.75rem; padding: 0.4rem 0.6rem; background: #EFF6FF; border-radius: 4px; font-weight: 600; font-size: 0.85rem; color: var(--primary);">' + escapeHtml(clusterKeys[t]) + '</div>';
+                }
+            }
+            if (actionItems.length > 0) {
+                html += '<div style="margin-bottom: 0.75rem; padding: 0.4rem 0.6rem; background: #FEF2F2; border-radius: 4px; font-weight: 600; font-size: 0.85rem; color: #dc2626;">Action Items (' + actionItems.length + ')</div>';
+            }
+            html += '</div>';
+
+            /* Notes column */
+            html += '<div style="padding: 1rem;">';
+            html += '<div style="font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem;">Notes</div>';
+
+            for (var c = 0; c < clusterKeys.length; c++) {
+                var topic = clusterKeys[c];
+                var items = clusters[topic];
+                html += '<div style="margin-bottom: 1rem;">';
+                html += '<div style="font-weight: 600; font-size: 0.9rem; color: var(--text-main); margin-bottom: 0.35rem;">' + escapeHtml(topic) + ':</div>';
+                html += '<ul style="margin-left: 1.25rem; margin-bottom: 0.25rem;">';
+                for (var n = 0; n < items.length; n++) {
+                    html += '<li style="margin-bottom: 0.25rem; font-size: 0.88rem; color: var(--text-main);">' + escapeHtml(items[n]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            if (actionItems.length > 0) {
+                html += '<div style="margin-bottom: 1rem;">';
+                html += '<div style="font-weight: 600; font-size: 0.9rem; color: #dc2626; margin-bottom: 0.35rem;">Action Items:</div>';
+                html += '<ul style="margin-left: 1.25rem;">';
+                for (var ai = 0; ai < actionItems.length; ai++) {
+                    html += '<li style="margin-bottom: 0.25rem; font-size: 0.88rem; color: var(--text-main); font-weight: 500;">' + escapeHtml(actionItems[ai]) + '</li>';
+                }
+                html += '</ul></div>';
+            }
+
+            html += '</div></div>';
+
+            /* Summary section at the bottom */
+            html += '<div style="border-top: 2px solid var(--border); padding: 1rem; background: #FAFBFC;">';
+            html += '<div style="font-weight: 600; font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem;">Summary</div>';
+
+            /* Generate a brief summary from top-scored lines */
+            var scored = lines.map(function(line, idx) {
+                return { text: line, score: scoreLine(line, tfidf, idx) };
+            });
+            scored.sort(function(a, b) { return b.score - a.score; });
+            var summaryCount = Math.min(3, Math.ceil(lines.length * 0.15));
+            var summaryLines = scored.slice(0, Math.max(1, summaryCount));
+            summaryLines.sort(function(a, b) {
+                return lines.indexOf(a.text) - lines.indexOf(b.text);
+            });
+
+            html += '<p style="font-size: 0.9rem; color: var(--text-main); line-height: 1.6; margin: 0;">';
+            var summaryTexts = summaryLines.map(function(s) { return s.text; });
+            html += escapeHtml(summaryTexts.join('. ')) + '.';
+            html += '</p></div></div>';
+
+            return html;
+        }
+
+        /* =============================================
+           GENERATE PLAIN TEXT for clipboard
+           ============================================= */
+        function generatePlainText(lines, topics, actionItems, format, tfidf) {
+            var text = '';
+            var clusters = clusterByTopics(lines.filter(function(l) { return !isActionItem(l); }), topics);
+            var allClusters = clusterByTopics(lines, topics);
+
+            if (format === 'structured') {
+                var keys = Object.keys(clusters);
+                for (var i = 0; i < keys.length; i++) {
+                    text += keys[i].toUpperCase() + '\n';
+                    for (var j = 0; j < clusters[keys[i]].length; j++) {
+                        text += '  - ' + clusters[keys[i]][j] + '\n';
+                    }
+                    text += '\n';
+                }
+                if (actionItems.length > 0) {
+                    text += 'ACTION ITEMS\n';
+                    for (var a = 0; a < actionItems.length; a++) {
+                        text += '  - ' + actionItems[a] + '\n';
+                    }
+                }
+            } else if (format === 'bullets') {
+                var scored = lines.map(function(line, idx) {
+                    return { text: line, score: scoreLine(line, tfidf, idx) };
+                });
+                scored.sort(function(a, b) { return b.score - a.score; });
+                var numPoints = Math.min(scored.length, Math.max(5, Math.ceil(lines.length * 0.5)));
+                var topPoints = scored.slice(0, numPoints);
+                topPoints.sort(function(a, b) {
+                    return lines.indexOf(a.text) - lines.indexOf(b.text);
+                });
+                text += 'KEY POINTS\n';
+                for (var b = 0; b < topPoints.length; b++) {
+                    text += '  - ' + topPoints[b].text;
+                    if (isActionItem(topPoints[b].text)) text += ' [ACTION]';
+                    text += '\n';
+                }
+            } else if (format === 'actions') {
+                if (actionItems.length === 0) {
+                    text = 'No action items detected in your notes.';
+                } else {
+                    var urgent = [], standard = [], followups = [];
+                    for (var x = 0; x < actionItems.length; x++) {
+                        var line = actionItems[x];
+                        if (/\burgent\b/i.test(line) || /\basap\b/i.test(line) || /\bpriority\b/i.test(line)) {
+                            urgent.push(line);
+                        } else if (/\bfollow\s*up\b/i.test(line) || /\bschedule\b/i.test(line) || /\breview\b/i.test(line)) {
+                            followups.push(line);
+                        } else {
+                            standard.push(line);
+                        }
+                    }
+                    if (urgent.length > 0) {
+                        text += 'URGENT / HIGH PRIORITY\n';
+                        for (var ux = 0; ux < urgent.length; ux++) text += '  - ' + urgent[ux] + '\n';
+                        text += '\n';
+                    }
+                    if (standard.length > 0) {
+                        text += 'TASKS\n';
+                        for (var sx = 0; sx < standard.length; sx++) text += '  - ' + standard[sx] + '\n';
+                        text += '\n';
+                    }
+                    if (followups.length > 0) {
+                        text += 'FOLLOW-UPS & REVIEWS\n';
+                        for (var fx = 0; fx < followups.length; fx++) text += '  - ' + followups[fx] + '\n';
+                    }
+                }
+            } else if (format === 'clusters') {
+                var cKeys = Object.keys(allClusters);
+                for (var ci = 0; ci < cKeys.length; ci++) {
+                    var ct = cKeys[ci];
+                    var cItems = allClusters[ct];
+                    text += ct.toUpperCase() + ' (' + cItems.length + ' items)\n';
+                    for (var cj = 0; cj < cItems.length; cj++) {
+                        text += '  - ' + cItems[cj];
+                        if (isActionItem(cItems[cj])) text += ' [ACTION]';
+                        text += '\n';
+                    }
+                    text += '\n';
+                }
+            } else if (format === 'cornell') {
+                text += 'CORNELL NOTES\n';
+                text += '=============\n\n';
+                text += 'KEY CONCEPTS: ' + topics.join(', ') + '\n\n';
+                text += 'NOTES:\n';
+                var aKeys = Object.keys(allClusters);
+                for (var ak = 0; ak < aKeys.length; ak++) {
+                    text += '\n' + aKeys[ak] + ':\n';
+                    for (var al = 0; al < allClusters[aKeys[ak]].length; al++) {
+                        text += '  - ' + allClusters[aKeys[ak]][al] + '\n';
+                    }
+                }
+                if (actionItems.length > 0) {
+                    text += '\nACTION ITEMS:\n';
+                    for (var aci = 0; aci < actionItems.length; aci++) {
+                        text += '  - ' + actionItems[aci] + '\n';
+                    }
+                }
+                /* Summary */
+                var sc = lines.map(function(line, idx) {
+                    return { text: line, score: scoreLine(line, tfidf, idx) };
+                });
+                sc.sort(function(a2, b2) { return b2.score - a2.score; });
+                var sCount = Math.min(3, Math.ceil(lines.length * 0.15));
+                var sLines = sc.slice(0, Math.max(1, sCount)).map(function(s2) { return s2.text; });
+                text += '\nSUMMARY:\n' + sLines.join('. ') + '.';
+            }
+
+            return text.trim();
+        }
+
+        /* =============================================
+           MAIN SUMMARIZE FUNCTION
+           ============================================= */
+        summarizeBtn.addEventListener('click', function() {
+            var rawText = notesInput.value.trim();
+
+            if (!rawText) {
+                statsPanel.style.display = 'none';
+                outputPanel.style.display = 'block';
+                outputContent.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter your notes to summarize.</p>';
+                return;
+            }
+
+            var originalWordCount = countWords(rawText);
+
+            if (originalWordCount < 5) {
+                statsPanel.style.display = 'none';
+                outputPanel.style.display = 'block';
+                outputContent.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter more notes. The summarizer works best with at least a few lines of content.</p>';
+                return;
+            }
+
+            /* Parse lines */
+            var lines = parseLines(rawText);
+            if (lines.length === 0) {
+                statsPanel.style.display = 'none';
+                outputPanel.style.display = 'block';
+                outputContent.innerHTML = '<p style="color: #ef4444; margin: 0;">Could not parse any distinct lines from your notes. Try separating ideas onto different lines.</p>';
+                return;
+            }
+
+            /* Remove duplicates */
+            var uniqueLines = removeDuplicates(lines);
+
+            /* Compute TF-IDF */
+            var tfidf = computeTFIDF(uniqueLines);
+
+            /* Extract topics */
+            var topics = extractTopics(uniqueLines, tfidf);
+
+            /* Extract action items */
+            var actionItems = extractActionItems(uniqueLines);
+
+            /* Format output based on selected format */
+            var format = outputFormat.value;
+            var html = '';
+
+            if (format === 'structured') {
+                html = formatStructuredSummary(uniqueLines, topics, tfidf);
+            } else if (format === 'bullets') {
+                html = formatBulletPoints(uniqueLines, tfidf);
+            } else if (format === 'actions') {
+                html = formatActionItems(uniqueLines);
+            } else if (format === 'clusters') {
+                html = formatTopicClusters(uniqueLines, topics, tfidf);
+            } else if (format === 'cornell') {
+                html = formatCornellNotes(uniqueLines, topics, tfidf);
+            }
+
+            /* Compute stats */
+            var summaryWordCount = countWords(outputContent.textContent || '');
+            outputContent.innerHTML = html;
+            summaryWordCount = countWords(outputContent.textContent || outputContent.innerText || '');
+
+            var reduction = originalWordCount > 0 ? ((1 - summaryWordCount / originalWordCount) * 100).toFixed(0) : 0;
+            if (reduction < 0) reduction = 0;
+
+            statOriginal.textContent = originalWordCount;
+            statSummary.textContent = summaryWordCount;
+            statReduction.textContent = reduction + '%';
+            statTopics.textContent = topics.length;
+            statActions.textContent = actionItems.length;
+
+            statsPanel.style.display = 'block';
+            outputPanel.style.display = 'block';
+
+            /* Store plain text for copy */
+            outputContent.setAttribute('data-plain', generatePlainText(uniqueLines, topics, actionItems, format, tfidf));
+        });
+
+        /* =============================================
+           COPY BUTTON
+           ============================================= */
+        copyBtn.addEventListener('click', function() {
+            var plainText = outputContent.getAttribute('data-plain') || outputContent.textContent || outputContent.innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(plainText).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Output'; }, 2000);
+                });
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = plainText;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Output'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

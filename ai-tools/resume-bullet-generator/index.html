@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Bullet Point Generator - Create Professional Resume Bullets | ToolsNest</title>
+    <meta name="description" content="Generate powerful, achievement-oriented resume bullet points using the STAR method. Transform job duties into impactful accomplishments. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/resume-bullet-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Resume Bullet Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Resume Bullet Point Generator</h1>
+                <p class="text-center mb-3">Transform ordinary job descriptions into powerful, achievement-oriented resume bullet points using the STAR method. Optimized for ATS systems and recruiter impact. 100% client-side -- your data stays private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="job-title">Job Title</label>
+                        <input type="text" id="job-title" class="form-input" placeholder="e.g., Software Engineer, Marketing Manager, Data Analyst" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="task-description">Task / Responsibility Description</label>
+                        <textarea id="task-description" class="form-input" rows="4" placeholder="Describe what you did in this role. Be specific about the task, project, or responsibility. e.g., 'Led the migration of our legacy monolithic application to a microservices architecture using Docker and Kubernetes'" style="min-height: 100px;"></textarea>
+                        <p id="desc-char-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 characters</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="industry-select">Industry</label>
+                            <select id="industry-select" class="form-input">
+                                <option value="general">General</option>
+                                <option value="technology">Technology</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="finance">Finance</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="education">Education</option>
+                                <option value="engineering">Engineering</option>
+                                <option value="sales">Sales</option>
+                                <option value="operations">Operations</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="impact-level">Impact Level</label>
+                            <select id="impact-level" class="form-input">
+                                <option value="individual">Individual</option>
+                                <option value="team">Team</option>
+                                <option value="department">Department</option>
+                                <option value="company">Company-wide</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="metrics-input">Metrics / Numbers <span class="text-muted" style="font-weight: normal;">(optional -- separate multiple with commas)</span></label>
+                        <input type="text" id="metrics-input" class="form-input" placeholder="e.g., 30% revenue increase, 50 team members, $2M budget, 99.9% uptime" />
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button id="generate-btn" class="btn btn-primary" style="flex: 1; min-width: 200px; font-size: 1.1rem; padding: 1rem;">Generate Bullet Points</button>
+                        <button id="regenerate-btn" class="btn btn-outline" style="padding: 1rem 1.5rem; font-size: 1.1rem; display: none;">Regenerate</button>
+                    </div>
+
+                    <div id="results-container" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
+                                <h3 style="color: var(--text-main); margin: 0;">Generated Bullet Points</h3>
+                                <button id="copy-all-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy All Bullets</button>
+                            </div>
+                            <p class="text-muted mb-2" style="font-size: 0.85rem;">Each bullet follows the STAR method: <strong>Action Verb</strong> + <strong>Task/Project</strong> + <strong>Method/How</strong> + <strong>Quantified Result</strong>. Aim for 1-2 lines per bullet on your resume.</p>
+                            <div id="bullets-list"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your job title to help the generator choose industry-relevant action verbs and phrasing.</li>
+                        <li>Describe the task, project, or responsibility you want to highlight. Be as specific as possible.</li>
+                        <li>Select your industry and the scope of your impact (individual, team, department, or company-wide).</li>
+                        <li>Optionally add metrics and numbers (e.g., percentages, dollar amounts, team sizes) for stronger bullets.</li>
+                        <li>Click "Generate Bullet Points" to create 5 STAR-method resume bullets. Use "Regenerate" for fresh variations.</li>
+                        <li>Copy individual bullets or use "Copy All" to grab every generated bullet at once.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the STAR method for resume bullets?</h3>
+                        <p>The STAR method structures accomplishments as: Situation/Task, Action, and Result. For resume bullets, this translates to starting with a strong action verb, describing what you did and how you did it, and ending with a measurable outcome. This format helps recruiters quickly understand your impact.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why are action verbs important in resume bullets?</h3>
+                        <p>Strong action verbs like "Spearheaded," "Orchestrated," and "Optimized" immediately convey leadership and initiative. They replace weak phrases like "Responsible for" or "Helped with," making your accomplishments sound more impactful and professional to hiring managers and ATS systems.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool send my data to any server?</h3>
+                        <p>No. This tool runs entirely in your browser using client-side JavaScript. Your job details, descriptions, and generated bullets never leave your device. No API calls, no data collection, completely private.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How long should a resume bullet point be?</h3>
+                        <p>Ideal resume bullets are 1-2 lines long (roughly 80-160 characters). This tool includes a character counter for each bullet to help you stay within ATS-friendly limits. Bullets that are too long tend to lose the reader's attention.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use these bullets for any industry?</h3>
+                        <p>Yes. The generator includes industry-specific templates and vocabulary for Technology, Healthcare, Finance, Marketing, Education, Engineering, Sales, and Operations. Select your industry for the most relevant phrasing, or choose "General" for versatile bullets.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/email-writer" class="related-link">Email Writer</a>
+                    <a href="/ai-tools/bio-generator" class="related-link">Bio Generator</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ===================================================================
+           ACTION VERBS LIBRARY (100+ verbs organized by category)
+           =================================================================== */
+        var actionVerbs = {
+            leadership: [
+                'Spearheaded', 'Directed', 'Orchestrated', 'Championed', 'Pioneered',
+                'Mobilized', 'Oversaw', 'Guided', 'Mentored', 'Supervised',
+                'Empowered', 'Steered', 'Delegated', 'Coordinated', 'Instituted',
+                'Galvanized', 'Helmed', 'Navigated', 'Unified', 'Cultivated'
+            ],
+            technical: [
+                'Engineered', 'Developed', 'Architected', 'Programmed', 'Automated',
+                'Deployed', 'Configured', 'Integrated', 'Debugged', 'Refactored',
+                'Migrated', 'Implemented', 'Optimized', 'Prototyped', 'Coded',
+                'Containerized', 'Provisioned', 'Troubleshot', 'Standardized', 'Modularized'
+            ],
+            analytical: [
+                'Analyzed', 'Evaluated', 'Assessed', 'Investigated', 'Diagnosed',
+                'Quantified', 'Forecasted', 'Benchmarked', 'Measured', 'Audited',
+                'Interpreted', 'Validated', 'Surveyed', 'Mapped', 'Modeled',
+                'Identified', 'Researched', 'Calculated', 'Examined', 'Projected'
+            ],
+            creative: [
+                'Designed', 'Conceptualized', 'Crafted', 'Innovated', 'Revamped',
+                'Transformed', 'Reimagined', 'Launched', 'Curated', 'Produced',
+                'Illustrated', 'Authored', 'Composed', 'Shaped', 'Devised',
+                'Invented', 'Formulated', 'Originated', 'Envisioned', 'Customized'
+            ],
+            communication: [
+                'Presented', 'Negotiated', 'Advocated', 'Articulated', 'Conveyed',
+                'Persuaded', 'Collaborated', 'Facilitated', 'Mediated', 'Liaised',
+                'Briefed', 'Counseled', 'Influenced', 'Communicated', 'Documented',
+                'Published', 'Reported', 'Translated', 'Clarified', 'Promoted'
+            ],
+            achievement: [
+                'Achieved', 'Delivered', 'Exceeded', 'Surpassed', 'Accelerated',
+                'Maximized', 'Boosted', 'Elevated', 'Strengthened', 'Amplified',
+                'Attained', 'Outperformed', 'Doubled', 'Tripled', 'Secured',
+                'Captured', 'Generated', 'Earned', 'Won', 'Expanded'
+            ],
+            efficiency: [
+                'Streamlined', 'Consolidated', 'Reduced', 'Eliminated', 'Simplified',
+                'Centralized', 'Restructured', 'Improved', 'Enhanced', 'Expedited',
+                'Minimized', 'Decreased', 'Shortened', 'Lowered', 'Cut',
+                'Reconfigured', 'Systematized', 'Revitalized', 'Modernized', 'Upgraded'
+            ]
+        };
+
+        /* ===================================================================
+           INDUSTRY-SPECIFIC TEMPLATES
+           =================================================================== */
+        var industryTemplates = {
+            technology: {
+                methods: [
+                    'leveraging agile methodologies and CI/CD pipelines',
+                    'utilizing cloud-native architecture and microservices',
+                    'applying test-driven development and code review practices',
+                    'through automated testing frameworks and DevOps practices',
+                    'implementing RESTful APIs and scalable database solutions',
+                    'using data-driven decision making and A/B testing',
+                    'by adopting containerization and infrastructure-as-code',
+                    'through cross-functional collaboration with product and design teams',
+                    'employing machine learning models and data analytics',
+                    'via performance profiling and systematic optimization'
+                ],
+                results: [
+                    'reducing system downtime by {metric}',
+                    'improving application performance by {metric}',
+                    'accelerating deployment frequency by {metric}',
+                    'decreasing bug resolution time by {metric}',
+                    'increasing code coverage to {metric}',
+                    'scaling the platform to support {metric} concurrent users',
+                    'cutting infrastructure costs by {metric}',
+                    'reducing page load times by {metric}'
+                ],
+                verbCategories: ['technical', 'analytical', 'efficiency']
+            },
+            healthcare: {
+                methods: [
+                    'adhering to HIPAA compliance standards and clinical protocols',
+                    'through evidence-based practices and interdisciplinary collaboration',
+                    'utilizing electronic health record (EHR) systems and clinical workflows',
+                    'by implementing patient-centered care frameworks',
+                    'leveraging telehealth platforms and remote monitoring technologies',
+                    'through quality improvement initiatives and root cause analysis',
+                    'applying clinical research methodologies and best practices',
+                    'by coordinating with multidisciplinary care teams',
+                    'using data analytics to identify trends in patient outcomes',
+                    'through continuous staff training and competency development'
+                ],
+                results: [
+                    'improving patient satisfaction scores by {metric}',
+                    'reducing average wait times by {metric}',
+                    'decreasing readmission rates by {metric}',
+                    'enhancing treatment compliance rates to {metric}',
+                    'serving {metric} patients across the care continuum',
+                    'achieving {metric} regulatory compliance rate',
+                    'reducing medication errors by {metric}',
+                    'lowering operational costs by {metric}'
+                ],
+                verbCategories: ['leadership', 'analytical', 'communication']
+            },
+            finance: {
+                methods: [
+                    'through rigorous financial modeling and risk assessment frameworks',
+                    'leveraging advanced analytics and Bloomberg terminal data',
+                    'by implementing robust internal controls and compliance procedures',
+                    'utilizing quantitative analysis and portfolio optimization strategies',
+                    'through strategic asset allocation and diversification techniques',
+                    'by conducting thorough due diligence and market research',
+                    'applying regulatory frameworks and audit methodologies',
+                    'through client relationship management and fiduciary practices',
+                    'using financial forecasting models and scenario analysis',
+                    'by automating reconciliation processes and reporting workflows'
+                ],
+                results: [
+                    'generating {metric} in revenue growth',
+                    'reducing portfolio risk exposure by {metric}',
+                    'achieving {metric} ROI for stakeholders',
+                    'managing a portfolio valued at {metric}',
+                    'improving forecast accuracy by {metric}',
+                    'saving {metric} in operational costs annually',
+                    'increasing client retention rates by {metric}',
+                    'processing {metric} in transactions per quarter'
+                ],
+                verbCategories: ['analytical', 'achievement', 'leadership']
+            },
+            marketing: {
+                methods: [
+                    'executing multi-channel campaigns across digital and traditional media',
+                    'leveraging SEO/SEM strategies and content marketing frameworks',
+                    'through A/B testing, user segmentation, and conversion optimization',
+                    'utilizing marketing automation platforms and CRM integrations',
+                    'by developing compelling brand narratives and visual identities',
+                    'through influencer partnerships and community engagement strategies',
+                    'applying data-driven insights from Google Analytics and social metrics',
+                    'by orchestrating product launches with cross-functional teams',
+                    'using programmatic advertising and retargeting campaigns',
+                    'through customer journey mapping and persona development'
+                ],
+                results: [
+                    'increasing brand awareness by {metric}',
+                    'driving {metric} growth in organic traffic',
+                    'boosting conversion rates by {metric}',
+                    'growing social media following by {metric}',
+                    'generating {metric} in marketing-attributed revenue',
+                    'reducing customer acquisition cost by {metric}',
+                    'achieving {metric} email open rates',
+                    'expanding market reach to {metric} new segments'
+                ],
+                verbCategories: ['creative', 'achievement', 'communication']
+            },
+            education: {
+                methods: [
+                    'through differentiated instruction and inclusive pedagogical approaches',
+                    'by developing standards-aligned curriculum and assessment tools',
+                    'leveraging educational technology platforms and blended learning models',
+                    'utilizing data-driven instruction and formative assessment strategies',
+                    'through collaborative professional learning communities',
+                    'by implementing social-emotional learning (SEL) frameworks',
+                    'applying Universal Design for Learning (UDL) principles',
+                    'through mentorship programs and student-centered learning',
+                    'by integrating project-based learning and real-world applications',
+                    'using learning management systems and adaptive technology'
+                ],
+                results: [
+                    'improving student achievement scores by {metric}',
+                    'increasing graduation rates by {metric}',
+                    'serving {metric} students across diverse learning needs',
+                    'raising course completion rates to {metric}',
+                    'boosting student engagement metrics by {metric}',
+                    'reducing achievement gaps by {metric}',
+                    'securing {metric} in grant funding for programs',
+                    'expanding program enrollment by {metric}'
+                ],
+                verbCategories: ['leadership', 'creative', 'communication']
+            },
+            engineering: {
+                methods: [
+                    'applying lean manufacturing principles and Six Sigma methodologies',
+                    'through CAD modeling, simulation, and rapid prototyping',
+                    'utilizing FEA analysis and rigorous testing protocols',
+                    'by implementing quality management systems and ISO standards',
+                    'leveraging cross-functional design reviews and DFMEA processes',
+                    'through root cause analysis and corrective action implementation',
+                    'by optimizing production workflows and supply chain logistics',
+                    'using systems engineering approaches and requirements traceability',
+                    'through environmental impact assessments and sustainability practices',
+                    'applying statistical process control and continuous improvement methods'
+                ],
+                results: [
+                    'reducing manufacturing defects by {metric}',
+                    'improving production efficiency by {metric}',
+                    'cutting project delivery timelines by {metric}',
+                    'decreasing material waste by {metric}',
+                    'achieving {metric} quality compliance rate',
+                    'saving {metric} in annual production costs',
+                    'increasing equipment uptime to {metric}',
+                    'delivering {metric} projects on time and within budget'
+                ],
+                verbCategories: ['technical', 'analytical', 'efficiency']
+            },
+            sales: {
+                methods: [
+                    'through consultative selling and strategic account management',
+                    'by developing targeted prospecting campaigns and sales playbooks',
+                    'leveraging CRM analytics and pipeline management best practices',
+                    'utilizing solution-based selling and needs-assessment frameworks',
+                    'through strategic partnerships and referral network development',
+                    'by conducting competitive analysis and market positioning',
+                    'via territory planning and key account prioritization',
+                    'through cross-selling and upselling strategies',
+                    'by building executive-level relationships and C-suite presentations',
+                    'using data-driven forecasting and quota management techniques'
+                ],
+                results: [
+                    'exceeding annual quota by {metric}',
+                    'generating {metric} in new business revenue',
+                    'growing account portfolio by {metric}',
+                    'increasing average deal size by {metric}',
+                    'closing {metric} enterprise-level contracts',
+                    'reducing sales cycle length by {metric}',
+                    'expanding territory revenue by {metric}',
+                    'achieving {metric} client retention rate'
+                ],
+                verbCategories: ['achievement', 'communication', 'leadership']
+            },
+            operations: {
+                methods: [
+                    'through process reengineering and operational excellence initiatives',
+                    'by implementing ERP systems and workflow automation tools',
+                    'leveraging lean management principles and Kaizen practices',
+                    'utilizing vendor management strategies and contract negotiations',
+                    'through capacity planning and resource optimization',
+                    'by developing SOPs and standardized training programs',
+                    'using supply chain analytics and demand forecasting',
+                    'through cross-departmental coordination and stakeholder alignment',
+                    'by implementing KPI dashboards and performance monitoring systems',
+                    'applying risk mitigation strategies and business continuity planning'
+                ],
+                results: [
+                    'reducing operational costs by {metric}',
+                    'improving process efficiency by {metric}',
+                    'decreasing turnaround time by {metric}',
+                    'achieving {metric} on-time delivery rate',
+                    'managing {metric} in annual budget spend',
+                    'increasing throughput capacity by {metric}',
+                    'reducing inventory waste by {metric}',
+                    'saving {metric} annually through process improvements'
+                ],
+                verbCategories: ['efficiency', 'leadership', 'analytical']
+            },
+            general: {
+                methods: [
+                    'through strategic planning and cross-functional collaboration',
+                    'by implementing best practices and process improvements',
+                    'leveraging data-driven insights and performance analytics',
+                    'utilizing stakeholder feedback and iterative development cycles',
+                    'through project management methodologies and resource planning',
+                    'by conducting thorough research and competitive analysis',
+                    'via team coordination and effective communication strategies',
+                    'through training programs and knowledge-sharing initiatives',
+                    'by establishing metrics-based tracking and reporting systems',
+                    'using innovative approaches and emerging industry practices'
+                ],
+                results: [
+                    'increasing overall productivity by {metric}',
+                    'delivering {metric} improvement in key performance indicators',
+                    'reducing costs by {metric} while maintaining quality standards',
+                    'achieving {metric} stakeholder satisfaction rating',
+                    'completing projects {metric} ahead of schedule',
+                    'growing revenue by {metric} year-over-year',
+                    'improving team performance metrics by {metric}',
+                    'serving {metric} clients with consistent excellence'
+                ],
+                verbCategories: ['achievement', 'leadership', 'efficiency']
+            }
+        };
+
+        /* ===================================================================
+           IMPACT LEVEL CONTEXT
+           =================================================================== */
+        var impactContext = {
+            individual: {
+                scope: ['personally', 'independently', 'as sole contributor', 'single-handedly'],
+                resultPrefix: ['within assigned portfolio', 'across personal workload', 'for individual deliverables']
+            },
+            team: {
+                scope: ['within a cross-functional team of {size} members', 'collaborating with team stakeholders', 'as part of an agile team', 'alongside team members'],
+                resultPrefix: ['across the team', 'for the team', 'within the team unit']
+            },
+            department: {
+                scope: ['across the department', 'department-wide', 'spanning multiple teams within the division', 'at the departmental level'],
+                resultPrefix: ['across the department', 'for the entire division', 'department-wide']
+            },
+            company: {
+                scope: ['enterprise-wide', 'across the entire organization', 'at the organizational level', 'impacting all business units'],
+                resultPrefix: ['across the organization', 'company-wide', 'for the entire enterprise']
+            }
+        };
+
+        /* ===================================================================
+           HELPER FUNCTIONS
+           =================================================================== */
+        var rng = { seed: Date.now() };
+
+        function seededRandom() {
+            rng.seed = (rng.seed * 9301 + 49297) % 233280;
+            return rng.seed / 233280;
+        }
+
+        function shuffle(arr) {
+            var shuffled = arr.slice();
+            for (var i = shuffled.length - 1; i > 0; i--) {
+                var j = Math.floor(seededRandom() * (i + 1));
+                var temp = shuffled[i];
+                shuffled[i] = shuffled[j];
+                shuffled[j] = temp;
+            }
+            return shuffled;
+        }
+
+        function pickRandom(arr) {
+            return arr[Math.floor(seededRandom() * arr.length)];
+        }
+
+        function pickUniqueN(arr, n) {
+            var shuffled = shuffle(arr);
+            return shuffled.slice(0, Math.min(n, shuffled.length));
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* Parse user metrics into an array */
+        function parseMetrics(metricsStr) {
+            if (!metricsStr || !metricsStr.trim()) return [];
+            return metricsStr.split(',').map(function(m) { return m.trim(); }).filter(function(m) { return m.length > 0; });
+        }
+
+        /* Extract key phrases from the task description */
+        function extractKeyPhrases(description) {
+            var text = description.trim();
+            /* Remove common filler starts */
+            text = text.replace(/^(i |we |my role was to |responsible for |helped |assisted in |worked on )/i, '');
+            return text;
+        }
+
+        /* Generate a result phrase, inserting metrics if available */
+        function buildResultPhrase(templates, metrics, impactLevel) {
+            var template = pickRandom(templates);
+            var impact = impactContext[impactLevel];
+
+            if (metrics.length > 0) {
+                var metric = metrics[Math.floor(seededRandom() * metrics.length)];
+                template = template.replace('{metric}', metric);
+            } else {
+                /* Replace {metric} with plausible generic phrasing */
+                var genericMetrics = [
+                    'measurable improvements', 'significant gains', 'notable results',
+                    'quantifiable outcomes', 'substantial improvements', 'marked improvements',
+                    'demonstrated results', 'meaningful impact'
+                ];
+                template = template.replace('{metric}', pickRandom(genericMetrics));
+            }
+
+            /* Occasionally append impact scope */
+            if (seededRandom() > 0.5) {
+                template += ' ' + pickRandom(impact.resultPrefix);
+            }
+
+            return template;
+        }
+
+        /* Build the core task phrase from user description */
+        function buildTaskPhrase(description, jobTitle) {
+            var task = extractKeyPhrases(description);
+            /* Ensure it doesn't start with a capital letter since it follows the verb */
+            if (task.length > 0) {
+                task = task.charAt(0).toLowerCase() + task.slice(1);
+            }
+            /* Remove trailing period if present */
+            task = task.replace(/\.\s*$/, '');
+            return task;
+        }
+
+        /* ===================================================================
+           MAIN BULLET GENERATION ENGINE
+           =================================================================== */
+        function generateBullets(jobTitle, description, industry, impactLevel, metricsStr) {
+            rng.seed = Date.now() + Math.floor(Math.random() * 100000);
+
+            var metrics = parseMetrics(metricsStr);
+            var indTemplate = industryTemplates[industry] || industryTemplates.general;
+            var bullets = [];
+
+            /* Select 5 unique action verbs from the preferred categories for this industry */
+            var preferredCategories = indTemplate.verbCategories;
+            var verbPool = [];
+            for (var c = 0; c < preferredCategories.length; c++) {
+                verbPool = verbPool.concat(actionVerbs[preferredCategories[c]]);
+            }
+            /* Add some from other categories for variety */
+            var allCategories = Object.keys(actionVerbs);
+            for (var ac = 0; ac < allCategories.length; ac++) {
+                if (preferredCategories.indexOf(allCategories[ac]) === -1) {
+                    var extras = shuffle(actionVerbs[allCategories[ac]]).slice(0, 5);
+                    verbPool = verbPool.concat(extras);
+                }
+            }
+            var selectedVerbs = pickUniqueN(verbPool, 5);
+
+            /* Select 5 unique methods */
+            var selectedMethods = pickUniqueN(indTemplate.methods, 5);
+
+            /* Select 5 unique result templates */
+            var selectedResults = pickUniqueN(indTemplate.results, 5);
+
+            /* Build the task phrase */
+            var taskPhrase = buildTaskPhrase(description, jobTitle);
+
+            /* Sentence pattern variations to avoid repetition */
+            var patterns = shuffle([
+                function(verb, task, method, result) {
+                    return verb + ' ' + task + ' ' + method + ', ' + result + '.';
+                },
+                function(verb, task, method, result) {
+                    return verb + ' ' + task + ', ' + result + ' by ' + method.replace(/^(through |by |leveraging |utilizing |via |using |applying |employing )/, '') + '.';
+                },
+                function(verb, task, method, result) {
+                    return verb + ' ' + task + ' ' + method + ', resulting in ' + result.replace(/^(reducing |improving |increasing |achieving |generating |decreasing |boosting |growing |driving |expanding |cutting |serving |delivering |raising |saving |managing )/, function(m) { return m.trim() + ' '; }).trim() + '.';
+                },
+                function(verb, task, method, result) {
+                    return verb + ' ' + task + ' ' + method + ' to achieve ' + result.replace(/^(reducing |improving |increasing |achieving |generating |decreasing |boosting |growing |driving |expanding |cutting |serving |delivering |raising |saving |managing )/, '').trim() + '.';
+                },
+                function(verb, task, method, result) {
+                    return verb + ' ' + task + ', ' + method + ', ultimately ' + result + '.';
+                }
+            ]);
+
+            for (var i = 0; i < 5; i++) {
+                var verb = selectedVerbs[i];
+                var method = selectedMethods[i];
+                var resultPhrase = buildResultPhrase(selectedResults.length > i ? [selectedResults[i]] : indTemplate.results, metrics, impactLevel);
+                var pattern = patterns[i];
+
+                var bullet = pattern(verb, taskPhrase, method, resultPhrase);
+
+                /* Clean up any double spaces or awkward punctuation */
+                bullet = bullet.replace(/\s+/g, ' ').replace(/,\s*,/g, ',').replace(/\.\./g, '.').replace(/\s+\./g, '.').trim();
+
+                /* Ensure first character is uppercase */
+                bullet = capitalize(bullet);
+
+                bullets.push(bullet);
+            }
+
+            return bullets;
+        }
+
+        /* ===================================================================
+           DOM REFERENCES
+           =================================================================== */
+        var jobTitleInput = document.getElementById('job-title');
+        var taskDescription = document.getElementById('task-description');
+        var industrySelect = document.getElementById('industry-select');
+        var impactLevel = document.getElementById('impact-level');
+        var metricsInput = document.getElementById('metrics-input');
+        var generateBtn = document.getElementById('generate-btn');
+        var regenerateBtn = document.getElementById('regenerate-btn');
+        var resultsContainer = document.getElementById('results-container');
+        var bulletsList = document.getElementById('bullets-list');
+        var copyAllBtn = document.getElementById('copy-all-btn');
+        var descCharCount = document.getElementById('desc-char-count');
+
+        /* ===================================================================
+           CHARACTER COUNTER
+           =================================================================== */
+        taskDescription.addEventListener('input', function() {
+            var len = taskDescription.value.length;
+            descCharCount.textContent = len + ' character' + (len !== 1 ? 's' : '');
+        });
+
+        /* ===================================================================
+           COPY HELPER
+           =================================================================== */
+        function copyToClipboard(text, btn, originalLabel) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    btn.textContent = 'Copied!';
+                    btn.style.color = '#16a34a';
+                    setTimeout(function() {
+                        btn.textContent = originalLabel;
+                        btn.style.color = '';
+                    }, 2000);
+                });
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                btn.textContent = 'Copied!';
+                btn.style.color = '#16a34a';
+                setTimeout(function() {
+                    btn.textContent = originalLabel;
+                    btn.style.color = '';
+                }, 2000);
+            }
+        }
+
+        /* ===================================================================
+           RENDER BULLETS
+           =================================================================== */
+        function renderBullets(bullets) {
+            bulletsList.innerHTML = '';
+
+            for (var i = 0; i < bullets.length; i++) {
+                var bulletDiv = document.createElement('div');
+                bulletDiv.style.cssText = 'background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 0.75rem; position: relative; transition: border-color 0.2s ease;';
+
+                var bulletContent = document.createElement('div');
+                bulletContent.style.cssText = 'display: flex; align-items: flex-start; gap: 0.75rem;';
+
+                var bulletIcon = document.createElement('span');
+                bulletIcon.textContent = '\u2022';
+                bulletIcon.style.cssText = 'color: var(--primary); font-size: 1.5rem; line-height: 1.4; flex-shrink: 0; font-weight: bold;';
+
+                var bulletTextWrap = document.createElement('div');
+                bulletTextWrap.style.cssText = 'flex: 1;';
+
+                var bulletText = document.createElement('p');
+                bulletText.textContent = bullets[i];
+                bulletText.style.cssText = 'margin: 0; line-height: 1.6; color: var(--text-main); font-size: 0.95rem;';
+
+                var bulletMeta = document.createElement('div');
+                bulletMeta.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem; flex-wrap: wrap; gap: 0.5rem;';
+
+                var charCount = document.createElement('span');
+                var charLen = bullets[i].length;
+                var atsStatus = charLen <= 160 ? 'ATS-friendly length' : (charLen <= 200 ? 'Slightly long for ATS' : 'Consider shortening for ATS');
+                var atsColor = charLen <= 160 ? '#16a34a' : (charLen <= 200 ? '#ca8a04' : '#dc2626');
+                charCount.textContent = charLen + ' chars \u2014 ' + atsStatus;
+                charCount.style.cssText = 'font-size: 0.78rem; color: ' + atsColor + '; font-weight: 500;';
+
+                var copyBtn = document.createElement('button');
+                copyBtn.textContent = 'Copy';
+                copyBtn.className = 'btn btn-outline';
+                copyBtn.style.cssText = 'padding: 0.25rem 0.75rem; font-size: 0.78rem; cursor: pointer;';
+                (function(text, button) {
+                    button.addEventListener('click', function() {
+                        copyToClipboard(text, button, 'Copy');
+                    });
+                })(bullets[i], copyBtn);
+
+                bulletMeta.appendChild(charCount);
+                bulletMeta.appendChild(copyBtn);
+                bulletTextWrap.appendChild(bulletText);
+                bulletTextWrap.appendChild(bulletMeta);
+                bulletContent.appendChild(bulletIcon);
+                bulletContent.appendChild(bulletTextWrap);
+                bulletDiv.appendChild(bulletContent);
+
+                /* Hover effect */
+                (function(div) {
+                    div.addEventListener('mouseenter', function() {
+                        div.style.borderColor = 'var(--primary)';
+                    });
+                    div.addEventListener('mouseleave', function() {
+                        div.style.borderColor = 'var(--border)';
+                    });
+                })(bulletDiv);
+
+                bulletsList.appendChild(bulletDiv);
+            }
+        }
+
+        /* ===================================================================
+           VALIDATION
+           =================================================================== */
+        function validate() {
+            var errors = [];
+            if (!jobTitleInput.value.trim()) {
+                errors.push('Please enter a job title.');
+            }
+            if (!taskDescription.value.trim()) {
+                errors.push('Please describe the task or responsibility.');
+            }
+            if (taskDescription.value.trim().length < 10) {
+                errors.push('Please provide a more detailed task description (at least 10 characters).');
+            }
+            return errors;
+        }
+
+        /* ===================================================================
+           GENERATE HANDLER
+           =================================================================== */
+        var currentBullets = [];
+
+        function handleGenerate() {
+            var errors = validate();
+            if (errors.length > 0) {
+                bulletsList.innerHTML = '<p style="color: #ef4444; margin: 0;">' + escapeHtml(errors.join(' ')) + '</p>';
+                resultsContainer.style.display = 'block';
+                regenerateBtn.style.display = 'none';
+                return;
+            }
+
+            currentBullets = generateBullets(
+                jobTitleInput.value.trim(),
+                taskDescription.value.trim(),
+                industrySelect.value,
+                impactLevel.value,
+                metricsInput.value.trim()
+            );
+
+            renderBullets(currentBullets);
+            resultsContainer.style.display = 'block';
+            regenerateBtn.style.display = 'inline-flex';
+
+            /* Smooth scroll to results */
+            resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        generateBtn.addEventListener('click', handleGenerate);
+        regenerateBtn.addEventListener('click', handleGenerate);
+
+        /* ===================================================================
+           COPY ALL
+           =================================================================== */
+        copyAllBtn.addEventListener('click', function() {
+            if (currentBullets.length === 0) return;
+            var allText = currentBullets.map(function(b) { return '\u2022 ' + b; }).join('\n\n');
+            copyToClipboard(allText, copyAllBtn, 'Copy All Bullets');
+        });
+
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hashtag Generator - Generate Relevant Hashtags for Any Platform | ToolsNest</title>
+    <meta name="description" content="Generate targeted hashtags for Instagram, Twitter, LinkedIn, TikTok, and YouTube. Get hashtags organized by popularity tier. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/hashtag-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Hashtag Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Hashtag Generator</h1>
+                <p class="text-center mb-3">Generate targeted, high-performing hashtags for any social media platform. Get hashtags organized by popularity tier to maximize your content's reach.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="content-input">Topic or Content</label>
+                        <textarea id="content-input" class="form-input" rows="5" placeholder="Describe your content, topic, or paste your caption here. The more detail you provide, the better your hashtags will be. Example: 'Morning yoga routine for beginners at home with no equipment'"></textarea>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="platform-select">Platform</label>
+                            <select id="platform-select" class="form-input">
+                                <option value="instagram">Instagram</option>
+                                <option value="twitter">Twitter / X</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="youtube">YouTube</option>
+                                <option value="general" selected>General</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="niche-select">Niche / Industry (optional)</label>
+                            <select id="niche-select" class="form-input">
+                                <option value="">-- Auto-detect --</option>
+                                <option value="technology">Technology</option>
+                                <option value="fashion">Fashion</option>
+                                <option value="food">Food</option>
+                                <option value="travel">Travel</option>
+                                <option value="fitness">Fitness</option>
+                                <option value="business">Business</option>
+                                <option value="photography">Photography</option>
+                                <option value="education">Education</option>
+                                <option value="entertainment">Entertainment</option>
+                                <option value="art">Art</option>
+                                <option value="music">Music</option>
+                                <option value="gaming">Gaming</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Hashtags</button>
+
+                    <div id="results-container" style="display: none; margin-top: 2rem;">
+                        <!-- Platform recommendation -->
+                        <div id="platform-tip" style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.5rem;">
+                            <p style="margin: 0; font-size: 0.9rem; color: #1E40AF;"><strong>Platform Tip:</strong> <span id="platform-tip-text"></span></p>
+                        </div>
+
+                        <!-- Stats bar -->
+                        <div id="stats-bar" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                            <div style="background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; flex: 1; min-width: 120px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="stat-total">0</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Total Hashtags</div>
+                            </div>
+                            <div style="background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; flex: 1; min-width: 120px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="stat-chars">0</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Total Characters</div>
+                            </div>
+                            <div style="background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.75rem 1rem; flex: 1; min-width: 120px; text-align: center;">
+                                <div style="font-size: 1.5rem; font-weight: 700; color: var(--primary);" id="stat-platform">--</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Recommended</div>
+                            </div>
+                        </div>
+
+                        <!-- Tier sections -->
+                        <div id="tier-high" class="mb-3">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #10B981;"></span>
+                                <h3 style="margin: 0; font-size: 1rem;">High Volume (Popular / Competitive)</h3>
+                            </div>
+                            <div id="tags-high" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                        </div>
+
+                        <div id="tier-medium" class="mb-3">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #3B82F6;"></span>
+                                <h3 style="margin: 0; font-size: 1rem;">Medium Volume (Niche-Relevant)</h3>
+                            </div>
+                            <div id="tags-medium" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                        </div>
+
+                        <div id="tier-low" class="mb-3">
+                            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+                                <span style="display: inline-block; width: 12px; height: 12px; border-radius: 50%; background: #8B5CF6;"></span>
+                                <h3 style="margin: 0; font-size: 1rem;">Low Volume (Specific / Long-Tail)</h3>
+                            </div>
+                            <div id="tags-low" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+                        </div>
+
+                        <!-- Copy All button -->
+                        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                            <button id="copy-all-btn" class="btn btn-primary" style="flex: 1; min-width: 180px;">Copy All Hashtags</button>
+                            <button id="copy-high-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Copy High Volume</button>
+                            <button id="copy-medium-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Copy Medium Volume</button>
+                            <button id="copy-low-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Copy Low Volume</button>
+                        </div>
+                        <p class="text-muted mt-1" style="font-size: 0.8rem;">Click any hashtag to copy it individually, or use the buttons above to copy groups.</p>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Describe your content or topic in the text area above. The more specific you are, the more relevant your hashtags will be.</li>
+                        <li>Select your target social media platform to get platform-specific recommendations and optimized hashtag counts.</li>
+                        <li>Optionally choose a niche or industry to further refine your hashtag results for your audience.</li>
+                        <li>Click "Generate Hashtags" to receive 30 hashtags organized into three popularity tiers: High, Medium, and Low volume.</li>
+                        <li>Click any individual hashtag chip to copy it, or use the "Copy All" button to copy every hashtag at once.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How are the hashtags generated?</h3>
+                        <p>The tool analyzes your content for keywords, matches them against a curated database of 500+ hashtags organized by niche and popularity tier, and combines relevant terms into compound hashtags. Everything runs client-side in your browser -- no data is sent anywhere.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What do the three popularity tiers mean?</h3>
+                        <p>High Volume hashtags have massive reach but high competition (e.g., #photography). Medium Volume hashtags target your niche with moderate competition (e.g., #streetphotographytips). Low Volume hashtags are specific long-tail tags with less competition but highly targeted audiences (e.g., #urbanstreetphotographynyc).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How many hashtags should I use per platform?</h3>
+                        <p>Instagram allows up to 30 (10-15 recommended for engagement). Twitter/X works best with 2-3 hashtags. LinkedIn is optimal at 3-5. TikTok performs well with 3-5 targeted tags. YouTube benefits from 5-15 hashtags in descriptions. Our tool provides platform-specific guidance.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I mix hashtags from different tiers?</h3>
+                        <p>Absolutely -- and that is actually the recommended strategy. Using a mix of high, medium, and low volume hashtags gives your content the best chance of being discovered by both broad and niche audiences. The three-tier approach maximizes your content's visibility across different audience segments.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/caption-generator" class="related-link">Caption Generator</a>
+                    <a href="/ai-tools/bio-generator" class="related-link">Bio Generator</a>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =====================================================
+           HASHTAG DATABASE (500+ hashtags by niche & tier)
+           ===================================================== */
+        var DB = {
+            technology: {
+                high: ['#technology','#tech','#innovation','#ai','#programming','#coding','#software','#developer','#machinelearning','#data','#digital','#computer','#science','#internet','#startup','#gadgets','#automation','#cloud','#cybersecurity','#blockchain'],
+                medium: ['#techlife','#techtrends','#webdevelopment','#appdevelopment','#artificialintelligence','#deeplearning','#datascience','#pythonprogramming','#javascript','#devlife','#fullstackdeveloper','#techcommunity','#codingtips','#softwaredeveloper','#startuplife','#saas','#cloudcomputing','#iot','#robotics','#neuralnetwork'],
+                low: ['#codenewbie','#techblogger','#learntocode','#programmingmemes','#webdevtips','#reactdeveloper','#aiart','#techstartups','#openai','#codingbootcamp','#frontenddeveloper','#backenddeveloper','#devops','#agiledevelopment','#techforall','#womenintech','#codingchallenge','#hackathon','#techinnovation','#smarttech']
+            },
+            fashion: {
+                high: ['#fashion','#style','#ootd','#fashionblogger','#streetstyle','#instafashion','#fashionista','#beauty','#outfit','#model','#shopping','#clothing','#accessories','#luxury','#trendy','#designer','#makeup','#vogue','#glamour','#fashionable'],
+                medium: ['#streetwear','#fashionstyle','#fashiondiaries','#fashioninspo','#outfitoftheday','#styleinspo','#fashionlover','#sustainablefashion','#vintagefashion','#fashionweek','#mensfashion','#womensfashion','#fashionphotography','#outfitinspiration','#casualstyle','#luxuryfashion','#fashiondesigner','#styleblogger','#fashiongram','#lookoftheday'],
+                low: ['#slowfashion','#ethicalfashion','#capsulewardrobe','#thriftedstyle','#fashiontips','#plussizefashion','#minimaliststyle','#fashionhacks','#wardrobessentials','#streetstylelooks','#fashionforward','#ecofashion','#handmadeclothing','#vintagestyle','#bohostyle','#fashiondigest','#personalstylist','#dailyoutfit','#styleoftheday','#dressup']
+            },
+            food: {
+                high: ['#food','#foodie','#foodporn','#instafood','#yummy','#delicious','#cooking','#recipe','#foodphotography','#homemade','#foodstagram','#healthyfood','#dinner','#lunch','#breakfast','#baking','#eat','#chef','#restaurant','#tasty'],
+                medium: ['#foodblogger','#foodlover','#homecooking','#mealprep','#veganfood','#plantbased','#glutenfree','#comfortfood','#cleaneating','#organicfood','#brunch','#dessert','#foodgasm','#instayum','#recipeshare','#cookingathome','#seafood','#italianfood','#asianfood','#streetfood'],
+                low: ['#mealprepping','#easyrecipes','#30minutemeals','#weeknightdinner','#recipeideas','#foodphotographytips','#bakingfromscratch','#sourdoughbread','#vegandesserts','#budgetmeals','#onepotmeal','#airfryerrecipes','#fermentedfood','#farmtotable','#localfood','#foodstyling','#cookingclass','#spicyfood','#homebakedgoods','#meatlessmeal']
+            },
+            travel: {
+                high: ['#travel','#traveling','#wanderlust','#travelphotography','#travelgram','#vacation','#explore','#adventure','#trip','#nature','#instatravel','#tourism','#beach','#landscape','#roadtrip','#travelblogger','#holiday','#photooftheday','#world','#traveltheworld'],
+                medium: ['#traveler','#traveladdict','#travelholic','#backpacking','#solotravel','#luxurytravel','#traveltips','#travellife','#digitalnomad','#travelcouple','#budgettravel','#europetravel','#asiatravel','#travelinspo','#hiddenplaces','#traveldiary','#roamtheplanet','#exploremore','#passportready','#worldtravel'],
+                low: ['#solotraveler','#travelhacks','#offthebeatenpath','#travelbucketlist','#sustainabletravel','#ecotourism','#vanlifetravel','#culturetravel','#localexperience','#travelguide','#weekendgetaway','#travelcouplgoals','#adventureawaits','#beachvibes','#mountainlife','#islandhopping','#travelpacking','#hostelworld','#travelcommunity','#traveljournal']
+            },
+            fitness: {
+                high: ['#fitness','#gym','#workout','#fitnessmotivation','#fit','#training','#health','#bodybuilding','#muscle','#exercise','#motivation','#healthy','#fitfam','#lifestyle','#sport','#yoga','#crossfit','#weightlifting','#cardio','#personaltrainer'],
+                medium: ['#fitnessjourney','#gymmotivation','#homeworkout','#strengthtraining','#fitnesslife','#workoutmotivation','#fitlife','#legday','#gains','#calisthenics','#functionalfitness','#hiit','#pilates','#running','#marathontraining','#flexibledieting','#fitnesscoach','#transformationtuesday','#fitnessgirl','#fitnessguy'],
+                low: ['#beginnerworkout','#morningyoga','#athomeworkout','#fitnesstips','#workoutroutine','#noequipmentworkout','#yogaforbeginners','#fitnessgoals','#dailyworkout','#postworkoutmeal','#workoutplan','#coreworkout','#upperbodyworkout','#lowerbodyworkout','#flexibilitychallenge','#mindfulmovement','#stretchingroutine','#fitnessover40','#recoveryworkout','#mobilityroutine']
+            },
+            business: {
+                high: ['#business','#entrepreneur','#marketing','#success','#motivation','#money','#startup','#branding','#investment','#leadership','#growth','#hustle','#ceo','#finance','#smallbusiness','#digital','#strategy','#mindset','#wealth','#millionaire'],
+                medium: ['#businessowner','#entrepreneurlife','#digitalmarketing','#contentmarketing','#businesstips','#onlinebusiness','#marketingstrategy','#socialmediamarketing','#personalbranding','#businessgrowth','#sidehustle','#ecommerce','#passive','#freelancer','#businessmindset','#networkmarketing','#realestate','#salesfunnel','#emailmarketing','#businesscoach'],
+                low: ['#smallbusinessowner','#solopreneur','#startuptips','#businessstrategy','#growthhacking','#brandstrategy','#contentcreation','#marketingtips','#linkedintips','#entrepreneurmindset','#financialliteracy','#businesspodcast','#womenentrepreneurs','#scaleyourbusiness','#productivityhacks','#remotework','#b2bmarketing','#brandbuilding','#businessadvice','#hustlehard']
+            },
+            photography: {
+                high: ['#photography','#photo','#photographer','#photooftheday','#nature','#instagood','#picoftheday','#art','#beautiful','#portrait','#landscape','#travel','#instagram','#camera','#canon','#nikon','#sony','#photoshoot','#naturephotography','#sunset'],
+                medium: ['#photographylovers','#streetphotography','#portraitphotography','#landscapephotography','#blackandwhitephotography','#mobilephotography','#photographytips','#goldenhour','#wildlifephotography','#architecturephotography','#foodphotography','#nightphotography','#dronephotography','#filmphoto','#analogphotography','#lightroom','#editingskills','#photoart','#instaphoto','#shotoniphone'],
+                low: ['#photographyislife','#beginnerphotographer','#photowalk','#phototips','#compositiontips','#longexposure','#macrophotography','#minimalistphotography','#urbanphotography','#rawphotography','#photochallenge','#photographybusiness','#photographyworkshop','#editingtips','#lightroompresets','#natureshooters','#photographyeveryday','#bnwphotography','#astrophotography','#abstractphotography']
+            },
+            education: {
+                high: ['#education','#learning','#school','#students','#teacher','#study','#knowledge','#university','#college','#science','#motivation','#teaching','#student','#english','#math','#reading','#exam','#academic','#learn','#skills'],
+                medium: ['#onlinelearning','#elearning','#studytips','#edtech','#homeschool','#studygram','#teachersofinstagram','#distancelearning','#studymotivation','#educationmatters','#learnwithme','#studynotes','#teacherlife','#learningisfun','#onlinecourse','#stemlearning','#educationfirst','#studyhard','#selflearning','#languagelearning'],
+                low: ['#studyhacks','#studywithme','#notesinspiration','#educationalcontent','#studycommunity','#microlearning','#lifelonglearner','#homeschooling','#educationreform','#teachingtips','#bulletjournal','#studyplanner','#onlineteaching','#educationblog','#learneveryday','#educationalresources','#studyspace','#productivitytips','#mindmapping','#criticalthinking']
+            },
+            entertainment: {
+                high: ['#entertainment','#movie','#music','#comedy','#funny','#film','#tv','#celebrity','#hollywood','#netflix','#movies','#show','#memes','#viral','#trending','#fun','#dance','#video','#actor','#series'],
+                medium: ['#movienight','#filmmaking','#moviereview','#tvshow','#standupcomedy','#moviescene','#bingewatching','#newrelease','#filmphotography','#moviequotes','#screenwriting','#moviebuff','#indiefilm','#documentaryfilm','#animationart','#podcastlife','#comedyshow','#streamer','#contentcreator','#entertainmentnews'],
+                low: ['#movierecommendation','#filmreview','#movietrivia','#whattowatch','#moviemarathon','#classicmovies','#horrormovies','#scifimovies','#animemovies','#koreandramas','#podcastrecommendation','#comedynight','#watchlist','#filmcommunity','#independentfilm','#shortfilm','#filmfestival','#newmovies','#movieaddict','#bingelist']
+            },
+            art: {
+                high: ['#art','#artist','#artwork','#drawing','#painting','#illustration','#design','#creative','#sketch','#artistsoninstagram','#digitalart','#instaart','#contemporaryart','#abstract','#artoftheday','#draw','#graphicdesign','#watercolor','#portrait','#fineart'],
+                medium: ['#artgallery','#artcollector','#artlovers','#artofinstagram','#artistlife','#artcommunity','#sketchbook','#inkdrawing','#acrylic','#oilpainting','#digitaldrawing','#procreate','#characterdesign','#conceptart','#artprocess','#artprint','#streetart','#murals','#artexhibition','#artshow'],
+                low: ['#arttutorial','#arttips','#artchallenge','#drawingoftheday','#artforsale','#originalart','#artworkoftheday','#mixedmediaart','#artjournal','#artinspiration','#learntodraw','#artcommission','#handlettering','#calligraphyart','#arttherapy','#fantasyart','#surrealistart','#popart','#artreels','#sketchdaily']
+            },
+            music: {
+                high: ['#music','#musician','#singer','#hiphop','#rap','#rock','#livemusic','#guitar','#song','#producer','#beats','#dj','#concert','#artist','#piano','#newmusic','#musicvideo','#pop','#band','#cover'],
+                medium: ['#musicproducer','#musiclife','#songwriting','#musicislife','#indiemusic','#rapper','#vocalist','#acoustic','#electronicmusic','#musiclover','#studiolife','#musicproduction','#soundcloud','#spotify','#singersongwriter','#musicfestival','#drumming','#bassguitar','#musicianlife','#recordingstudio'],
+                low: ['#newartist','#unsignedartist','#homstudio','#musicblog','#lyricwriting','#coverband','#guitarlessons','#pianocover','#musictheory','#bedroomproducer','#musiccommunity','#supportlocalmusic','#indieartist','#undergroundmusic','#musicreview','#lofibeats','#beatmaking','#musicgear','#musiccollab','#songcover']
+            },
+            gaming: {
+                high: ['#gaming','#gamer','#videogames','#game','#playstation','#xbox','#pc','#twitch','#nintendo','#esports','#fortnite','#minecraft','#streamer','#gamingcommunity','#games','#gamers','#pcgaming','#retrogaming','#cosplay','#ps5'],
+                medium: ['#gaminglife','#gamingsetup','#gamingpc','#indiegame','#mobilegaming','#gamerlife','#gamergirl','#gamereview','#gameplay','#streaminglife','#twitchstreamer','#gamingclips','#consolegaming','#gamingmemes','#rpg','#fps','#mmorpg','#battleroyale','#valorant','#leagueoflegends'],
+                low: ['#retrogamer','#gamingcollection','#gamingroom','#cozygaming','#gamecollector','#indiegamedev','#gamedev','#gameart','#gamedevelopment','#gamedesign','#gamingchannel','#gamenight','#gamingmoment','#gamingmeme','#gamersnexus','#casualgaming','#gamereviews','#letsplay','#gamingvideos','#gamingfun']
+            }
+        };
+
+        /* General / cross-niche hashtags */
+        var generalDB = {
+            high: ['#instagood','#love','#photooftheday','#beautiful','#happy','#follow','#like','#picoftheday','#selfie','#smile','#life','#amazing','#nature','#instagram','#style','#viral','#trending','#explore','#reels','#fyp'],
+            medium: ['#lifestyle','#inspiration','#goals','#positivevibes','#dailylife','#community','#contentcreator','#influencer','#motivation','#mindfulness','#wellness','#selfcare','#hustle','#success','#creative','#passion','#vibes','#aesthetic','#mood','#liveauthentic'],
+            low: ['#relatablecontent','#goodvibesonly','#progressnotperfection','#smallcreator','#growthmindset','#liveyourbestlife','#dailyinspo','#motivationalquotes','#inspirationdaily','#personalgrowth','#mindsetshift','#pursueyourpassion','#authenticself','#newbeginnings','#createeveryday','#followyourdreams','#staycurious','#neversettle','#makeithappen','#buildyourlegacy']
+        };
+
+        /* Platform-specific popular hashtags */
+        var platformDB = {
+            instagram: ['#instadaily','#instafollow','#instapic','#instamood','#reelsinstagram','#explorepage','#instareels','#igdaily'],
+            twitter: ['#twitterthreads','#twittermoments','#tweetoftheday','#xpost'],
+            linkedin: ['#linkedinlife','#linkedintips','#networking','#professionaldevelopment','#careeradvice','#jobsearch','#linkedinlearning','#thoughtleadership'],
+            tiktok: ['#tiktok','#tiktokviral','#fyp','#foryou','#foryoupage','#tiktoktrend','#tiktokcreator','#duet'],
+            youtube: ['#youtube','#youtuber','#youtubers','#subscribe','#youtubechannel','#youtubevideos','#videocreator','#watchnow']
+        };
+
+        /* Platform recommendation copy */
+        var platformTips = {
+            instagram: 'Instagram allows up to 30 hashtags per post. For best engagement, use 10-15 hashtags mixing all three tiers. Place them in the first comment or caption.',
+            twitter: 'Twitter/X works best with 2-3 hashtags per tweet. More than that can decrease engagement. Focus on high-relevance tags from the Medium and Low tiers.',
+            linkedin: 'LinkedIn performs optimally with 3-5 hashtags per post. Stick to professional, industry-relevant tags. Place them at the end of your post.',
+            tiktok: 'TikTok recommends 3-5 targeted hashtags per video. Mix trending hashtags with niche-specific ones. Always include #fyp or #foryoupage for discoverability.',
+            youtube: 'YouTube allows up to 15 hashtags in your description (first 3 appear above the title). Use a mix of broad and specific tags related to your video content.',
+            general: 'For general use, select hashtags based on your primary platform. A mix of 10-15 hashtags from all three tiers typically provides the best balance of reach and targeting.'
+        };
+
+        var platformRecommendedCounts = {
+            instagram: '10-15',
+            twitter: '2-3',
+            linkedin: '3-5',
+            tiktok: '3-5',
+            youtube: '5-15',
+            general: '10-15'
+        };
+
+        /* Common English stop words */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','because','as','until','while','about',
+            'between','through','during','before','after','above','below','up','down',
+            'out','off','over','under','again','further','then','once','if','also',
+            'into','there','here','new','one','two','said','like','get','make','go',
+            'know','take','see','come','think','look','want','give','use','find','tell',
+            'ask','work','seem','feel','try','leave','call','need','become','keep','let',
+            'begin','show','hear','play','run','move','live','believe','bring','happen',
+            'write','provide','sit','stand','lose','pay','meet','include','continue',
+            'set','learn','change','lead','understand','watch','follow','stop','create',
+            'speak','read','allow','add','spend','grow','open','walk','win','offer',
+            'really','great','thing','way','now','going','around','long','right','back',
+            'still','even','any','much','many','well','using','used','best','good',
+            'first','last','next','already','am','able','ever','never','always','often',
+            'something','everything','nothing','anyone','everyone','anything','looking',
+            'making','getting','being','having','doing','saying','going','trying','coming',
+            'per','via','etc','vs','im','ive','dont','cant','wont','isnt','arent','youre'
+        ]);
+
+        /* Niche keyword associations for auto-detection */
+        var nicheKeywords = {
+            technology: ['tech','code','coding','software','app','web','developer','programming','computer','ai','algorithm','machine','data','digital','cyber','cloud','iot','saas','api','frontend','backend','devops','startup','bitcoin','crypto','blockchain','neural','robot','automation','server','database','python','javascript','react','node','hardware','gadget','phone','laptop'],
+            fashion: ['fashion','style','outfit','wear','clothing','dress','designer','trend','wardrobe','accessory','jewelry','shoes','bag','brand','model','runway','couture','vintage','thrift','sew','fabric','pattern','streetwear','sneaker','denim','leather','silk','linen','casual','formal','elegance','chic','glamour','vogue','boutique'],
+            food: ['food','cook','recipe','meal','eat','restaurant','kitchen','chef','bake','ingredient','dish','dinner','lunch','breakfast','snack','dessert','vegan','vegetarian','organic','spice','flavor','taste','delicious','yummy','homemade','nutrition','diet','calorie','protein','grilling','roast','soup','pasta','bread','cake','pizza','sushi'],
+            travel: ['travel','trip','vacation','explore','adventure','destination','flight','hotel','backpack','tourist','journey','wander','beach','mountain','city','country','passport','airport','cruise','resort','hike','camping','road','scenic','landmark','culture','sightseeing','nomad','hostel','itinerary','island','tropical','europe','asia'],
+            fitness: ['fitness','gym','workout','exercise','muscle','strength','cardio','yoga','run','training','weight','health','body','protein','squat','bench','deadlift','crossfit','pilates','stretch','flex','lean','endurance','athletics','marathon','cycling','swimming','hiit','calisthenics','mobility','recovery','wellness','sports'],
+            business: ['business','entrepreneur','marketing','startup','brand','revenue','profit','strategy','invest','finance','leadership','management','sales','customer','growth','scale','ecommerce','ceo','founder','pitch','venture','capital','roi','seo','analytics','funnel','b2b','b2c','consulting','franchise','acquisition','merger','budget'],
+            photography: ['photo','photograph','camera','lens','shoot','portrait','landscape','exposure','aperture','shutter','iso','lightroom','photoshop','canon','nikon','sony','fuji','tripod','flash','filter','composition','focus','bokeh','raw','edit','retouching','studio','gallery','print','frame','drone','macro','wildlife','golden'],
+            education: ['education','learn','teach','student','school','university','college','course','study','class','lecture','exam','degree','tutor','curriculum','knowledge','academic','research','library','professor','homework','assignment','grade','scholarship','diploma','phd','thesis','stem','literacy','classroom','online','elearning'],
+            entertainment: ['movie','film','tv','show','series','comedy','drama','actor','director','cinema','streaming','netflix','podcast','celebrity','hollywood','animation','episode','season','trailer','review','watch','binge','theater','performance','standup','improv','sketch','viral','meme','funny','humor','joke','laugh'],
+            art: ['art','draw','paint','sketch','illustration','canvas','gallery','sculpture','design','creative','color','abstract','portrait','mural','watercolor','acrylic','oil','digital','procreate','ink','pencil','charcoal','calligraphy','lettering','craft','handmade','printmaking','collage','mosaic','ceramic','pottery','textile','exhibition'],
+            music: ['music','song','sing','guitar','piano','drum','bass','beat','melody','rhythm','lyric','album','concert','band','dj','producer','rap','rock','pop','jazz','classical','hiphop','electronic','acoustic','vocal','recording','studio','spotify','soundcloud','vinyl','remix','freestyle','instrument','chord','compose'],
+            gaming: ['game','gaming','gamer','play','console','pc','xbox','playstation','nintendo','steam','twitch','esports','rpg','fps','mmorpg','indie','retro','arcade','controller','multiplayer','singleplayer','quest','level','character','mod','stream','valorant','fortnite','minecraft','league','overwatch','strategy','puzzle','battle']
+        };
+
+        /* =====================================================
+           CORE LOGIC
+           ===================================================== */
+
+        /* Extract keywords from user content */
+        function extractKeywords(text) {
+            var words = text.toLowerCase()
+                .replace(/[^a-z0-9\s'-]/g, ' ')
+                .split(/\s+/)
+                .filter(function(w) { return w.length > 2 && !stopWords.has(w); });
+
+            /* Count frequency */
+            var freq = {};
+            words.forEach(function(w) {
+                var clean = w.replace(/['-]/g, '');
+                if (clean.length > 2) {
+                    freq[clean] = (freq[clean] || 0) + 1;
+                }
+            });
+
+            /* Sort by frequency, return top keywords */
+            var sorted = Object.keys(freq).sort(function(a, b) { return freq[b] - freq[a]; });
+            return sorted.slice(0, 30);
+        }
+
+        /* Detect niche from keywords */
+        function detectNiche(keywords) {
+            var scores = {};
+            var niches = Object.keys(nicheKeywords);
+
+            niches.forEach(function(niche) {
+                scores[niche] = 0;
+                var nicheWords = nicheKeywords[niche];
+                keywords.forEach(function(kw) {
+                    for (var i = 0; i < nicheWords.length; i++) {
+                        if (kw === nicheWords[i] || kw.indexOf(nicheWords[i]) !== -1 || nicheWords[i].indexOf(kw) !== -1) {
+                            scores[niche] += (kw === nicheWords[i]) ? 3 : 1;
+                        }
+                    }
+                });
+            });
+
+            var bestNiche = null;
+            var bestScore = 0;
+            niches.forEach(function(niche) {
+                if (scores[niche] > bestScore) {
+                    bestScore = scores[niche];
+                    bestNiche = niche;
+                }
+            });
+
+            return bestScore >= 2 ? bestNiche : null;
+        }
+
+        /* Generate compound hashtags from keyword pairs */
+        function generateCompoundHashtags(keywords, count) {
+            var compounds = [];
+            var maxAttempts = Math.min(keywords.length, 12);
+
+            for (var i = 0; i < maxAttempts && compounds.length < count; i++) {
+                for (var j = i + 1; j < maxAttempts && compounds.length < count; j++) {
+                    var a = keywords[i].replace(/[^a-z0-9]/g, '');
+                    var b = keywords[j].replace(/[^a-z0-9]/g, '');
+                    if (a.length >= 3 && b.length >= 3 && a !== b) {
+                        var tag1 = '#' + a + b;
+                        var tag2 = '#' + b + a;
+                        if (tag1.length <= 30 && tag1.length >= 6) {
+                            compounds.push(tag1);
+                        }
+                        if (tag2.length <= 30 && tag2.length >= 6 && compounds.length < count) {
+                            compounds.push(tag2);
+                        }
+                    }
+                }
+            }
+
+            return compounds.slice(0, count);
+        }
+
+        /* Generate single-keyword hashtags */
+        function generateKeywordHashtags(keywords, count) {
+            var tags = [];
+            keywords.forEach(function(kw) {
+                var clean = kw.replace(/[^a-z0-9]/g, '');
+                if (clean.length >= 3 && tags.length < count) {
+                    tags.push('#' + clean);
+                }
+            });
+            return tags.slice(0, count);
+        }
+
+        /* Shuffle array */
+        function shuffle(arr) {
+            var a = arr.slice();
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = a[i];
+                a[i] = a[j];
+                a[j] = temp;
+            }
+            return a;
+        }
+
+        /* Remove duplicates (case-insensitive) */
+        function dedupe(arr) {
+            var seen = {};
+            return arr.filter(function(tag) {
+                var lower = tag.toLowerCase();
+                if (seen[lower]) return false;
+                seen[lower] = true;
+                return true;
+            });
+        }
+
+        /* Score how relevant a hashtag is to the user's keywords */
+        function relevanceScore(tag, keywords) {
+            var tagClean = tag.replace('#', '').toLowerCase();
+            var score = 0;
+            keywords.forEach(function(kw) {
+                if (tagClean === kw) score += 5;
+                else if (tagClean.indexOf(kw) !== -1) score += 3;
+                else if (kw.indexOf(tagClean) !== -1) score += 2;
+            });
+            return score;
+        }
+
+        /* Main generation function */
+        function generateHashtags(content, platform, niche) {
+            var keywords = extractKeywords(content);
+
+            if (keywords.length === 0) {
+                return null;
+            }
+
+            /* Determine niche */
+            var detectedNiche = niche || detectNiche(keywords);
+            var nicheData = detectedNiche && DB[detectedNiche] ? DB[detectedNiche] : null;
+
+            /* Build candidate pools for each tier */
+            var highCandidates = [];
+            var medCandidates = [];
+            var lowCandidates = [];
+
+            /* Add niche-specific hashtags */
+            if (nicheData) {
+                highCandidates = highCandidates.concat(nicheData.high);
+                medCandidates = medCandidates.concat(nicheData.medium);
+                lowCandidates = lowCandidates.concat(nicheData.low);
+            }
+
+            /* Add general hashtags */
+            highCandidates = highCandidates.concat(generalDB.high);
+            medCandidates = medCandidates.concat(generalDB.medium);
+            lowCandidates = lowCandidates.concat(generalDB.low);
+
+            /* Add platform-specific hashtags to high tier */
+            if (platformDB[platform]) {
+                highCandidates = highCandidates.concat(platformDB[platform]);
+            }
+
+            /* Generate keyword-based hashtags for medium tier */
+            var keywordTags = generateKeywordHashtags(keywords, 10);
+            medCandidates = medCandidates.concat(keywordTags);
+
+            /* Generate compound hashtags for low tier */
+            var compoundTags = generateCompoundHashtags(keywords, 15);
+            lowCandidates = lowCandidates.concat(compoundTags);
+
+            /* Also check other niches for relevant hashtags */
+            var otherNiches = Object.keys(DB).filter(function(n) { return n !== detectedNiche; });
+            otherNiches.forEach(function(n) {
+                var otherData = DB[n];
+                /* Score each hashtag against keywords, add if relevant */
+                otherData.high.forEach(function(tag) {
+                    if (relevanceScore(tag, keywords) >= 3) highCandidates.push(tag);
+                });
+                otherData.medium.forEach(function(tag) {
+                    if (relevanceScore(tag, keywords) >= 3) medCandidates.push(tag);
+                });
+                otherData.low.forEach(function(tag) {
+                    if (relevanceScore(tag, keywords) >= 3) lowCandidates.push(tag);
+                });
+            });
+
+            /* Score and sort by relevance */
+            function sortByRelevance(candidates) {
+                return candidates.sort(function(a, b) {
+                    return relevanceScore(b, keywords) - relevanceScore(a, keywords);
+                });
+            }
+
+            highCandidates = sortByRelevance(dedupe(highCandidates));
+            medCandidates = sortByRelevance(dedupe(medCandidates));
+            lowCandidates = sortByRelevance(dedupe(lowCandidates));
+
+            /* Remove any tags from medium/low that are already in high */
+            var highSet = {};
+            highCandidates.forEach(function(t) { highSet[t.toLowerCase()] = true; });
+
+            medCandidates = medCandidates.filter(function(t) { return !highSet[t.toLowerCase()]; });
+
+            var medSet = {};
+            medCandidates.forEach(function(t) { medSet[t.toLowerCase()] = true; });
+
+            lowCandidates = lowCandidates.filter(function(t) {
+                return !highSet[t.toLowerCase()] && !medSet[t.toLowerCase()];
+            });
+
+            /* Pick 10 from each tier */
+            var highFinal = highCandidates.slice(0, 10);
+            var medFinal = medCandidates.slice(0, 10);
+            var lowFinal = lowCandidates.slice(0, 10);
+
+            /* If any tier is short, pad with generated tags */
+            while (lowFinal.length < 10 && keywords.length > 0) {
+                var extra = generateCompoundHashtags(shuffle(keywords), 5);
+                extra.forEach(function(tag) {
+                    if (lowFinal.length < 10) {
+                        var lc = tag.toLowerCase();
+                        if (!highSet[lc] && !medSet[lc]) {
+                            var alreadyIn = lowFinal.some(function(t) { return t.toLowerCase() === lc; });
+                            if (!alreadyIn) lowFinal.push(tag);
+                        }
+                    }
+                });
+                /* Safety break */
+                if (lowFinal.length < 10) {
+                    var padTag = '#' + keywords[lowFinal.length % keywords.length].replace(/[^a-z0-9]/g, '') + 'tips';
+                    if (padTag.length > 4 && !lowFinal.some(function(t) { return t.toLowerCase() === padTag; })) {
+                        lowFinal.push(padTag);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            while (medFinal.length < 10 && keywords.length > 0) {
+                var kIdx = medFinal.length % keywords.length;
+                var padMed = '#' + keywords[kIdx].replace(/[^a-z0-9]/g, '') + 'life';
+                if (padMed.length > 5 && !medFinal.some(function(t) { return t.toLowerCase() === padMed; }) && !highSet[padMed.toLowerCase()]) {
+                    medFinal.push(padMed);
+                } else {
+                    var padMed2 = '#' + keywords[kIdx].replace(/[^a-z0-9]/g, '') + 'daily';
+                    if (!medFinal.some(function(t) { return t.toLowerCase() === padMed2; }) && !highSet[padMed2.toLowerCase()]) {
+                        medFinal.push(padMed2);
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            return {
+                high: highFinal,
+                medium: medFinal,
+                low: lowFinal,
+                detectedNiche: detectedNiche
+            };
+        }
+
+        /* =====================================================
+           UI LOGIC
+           ===================================================== */
+
+        var contentInput = document.getElementById('content-input');
+        var platformSelect = document.getElementById('platform-select');
+        var nicheSelect = document.getElementById('niche-select');
+        var generateBtn = document.getElementById('generate-btn');
+        var resultsContainer = document.getElementById('results-container');
+        var platformTipText = document.getElementById('platform-tip-text');
+        var statTotal = document.getElementById('stat-total');
+        var statChars = document.getElementById('stat-chars');
+        var statPlatform = document.getElementById('stat-platform');
+        var tagsHigh = document.getElementById('tags-high');
+        var tagsMedium = document.getElementById('tags-medium');
+        var tagsLow = document.getElementById('tags-low');
+        var copyAllBtn = document.getElementById('copy-all-btn');
+        var copyHighBtn = document.getElementById('copy-high-btn');
+        var copyMediumBtn = document.getElementById('copy-medium-btn');
+        var copyLowBtn = document.getElementById('copy-low-btn');
+
+        var currentResult = null;
+
+        /* Create a hashtag chip element */
+        function createChip(tag, tierColor) {
+            var chip = document.createElement('span');
+            chip.textContent = tag;
+            chip.title = 'Click to copy';
+            chip.style.cssText = 'display: inline-block; padding: 0.4rem 0.85rem; border-radius: 20px; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: all 0.2s; user-select: none; border: 1px solid transparent;';
+
+            if (tierColor === 'green') {
+                chip.style.background = '#D1FAE5';
+                chip.style.color = '#065F46';
+                chip.style.borderColor = '#A7F3D0';
+            } else if (tierColor === 'blue') {
+                chip.style.background = '#DBEAFE';
+                chip.style.color = '#1E40AF';
+                chip.style.borderColor = '#BFDBFE';
+            } else {
+                chip.style.background = '#EDE9FE';
+                chip.style.color = '#5B21B6';
+                chip.style.borderColor = '#DDD6FE';
+            }
+
+            chip.addEventListener('mouseenter', function() {
+                chip.style.transform = 'translateY(-1px)';
+                chip.style.boxShadow = '0 2px 6px rgba(0,0,0,0.12)';
+            });
+            chip.addEventListener('mouseleave', function() {
+                chip.style.transform = 'translateY(0)';
+                chip.style.boxShadow = 'none';
+            });
+
+            chip.addEventListener('click', function() {
+                copyToClipboard(tag);
+                var origBg = chip.style.background;
+                var origColor = chip.style.color;
+                chip.style.background = '#10B981';
+                chip.style.color = '#FFFFFF';
+                chip.textContent = 'Copied!';
+                setTimeout(function() {
+                    chip.style.background = origBg;
+                    chip.style.color = origColor;
+                    chip.textContent = tag;
+                }, 1200);
+            });
+
+            return chip;
+        }
+
+        /* Render hashtag chips into a container */
+        function renderChips(container, tags, color) {
+            container.innerHTML = '';
+            tags.forEach(function(tag) {
+                container.appendChild(createChip(tag, color));
+            });
+        }
+
+        /* Copy text to clipboard */
+        function copyToClipboard(text) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+            }
+        }
+
+        /* Copy group button handler */
+        function handleGroupCopy(btn, tags, originalLabel) {
+            var text = tags.join(' ');
+            copyToClipboard(text);
+            btn.textContent = 'Copied!';
+            btn.style.background = '#10B981';
+            btn.style.color = '#FFFFFF';
+            btn.style.borderColor = '#10B981';
+            setTimeout(function() {
+                btn.textContent = originalLabel;
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.style.borderColor = '';
+            }, 2000);
+        }
+
+        /* Generate button handler */
+        generateBtn.addEventListener('click', function() {
+            var content = contentInput.value.trim();
+            var platform = platformSelect.value;
+            var niche = nicheSelect.value || '';
+
+            if (!content) {
+                resultsContainer.style.display = 'block';
+                tagsHigh.innerHTML = '<p style="color: #EF4444; margin: 0;">Please enter a topic or content description to generate hashtags.</p>';
+                tagsMedium.innerHTML = '';
+                tagsLow.innerHTML = '';
+                document.getElementById('tier-medium').style.display = 'none';
+                document.getElementById('tier-low').style.display = 'none';
+                document.getElementById('stats-bar').style.display = 'none';
+                document.getElementById('platform-tip').style.display = 'none';
+                copyAllBtn.parentElement.style.display = 'none';
+                return;
+            }
+
+            if (content.split(/\s+/).length < 2) {
+                resultsContainer.style.display = 'block';
+                tagsHigh.innerHTML = '<p style="color: #EF4444; margin: 0;">Please enter at least a few words describing your content for better results.</p>';
+                tagsMedium.innerHTML = '';
+                tagsLow.innerHTML = '';
+                document.getElementById('tier-medium').style.display = 'none';
+                document.getElementById('tier-low').style.display = 'none';
+                document.getElementById('stats-bar').style.display = 'none';
+                document.getElementById('platform-tip').style.display = 'none';
+                copyAllBtn.parentElement.style.display = 'none';
+                return;
+            }
+
+            /* Show loading state */
+            generateBtn.textContent = 'Generating...';
+            generateBtn.disabled = true;
+
+            setTimeout(function() {
+                var result = generateHashtags(content, platform, niche);
+
+                if (!result) {
+                    resultsContainer.style.display = 'block';
+                    tagsHigh.innerHTML = '<p style="color: #EF4444; margin: 0;">Could not extract meaningful keywords. Please provide more descriptive content.</p>';
+                    tagsMedium.innerHTML = '';
+                    tagsLow.innerHTML = '';
+                    document.getElementById('tier-medium').style.display = 'none';
+                    document.getElementById('tier-low').style.display = 'none';
+                    document.getElementById('stats-bar').style.display = 'none';
+                    document.getElementById('platform-tip').style.display = 'none';
+                    copyAllBtn.parentElement.style.display = 'none';
+                    generateBtn.textContent = 'Generate Hashtags';
+                    generateBtn.disabled = false;
+                    return;
+                }
+
+                currentResult = result;
+
+                /* Make all sections visible */
+                document.getElementById('tier-medium').style.display = '';
+                document.getElementById('tier-low').style.display = '';
+                document.getElementById('stats-bar').style.display = '';
+                document.getElementById('platform-tip').style.display = '';
+                copyAllBtn.parentElement.style.display = '';
+
+                /* Render chips */
+                renderChips(tagsHigh, result.high, 'green');
+                renderChips(tagsMedium, result.medium, 'blue');
+                renderChips(tagsLow, result.low, 'purple');
+
+                /* Update stats */
+                var allTags = result.high.concat(result.medium).concat(result.low);
+                var totalCount = allTags.length;
+                var totalChars = allTags.join(' ').length;
+
+                statTotal.textContent = totalCount;
+                statChars.textContent = totalChars;
+                statPlatform.textContent = platformRecommendedCounts[platform] || '10-15';
+
+                /* Platform tip */
+                platformTipText.textContent = platformTips[platform] || platformTips.general;
+
+                /* Show results */
+                resultsContainer.style.display = 'block';
+
+                /* Scroll to results */
+                resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                generateBtn.textContent = 'Generate Hashtags';
+                generateBtn.disabled = false;
+            }, 400);
+        });
+
+        /* Copy All button */
+        copyAllBtn.addEventListener('click', function() {
+            if (!currentResult) return;
+            var all = currentResult.high.concat(currentResult.medium).concat(currentResult.low);
+            handleGroupCopy(copyAllBtn, all, 'Copy All Hashtags');
+        });
+
+        /* Copy tier buttons */
+        copyHighBtn.addEventListener('click', function() {
+            if (!currentResult) return;
+            handleGroupCopy(copyHighBtn, currentResult.high, 'Copy High Volume');
+        });
+
+        copyMediumBtn.addEventListener('click', function() {
+            if (!currentResult) return;
+            handleGroupCopy(copyMediumBtn, currentResult.medium, 'Copy Medium Volume');
+        });
+
+        copyLowBtn.addEventListener('click', function() {
+            if (!currentResult) return;
+            handleGroupCopy(copyLowBtn, currentResult.low, 'Copy Low Volume');
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

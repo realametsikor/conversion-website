@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Generator - Create Quizzes from Any Text | ToolsNest</title>
+    <meta name="description" content="Generate quiz questions from any text content. Create multiple choice, true/false, and fill-in-the-blank questions automatically. Perfect for educators and students. Free.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/quiz-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .quiz-controls { display: flex; gap: 1rem; flex-wrap: wrap; align-items: flex-end; }
+        .quiz-controls .form-group { flex: 1; min-width: 180px; margin-bottom: 0; }
+        .quiz-slider-wrap { display: flex; align-items: center; gap: 0.75rem; }
+        .quiz-slider-wrap input[type="range"] {
+            flex: 1; height: 6px; -webkit-appearance: none; appearance: none;
+            background: var(--border); border-radius: 3px; outline: none; cursor: pointer;
+        }
+        .quiz-slider-wrap input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%;
+            background: var(--primary); cursor: pointer; border: 3px solid #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .quiz-slider-wrap input[type="range"]::-moz-range-thumb {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: var(--primary); cursor: pointer; border: 3px solid #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+        }
+        .quiz-slider-val {
+            min-width: 32px; text-align: center; font-weight: 700;
+            font-size: 1.1rem; color: var(--primary);
+        }
+        .quiz-type-select {
+            width: 100%; padding: 0.75rem; border: 1px solid var(--border);
+            border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem;
+            outline: none; background: #fff; cursor: pointer;
+        }
+        .quiz-type-select:focus { border-color: var(--primary); }
+
+        /* Question cards */
+        .quiz-card {
+            background: var(--card-bg); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem;
+            box-shadow: var(--shadow-sm); transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .quiz-card.correct { border-color: #10B981; box-shadow: 0 0 0 2px rgba(16,185,129,0.15); }
+        .quiz-card.incorrect { border-color: #EF4444; box-shadow: 0 0 0 2px rgba(239,68,68,0.15); }
+        .quiz-card-header { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; }
+        .q-badge {
+            flex-shrink: 0; width: 36px; height: 36px; border-radius: 50%;
+            background: var(--primary); color: #fff; display: flex;
+            align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem;
+        }
+        .q-type-label {
+            display: inline-block; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 0.05em; font-weight: 600; padding: 0.15rem 0.5rem;
+            border-radius: 4px; background: #EFF6FF; color: var(--primary); margin-bottom: 0.25rem;
+        }
+        .q-text { font-size: 1.05rem; font-weight: 600; color: var(--text-main); line-height: 1.5; }
+
+        /* Options */
+        .q-options { margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+        .q-option-label {
+            display: flex; align-items: center; gap: 0.75rem; padding: 0.7rem 1rem;
+            border: 1px solid var(--border); border-radius: var(--radius-sm);
+            cursor: pointer; transition: all 0.2s; font-size: 0.95rem; color: var(--text-main);
+        }
+        .q-option-label:hover { border-color: var(--primary); background: #f0f6ff; }
+        .q-option-label input { accent-color: var(--primary); width: 18px; height: 18px; cursor: pointer; }
+        .q-option-label.selected { border-color: var(--primary); background: #EFF6FF; }
+        .q-option-label.answer-correct { border-color: #10B981; background: #ECFDF5; }
+        .q-option-label.answer-incorrect { border-color: #EF4444; background: #FEF2F2; }
+        .q-option-label.answer-show-correct { border-color: #10B981; background: #ECFDF5; }
+
+        /* Fill-in-the-blank */
+        .q-fill-input {
+            width: 100%; max-width: 400px; padding: 0.7rem 1rem; border: 2px solid var(--border);
+            border-radius: var(--radius-sm); font-family: inherit; font-size: 1rem;
+            outline: none; margin-top: 0.5rem; transition: border-color 0.3s;
+        }
+        .q-fill-input:focus { border-color: var(--primary); }
+        .q-fill-input.input-correct { border-color: #10B981; background: #ECFDF5; }
+        .q-fill-input.input-incorrect { border-color: #EF4444; background: #FEF2F2; }
+
+        /* Explanation */
+        .q-explanation {
+            display: none; margin-top: 1rem; padding: 0.85rem 1rem;
+            border-radius: var(--radius-sm); font-size: 0.9rem; line-height: 1.6;
+            border-left: 4px solid var(--primary); background: var(--bg-color); color: var(--text-muted);
+        }
+        .q-explanation strong { color: var(--text-main); }
+        .q-explanation.visible { display: block; }
+
+        /* Score section */
+        .score-section {
+            text-align: center; padding: 2rem; background: var(--bg-color);
+            border-radius: var(--radius); margin-top: 1.5rem; display: none;
+        }
+        .score-ring {
+            position: relative; width: 120px; height: 120px; margin: 0 auto 1rem;
+        }
+        .score-ring svg { transform: rotate(-90deg); }
+        .score-ring-text {
+            position: absolute; inset: 0; display: flex; align-items: center;
+            justify-content: center; font-size: 1.75rem; font-weight: 800; color: var(--text-main);
+        }
+        .score-detail { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.5rem; }
+        .score-message { font-size: 1.2rem; font-weight: 700; margin-top: 0.5rem; }
+
+        /* Action buttons */
+        .quiz-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1.5rem; justify-content: center; }
+        .quiz-actions .btn { min-width: 160px; }
+
+        /* Toggle answer key */
+        .answer-key-section { display: none; margin-top: 1.5rem; }
+        .answer-key-section.visible { display: block; }
+        .ak-item {
+            padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+            font-size: 0.9rem; color: var(--text-main); line-height: 1.6;
+        }
+        .ak-item:last-child { border-bottom: none; }
+        .ak-item strong { color: var(--primary); }
+
+        /* Loading spinner */
+        .quiz-spinner {
+            display: none; text-align: center; padding: 2rem;
+        }
+        .quiz-spinner .spinner-dots span {
+            display: inline-block; width: 10px; height: 10px; border-radius: 50%;
+            background: var(--primary); margin: 0 4px; animation: qBounce 1.2s infinite;
+        }
+        .quiz-spinner .spinner-dots span:nth-child(2) { animation-delay: 0.2s; }
+        .quiz-spinner .spinner-dots span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes qBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive tweaks */
+        @media (max-width: 600px) {
+            .quiz-controls { flex-direction: column; }
+            .quiz-controls .form-group { min-width: 100%; }
+            .quiz-actions { flex-direction: column; align-items: stretch; }
+            .quiz-actions .btn { min-width: auto; }
+        }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Quiz Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Quiz Generator</h1>
+                <p class="text-center mb-3">Transform any text into an interactive quiz. Automatically generates questions from your content with multiple question types. Perfect for studying, teaching, and self-assessment.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Input section -->
+                    <div id="qg-input-section">
+                        <div class="form-group">
+                            <label for="qg-text-input">Paste Your Text Content</label>
+                            <textarea id="qg-text-input" class="form-input" rows="10" placeholder="Paste or type the text you want to generate a quiz from. Works best with informational content such as textbook passages, articles, or study notes. Aim for at least 3-4 paragraphs with factual statements." style="min-height: 200px;"></textarea>
+                            <p id="qg-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                        </div>
+
+                        <div class="quiz-controls mb-3">
+                            <div class="form-group">
+                                <label for="qg-num-questions">Number of Questions</label>
+                                <div class="quiz-slider-wrap">
+                                    <input type="range" id="qg-num-questions" min="3" max="10" value="5">
+                                    <span class="quiz-slider-val" id="qg-num-val">5</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="qg-question-type">Question Type</label>
+                                <select id="qg-question-type" class="quiz-type-select">
+                                    <option value="mixed">Mixed (All Types)</option>
+                                    <option value="mcq">Multiple Choice</option>
+                                    <option value="tf">True / False</option>
+                                    <option value="fitb">Fill in the Blank</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="qg-generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Quiz</button>
+                    </div>
+
+                    <!-- Loading spinner -->
+                    <div id="qg-spinner" class="quiz-spinner">
+                        <div class="spinner-dots"><span></span><span></span><span></span></div>
+                        <p class="text-muted mt-2">Analyzing text and generating questions...</p>
+                    </div>
+
+                    <!-- Quiz output section -->
+                    <div id="qg-quiz-section" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border); padding-bottom: 1rem;">
+                            <div>
+                                <h3 style="color: var(--text-main); margin: 0;">Your Quiz</h3>
+                                <p class="text-muted" style="font-size: 0.85rem; margin: 0.25rem 0 0;" id="qg-quiz-meta"></p>
+                            </div>
+                            <button id="qg-new-quiz-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">New Quiz</button>
+                        </div>
+
+                        <div id="qg-questions-container"></div>
+
+                        <div class="quiz-actions" id="qg-actions">
+                            <button id="qg-check-btn" class="btn btn-primary">Check Answers</button>
+                            <button id="qg-reset-btn" class="btn btn-outline">Reset Quiz</button>
+                            <button id="qg-toggle-key-btn" class="btn btn-outline">Show Answer Key</button>
+                            <button id="qg-copy-btn" class="btn btn-outline">Copy as Text</button>
+                        </div>
+
+                        <!-- Score section -->
+                        <div id="qg-score-section" class="score-section">
+                            <div class="score-ring">
+                                <svg width="120" height="120" viewBox="0 0 120 120">
+                                    <circle cx="60" cy="60" r="52" fill="none" stroke="#E5E7EB" stroke-width="10"/>
+                                    <circle id="qg-score-circle" cx="60" cy="60" r="52" fill="none" stroke="var(--primary)" stroke-width="10" stroke-linecap="round" stroke-dasharray="326.73" stroke-dashoffset="326.73"/>
+                                </svg>
+                                <div class="score-ring-text" id="qg-score-pct">0%</div>
+                            </div>
+                            <div class="score-message" id="qg-score-msg"></div>
+                            <div class="score-detail" id="qg-score-detail"></div>
+                        </div>
+
+                        <!-- Answer key section -->
+                        <div id="qg-answer-key" class="answer-key-section">
+                            <h3 class="mb-2" style="color: var(--text-main);">Answer Key</h3>
+                            <div id="qg-ak-content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your study material, article, or textbook passage into the text area above.</li>
+                        <li>Choose the number of questions (3 to 10) using the slider, and select the question type you prefer.</li>
+                        <li>Click "Generate Quiz" and the tool will automatically create questions based on the key facts in your text.</li>
+                        <li>Take the quiz interactively, then click "Check Answers" to see your score and detailed explanations.</li>
+                        <li>Use "Copy as Text" to export the quiz for classroom use, or "Show Answer Key" for a quick reference.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the quiz generator create questions?</h3>
+                        <p>The tool analyzes your text using natural language processing techniques entirely in your browser. It identifies key factual sentences using word frequency analysis, then transforms them into different question formats: multiple choice, true/false, and fill-in-the-blank. Plausible wrong answers (distractors) are generated from other parts of your text.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool send my text to a server or use AI APIs?</h3>
+                        <p>No. This quiz generator runs 100% in your browser using client-side JavaScript. Your text is never uploaded to any server, making it completely private and suitable for sensitive educational content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What kind of text works best?</h3>
+                        <p>Informational and factual content works best: textbook passages, Wikipedia articles, study guides, research summaries, and lecture notes. The text should contain clear factual statements. Creative writing, poetry, and dialogue will produce lower-quality questions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use the generated quiz in my classroom?</h3>
+                        <p>Absolutely. Use the "Copy as Text" button to get a neatly formatted version of the quiz with answer key that you can paste into a document, email, or learning management system. The quiz is yours to use however you like.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/notes-summarizer" class="related-link">Notes Summarizer</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/essay-outline-generator" class="related-link">Essay Outline Generator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ============================================================
+           DOM REFERENCES
+           ============================================================ */
+        var textInput      = document.getElementById('qg-text-input');
+        var wordCountEl    = document.getElementById('qg-word-count');
+        var numSlider      = document.getElementById('qg-num-questions');
+        var numVal         = document.getElementById('qg-num-val');
+        var typeSelect     = document.getElementById('qg-question-type');
+        var generateBtn    = document.getElementById('qg-generate-btn');
+        var spinner        = document.getElementById('qg-spinner');
+        var inputSection   = document.getElementById('qg-input-section');
+        var quizSection    = document.getElementById('qg-quiz-section');
+        var questionsBox   = document.getElementById('qg-questions-container');
+        var quizMeta       = document.getElementById('qg-quiz-meta');
+        var newQuizBtn     = document.getElementById('qg-new-quiz-btn');
+        var checkBtn       = document.getElementById('qg-check-btn');
+        var resetBtn       = document.getElementById('qg-reset-btn');
+        var toggleKeyBtn   = document.getElementById('qg-toggle-key-btn');
+        var copyBtn        = document.getElementById('qg-copy-btn');
+        var scoreSection   = document.getElementById('qg-score-section');
+        var scoreCircle    = document.getElementById('qg-score-circle');
+        var scorePct       = document.getElementById('qg-score-pct');
+        var scoreMsg       = document.getElementById('qg-score-msg');
+        var scoreDetail    = document.getElementById('qg-score-detail');
+        var answerKeyDiv   = document.getElementById('qg-answer-key');
+        var akContent      = document.getElementById('qg-ak-content');
+
+        var quizData = []; // current quiz questions array
+        var quizChecked = false;
+
+        /* ============================================================
+           STOP WORDS
+           ============================================================ */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','because','as','until','while','about',
+            'between','through','during','before','after','above','below','up','down',
+            'out','off','over','under','again','further','then','once','if','also',
+            'into','there','here','new','one','two','said','like','get','make','go',
+            'know','take','see','come','think','look','want','give','use','find','tell',
+            'ask','work','seem','feel','try','leave','call','need','become','keep','let',
+            'begin','show','hear','play','run','move','live','believe','bring','happen',
+            'write','provide','sit','stand','lose','pay','meet','include','continue',
+            'set','learn','change','lead','understand','watch','follow','stop','create',
+            'speak','read','allow','add','spend','grow','open','walk','win','offer',
+            'remember','love','consider','appear','buy','wait','serve','die','send',
+            'expect','build','stay','fall','cut','reach','kill','remain','am','able',
+            'much','many','well','back','still','even','any','right','now','going',
+            'thing','way','then','around','long','really','great','part','over','however',
+            'also','another','called','often','found','used','known','first','second',
+            'third','last','next','may','many','much','such','since','upon','whether',
+            'already','often','less','became','best','several','three','four','five',
+            'six','seven','eight','nine','ten','based','within','among','rather'
+        ]);
+
+        /* ============================================================
+           UTILITY HELPERS
+           ============================================================ */
+        function countWords(text) {
+            var t = text.trim();
+            return t ? t.split(/\s+/).length : 0;
+        }
+
+        function escHtml(s) {
+            return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        function shuffle(arr) {
+            var a = arr.slice();
+            for (var i = a.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+            }
+            return a;
+        }
+
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 1;
+            });
+        }
+
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
+
+        /* ============================================================
+           TEXT ANALYSIS ENGINE
+           ============================================================ */
+
+        /** Split text into clean sentences */
+        function splitSentences(text) {
+            var raw = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            var sentences = [];
+            // Match sentences ending with . ! or ?
+            var regex = /[^.!?]*[.!?]+/g;
+            var match;
+            while ((match = regex.exec(raw)) !== null) {
+                var s = match[0].trim();
+                // Only keep sentences with enough substance
+                if (s.length > 20 && countWords(s) >= 4) {
+                    sentences.push(s);
+                }
+            }
+            // Fallback: split on newlines if no punctuation
+            if (sentences.length === 0 && raw.length > 0) {
+                sentences = raw.split(/[.!?\n]+/).filter(function(s) {
+                    return s.trim().length > 20;
+                }).map(function(s) { return s.trim() + '.'; });
+            }
+            return sentences;
+        }
+
+        /** Build word frequency map and return normalized scores */
+        function buildWordFrequency(sentences) {
+            var freq = {};
+            var max = 1;
+            for (var i = 0; i < sentences.length; i++) {
+                var words = tokenize(sentences[i]);
+                for (var j = 0; j < words.length; j++) {
+                    var w = words[j];
+                    if (!stopWords.has(w) && w.length > 2) {
+                        freq[w] = (freq[w] || 0) + 1;
+                        if (freq[w] > max) max = freq[w];
+                    }
+                }
+            }
+            var keys = Object.keys(freq);
+            for (var k = 0; k < keys.length; k++) {
+                freq[keys[k]] = freq[keys[k]] / max;
+            }
+            return freq;
+        }
+
+        /** Score and rank sentences by importance */
+        function scoreSentences(sentences, wordFreq) {
+            var scored = [];
+            for (var i = 0; i < sentences.length; i++) {
+                var words = tokenize(sentences[i]);
+                var score = 0;
+                var count = 0;
+                for (var j = 0; j < words.length; j++) {
+                    if (wordFreq[words[j]]) {
+                        score += wordFreq[words[j]];
+                        count++;
+                    }
+                }
+                if (count > 0) score = score / count;
+                // Position bonus: first few sentences tend to carry key info
+                if (i === 0) score *= 1.2;
+                else if (i === 1) score *= 1.1;
+                // Length bonus for medium sentences (not too short, not too long)
+                var wc = countWords(sentences[i]);
+                if (wc >= 8 && wc <= 30) score *= 1.1;
+                scored.push({ index: i, score: score, text: sentences[i] });
+            }
+            scored.sort(function(a, b) { return b.score - a.score; });
+            return scored;
+        }
+
+        /** Extract key noun-like terms from a sentence */
+        function extractKeyTerms(sentence, wordFreq) {
+            var words = sentence.replace(/[^a-zA-Z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 2;
+            });
+            var terms = [];
+            for (var i = 0; i < words.length; i++) {
+                var low = words[i].toLowerCase();
+                if (!stopWords.has(low) && low.length > 2) {
+                    var score = wordFreq[low] || 0;
+                    terms.push({ word: words[i], lower: low, score: score, index: i });
+                }
+            }
+            terms.sort(function(a, b) { return b.score - a.score; });
+            return terms;
+        }
+
+        /** Find distractor terms from other sentences */
+        function findDistractors(correctTerm, allSentences, sourceIndex, wordFreq) {
+            var distractors = [];
+            var usedLower = new Set();
+            usedLower.add(correctTerm.toLowerCase());
+
+            for (var i = 0; i < allSentences.length; i++) {
+                if (i === sourceIndex) continue;
+                var terms = extractKeyTerms(allSentences[i], wordFreq);
+                for (var j = 0; j < terms.length; j++) {
+                    var t = terms[j];
+                    if (!usedLower.has(t.lower) && t.lower !== correctTerm.toLowerCase()) {
+                        // Similar length words make better distractors
+                        if (Math.abs(t.word.length - correctTerm.length) < 10) {
+                            distractors.push(t.word);
+                            usedLower.add(t.lower);
+                        }
+                    }
+                    if (distractors.length >= 8) break;
+                }
+                if (distractors.length >= 8) break;
+            }
+            return shuffle(distractors).slice(0, 3);
+        }
+
+        /* ============================================================
+           QUESTION GENERATION
+           ============================================================ */
+
+        /** Generate a Multiple Choice question from a sentence */
+        function generateMCQ(sentence, index, allSentences, wordFreq) {
+            var terms = extractKeyTerms(sentence, wordFreq);
+            if (terms.length < 1) return null;
+
+            var target = terms[0]; // Highest-scoring key term
+            var distractors = findDistractors(target.word, allSentences, index, wordFreq);
+            if (distractors.length < 2) return null;
+
+            // Build question by blanking the target
+            var questionText = sentence.replace(new RegExp('\\b' + target.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i'), '______');
+
+            // Determine question prefix
+            var prefix = 'What completes the following statement?';
+            var senLower = sentence.toLowerCase();
+            // Try to create a more natural question
+            if (senLower.indexOf(target.lower) < sentence.length / 3) {
+                // Target is near the beginning - could be the subject
+                prefix = 'Which of the following correctly completes this statement?';
+            }
+
+            var options = shuffle([target.word].concat(distractors.slice(0, 3)));
+            while (options.length < 4 && distractors.length > 0) {
+                options.push(distractors.pop());
+            }
+            // Ensure at least 4 options
+            var fallbackTerms = ['none of the above', 'all of the above', 'not enough information'];
+            while (options.length < 4) {
+                options.push(fallbackTerms[options.length - 1] || 'unknown');
+            }
+
+            return {
+                type: 'mcq',
+                question: prefix + '\n' + questionText,
+                options: options,
+                answer: target.word,
+                explanation: 'From the original text: "' + sentence + '"',
+                source: sentence
+            };
+        }
+
+        /** Generate a True/False question */
+        function generateTF(sentence, index, allSentences, wordFreq) {
+            var terms = extractKeyTerms(sentence, wordFreq);
+            if (terms.length < 2) return null;
+
+            var isTrue = Math.random() > 0.5;
+            var questionText;
+            var answer;
+
+            if (isTrue) {
+                questionText = sentence;
+                answer = 'True';
+            } else {
+                // Modify the sentence to make it false
+                var target = terms[0];
+                // Find a replacement term from another sentence
+                var replacements = [];
+                for (var i = 0; i < allSentences.length; i++) {
+                    if (i === index) continue;
+                    var otherTerms = extractKeyTerms(allSentences[i], wordFreq);
+                    for (var j = 0; j < otherTerms.length; j++) {
+                        if (otherTerms[j].lower !== target.lower) {
+                            replacements.push(otherTerms[j].word);
+                        }
+                    }
+                }
+                if (replacements.length === 0) return null;
+                var replacement = replacements[Math.floor(Math.random() * Math.min(replacements.length, 5))];
+                questionText = sentence.replace(new RegExp('\\b' + target.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i'), replacement);
+                answer = 'False';
+            }
+
+            return {
+                type: 'tf',
+                question: 'True or False: ' + questionText,
+                options: ['True', 'False'],
+                answer: answer,
+                explanation: isTrue
+                    ? 'This statement is directly from the text: "' + sentence + '"'
+                    : 'The original statement reads: "' + sentence + '"',
+                source: sentence
+            };
+        }
+
+        /** Generate a Fill in the Blank question */
+        function generateFITB(sentence, index, allSentences, wordFreq) {
+            var terms = extractKeyTerms(sentence, wordFreq);
+            if (terms.length < 1) return null;
+
+            var target = terms[0];
+            var blanked = sentence.replace(
+                new RegExp('\\b' + target.word.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\\b', 'i'),
+                '____________'
+            );
+
+            return {
+                type: 'fitb',
+                question: 'Fill in the blank:\n' + blanked,
+                options: [],
+                answer: target.word,
+                explanation: 'The complete sentence is: "' + sentence + '"',
+                source: sentence
+            };
+        }
+
+        /** Main quiz generation function */
+        function generateQuiz(text, numQuestions, questionType) {
+            var sentences = splitSentences(text);
+            if (sentences.length < 3) {
+                return { error: 'Not enough content to generate a quiz. Please provide at least 3-4 paragraphs of informational text.' };
+            }
+
+            var wordFreq = buildWordFrequency(sentences);
+            var scored = scoreSentences(sentences, wordFreq);
+
+            // Pick top sentences to base questions on (more than needed for fallback)
+            var candidateCount = Math.min(scored.length, numQuestions * 2);
+            var candidates = scored.slice(0, candidateCount);
+
+            var questions = [];
+            var usedIndices = new Set();
+
+            // Determine question type distribution for 'mixed'
+            var typeSequence = [];
+            if (questionType === 'mixed') {
+                var types = ['mcq', 'tf', 'fitb'];
+                for (var t = 0; t < numQuestions; t++) {
+                    typeSequence.push(types[t % 3]);
+                }
+                typeSequence = shuffle(typeSequence);
+            } else {
+                for (var tt = 0; tt < numQuestions; tt++) {
+                    typeSequence.push(questionType);
+                }
+            }
+
+            for (var i = 0; i < candidates.length && questions.length < numQuestions; i++) {
+                var cand = candidates[i];
+                if (usedIndices.has(cand.index)) continue;
+
+                var qType = typeSequence[questions.length];
+                var q = null;
+
+                // Try generating the desired type, fall back to others
+                var tryOrder = [qType];
+                if (qType !== 'mcq') tryOrder.push('mcq');
+                if (qType !== 'tf') tryOrder.push('tf');
+                if (qType !== 'fitb') tryOrder.push('fitb');
+
+                for (var attempt = 0; attempt < tryOrder.length; attempt++) {
+                    var tryType = tryOrder[attempt];
+                    if (tryType === 'mcq') {
+                        q = generateMCQ(cand.text, cand.index, sentences, wordFreq);
+                    } else if (tryType === 'tf') {
+                        q = generateTF(cand.text, cand.index, sentences, wordFreq);
+                    } else if (tryType === 'fitb') {
+                        q = generateFITB(cand.text, cand.index, sentences, wordFreq);
+                    }
+                    if (q) {
+                        q.type = tryType;
+                        break;
+                    }
+                }
+
+                if (q) {
+                    usedIndices.add(cand.index);
+                    questions.push(q);
+                }
+            }
+
+            if (questions.length === 0) {
+                return { error: 'Could not generate questions from this text. Try providing more detailed, factual content.' };
+            }
+
+            return { questions: questions };
+        }
+
+        /* ============================================================
+           UI RENDERING
+           ============================================================ */
+
+        /** Render all quiz question cards */
+        function renderQuiz(questions) {
+            quizData = questions;
+            quizChecked = false;
+            questionsBox.innerHTML = '';
+
+            var typeLabels = { mcq: 'Multiple Choice', tf: 'True / False', fitb: 'Fill in the Blank' };
+
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i];
+                var card = document.createElement('div');
+                card.className = 'quiz-card';
+                card.setAttribute('data-index', i);
+
+                var qParts = q.question.split('\n');
+                var prefix = qParts.length > 1 ? qParts[0] : '';
+                var mainQ = qParts.length > 1 ? qParts.slice(1).join(' ') : qParts[0];
+
+                var html = '<div class="quiz-card-header">';
+                html += '<div class="q-badge">' + (i + 1) + '</div>';
+                html += '<div style="flex:1;">';
+                html += '<div class="q-type-label">' + escHtml(typeLabels[q.type] || q.type) + '</div>';
+                if (prefix) html += '<div class="text-muted" style="font-size:0.85rem;margin-bottom:0.25rem;">' + escHtml(prefix) + '</div>';
+                html += '<div class="q-text">' + escHtml(mainQ) + '</div>';
+                html += '</div></div>';
+
+                if (q.type === 'mcq' || q.type === 'tf') {
+                    html += '<div class="q-options">';
+                    for (var o = 0; o < q.options.length; o++) {
+                        var optId = 'q' + i + '-opt' + o;
+                        html += '<label class="q-option-label" for="' + optId + '">';
+                        html += '<input type="radio" name="q' + i + '" id="' + optId + '" value="' + escHtml(q.options[o]) + '">';
+                        html += '<span>' + escHtml(q.options[o]) + '</span>';
+                        html += '</label>';
+                    }
+                    html += '</div>';
+                } else if (q.type === 'fitb') {
+                    html += '<input type="text" class="q-fill-input" data-qi="' + i + '" placeholder="Type your answer here..." autocomplete="off">';
+                }
+
+                html += '<div class="q-explanation" id="qexp-' + i + '"><strong>Explanation:</strong> ' + escHtml(q.explanation) + '</div>';
+
+                card.innerHTML = html;
+                questionsBox.appendChild(card);
+            }
+
+            // Attach radio selection styling
+            var allLabels = questionsBox.querySelectorAll('.q-option-label');
+            for (var l = 0; l < allLabels.length; l++) {
+                (function(label) {
+                    label.addEventListener('click', function() {
+                        if (quizChecked) return;
+                        var siblings = label.parentNode.querySelectorAll('.q-option-label');
+                        for (var s = 0; s < siblings.length; s++) {
+                            siblings[s].classList.remove('selected');
+                        }
+                        label.classList.add('selected');
+                    });
+                })(allLabels[l]);
+            }
+
+            quizMeta.textContent = questions.length + ' question' + (questions.length > 1 ? 's' : '') + ' generated from your text';
+        }
+
+        /** Build the answer key HTML */
+        function renderAnswerKey(questions) {
+            var html = '';
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i];
+                html += '<div class="ak-item">';
+                html += '<strong>Q' + (i + 1) + ':</strong> ' + escHtml(q.answer);
+                html += ' <span class="text-muted" style="font-size:0.85rem;">- ' + escHtml(q.explanation) + '</span>';
+                html += '</div>';
+            }
+            akContent.innerHTML = html;
+        }
+
+        /** Check answers and calculate score */
+        function checkAnswers() {
+            if (quizChecked) return;
+            quizChecked = true;
+
+            var correct = 0;
+            var total = quizData.length;
+
+            for (var i = 0; i < quizData.length; i++) {
+                var q = quizData[i];
+                var card = questionsBox.querySelector('[data-index="' + i + '"]');
+                var userAnswer = '';
+
+                if (q.type === 'mcq' || q.type === 'tf') {
+                    var checked = card.querySelector('input[name="q' + i + '"]:checked');
+                    userAnswer = checked ? checked.value : '';
+
+                    // Style all options
+                    var labels = card.querySelectorAll('.q-option-label');
+                    for (var j = 0; j < labels.length; j++) {
+                        var input = labels[j].querySelector('input');
+                        labels[j].classList.remove('selected');
+                        if (input.value === q.answer) {
+                            labels[j].classList.add('answer-show-correct');
+                        }
+                        if (input.checked && input.value !== q.answer) {
+                            labels[j].classList.add('answer-incorrect');
+                        }
+                        if (input.checked && input.value === q.answer) {
+                            labels[j].classList.remove('answer-show-correct');
+                            labels[j].classList.add('answer-correct');
+                        }
+                        input.disabled = true;
+                    }
+                } else if (q.type === 'fitb') {
+                    var inp = card.querySelector('.q-fill-input');
+                    userAnswer = inp ? inp.value.trim() : '';
+                    if (inp) {
+                        inp.readOnly = true;
+                        if (userAnswer.toLowerCase() === q.answer.toLowerCase()) {
+                            inp.classList.add('input-correct');
+                        } else {
+                            inp.classList.add('input-incorrect');
+                        }
+                    }
+                }
+
+                // Determine correctness
+                var isCorrect = false;
+                if (q.type === 'fitb') {
+                    isCorrect = userAnswer.toLowerCase() === q.answer.toLowerCase();
+                } else {
+                    isCorrect = userAnswer === q.answer;
+                }
+
+                if (isCorrect) {
+                    correct++;
+                    card.classList.add('correct');
+                } else {
+                    card.classList.add('incorrect');
+                }
+
+                // Show explanation
+                var expEl = document.getElementById('qexp-' + i);
+                if (expEl) expEl.classList.add('visible');
+            }
+
+            // Show score
+            var pct = Math.round((correct / total) * 100);
+            showScore(correct, total, pct);
+        }
+
+        /** Display the score ring and message */
+        function showScore(correct, total, pct) {
+            scoreSection.style.display = 'block';
+
+            // Animate circle
+            var circumference = 2 * Math.PI * 52; // ~326.73
+            var offset = circumference - (pct / 100) * circumference;
+
+            // Color based on score
+            var color = pct >= 80 ? '#10B981' : pct >= 50 ? '#F59E0B' : '#EF4444';
+            scoreCircle.style.stroke = color;
+            scoreCircle.style.transition = 'stroke-dashoffset 1s ease-out';
+
+            setTimeout(function() {
+                scoreCircle.style.strokeDashoffset = offset;
+            }, 50);
+
+            scorePct.textContent = pct + '%';
+            scorePct.style.color = color;
+            scoreDetail.textContent = correct + ' out of ' + total + ' correct';
+
+            var msg;
+            if (pct === 100) msg = 'Perfect Score!';
+            else if (pct >= 80) msg = 'Excellent Work!';
+            else if (pct >= 60) msg = 'Good Job!';
+            else if (pct >= 40) msg = 'Keep Studying!';
+            else msg = 'Review the Material';
+            scoreMsg.textContent = msg;
+            scoreMsg.style.color = color;
+
+            // Scroll to score
+            scoreSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        /** Reset the quiz so user can retake */
+        function resetQuiz() {
+            quizChecked = false;
+            scoreSection.style.display = 'none';
+            scoreCircle.style.strokeDashoffset = 326.73;
+            answerKeyDiv.classList.remove('visible');
+            toggleKeyBtn.textContent = 'Show Answer Key';
+            renderQuiz(quizData);
+        }
+
+        /** Generate a formatted text version for copying */
+        function quizToText() {
+            var lines = [];
+            var typeLabels = { mcq: 'Multiple Choice', tf: 'True/False', fitb: 'Fill in the Blank' };
+            lines.push('QUIZ - ' + quizData.length + ' Questions');
+            lines.push('=' .repeat(50));
+            lines.push('');
+
+            for (var i = 0; i < quizData.length; i++) {
+                var q = quizData[i];
+                var qParts = q.question.split('\n');
+                var mainQ = qParts.length > 1 ? qParts.slice(1).join(' ') : qParts[0];
+
+                lines.push('Q' + (i + 1) + '. [' + typeLabels[q.type] + ']');
+                lines.push(mainQ);
+
+                if (q.type === 'mcq' || q.type === 'tf') {
+                    var letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+                    for (var o = 0; o < q.options.length; o++) {
+                        lines.push('  ' + letters[o] + ') ' + q.options[o]);
+                    }
+                } else if (q.type === 'fitb') {
+                    lines.push('  Answer: _______________');
+                }
+                lines.push('');
+            }
+
+            lines.push('');
+            lines.push('ANSWER KEY');
+            lines.push('-'.repeat(50));
+            for (var a = 0; a < quizData.length; a++) {
+                var qa = quizData[a];
+                var ansStr = 'Q' + (a + 1) + ': ' + qa.answer;
+                if (qa.type === 'mcq') {
+                    var idx = qa.options.indexOf(qa.answer);
+                    var letters2 = ['A', 'B', 'C', 'D', 'E', 'F'];
+                    if (idx >= 0) ansStr = 'Q' + (a + 1) + ': ' + letters2[idx] + ') ' + qa.answer;
+                }
+                lines.push(ansStr);
+                lines.push('   ' + qa.explanation);
+                lines.push('');
+            }
+
+            return lines.join('\n');
+        }
+
+        /* ============================================================
+           EVENT HANDLERS
+           ============================================================ */
+
+        textInput.addEventListener('input', function() {
+            wordCountEl.textContent = countWords(textInput.value) + ' words';
+        });
+
+        numSlider.addEventListener('input', function() {
+            numVal.textContent = numSlider.value;
+        });
+
+        generateBtn.addEventListener('click', function() {
+            var text = textInput.value.trim();
+            if (!text) {
+                alert('Please paste or type some text content to generate a quiz from.');
+                return;
+            }
+            if (countWords(text) < 30) {
+                alert('Please provide more text. The quiz generator works best with at least a few paragraphs of content (30+ words).');
+                return;
+            }
+
+            var numQ = parseInt(numSlider.value, 10);
+            var qType = typeSelect.value;
+
+            // Show spinner
+            inputSection.style.display = 'none';
+            spinner.style.display = 'block';
+            quizSection.style.display = 'none';
+
+            // Use setTimeout for UI responsiveness
+            setTimeout(function() {
+                var result = generateQuiz(text, numQ, qType);
+                spinner.style.display = 'none';
+
+                if (result.error) {
+                    alert(result.error);
+                    inputSection.style.display = 'block';
+                    return;
+                }
+
+                renderQuiz(result.questions);
+                renderAnswerKey(result.questions);
+                quizSection.style.display = 'block';
+                quizSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600);
+        });
+
+        newQuizBtn.addEventListener('click', function() {
+            quizSection.style.display = 'none';
+            inputSection.style.display = 'block';
+            scoreSection.style.display = 'none';
+            scoreCircle.style.strokeDashoffset = 326.73;
+            answerKeyDiv.classList.remove('visible');
+            toggleKeyBtn.textContent = 'Show Answer Key';
+            textInput.focus();
+        });
+
+        checkBtn.addEventListener('click', function() {
+            checkAnswers();
+        });
+
+        resetBtn.addEventListener('click', function() {
+            resetQuiz();
+        });
+
+        toggleKeyBtn.addEventListener('click', function() {
+            var isVisible = answerKeyDiv.classList.contains('visible');
+            if (isVisible) {
+                answerKeyDiv.classList.remove('visible');
+                toggleKeyBtn.textContent = 'Show Answer Key';
+            } else {
+                answerKeyDiv.classList.add('visible');
+                toggleKeyBtn.textContent = 'Hide Answer Key';
+                answerKeyDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
+
+        copyBtn.addEventListener('click', function() {
+            var formatted = quizToText();
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(formatted).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy as Text'; }, 2000);
+                });
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = formatted;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy as Text'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
