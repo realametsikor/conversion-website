@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Idea Generator - Brainstorm Creative Ideas Instantly | ToolsNest</title>
+    <meta name="description" content="Generate creative ideas for business, content, projects, writing, and more. Beat creative blocks with AI-powered brainstorming. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/idea-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .ig-cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .ig-cat-btn { padding: 0.6rem 0.75rem; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: center; font-size: 0.85rem; transition: all 0.2s; }
+        .ig-cat-btn:hover { border-color: var(--primary); }
+        .ig-cat-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .ig-idea-card { padding: 1.25rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); margin-bottom: 0.75rem; position: relative; }
+        .ig-idea-card h4 { margin: 0 0 0.5rem; font-size: 1rem; }
+        .ig-idea-card p { margin: 0; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+        .ig-idea-number { display: inline-block; width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; text-align: center; line-height: 28px; font-size: 0.8rem; font-weight: 700; margin-right: 0.5rem; }
+        .ig-copy-idea { position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 0.75rem; }
+        .ig-copy-idea:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        @media (max-width: 600px) { .ig-cat-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Idea Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Idea Generator</h1>
+                <p class="text-center mb-3">Stuck in a creative rut? Enter a topic or keyword, choose a category, and get a batch of fresh, actionable ideas to spark your next project.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="ig-topic">Topic or Keywords</label>
+                        <input type="text" id="ig-topic" class="form-input" placeholder="e.g., fitness app, travel blog, Python project, side hustle">
+                    </div>
+
+                    <label style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Category</label>
+                    <div class="ig-cat-grid">
+                        <button class="ig-cat-btn active" data-cat="business">Business</button>
+                        <button class="ig-cat-btn" data-cat="content">Content</button>
+                        <button class="ig-cat-btn" data-cat="project">Projects</button>
+                        <button class="ig-cat-btn" data-cat="writing">Writing</button>
+                        <button class="ig-cat-btn" data-cat="app">App / Tech</button>
+                        <button class="ig-cat-btn" data-cat="creative">Creative</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ig-count">Number of Ideas</label>
+                        <select id="ig-count" class="form-input">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+
+                    <button id="ig-generate-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Generate Ideas</button>
+
+                    <div id="ig-output" style="display:none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1.5rem;">
+                            <h3 style="margin:0;">Your Ideas</h3>
+                            <button id="ig-copy-all" class="btn" style="font-size:0.85rem; padding:0.4rem 0.8rem;">Copy All</button>
+                        </div>
+                        <div id="ig-results" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter a topic, keyword, or area of interest.</li>
+                        <li>Select a category that best matches what you're looking for.</li>
+                        <li>Choose the number of ideas and click <strong>Generate Ideas</strong>.</li>
+                        <li>Browse through the results and copy the ones you like.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>What kind of ideas can this generate?</h3>
+                        <p>It generates ideas across business, content creation, coding projects, writing topics, app concepts, and creative endeavors. Each idea comes with a brief description.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Will I get the same ideas each time?</h3>
+                        <p>No. The generator uses randomization to create unique combinations each time you click generate, even with the same keywords.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Can I use these ideas for commercial projects?</h3>
+                        <p>Yes! All generated ideas are free to use for personal or commercial purposes.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                    <a href="/ai-tools/essay-outline-generator" class="related-link">Essay Outline Generator</a>
+                    <a href="/ai-tools/prompt-improver" class="related-link">Prompt Improver</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var selectedCat = 'business';
+        var catBtns = document.querySelectorAll('.ig-cat-btn');
+        catBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                catBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                selectedCat = btn.getAttribute('data-cat');
+            });
+        });
+
+        var templates = {
+            business: [
+                { t: 'A subscription box for {topic}', d: 'Curate monthly themed boxes around {topic} for enthusiasts who want convenience and discovery.' },
+                { t: 'An online marketplace for {topic} services', d: 'Build a platform connecting {topic} freelancers with clients who need specialized help.' },
+                { t: 'A {topic} consulting agency', d: 'Offer expert {topic} advice and strategy sessions to businesses looking to improve.' },
+                { t: 'A {topic} comparison and review site', d: 'Help consumers make informed decisions with detailed reviews and comparisons in the {topic} space.' },
+                { t: 'A SaaS tool for {topic} management', d: 'Create software that automates and streamlines {topic}-related workflows for teams.' },
+                { t: 'A {topic} workshop or boot camp', d: 'Organize hands-on sessions teaching people how to get started or level up with {topic}.' },
+                { t: 'A community platform for {topic} enthusiasts', d: 'Build a forum or social platform where {topic} fans share ideas, tips, and resources.' },
+                { t: 'A {topic} themed pop-up experience', d: 'Design immersive pop-up events centered around {topic} for brand engagement.' },
+                { t: '{topic} productivity planner', d: 'Design and sell a physical or digital planner tailored to {topic} workflows.' },
+                { t: 'A {topic} affiliate marketing blog', d: 'Build a content site reviewing and recommending {topic} products to earn affiliate income.' },
+                { t: 'An AI assistant for {topic}', d: 'Build a chatbot or AI tool that helps users with common {topic} tasks and questions.' },
+                { t: 'A {topic} certification program', d: 'Create an online certification that validates expertise in {topic} for professionals.' },
+                { t: 'A {topic} newsletter', d: 'Launch a weekly newsletter curating the latest trends, tips, and news in {topic}.' },
+                { t: '{topic} co-working space', d: 'Open a niche co-working space designed specifically for {topic} professionals.' },
+                { t: 'A {topic} lead generation tool', d: 'Build a tool that helps {topic} businesses find and qualify potential customers.' }
+            ],
+            content: [
+                { t: '10 myths about {topic} debunked', d: 'Create a viral-ready listicle busting the most common misconceptions about {topic}.' },
+                { t: 'A beginner\'s guide to {topic}', d: 'Write a comprehensive introduction that takes newcomers from zero to confident with {topic}.' },
+                { t: '{topic} vs. the competition: an honest comparison', d: 'Create a balanced comparison highlighting the pros and cons of different {topic} approaches.' },
+                { t: 'Behind the scenes of {topic}', d: 'Share a behind-the-scenes look at how {topic} really works in practice.' },
+                { t: 'The future of {topic}: predictions for next year', d: 'Write a thought leadership piece on where {topic} is headed and what to expect.' },
+                { t: 'A day in the life of a {topic} professional', d: 'Create engaging narrative content following someone who works with {topic} daily.' },
+                { t: '{topic} tools and resources roundup', d: 'Compile the best tools, apps, and resources for anyone working in {topic}.' },
+                { t: 'How I used {topic} to achieve a specific goal', d: 'Write a personal case study showing real results from applying {topic} strategies.' },
+                { t: '{topic} FAQ: answering your most-asked questions', d: 'Create a comprehensive FAQ that addresses common questions about {topic}.' },
+                { t: 'Infographic: {topic} by the numbers', d: 'Design a data-driven infographic showcasing key statistics about {topic}.' },
+                { t: '{topic} trends you need to know', d: 'Cover the latest emerging trends and changes happening in the {topic} space.' },
+                { t: '{topic} mistakes to avoid', d: 'Help your audience succeed by highlighting common pitfalls and how to dodge them.' },
+                { t: 'Expert interview: leaders in {topic}', d: 'Interview industry leaders for unique insights and actionable advice about {topic}.' },
+                { t: '{topic} challenge: 30 days to mastery', d: 'Create an engaging 30-day challenge that gradually builds {topic} skills.' },
+                { t: '{topic} success stories', d: 'Showcase real-world examples of people or businesses thriving with {topic}.' }
+            ],
+            project: [
+                { t: 'Build a {topic} dashboard', d: 'Create an interactive dashboard that visualizes key {topic} metrics and data.' },
+                { t: 'A {topic} automation script', d: 'Write scripts that automate repetitive {topic} tasks to save hours of manual work.' },
+                { t: '{topic} tracker app', d: 'Build a mobile or web app that helps users track and manage their {topic} activities.' },
+                { t: 'An open-source {topic} library', d: 'Create a reusable library or framework that helps developers build {topic} features faster.' },
+                { t: '{topic} data analysis project', d: 'Collect and analyze {topic} data to discover patterns and insights.' },
+                { t: 'A {topic} chatbot', d: 'Build a conversational bot that answers questions and provides guidance about {topic}.' },
+                { t: '{topic} API wrapper', d: 'Create a clean API wrapper that simplifies integration with {topic} services.' },
+                { t: 'A {topic} browser extension', d: 'Develop a browser extension that enhances the {topic} experience on the web.' },
+                { t: '{topic} portfolio template', d: 'Design a beautiful portfolio template tailored for showcasing {topic} work.' },
+                { t: 'A {topic} game or quiz', d: 'Create an educational game or interactive quiz to teach {topic} concepts in a fun way.' },
+                { t: '{topic} CLI tool', d: 'Build a command-line tool that streamlines common {topic} development tasks.' },
+                { t: '{topic} notification system', d: 'Create a real-time notification system for important {topic} events and updates.' },
+                { t: '{topic} comparison calculator', d: 'Build a tool that helps users compare different {topic} options side by side.' },
+                { t: '{topic} community forum', d: 'Build a discussion forum specifically for the {topic} community to share knowledge.' },
+                { t: '{topic} learning platform', d: 'Create an interactive learning platform with lessons, exercises, and progress tracking for {topic}.' }
+            ],
+            writing: [
+                { t: 'A short story set in a {topic} world', d: 'Write fiction that explores what life would be like in a world shaped by {topic}.' },
+                { t: 'An opinion piece on the ethics of {topic}', d: 'Tackle the moral questions surrounding {topic} with a thoughtful essay.' },
+                { t: 'A letter from the future about {topic}', d: 'Write a creative letter from someone 50 years in the future reflecting on {topic}.' },
+                { t: '{topic}: a poetic exploration', d: 'Write a poem or series of poems inspired by themes related to {topic}.' },
+                { t: 'The ultimate {topic} guide book', d: 'Outline and draft a comprehensive book that becomes the definitive resource on {topic}.' },
+                { t: 'A {topic} mystery novel outline', d: 'Craft a mystery plot where {topic} plays a central role in solving the case.' },
+                { t: 'Satirical take on {topic}', d: 'Write a humorous satire that pokes fun at common absurdities in the {topic} world.' },
+                { t: '{topic} through the ages: a historical essay', d: 'Trace the evolution of {topic} through different historical periods.' },
+                { t: 'An open letter to {topic} beginners', d: 'Write an encouraging and informative open letter to people just starting with {topic}.' },
+                { t: '{topic} journal prompts', d: 'Create a set of thoughtful journal prompts for self-reflection around {topic}.' },
+                { t: 'A {topic} screenplay concept', d: 'Develop a screenplay premise where {topic} drives the central conflict and characters.' },
+                { t: '{topic} manifesto', d: 'Write a passionate manifesto outlining a bold vision for the future of {topic}.' },
+                { t: 'Children\'s story about {topic}', d: 'Create an engaging children\'s story that introduces {topic} concepts in a fun, accessible way.' },
+                { t: '{topic} interview script', d: 'Write a compelling interview script with questions designed to uncover deep insights about {topic}.' },
+                { t: 'A {topic} newsletter series', d: 'Plan a 12-part newsletter series that systematically covers all aspects of {topic}.' }
+            ],
+            app: [
+                { t: 'A {topic} scheduling app', d: 'Build an app that helps users plan, schedule, and optimize their {topic} activities.' },
+                { t: 'AI-powered {topic} assistant', d: 'Create a smart assistant that uses AI to provide personalized {topic} recommendations.' },
+                { t: '{topic} social network', d: 'Design a niche social platform where {topic} enthusiasts connect and share.' },
+                { t: 'A {topic} marketplace app', d: 'Build a mobile marketplace for buying, selling, or trading {topic}-related items.' },
+                { t: '{topic} habit tracker', d: 'Create an app that gamifies building good {topic} habits with streaks and rewards.' },
+                { t: 'A {topic} AR experience', d: 'Build an augmented reality app that brings {topic} concepts to life.' },
+                { t: '{topic} budget/expense tracker', d: 'Create a specialized finance app for tracking {topic}-related expenses and budgets.' },
+                { t: 'A {topic} learning app with spaced repetition', d: 'Build a study app that uses spaced repetition to help users master {topic}.' },
+                { t: '{topic} finder/locator', d: 'Create a location-based app that helps users find nearby {topic} resources.' },
+                { t: 'A {topic} collaboration tool', d: 'Build a real-time collaboration platform designed specifically for {topic} teams.' },
+                { t: '{topic} analytics dashboard', d: 'Create a mobile-first analytics tool for monitoring {topic} performance metrics.' },
+                { t: 'A {topic} booking platform', d: 'Build an appointment or event booking system tailored for the {topic} industry.' },
+                { t: '{topic} voice assistant skill', d: 'Create a voice assistant skill/action for Alexa or Google that helps with {topic}.' },
+                { t: '{topic} recommendation engine', d: 'Build an algorithm that suggests personalized {topic} options based on user preferences.' },
+                { t: 'A {topic} productivity timer', d: 'Create a focused work timer app customized for {topic} tasks and workflows.' }
+            ],
+            creative: [
+                { t: 'A {topic} themed art series', d: 'Create a collection of visual art pieces inspired by different aspects of {topic}.' },
+                { t: '{topic} mood board collection', d: 'Design a series of aesthetic mood boards that capture the essence of {topic}.' },
+                { t: 'A {topic} themed escape room', d: 'Design an escape room experience with puzzles and clues centered around {topic}.' },
+                { t: '{topic} coloring book', d: 'Illustrate a themed coloring book for adults featuring intricate {topic} designs.' },
+                { t: 'A {topic} documentary concept', d: 'Plan a documentary that explores the human side of {topic} through real stories.' },
+                { t: '{topic} card game', d: 'Design a fun, strategic card game based on {topic} themes and mechanics.' },
+                { t: 'A {topic} themed playlist', d: 'Curate the ultimate playlist of songs that capture the energy and mood of {topic}.' },
+                { t: '{topic} photography project', d: 'Plan a photo series that documents different perspectives on {topic}.' },
+                { t: 'A {topic} comic strip', d: 'Create a recurring comic strip that humorously illustrates everyday {topic} situations.' },
+                { t: '{topic} craft or DIY kit', d: 'Design a hands-on craft kit that lets people create something related to {topic}.' },
+                { t: 'A {topic} podcast series', d: 'Plan a podcast that explores different angles, stories, and experts in {topic}.' },
+                { t: '{topic} themed recipe collection', d: 'Create a recipe book or series inspired by themes and flavors associated with {topic}.' },
+                { t: 'A {topic} vision board template', d: 'Design downloadable vision board templates themed around {topic} goals.' },
+                { t: '{topic} font or icon set', d: 'Design a custom font or icon set inspired by the visual language of {topic}.' },
+                { t: 'A {topic} brand identity concept', d: 'Create a complete fictional brand identity (logo, colors, typography) for a {topic} brand.' }
+            ]
+        };
+
+        function generateIdeas(topic, category, count) {
+            var tpls = templates[category] || templates.business;
+            var shuffled = tpls.slice().sort(function() { return Math.random() - 0.5; });
+            var results = [];
+            for (var i = 0; i < Math.min(count, shuffled.length); i++) {
+                results.push({
+                    title: shuffled[i].t.replace(/\{topic\}/g, topic),
+                    desc: shuffled[i].d.replace(/\{topic\}/g, topic)
+                });
+            }
+            return results;
+        }
+
+        document.getElementById('ig-generate-btn').addEventListener('click', function() {
+            var topic = document.getElementById('ig-topic').value.trim();
+            if (!topic) { document.getElementById('ig-topic').focus(); return; }
+            var count = parseInt(document.getElementById('ig-count').value);
+            var ideas = generateIdeas(topic, selectedCat, count);
+            var container = document.getElementById('ig-results');
+            container.innerHTML = '';
+            ideas.forEach(function(idea, i) {
+                var card = document.createElement('div');
+                card.className = 'ig-idea-card';
+                card.innerHTML = '<button class="ig-copy-idea" data-text="' + idea.title.replace(/"/g, '&quot;') + '">Copy</button><h4><span class="ig-idea-number">' + (i+1) + '</span>' + idea.title + '</h4><p>' + idea.desc + '</p>';
+                container.appendChild(card);
+            });
+            document.getElementById('ig-output').style.display = 'block';
+        });
+
+        document.getElementById('ig-results').addEventListener('click', function(e) {
+            if (e.target.classList.contains('ig-copy-idea')) {
+                navigator.clipboard.writeText(e.target.getAttribute('data-text')).then(function() {
+                    e.target.textContent = 'Copied!';
+                    setTimeout(function() { e.target.textContent = 'Copy'; }, 1500);
+                });
+            }
+        });
+
+        document.getElementById('ig-copy-all').addEventListener('click', function() {
+            var cards = document.querySelectorAll('#ig-results .ig-idea-card');
+            var text = Array.from(cards).map(function(c, i) {
+                return (i+1) + '. ' + c.querySelector('h4').textContent.trim() + '\n   ' + c.querySelector('p').textContent;
+            }).join('\n\n');
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('ig-copy-all');
+                btn.textContent = 'Copied All!';
+                setTimeout(function() { btn.textContent = 'Copy All'; }, 1500);
+            });
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

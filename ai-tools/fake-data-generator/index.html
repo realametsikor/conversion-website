@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Fake Data Generator - Generate Mock Data Instantly | ToolsNest</title>
+    <meta name="description" content="Generate realistic fake data for testing and development. Names, emails, addresses, phone numbers, and more. Export as JSON or CSV. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/fake-data-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .fd-field-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; margin-bottom: 1.5rem; }
+        .fd-field-btn { padding: 0.5rem 0.6rem; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: center; font-size: 0.85rem; transition: all 0.2s; }
+        .fd-field-btn:hover { border-color: var(--primary); }
+        .fd-field-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .fd-table-wrap { overflow-x: auto; margin-top: 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+        .fd-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        .fd-table th { background: var(--bg-alt, #f5f5f5); padding: 0.65rem 0.75rem; text-align: left; border-bottom: 2px solid var(--border); font-weight: 600; white-space: nowrap; }
+        .fd-table td { padding: 0.55rem 0.75rem; border-bottom: 1px solid var(--border); white-space: nowrap; }
+        .fd-table tr:last-child td { border-bottom: none; }
+        .fd-export-btns { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+        @media (max-width: 600px) { .fd-field-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Fake Data Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Fake Data Generator</h1>
+                <p class="text-center mb-3">Generate realistic mock data for testing and development. Choose the fields you need, set the number of rows, and export as JSON or CSV.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <label style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Select Fields</label>
+                    <div class="fd-field-grid" id="fd-fields">
+                        <button class="fd-field-btn active" data-field="name">Full Name</button>
+                        <button class="fd-field-btn active" data-field="email">Email</button>
+                        <button class="fd-field-btn active" data-field="phone">Phone</button>
+                        <button class="fd-field-btn" data-field="address">Address</button>
+                        <button class="fd-field-btn" data-field="company">Company</button>
+                        <button class="fd-field-btn" data-field="job">Job Title</button>
+                        <button class="fd-field-btn" data-field="username">Username</button>
+                        <button class="fd-field-btn" data-field="date">Date</button>
+                        <button class="fd-field-btn" data-field="number">Number</button>
+                        <button class="fd-field-btn" data-field="uuid">UUID</button>
+                        <button class="fd-field-btn" data-field="ip">IP Address</button>
+                        <button class="fd-field-btn" data-field="color">Color (Hex)</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fd-count">Number of Rows</label>
+                        <select id="fd-count" class="form-input">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+
+                    <button id="fd-generate-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Generate Data</button>
+
+                    <div id="fd-output" style="display:none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1.5rem;">
+                            <h3 style="margin:0;">Generated Data</h3>
+                        </div>
+                        <div id="fd-table-wrap" class="fd-table-wrap"></div>
+                        <div class="fd-export-btns">
+                            <button id="fd-copy-json" class="btn">Copy as JSON</button>
+                            <button id="fd-copy-csv" class="btn">Copy as CSV</button>
+                            <button id="fd-download-json" class="btn">Download JSON</button>
+                            <button id="fd-download-csv" class="btn">Download CSV</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click the field buttons to select which data types you want (name, email, phone, etc.).</li>
+                        <li>Choose the number of rows to generate.</li>
+                        <li>Click <strong>Generate Data</strong> to create your mock dataset.</li>
+                        <li>Copy as JSON/CSV or download the file directly.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>Is this data real?</h3>
+                        <p>No. All generated data is completely fake and randomly generated. It should only be used for testing, development, and prototyping purposes.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Can I use this data in my projects?</h3>
+                        <p>Yes! The generated data is perfect for seeding databases, testing APIs, filling UI mockups, and any other development purpose.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Is my data sent to a server?</h3>
+                        <p>No. All data is generated entirely in your browser. Nothing is sent anywhere.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/json-formatter" class="related-link">JSON Formatter</a>
+                    <a href="/ai-tools/regex-generator" class="related-link">Regex Generator</a>
+                    <a href="/ai-tools/username-generator" class="related-link">Username Generator</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var fieldBtns = document.querySelectorAll('.fd-field-btn');
+        fieldBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() { btn.classList.toggle('active'); });
+        });
+
+        var firstNames = ['James','Mary','John','Patricia','Robert','Jennifer','Michael','Linda','David','Elizabeth','William','Barbara','Richard','Susan','Joseph','Jessica','Thomas','Sarah','Charles','Karen','Emma','Liam','Olivia','Noah','Ava','Oliver','Sophia','Lucas','Mia','Mason'];
+        var lastNames = ['Smith','Johnson','Williams','Brown','Jones','Garcia','Miller','Davis','Rodriguez','Martinez','Hernandez','Lopez','Gonzalez','Wilson','Anderson','Thomas','Taylor','Moore','Jackson','Martin','Lee','Perez','Thompson','White','Harris','Sanchez','Clark','Ramirez','Lewis','Robinson'];
+        var domains = ['gmail.com','yahoo.com','outlook.com','hotmail.com','example.com','mail.com','proton.me','icloud.com'];
+        var streets = ['Main St','Oak Ave','Elm St','Park Blvd','Cedar Ln','Maple Dr','Pine Rd','Walnut St','Cherry Ln','Birch Ave'];
+        var cities = ['New York','Los Angeles','Chicago','Houston','Phoenix','Philadelphia','San Antonio','San Diego','Dallas','Austin','Denver','Seattle','Boston','Miami','Atlanta'];
+        var states = ['NY','CA','IL','TX','AZ','PA','TX','CA','TX','TX','CO','WA','MA','FL','GA'];
+        var companies = ['Acme Corp','TechNova','BrightEdge','SkyLine Inc','Vertex Labs','Nexus Digital','Pinnacle Group','Summit Co','Vanguard Ltd','Horizon Systems','Quantum Works','Atlas Solutions','Orion Tech','Zenith Global','Apex Dynamics'];
+        var jobs = ['Software Engineer','Marketing Manager','Product Designer','Data Analyst','Sales Director','Operations Manager','UX Researcher','Full Stack Developer','Project Manager','Content Strategist','Business Analyst','DevOps Engineer','Graphic Designer','HR Specialist','Account Executive'];
+
+        function rand(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+        function randNum(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+        function uuid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0;
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        }
+
+        function generateRow(fields) {
+            var row = {};
+            var fn = rand(firstNames), ln = rand(lastNames);
+            fields.forEach(function(f) {
+                switch(f) {
+                    case 'name': row.name = fn + ' ' + ln; break;
+                    case 'email': row.email = fn.toLowerCase() + '.' + ln.toLowerCase() + randNum(1,99) + '@' + rand(domains); break;
+                    case 'phone': row.phone = '+1 (' + randNum(200,999) + ') ' + randNum(200,999) + '-' + String(randNum(1000,9999)); break;
+                    case 'address': row.address = randNum(100,9999) + ' ' + rand(streets) + ', ' + rand(cities) + ', ' + rand(states) + ' ' + String(randNum(10000,99999)); break;
+                    case 'company': row.company = rand(companies); break;
+                    case 'job': row.job_title = rand(jobs); break;
+                    case 'username': row.username = fn.toLowerCase() + '_' + ln.toLowerCase().substring(0,3) + randNum(1,999); break;
+                    case 'date': row.date = randNum(2020,2025) + '-' + String(randNum(1,12)).padStart(2,'0') + '-' + String(randNum(1,28)).padStart(2,'0'); break;
+                    case 'number': row.number = randNum(1,10000); break;
+                    case 'uuid': row.uuid = uuid(); break;
+                    case 'ip': row.ip_address = randNum(1,255) + '.' + randNum(0,255) + '.' + randNum(0,255) + '.' + randNum(1,254); break;
+                    case 'color': row.color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6,'0'); break;
+                }
+            });
+            return row;
+        }
+
+        var generatedData = [];
+
+        document.getElementById('fd-generate-btn').addEventListener('click', function() {
+            var activeFields = Array.from(document.querySelectorAll('.fd-field-btn.active')).map(function(b) { return b.getAttribute('data-field'); });
+            if (!activeFields.length) return;
+            var count = parseInt(document.getElementById('fd-count').value);
+            generatedData = [];
+            for (var i = 0; i < count; i++) generatedData.push(generateRow(activeFields));
+
+            var keys = Object.keys(generatedData[0]);
+            var html = '<table class="fd-table"><thead><tr>' + keys.map(function(k) { return '<th>' + k.replace(/_/g,' ').replace(/\b\w/g, function(c){return c.toUpperCase();}) + '</th>'; }).join('') + '</tr></thead><tbody>';
+            generatedData.forEach(function(row) {
+                html += '<tr>' + keys.map(function(k) { return '<td>' + (row[k] !== undefined ? row[k] : '') + '</td>'; }).join('') + '</tr>';
+            });
+            html += '</tbody></table>';
+            document.getElementById('fd-table-wrap').innerHTML = html;
+            document.getElementById('fd-output').style.display = 'block';
+        });
+
+        function toCSV(data) {
+            if (!data.length) return '';
+            var keys = Object.keys(data[0]);
+            var lines = [keys.join(',')];
+            data.forEach(function(row) {
+                lines.push(keys.map(function(k) {
+                    var v = String(row[k] !== undefined ? row[k] : '');
+                    return v.indexOf(',') !== -1 || v.indexOf('"') !== -1 ? '"' + v.replace(/"/g,'""') + '"' : v;
+                }).join(','));
+            });
+            return lines.join('\n');
+        }
+
+        function download(content, filename, type) {
+            var blob = new Blob([content], { type: type });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = filename; a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('fd-copy-json').addEventListener('click', function() {
+            navigator.clipboard.writeText(JSON.stringify(generatedData, null, 2)).then(function() {
+                var btn = document.getElementById('fd-copy-json');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy as JSON'; }, 1500);
+            });
+        });
+
+        document.getElementById('fd-copy-csv').addEventListener('click', function() {
+            navigator.clipboard.writeText(toCSV(generatedData)).then(function() {
+                var btn = document.getElementById('fd-copy-csv');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy as CSV'; }, 1500);
+            });
+        });
+
+        document.getElementById('fd-download-json').addEventListener('click', function() {
+            download(JSON.stringify(generatedData, null, 2), 'fake-data.json', 'application/json');
+        });
+
+        document.getElementById('fd-download-csv').addEventListener('click', function() {
+            download(toCSV(generatedData), 'fake-data.csv', 'text/csv');
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

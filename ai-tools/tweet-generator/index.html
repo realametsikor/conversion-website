@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tweet Generator - Create Engaging Tweets Instantly | ToolsNest</title>
+    <meta name="description" content="Generate engaging, viral-ready tweets for any topic. Choose tones, add hashtags, and optimize for character limits. Free, no signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/tweet-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .tw-tone-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .tw-tone-btn { padding: 0.6rem 0.75rem; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: center; font-size: 0.85rem; transition: all 0.2s; }
+        .tw-tone-btn:hover { border-color: var(--primary); }
+        .tw-tone-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .tw-tweet-card { background: var(--bg); border: 1px solid var(--border); border-radius: 16px; padding: 1.25rem; margin-bottom: 0.75rem; position: relative; }
+        .tw-tweet-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .tw-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.1rem; }
+        .tw-tweet-meta { font-size: 0.8rem; color: var(--text-muted); }
+        .tw-tweet-meta strong { color: var(--text); font-size: 0.9rem; }
+        .tw-tweet-body { font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem; }
+        .tw-tweet-footer { display: flex; justify-content: space-between; align-items: center; }
+        .tw-char-count { font-size: 0.8rem; color: var(--text-muted); }
+        .tw-char-count.over { color: #dc2626; font-weight: 600; }
+        .tw-copy-tweet { padding: 0.3rem 0.6rem; border: 1px solid var(--border); border-radius: 4px; background: transparent; cursor: pointer; font-size: 0.8rem; }
+        .tw-copy-tweet:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+        @media (max-width: 600px) { .tw-tone-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Tweet Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Tweet Generator</h1>
+                <p class="text-center mb-3">Generate engaging, viral-ready tweets for any topic. Pick your tone, get multiple variations, and copy the perfect one — all within the character limit.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="tw-topic">Topic or Key Message</label>
+                        <textarea id="tw-topic" class="form-input" rows="3" placeholder="e.g., 'launching a new productivity app for remote teams' or 'morning workout motivation'"></textarea>
+                    </div>
+
+                    <label style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Tone</label>
+                    <div class="tw-tone-grid">
+                        <button class="tw-tone-btn active" data-tone="professional">Professional</button>
+                        <button class="tw-tone-btn" data-tone="casual">Casual</button>
+                        <button class="tw-tone-btn" data-tone="witty">Witty</button>
+                        <button class="tw-tone-btn" data-tone="motivational">Motivational</button>
+                        <button class="tw-tone-btn" data-tone="informative">Informative</button>
+                        <button class="tw-tone-btn" data-tone="controversial">Hot Take</button>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="tw-count">Number of Tweets</label>
+                            <select id="tw-count" class="form-input">
+                                <option value="3">3</option>
+                                <option value="5" selected>5</option>
+                                <option value="8">8</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tw-hashtags">Include Hashtags</label>
+                            <select id="tw-hashtags" class="form-input">
+                                <option value="yes" selected>Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="tw-generate-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Generate Tweets</button>
+
+                    <div id="tw-output" style="display:none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1.5rem;">
+                            <h3 style="margin:0;">Generated Tweets</h3>
+                            <button id="tw-copy-all" class="btn" style="font-size:0.85rem; padding:0.4rem 0.8rem;">Copy All</button>
+                        </div>
+                        <div id="tw-results" style="margin-top: 1rem;"></div>
+                    </div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your topic, key message, or the idea behind your tweet.</li>
+                        <li>Select a tone — professional, casual, witty, motivational, informative, or hot take.</li>
+                        <li>Choose the number of tweet variations and whether to include hashtags.</li>
+                        <li>Click <strong>Generate Tweets</strong> and copy the ones you like.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>Are the tweets optimized for Twitter/X's character limit?</h3>
+                        <p>Yes! All generated tweets are crafted to stay within the 280-character limit. The character count is displayed on each tweet for easy verification.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Can I edit the tweets after generating?</h3>
+                        <p>The tweets are displayed as text you can copy. Feel free to paste them anywhere and edit them to add your personal touch before posting.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Are the hashtags relevant?</h3>
+                        <p>The hashtags are generated based on your topic to maximize discoverability. You can always remove or replace them as needed.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/caption-generator" class="related-link">Caption Generator</a>
+                    <a href="/ai-tools/hashtag-generator" class="related-link">Hashtag Generator</a>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var selectedTone = 'professional';
+        var toneBtns = document.querySelectorAll('.tw-tone-btn');
+        toneBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                toneBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                selectedTone = btn.getAttribute('data-tone');
+            });
+        });
+
+        var templates = {
+            professional: [
+                'Excited to share: {topic}. This is going to change how teams work together.',
+                '{topic} — the future of productivity is here. Are you ready?',
+                'We\'ve been working on something big: {topic}. Stay tuned for updates.',
+                'The data is clear: {topic} delivers real results. Here\'s what we\'re seeing.',
+                '{topic} isn\'t just a trend — it\'s becoming the new standard.',
+                'Just published our latest insights on {topic}. Key takeaways inside.',
+                'Three things every professional should know about {topic}:',
+                'Our team has been heads-down on {topic} and the results are promising.',
+                'If you\'re not paying attention to {topic}, you\'re falling behind.',
+                'The ROI on {topic} speaks for itself. Here\'s the breakdown.',
+                '{topic}: lessons learned from building this from the ground up.',
+                'Big announcement: {topic}. We can\'t wait to show you what\'s next.'
+            ],
+            casual: [
+                'So I just tried {topic} and wow, total game changer honestly',
+                'Anyone else obsessed with {topic} right now or is it just me?',
+                '{topic} hits different when you actually commit to it',
+                'Not gonna lie, {topic} has been living rent-free in my head',
+                'Finally got around to {topic} and I have thoughts...',
+                'Hot take: {topic} is actually way easier than people think',
+                'My {topic} journey so far: 10/10 would recommend',
+                'Just vibing with {topic} today and it feels great',
+                'PSA: if you haven\'t tried {topic} yet, you\'re missing out',
+                'The thing about {topic} nobody tells you: it\'s actually fun',
+                'Started {topic} as an experiment. Now I can\'t stop.',
+                'Real talk: {topic} changed my entire perspective on things'
+            ],
+            witty: [
+                '{topic}: because apparently sleeping is overrated anyway',
+                'My relationship with {topic}: it\'s complicated but worth it',
+                'Therapist: what\'s on your mind?\nMe: {topic}\nTherapist: valid',
+                'Step 1: Start {topic}\nStep 2: ???\nStep 3: Profit',
+                '{topic} is basically coffee for your brain. Highly addictive.',
+                'I don\'t always tweet about {topic}. Wait, yes I do.',
+                'Scientists haven\'t confirmed that {topic} is life-changing. But I have.',
+                'Plot twist: {topic} was the answer all along',
+                'Me before {topic}: meh\nMe after {topic}: unstoppable',
+                '{topic}: 0 stars on Yelp but 5 stars in my heart',
+                'Breaking: local person discovers {topic}, becomes insufferable',
+                'Do I talk about {topic} too much? Absolutely. Will I stop? Never.'
+            ],
+            motivational: [
+                'Your journey with {topic} starts with a single step. Take it today.',
+                'Don\'t wait for the perfect moment to start {topic}. Start now, improve later.',
+                '{topic} taught me that growth happens outside your comfort zone.',
+                'Every expert in {topic} was once a beginner. Keep pushing forward.',
+                'The best time to start {topic} was yesterday. The second best time is now.',
+                'Success in {topic} isn\'t about talent — it\'s about consistency.',
+                'Believe in {topic}. Believe in yourself. Watch what happens.',
+                '{topic} is proof that small daily efforts lead to massive results.',
+                'You don\'t have to be great to start {topic}. But start to be great.',
+                'Let {topic} be your reminder: progress beats perfection every single time.',
+                'Champions aren\'t made in their comfort zone. Embrace {topic}.',
+                '{topic}: where discipline meets passion and magic happens.'
+            ],
+            informative: [
+                'Did you know? {topic} has grown 300% in the last year alone.',
+                'Here\'s what most people get wrong about {topic}: a quick thread.',
+                '5 key facts about {topic} everyone should know:',
+                'New research shows {topic} can significantly improve your workflow.',
+                'The science behind {topic}: what the latest studies reveal.',
+                '{topic} by the numbers: the stats that matter most.',
+                'A quick guide to {topic} for beginners and experts alike.',
+                'Common myths about {topic} debunked with real data.',
+                'The top 3 trends in {topic} to watch this year.',
+                'Why {topic} matters more now than ever: a brief explainer.',
+                '{topic}: the essential guide in 280 characters or less.',
+                'Here\'s the TL;DR on {topic} and why you should care.'
+            ],
+            controversial: [
+                'Unpopular opinion: {topic} is the most underrated thing right now.',
+                'I\'ll say it: most people are approaching {topic} completely wrong.',
+                '{topic} is overhyped. There, I said it. Let me explain.',
+                'Hot take: {topic} will be irrelevant in 5 years unless we adapt.',
+                'Controversial opinion: {topic} matters more than anyone admits.',
+                'The uncomfortable truth about {topic} nobody wants to hear.',
+                'I\'m going to get ratio\'d for this but: {topic} needs a rethink.',
+                '{topic} is broken and we all know it. Time for a new approach.',
+                'Bold claim: {topic} is the single biggest opportunity right now.',
+                'This will upset some people: {topic} isn\'t what you think it is.',
+                'Everyone\'s excited about {topic} but nobody\'s asking the hard questions.',
+                'Hear me out: what if everything we think about {topic} is wrong?'
+            ]
+        };
+
+        function generateHashtags(topic) {
+            var words = topic.trim().split(/\s+/).filter(function(w) { return w.length > 2; });
+            var tags = [];
+            if (words.length >= 2) tags.push('#' + words.slice(0,2).map(function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();}).join(''));
+            if (words.length >= 1) tags.push('#' + words[0].charAt(0).toUpperCase() + words[0].slice(1).toLowerCase());
+            var generic = ['#Trending','#MustRead','#GameChanger','#Innovation','#Growth','#Insights','#TechLife','#Motivation','#ProTip','#Leadership'];
+            tags.push(generic[Math.floor(Math.random()*generic.length)]);
+            return tags.slice(0,3).join(' ');
+        }
+
+        function generateTweets(topic, tone, count, includeHashtags) {
+            var tpls = templates[tone] || templates.professional;
+            var shuffled = tpls.slice().sort(function() { return Math.random() - 0.5; });
+            var results = [];
+            for (var i = 0; i < Math.min(count, shuffled.length); i++) {
+                var tweet = shuffled[i].replace(/\{topic\}/g, topic);
+                if (includeHashtags) {
+                    var hashtags = generateHashtags(topic);
+                    if (tweet.length + 1 + hashtags.length <= 280) {
+                        tweet += '\n\n' + hashtags;
+                    }
+                }
+                if (tweet.length > 280) tweet = tweet.substring(0, 277) + '...';
+                results.push(tweet);
+            }
+            return results;
+        }
+
+        document.getElementById('tw-generate-btn').addEventListener('click', function() {
+            var topic = document.getElementById('tw-topic').value.trim();
+            if (!topic) { document.getElementById('tw-topic').focus(); return; }
+            var count = parseInt(document.getElementById('tw-count').value);
+            var hashtags = document.getElementById('tw-hashtags').value === 'yes';
+            var tweets = generateTweets(topic, selectedTone, count, hashtags);
+
+            var container = document.getElementById('tw-results');
+            container.innerHTML = '';
+            tweets.forEach(function(tweet) {
+                var card = document.createElement('div');
+                card.className = 'tw-tweet-card';
+                var charClass = tweet.length > 280 ? 'tw-char-count over' : 'tw-char-count';
+                card.innerHTML = '<div class="tw-tweet-header"><div class="tw-avatar">U</div><div class="tw-tweet-meta"><strong>Your Name</strong><br>@yourhandle</div></div><div class="tw-tweet-body">' + tweet.replace(/\n/g,'<br>') + '</div><div class="tw-tweet-footer"><span class="' + charClass + '">' + tweet.length + '/280</span><button class="tw-copy-tweet">Copy</button></div>';
+                container.appendChild(card);
+            });
+            document.getElementById('tw-output').style.display = 'block';
+        });
+
+        document.getElementById('tw-results').addEventListener('click', function(e) {
+            if (e.target.classList.contains('tw-copy-tweet')) {
+                var body = e.target.closest('.tw-tweet-card').querySelector('.tw-tweet-body');
+                var text = body.innerText || body.textContent;
+                navigator.clipboard.writeText(text).then(function() {
+                    e.target.textContent = 'Copied!';
+                    setTimeout(function() { e.target.textContent = 'Copy'; }, 1500);
+                });
+            }
+        });
+
+        document.getElementById('tw-copy-all').addEventListener('click', function() {
+            var bodies = document.querySelectorAll('#tw-results .tw-tweet-body');
+            var text = Array.from(bodies).map(function(b,i) { return (i+1) + '. ' + (b.innerText || b.textContent); }).join('\n\n');
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('tw-copy-all');
+                btn.textContent = 'Copied All!';
+                setTimeout(function() { btn.textContent = 'Copy All'; }, 1500);
+            });
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Regex Generator - Generate Regular Expressions from Descriptions | ToolsNest</title>
+    <meta name="description" content="Generate regular expressions from plain English descriptions. Test them against sample text in real time. Common patterns included. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/regex-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .rg-preset-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .rg-preset-btn { padding: 0.5rem 0.75rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: left; font-size: 0.85rem; transition: all 0.2s; }
+        .rg-preset-btn:hover { border-color: var(--primary); background: #f0f7ff; }
+        .rg-preset-btn strong { display: block; font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.15rem; }
+        .rg-result-box { background: #1e1e1e; color: #d4d4d4; border-radius: var(--radius-sm); padding: 1.25rem; font-family: 'Courier New', monospace; font-size: 1.05rem; word-break: break-all; position: relative; margin-top: 1rem; }
+        .rg-result-box .rg-copy { position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.3rem 0.6rem; background: #333; color: #fff; border: 1px solid #555; border-radius: 4px; cursor: pointer; font-size: 0.75rem; }
+        .rg-result-box .rg-copy:hover { background: var(--primary); border-color: var(--primary); }
+        .rg-test-area { margin-top: 1rem; }
+        .rg-match { background: rgba(59, 130, 246, 0.25); border-bottom: 2px solid var(--primary); padding: 1px 0; }
+        .rg-match-count { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem; }
+        .rg-explanation { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; margin-top: 1rem; font-size: 0.9rem; line-height: 1.7; }
+        .rg-flags { display: flex; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .rg-flags label { display: flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; cursor: pointer; }
+        @media (max-width: 600px) { .rg-preset-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Regex Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Regex Generator</h1>
+                <p class="text-center mb-3">Describe what you want to match in plain English, or choose a common pattern. Get a ready-to-use regular expression with live testing and explanation.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <label style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Common Patterns</label>
+                    <div class="rg-preset-grid" id="rg-presets">
+                        <button class="rg-preset-btn" data-regex="^[\\w.-]+@[\\w.-]+\\.[a-zA-Z]{2,}$" data-desc="Matches standard email addresses"><strong>Email</strong>user@example.com</button>
+                        <button class="rg-preset-btn" data-regex="^https?:\\/\\/[\\w.-]+(?:\\.[a-zA-Z]{2,})(?:\\/[^\\s]*)?$" data-desc="Matches HTTP and HTTPS URLs"><strong>URL</strong>https://example.com</button>
+                        <button class="rg-preset-btn" data-regex="^\\+?[\\d\\s\\-().]{7,15}$" data-desc="Matches phone numbers in various formats"><strong>Phone Number</strong>+1 (555) 123-4567</button>
+                        <button class="rg-preset-btn" data-regex="^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$" data-desc="Matches dates in YYYY-MM-DD format"><strong>Date (YYYY-MM-DD)</strong>2024-01-31</button>
+                        <button class="rg-preset-btn" data-regex="^\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}$" data-desc="Matches IPv4 addresses"><strong>IP Address (v4)</strong>192.168.1.1</button>
+                        <button class="rg-preset-btn" data-regex="^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$" data-desc="Matches hex color codes"><strong>Hex Color</strong>#FF5733 or #F00</button>
+                        <button class="rg-preset-btn" data-regex="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$" data-desc="Requires uppercase, lowercase, digit, special character, min 8 chars"><strong>Strong Password</strong>Min 8 chars, mixed</button>
+                        <button class="rg-preset-btn" data-regex="^\\d{5}(-\\d{4})?$" data-desc="Matches US ZIP codes (5 digit or ZIP+4)"><strong>US ZIP Code</strong>12345 or 12345-6789</button>
+                        <button class="rg-preset-btn" data-regex="<[^>]+>" data-desc="Matches HTML/XML tags"><strong>HTML Tags</strong>&lt;div class=&quot;...&quot;&gt;</button>
+                        <button class="rg-preset-btn" data-regex="^[a-zA-Z0-9_]{3,20}$" data-desc="Matches alphanumeric usernames 3-20 chars"><strong>Username</strong>3-20 alphanumeric</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rg-pattern">Regex Pattern</label>
+                        <input type="text" id="rg-pattern" class="form-input" placeholder="Your regex will appear here (or type your own)" style="font-family: monospace;">
+                    </div>
+
+                    <div class="rg-flags">
+                        <label><input type="checkbox" id="rg-flag-g" checked> Global (g)</label>
+                        <label><input type="checkbox" id="rg-flag-i"> Case Insensitive (i)</label>
+                        <label><input type="checkbox" id="rg-flag-m"> Multiline (m)</label>
+                    </div>
+
+                    <div class="rg-test-area">
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="rg-test-input">Test String</label>
+                            <textarea id="rg-test-input" class="form-input" rows="4" placeholder="Paste text here to test your regex..."></textarea>
+                        </div>
+                        <button id="rg-test-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Test Regex</button>
+                    </div>
+
+                    <div id="rg-output" style="display:none;">
+                        <h3 style="margin-top: 1.5rem;">Pattern</h3>
+                        <div id="rg-result-display" class="rg-result-box">
+                            <button class="rg-copy" id="rg-copy-btn">Copy</button>
+                            <span id="rg-pattern-display"></span>
+                        </div>
+                        <div id="rg-match-output"></div>
+                        <div id="rg-match-count" class="rg-match-count"></div>
+                    </div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click a <strong>Common Pattern</strong> button to load a preset, or type your own regex.</li>
+                        <li>Toggle flags (Global, Case Insensitive, Multiline) as needed.</li>
+                        <li>Paste sample text in the <strong>Test String</strong> area.</li>
+                        <li>Click <strong>Test Regex</strong> to see highlighted matches and a match count.</li>
+                        <li>Click <strong>Copy</strong> to copy the regex to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>What programming languages support these regex patterns?</h3>
+                        <p>The patterns generated use JavaScript-compatible regex syntax, which is also compatible with most languages including Python, Java, PHP, Ruby, and Go with minimal modifications.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Can I modify the generated patterns?</h3>
+                        <p>Yes! The pattern field is editable. You can load a preset and then customize it to fit your exact needs.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Is this tool free?</h3>
+                        <p>Completely free, no signup required. All processing happens in your browser.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/json-formatter" class="related-link">JSON Formatter</a>
+                    <a href="/ai-tools/fake-data-generator" class="related-link">Fake Data Generator</a>
+                    <a href="/ai-tools/prompt-improver" class="related-link">Prompt Improver</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var presets = document.querySelectorAll('.rg-preset-btn');
+        var patternInput = document.getElementById('rg-pattern');
+
+        presets.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                patternInput.value = btn.getAttribute('data-regex');
+            });
+        });
+
+        function getFlags() {
+            var f = '';
+            if (document.getElementById('rg-flag-g').checked) f += 'g';
+            if (document.getElementById('rg-flag-i').checked) f += 'i';
+            if (document.getElementById('rg-flag-m').checked) f += 'm';
+            return f;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        document.getElementById('rg-test-btn').addEventListener('click', function() {
+            var pattern = patternInput.value.trim();
+            if (!pattern) { patternInput.focus(); return; }
+            var flags = getFlags();
+            var testStr = document.getElementById('rg-test-input').value;
+
+            document.getElementById('rg-pattern-display').textContent = '/' + pattern + '/' + flags;
+            document.getElementById('rg-output').style.display = 'block';
+
+            if (!testStr) {
+                document.getElementById('rg-match-output').innerHTML = '';
+                document.getElementById('rg-match-count').textContent = 'Enter test text above to see matches.';
+                return;
+            }
+
+            try {
+                var regex = new RegExp(pattern, flags);
+                var matches = testStr.match(regex);
+                var count = matches ? matches.length : 0;
+
+                // Highlight matches
+                var highlighted = escapeHtml(testStr);
+                if (count > 0) {
+                    var hRegex = new RegExp(pattern, flags.indexOf('g') === -1 ? flags + 'g' : flags);
+                    highlighted = testStr.replace(hRegex, function(m) {
+                        return '<span class="rg-match">' + escapeHtml(m) + '</span>';
+                    });
+                }
+
+                document.getElementById('rg-match-output').innerHTML = '<div class="rg-explanation" style="white-space:pre-wrap; word-wrap:break-word; margin-top:1rem;">' + highlighted + '</div>';
+                document.getElementById('rg-match-count').textContent = count + ' match' + (count !== 1 ? 'es' : '') + ' found';
+            } catch(e) {
+                document.getElementById('rg-match-output').innerHTML = '<div class="rg-explanation" style="color:#ef4444;">Invalid regex: ' + escapeHtml(e.message) + '</div>';
+                document.getElementById('rg-match-count').textContent = '';
+            }
+        });
+
+        document.getElementById('rg-copy-btn').addEventListener('click', function() {
+            var text = patternInput.value;
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('rg-copy-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+            });
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
