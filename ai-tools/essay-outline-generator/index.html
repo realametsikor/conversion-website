@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essay Outline Generator - Create Structured Essay Outlines | ToolsNest</title>
+    <meta name="description" content="Generate detailed essay outlines for argumentative, expository, persuasive, and analytical essays. Structured with thesis, body paragraphs, and conclusion. Free.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/essay-outline-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Essay Outline Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Essay Outline Generator</h1>
+                <p class="text-center mb-3">Create comprehensive, well-structured essay outlines in seconds. Select your essay type, enter your topic, and get a detailed framework for your next paper.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Form Inputs -->
+                    <div class="form-group">
+                        <label for="essay-topic">Essay Topic / Title <span style="color: #ef4444;">*</span></label>
+                        <input type="text" id="essay-topic" class="form-input" placeholder="e.g., The Impact of Social Media on Modern Democracy" />
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="essay-type">Essay Type</label>
+                            <select id="essay-type" class="form-input">
+                                <option value="argumentative">Argumentative</option>
+                                <option value="expository">Expository</option>
+                                <option value="persuasive">Persuasive</option>
+                                <option value="analytical">Analytical</option>
+                                <option value="compare-contrast">Compare &amp; Contrast</option>
+                                <option value="cause-effect">Cause &amp; Effect</option>
+                                <option value="narrative">Narrative</option>
+                                <option value="descriptive">Descriptive</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="num-points">Number of Main Points: <span id="points-display" style="font-weight: 700; color: var(--primary);">3</span></label>
+                            <input type="range" id="num-points" min="3" max="5" value="3" class="form-input" style="padding: 0.5rem 0.75rem; cursor: pointer;" />
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+                                <span>3</span><span>4</span><span>5</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="thesis-input">Thesis Statement / Main Argument <span class="text-muted" style="font-weight: 400; font-size: 0.85rem;">(optional)</span></label>
+                        <textarea id="thesis-input" class="form-input" rows="2" placeholder="e.g., Social media has fundamentally reshaped political discourse by amplifying polarization while simultaneously democratizing access to information." style="min-height: 70px;"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="key-points">Key Points to Include <span class="text-muted" style="font-weight: 400; font-size: 0.85rem;">(optional, one per line)</span></label>
+                        <textarea id="key-points" class="form-input" rows="3" placeholder="e.g.,&#10;Echo chambers and filter bubbles&#10;Misinformation and fact-checking&#10;Civic engagement and activism" style="min-height: 80px;"></textarea>
+                    </div>
+
+                    <button id="generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Essay Outline</button>
+
+                    <!-- Output Section -->
+                    <div id="outline-output" style="display: none; margin-top: 2rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <h3 style="color: var(--text-main); margin: 0;">Your Essay Outline</h3>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <button id="expand-all-btn" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Expand All</button>
+                                    <button id="collapse-all-btn" class="btn btn-outline" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Collapse All</button>
+                                    <button id="copy-btn" class="btn btn-primary" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;">Copy Outline</button>
+                                </div>
+                            </div>
+                            <div id="outline-type-badge" style="display: inline-block; background: #EFF6FF; color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; margin-bottom: 1rem;"></div>
+                            <div id="outline-content"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your essay topic or title in the text field above.</li>
+                        <li>Select the type of essay you are writing from the dropdown menu (argumentative, expository, persuasive, etc.).</li>
+                        <li>Use the slider to choose how many main body paragraphs you need (3 to 5).</li>
+                        <li>Optionally, add your thesis statement and any key points you want included in the outline.</li>
+                        <li>Click "Generate Essay Outline" to create a detailed, structured outline with Roman numeral formatting.</li>
+                        <li>Expand or collapse sections as needed, then click "Copy Outline" to copy clean formatted text to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What types of essays does this outline generator support?</h3>
+                        <p>This tool supports eight essay types: Argumentative, Expository, Persuasive, Analytical, Compare &amp; Contrast, Cause &amp; Effect, Narrative, and Descriptive. Each type generates a unique outline structure tailored to its specific requirements, such as counterargument sections for argumentative essays or chronological flow for narrative essays.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do I need to provide a thesis statement?</h3>
+                        <p>No, the thesis statement field is optional. If you leave it blank, the tool will generate a suggested thesis based on your topic and essay type. However, providing your own thesis statement will produce a more personalized and focused outline.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I copy the outline to use in a word processor?</h3>
+                        <p>Yes. Click the "Copy Outline" button to copy the entire outline as cleanly formatted plain text with proper indentation, Roman numerals, and lettering. You can paste it directly into Google Docs, Microsoft Word, or any text editor.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data stored or sent to any server?</h3>
+                        <p>No. This tool runs entirely in your browser using client-side JavaScript. Your topic, thesis, and key points are never sent to any server or stored anywhere. Everything is processed locally on your device.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/notes-summarizer" class="related-link">Notes Summarizer</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/prompt-improver" class="related-link">Prompt Improver</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =============================================
+           DOM REFERENCES
+           ============================================= */
+        var topicInput = document.getElementById('essay-topic');
+        var essayType = document.getElementById('essay-type');
+        var numPoints = document.getElementById('num-points');
+        var pointsDisplay = document.getElementById('points-display');
+        var thesisInput = document.getElementById('thesis-input');
+        var keyPointsInput = document.getElementById('key-points');
+        var generateBtn = document.getElementById('generate-btn');
+        var outlineOutput = document.getElementById('outline-output');
+        var outlineContent = document.getElementById('outline-content');
+        var outlineTypeBadge = document.getElementById('outline-type-badge');
+        var copyBtn = document.getElementById('copy-btn');
+        var expandAllBtn = document.getElementById('expand-all-btn');
+        var collapseAllBtn = document.getElementById('collapse-all-btn');
+
+        /* =============================================
+           SLIDER UPDATE
+           ============================================= */
+        numPoints.addEventListener('input', function() {
+            pointsDisplay.textContent = numPoints.value;
+        });
+
+        /* =============================================
+           ESSAY TYPE LABELS
+           ============================================= */
+        var typeLabels = {
+            'argumentative': 'Argumentative Essay',
+            'expository': 'Expository Essay',
+            'persuasive': 'Persuasive Essay',
+            'analytical': 'Analytical Essay',
+            'compare-contrast': 'Compare & Contrast Essay',
+            'cause-effect': 'Cause & Effect Essay',
+            'narrative': 'Narrative Essay',
+            'descriptive': 'Descriptive Essay'
+        };
+
+        /* =============================================
+           HOOK TEMPLATES
+           ============================================= */
+        var hookTemplates = {
+            'argumentative': [
+                { type: 'Provocative Question', template: function(t) { return 'Have you ever considered how ' + t.toLowerCase() + ' shapes the world we live in today?'; } },
+                { type: 'Bold Claim', template: function(t) { return 'Few issues are as divisive or consequential as ' + t.toLowerCase() + ' in contemporary discourse.'; } },
+                { type: 'Statistic Frame', template: function(t) { return 'According to recent studies, [insert relevant statistic about ' + t.toLowerCase() + '], a number that demands our attention.'; } }
+            ],
+            'expository': [
+                { type: 'Definition Opening', template: function(t) { return 'To fully understand ' + t.toLowerCase() + ', one must first examine its fundamental components and historical context.'; } },
+                { type: 'Surprising Fact', template: function(t) { return 'What many people do not realize about ' + t.toLowerCase() + ' is [insert surprising fact], which fundamentally changes the conversation.'; } },
+                { type: 'Contextual Frame', template: function(t) { return 'In an era defined by rapid change, understanding ' + t.toLowerCase() + ' has never been more essential.'; } }
+            ],
+            'persuasive': [
+                { type: 'Rhetorical Question', template: function(t) { return 'How long can we afford to ignore the pressing reality of ' + t.toLowerCase() + '?'; } },
+                { type: 'Urgent Appeal', template: function(t) { return 'The time to address ' + t.toLowerCase() + ' is not tomorrow or next year -- it is right now.'; } },
+                { type: 'Emotional Anecdote Frame', template: function(t) { return 'Imagine a world where ' + t.toLowerCase() + ' is left unaddressed -- the consequences would be staggering.'; } }
+            ],
+            'analytical': [
+                { type: 'Observation', template: function(t) { return 'A closer examination of ' + t.toLowerCase() + ' reveals layers of complexity that surface-level analysis often misses.'; } },
+                { type: 'Quote Frame', template: function(t) { return '"[Insert relevant quote about ' + t.toLowerCase() + ']" -- this statement captures the essence of the debate surrounding this topic.'; } },
+                { type: 'Paradox', template: function(t) { return 'The paradox of ' + t.toLowerCase() + ' lies in the tension between its apparent simplicity and its underlying complexity.'; } }
+            ],
+            'compare-contrast': [
+                { type: 'Juxtaposition', template: function(t) { return 'At first glance, the subjects within ' + t.toLowerCase() + ' may appear unrelated, but a deeper look reveals striking parallels and differences.'; } },
+                { type: 'Common Assumption', template: function(t) { return 'Many assume the elements of ' + t.toLowerCase() + ' are interchangeable, but the reality is far more nuanced.'; } },
+                { type: 'Framing Question', template: function(t) { return 'What do the contrasting perspectives on ' + t.toLowerCase() + ' reveal about our values and priorities?'; } }
+            ],
+            'cause-effect': [
+                { type: 'Chain Reaction Frame', template: function(t) { return 'Like a series of falling dominoes, ' + t.toLowerCase() + ' sets off a chain of consequences that ripple across multiple domains.'; } },
+                { type: 'Historical Trigger', template: function(t) { return 'The roots of ' + t.toLowerCase() + ' can be traced to a specific set of conditions that, once triggered, produced far-reaching effects.'; } },
+                { type: 'Consequence Question', template: function(t) { return 'What happens when ' + t.toLowerCase() + ' goes unchecked? The answer reveals consequences both expected and surprising.'; } }
+            ],
+            'narrative': [
+                { type: 'Scene Setting', template: function(t) { return 'It began on an ordinary day, in an ordinary place -- but what unfolded around ' + t.toLowerCase() + ' was anything but ordinary.'; } },
+                { type: 'In Medias Res', template: function(t) { return 'In the middle of it all, with ' + t.toLowerCase() + ' unfolding in real time, the true significance of the moment became clear.'; } },
+                { type: 'Personal Reflection', template: function(t) { return 'Looking back, the experience of ' + t.toLowerCase() + ' was a turning point that reshaped everything that followed.'; } }
+            ],
+            'descriptive': [
+                { type: 'Sensory Opening', template: function(t) { return 'The first thing you notice about ' + t.toLowerCase() + ' is [insert sensory detail] -- a detail that lingers long after the initial encounter.'; } },
+                { type: 'Vivid Snapshot', template: function(t) { return 'Picture ' + t.toLowerCase() + ' in its most vivid form: [insert visual description], alive with detail and nuance.'; } },
+                { type: 'Atmospheric Frame', template: function(t) { return 'There is a quality to ' + t.toLowerCase() + ' that words struggle to capture, yet the attempt itself reveals something essential.'; } }
+            ]
+        };
+
+        /* =============================================
+           TRANSITION PHRASES
+           ============================================= */
+        var transitions = {
+            'argumentative': [
+                'Building upon this foundation, the next critical dimension to consider is...',
+                'Furthermore, this argument is strengthened when examining...',
+                'Having established this point, it is equally important to address...',
+                'In addition to the evidence presented, another compelling factor is...',
+                'This leads directly to the next pillar of the argument, which concerns...'
+            ],
+            'expository': [
+                'With this understanding in place, the next aspect to explore is...',
+                'Moving from this foundation, it is important to examine...',
+                'Another significant dimension of this topic involves...',
+                'Equally noteworthy is the role that the following factor plays...',
+                'This naturally leads to a discussion of...'
+            ],
+            'persuasive': [
+                'If the previous point was not convincing enough, consider also that...',
+                'The evidence becomes even more compelling when we turn to...',
+                'Beyond this, there is yet another reason why action is necessary...',
+                'To further strengthen this case, one must also examine...',
+                'Adding further weight to this position is the fact that...'
+            ],
+            'analytical': [
+                'Extending this analysis further reveals...',
+                'This pattern becomes even more evident when examining...',
+                'A deeper layer of analysis uncovers the role of...',
+                'Complementing this perspective is the observation that...',
+                'This analytical thread continues with an examination of...'
+            ],
+            'compare-contrast': [
+                'While the previous comparison highlighted similarities, attention now turns to key differences in...',
+                'Shifting focus to another dimension of comparison...',
+                'Another revealing point of contrast emerges when examining...',
+                'The parallels extend further when considering...',
+                'This comparison takes on new depth when applied to...'
+            ],
+            'cause-effect': [
+                'This cause does not operate in isolation; it is closely linked to...',
+                'The ripple effects extend further when considering...',
+                'Another significant consequence that emerges from this chain is...',
+                'Compounding these effects is the additional factor of...',
+                'Tracing the causal chain forward reveals yet another dimension...'
+            ],
+            'narrative': [
+                'As the story progressed, a new chapter began to unfold...',
+                'It was at this turning point that events took an unexpected direction...',
+                'With the passage of time, the narrative shifted toward...',
+                'What happened next would prove to be equally significant...',
+                'The journey continued, bringing with it new challenges and revelations...'
+            ],
+            'descriptive': [
+                'Turning attention to another equally striking aspect...',
+                'Beneath this surface, another layer of detail awaits...',
+                'The scene shifts to reveal yet another facet of...',
+                'Equally captivating is the way in which...',
+                'This leads the eye -- and the mind -- toward...'
+            ]
+        };
+
+        /* =============================================
+           THESIS GENERATION
+           ============================================= */
+        function generateThesis(topic, type, keyPoints) {
+            var points = keyPoints.length > 0 ? keyPoints.slice(0, 3) : [];
+            var pointsList = '';
+            if (points.length === 1) {
+                pointsList = points[0].toLowerCase();
+            } else if (points.length === 2) {
+                pointsList = points[0].toLowerCase() + ' and ' + points[1].toLowerCase();
+            } else if (points.length >= 3) {
+                pointsList = points[0].toLowerCase() + ', ' + points[1].toLowerCase() + ', and ' + points[2].toLowerCase();
+            }
+
+            var templates = {
+                'argumentative': pointsList
+                    ? 'This essay argues that ' + topic.toLowerCase() + ' is a critical issue that must be addressed through the lens of ' + pointsList + ', as the evidence demonstrates significant implications for society.'
+                    : 'This essay argues that ' + topic.toLowerCase() + ' represents one of the most consequential challenges of our time, requiring immediate attention and thoughtful policy responses.',
+                'expository': pointsList
+                    ? 'This essay explains how ' + topic.toLowerCase() + ' encompasses several key dimensions, including ' + pointsList + ', each of which contributes to a fuller understanding of the subject.'
+                    : 'This essay provides a comprehensive examination of ' + topic.toLowerCase() + ', exploring its key components, historical development, and significance in the modern context.',
+                'persuasive': pointsList
+                    ? 'Considering the evidence surrounding ' + pointsList + ', it becomes clear that taking decisive action on ' + topic.toLowerCase() + ' is not merely beneficial but essential.'
+                    : 'The overwhelming evidence makes clear that ' + topic.toLowerCase() + ' demands our attention and action, as the consequences of inaction far outweigh the costs of engagement.',
+                'analytical': pointsList
+                    ? 'A thorough analysis of ' + topic.toLowerCase() + ' reveals that ' + pointsList + ' are interconnected factors that shape outcomes in ways that are often overlooked.'
+                    : 'Through careful analysis, this essay demonstrates that ' + topic.toLowerCase() + ' is shaped by a complex interplay of factors whose relationships reveal deeper truths about the subject.',
+                'compare-contrast': pointsList
+                    ? 'By comparing and contrasting ' + pointsList + ' within the scope of ' + topic.toLowerCase() + ', this essay reveals both surprising similarities and critical differences that deepen our understanding.'
+                    : 'Although the subjects within ' + topic.toLowerCase() + ' share certain fundamental characteristics, their differences illuminate essential distinctions that are critical to understanding each fully.',
+                'cause-effect': pointsList
+                    ? 'The causes and effects surrounding ' + topic.toLowerCase() + ' -- particularly ' + pointsList + ' -- form a causal chain whose consequences extend further than is commonly appreciated.'
+                    : 'This essay traces the cause-and-effect relationships within ' + topic.toLowerCase() + ', demonstrating how specific catalysts produce cascading consequences across multiple domains.',
+                'narrative': pointsList
+                    ? 'The story of ' + topic.toLowerCase() + ', shaped by ' + pointsList + ', offers a compelling narrative that reveals profound truths about the human experience.'
+                    : 'The narrative of ' + topic.toLowerCase() + ' unfolds as a journey of discovery, challenge, and transformation, offering insights that resonate far beyond its immediate context.',
+                'descriptive': pointsList
+                    ? 'Through vivid exploration of ' + pointsList + ', this essay paints a detailed portrait of ' + topic.toLowerCase() + ' that engages the senses and deepens understanding.'
+                    : 'This essay captures the essence of ' + topic.toLowerCase() + ' through rich, sensory detail, inviting the reader to experience its most defining qualities firsthand.'
+            };
+
+            return templates[type] || templates['expository'];
+        }
+
+        /* =============================================
+           BODY PARAGRAPH LABEL GENERATORS
+           ============================================= */
+        function getBodyLabels(type, count, keyPoints) {
+            var labels = [];
+            var defaults = [];
+            for (var i = 0; i < count; i++) {
+                defaults.push(keyPoints[i] ? keyPoints[i] : 'Main Point ' + (i + 1));
+            }
+
+            switch (type) {
+                case 'compare-contrast':
+                    if (count === 3) {
+                        labels = [
+                            { heading: 'Similarities', focus: defaults[0] },
+                            { heading: 'Key Differences', focus: defaults[1] },
+                            { heading: 'Synthesis and Evaluation', focus: defaults[2] }
+                        ];
+                    } else if (count === 4) {
+                        labels = [
+                            { heading: 'Subject A -- Key Characteristics', focus: defaults[0] },
+                            { heading: 'Subject B -- Key Characteristics', focus: defaults[1] },
+                            { heading: 'Point-by-Point Comparison', focus: defaults[2] },
+                            { heading: 'Evaluation and Implications', focus: defaults[3] }
+                        ];
+                    } else {
+                        labels = [
+                            { heading: 'Subject A -- Overview', focus: defaults[0] },
+                            { heading: 'Subject B -- Overview', focus: defaults[1] },
+                            { heading: 'Similarities', focus: defaults[2] },
+                            { heading: 'Differences', focus: defaults[3] },
+                            { heading: 'Synthesis and Evaluation', focus: defaults[4] }
+                        ];
+                    }
+                    break;
+                case 'cause-effect':
+                    if (count === 3) {
+                        labels = [
+                            { heading: 'Primary Causes', focus: defaults[0] },
+                            { heading: 'Immediate Effects', focus: defaults[1] },
+                            { heading: 'Long-Term Consequences', focus: defaults[2] }
+                        ];
+                    } else if (count === 4) {
+                        labels = [
+                            { heading: 'Root Causes', focus: defaults[0] },
+                            { heading: 'Contributing Factors', focus: defaults[1] },
+                            { heading: 'Direct Effects', focus: defaults[2] },
+                            { heading: 'Broader Implications', focus: defaults[3] }
+                        ];
+                    } else {
+                        labels = [
+                            { heading: 'Historical Context and Root Causes', focus: defaults[0] },
+                            { heading: 'Immediate Triggers', focus: defaults[1] },
+                            { heading: 'Short-Term Effects', focus: defaults[2] },
+                            { heading: 'Long-Term Consequences', focus: defaults[3] },
+                            { heading: 'Ripple Effects and Broader Impact', focus: defaults[4] }
+                        ];
+                    }
+                    break;
+                case 'narrative':
+                    if (count === 3) {
+                        labels = [
+                            { heading: 'Setting and Background', focus: defaults[0] },
+                            { heading: 'Rising Action and Conflict', focus: defaults[1] },
+                            { heading: 'Climax and Resolution', focus: defaults[2] }
+                        ];
+                    } else if (count === 4) {
+                        labels = [
+                            { heading: 'Setting and Introduction of Characters', focus: defaults[0] },
+                            { heading: 'Rising Action', focus: defaults[1] },
+                            { heading: 'Climax and Turning Point', focus: defaults[2] },
+                            { heading: 'Falling Action and Resolution', focus: defaults[3] }
+                        ];
+                    } else {
+                        labels = [
+                            { heading: 'Setting and Exposition', focus: defaults[0] },
+                            { heading: 'Inciting Incident', focus: defaults[1] },
+                            { heading: 'Rising Action and Complications', focus: defaults[2] },
+                            { heading: 'Climax', focus: defaults[3] },
+                            { heading: 'Resolution and Denouement', focus: defaults[4] }
+                        ];
+                    }
+                    break;
+                case 'descriptive':
+                    if (count === 3) {
+                        labels = [
+                            { heading: 'Visual and Physical Details', focus: defaults[0] },
+                            { heading: 'Sensory Experience (Sound, Smell, Touch, Taste)', focus: defaults[1] },
+                            { heading: 'Emotional and Atmospheric Impression', focus: defaults[2] }
+                        ];
+                    } else if (count === 4) {
+                        labels = [
+                            { heading: 'First Impressions and Overview', focus: defaults[0] },
+                            { heading: 'Visual and Spatial Details', focus: defaults[1] },
+                            { heading: 'Sensory Details Beyond Sight', focus: defaults[2] },
+                            { heading: 'Emotional Resonance and Mood', focus: defaults[3] }
+                        ];
+                    } else {
+                        labels = [
+                            { heading: 'Overview and First Impressions', focus: defaults[0] },
+                            { heading: 'Dominant Visual Details', focus: defaults[1] },
+                            { heading: 'Sounds and Textures', focus: defaults[2] },
+                            { heading: 'Scents, Tastes, and Atmosphere', focus: defaults[3] },
+                            { heading: 'Emotional Impact and Lasting Impression', focus: defaults[4] }
+                        ];
+                    }
+                    break;
+                default:
+                    for (var d = 0; d < count; d++) {
+                        labels.push({ heading: 'Body Paragraph ' + (d + 1), focus: defaults[d] });
+                    }
+            }
+            return labels;
+        }
+
+        /* =============================================
+           EVIDENCE / SUPPORT GENERATORS
+           ============================================= */
+        function getEvidenceTypes(type) {
+            switch (type) {
+                case 'argumentative':
+                    return ['Cite a scholarly source, study, or expert opinion that supports this claim', 'Provide a concrete example or case study illustrating this point', 'Include a relevant statistic or data point to strengthen the argument'];
+                case 'expository':
+                    return ['Provide factual evidence or data that explains this concept', 'Include a real-world example that illustrates this idea', 'Reference an expert explanation or authoritative source'];
+                case 'persuasive':
+                    return ['Present compelling evidence (statistic, study, or testimony) that supports your position', 'Appeal to the reader\'s values or emotions with a relatable scenario', 'Provide an authoritative quote or endorsement that reinforces your stance'];
+                case 'analytical':
+                    return ['Identify a specific textual passage, data point, or element to analyze', 'Examine the underlying meaning, pattern, or significance', 'Connect this analysis to the broader argument or framework'];
+                case 'compare-contrast':
+                    return ['Identify a specific feature or criterion for comparison', 'Provide evidence or examples for each subject being compared', 'Highlight what the similarity or difference reveals about each subject'];
+                case 'cause-effect':
+                    return ['Identify the specific cause or trigger with supporting evidence', 'Trace the mechanism by which the cause produces the effect', 'Provide evidence of the resulting consequence or outcome'];
+                case 'narrative':
+                    return ['Describe the key event, action, or dialogue in vivid detail', 'Convey the emotional state or internal reaction of the characters', 'Show (rather than tell) the significance of this moment through sensory detail'];
+                case 'descriptive':
+                    return ['Employ a vivid sensory detail (sight, sound, smell, touch, taste)', 'Use figurative language (simile, metaphor, personification) to enhance the description', 'Create a dominant impression that connects the detail to the overall mood'];
+                default:
+                    return ['Provide supporting evidence for this point', 'Include a relevant example or illustration', 'Add data or expert testimony to strengthen the argument'];
+            }
+        }
+
+        /* =============================================
+           CONCLUSION TEMPLATES
+           ============================================= */
+        function getConclusionTemplate(type, topic) {
+            switch (type) {
+                case 'argumentative':
+                    return {
+                        restatement: 'Restate your thesis in fresh language, reinforcing the strength of your argument about ' + topic.toLowerCase() + '.',
+                        summary: 'Summarize the key arguments and evidence presented, emphasizing how each body paragraph supported the central claim.',
+                        closing: 'End with a call to action or a thought-provoking statement about what must change regarding ' + topic.toLowerCase() + '.'
+                    };
+                case 'persuasive':
+                    return {
+                        restatement: 'Reaffirm your position with conviction, restating why the reader should agree with your stance on ' + topic.toLowerCase() + '.',
+                        summary: 'Recap the most persuasive evidence and emotional appeals presented throughout the essay.',
+                        closing: 'Issue a direct call to action: tell the reader exactly what they should do, think, or support regarding ' + topic.toLowerCase() + '.'
+                    };
+                case 'analytical':
+                    return {
+                        restatement: 'Restate your analytical thesis, reflecting any deeper understanding gained through the analysis of ' + topic.toLowerCase() + '.',
+                        summary: 'Synthesize the key analytical findings, showing how the individual observations combine to form a cohesive interpretation.',
+                        closing: 'Suggest broader implications of your analysis or pose a new question that emerges from your examination of ' + topic.toLowerCase() + '.'
+                    };
+                case 'compare-contrast':
+                    return {
+                        restatement: 'Restate your thesis, affirming the significance of the comparison and contrast of elements within ' + topic.toLowerCase() + '.',
+                        summary: 'Summarize the most important similarities and differences identified, emphasizing what they reveal.',
+                        closing: 'Offer a final evaluative judgment or suggest what the comparison ultimately teaches us about ' + topic.toLowerCase() + '.'
+                    };
+                case 'cause-effect':
+                    return {
+                        restatement: 'Restate the core causal relationship you have demonstrated regarding ' + topic.toLowerCase() + '.',
+                        summary: 'Summarize the chain of causes and effects, highlighting the most significant connections.',
+                        closing: 'Discuss broader implications, future consequences, or preventive measures related to ' + topic.toLowerCase() + '.'
+                    };
+                case 'narrative':
+                    return {
+                        restatement: 'Reflect on the central theme or lesson that the narrative of ' + topic.toLowerCase() + ' reveals.',
+                        summary: 'Briefly recall the key moments of the story and how they contributed to the overall arc.',
+                        closing: 'End with a reflective insight, showing how the experience changed your perspective or what it means in a broader context.'
+                    };
+                case 'descriptive':
+                    return {
+                        restatement: 'Restate the dominant impression or central image of ' + topic.toLowerCase() + ' that the essay has built.',
+                        summary: 'Recall the most vivid and impactful details, reinforcing the sensory portrait you have painted.',
+                        closing: 'Leave the reader with a lasting image or emotional resonance that encapsulates the essence of ' + topic.toLowerCase() + '.'
+                    };
+                default:
+                    return {
+                        restatement: 'Restate your thesis about ' + topic.toLowerCase() + ' in fresh language, reinforcing the central idea.',
+                        summary: 'Summarize the main points discussed in each body paragraph, tying them back to the thesis.',
+                        closing: 'End with a thought-provoking statement, broader implication, or call to action related to ' + topic.toLowerCase() + '.'
+                    };
+            }
+        }
+
+        /* =============================================
+           ROMAN NUMERAL HELPER
+           ============================================= */
+        function toRoman(n) {
+            var numerals = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
+            return numerals[n - 1] || String(n);
+        }
+
+        /* =============================================
+           OUTLINE GENERATION
+           ============================================= */
+        function generateOutline() {
+            var topic = topicInput.value.trim();
+            if (!topic) {
+                topicInput.style.borderColor = '#ef4444';
+                topicInput.focus();
+                setTimeout(function() { topicInput.style.borderColor = ''; }, 3000);
+                return;
+            }
+
+            var type = essayType.value;
+            var count = parseInt(numPoints.value, 10);
+            var userThesis = thesisInput.value.trim();
+            var rawPoints = keyPointsInput.value.trim();
+            var keyPoints = rawPoints ? rawPoints.split('\n').map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; }) : [];
+
+            var thesis = userThesis || generateThesis(topic, type, keyPoints);
+            var hooks = hookTemplates[type] || hookTemplates['expository'];
+            var hook = hooks[Math.floor(Math.random() * hooks.length)];
+            var bodyLabels = getBodyLabels(type, count, keyPoints);
+            var evidenceTypes = getEvidenceTypes(type);
+            var transitionSet = transitions[type] || transitions['expository'];
+            var conclusion = getConclusionTemplate(type, topic);
+
+            /* Build the outline data structure */
+            var sections = [];
+
+            /* --- INTRODUCTION --- */
+            var introSub = [];
+            introSub.push({ letter: 'A', label: 'Hook (' + hook.type + ')', details: [hook.template(topic)] });
+            introSub.push({ letter: 'B', label: 'Background Context', details: [
+                'Provide relevant background information about ' + topic.toLowerCase() + '.',
+                'Define key terms or concepts the reader needs to understand.',
+                'Establish the significance and relevance of the topic.'
+            ]});
+            introSub.push({ letter: 'C', label: 'Thesis Statement', details: [thesis] });
+
+            sections.push({ numeral: toRoman(1), title: 'Introduction', subs: introSub });
+
+            /* --- BODY PARAGRAPHS --- */
+            for (var b = 0; b < count; b++) {
+                var bodySub = [];
+                var bodyLabel = bodyLabels[b];
+
+                bodySub.push({ letter: 'A', label: 'Topic Sentence', details: [
+                    'Introduce the focus of this section: ' + bodyLabel.focus + '.',
+                    'Connect this point clearly to the thesis statement.'
+                ]});
+
+                bodySub.push({ letter: 'B', label: 'Supporting Evidence', details: evidenceTypes.slice() });
+
+                bodySub.push({ letter: 'C', label: 'Analysis / Explanation', details: [
+                    'Explain how the evidence supports the topic sentence and overall thesis.',
+                    'Provide your own interpretation and critical thinking.',
+                    'Connect this analysis to the broader argument of the essay.'
+                ]});
+
+                /* Type-specific extras */
+                if (type === 'argumentative' && b === count - 1) {
+                    bodySub.push({ letter: 'D', label: 'Counterargument & Rebuttal', details: [
+                        'Acknowledge the strongest opposing viewpoint or objection.',
+                        'Present evidence or reasoning that refutes or weakens the counterargument.',
+                        'Explain why your original position remains stronger despite the objection.'
+                    ]});
+                    bodySub.push({ letter: 'E', label: 'Transition', details: [
+                        'Transition to the conclusion, signaling that all arguments have been presented.'
+                    ]});
+                } else if (type === 'persuasive' && b === count - 1) {
+                    bodySub.push({ letter: 'D', label: 'Addressing Objections', details: [
+                        'Anticipate the reader\'s primary objection or concern.',
+                        'Refute it with evidence, logic, or a reframed perspective.',
+                        'Reinforce why your position is the most reasonable course of action.'
+                    ]});
+                    bodySub.push({ letter: 'E', label: 'Transition', details: [
+                        'Transition to the conclusion with a sense of urgency and resolution.'
+                    ]});
+                } else if (type === 'narrative') {
+                    bodySub.push({ letter: 'D', label: 'Narrative Detail', details: [
+                        'Include dialogue, internal monologue, or sensory details that bring this moment to life.',
+                        'Show character development or a shift in understanding.'
+                    ]});
+                    if (b < count - 1) {
+                        bodySub.push({ letter: 'E', label: 'Transition', details: [transitionSet[b] || 'Transition smoothly to the next event in the narrative.'] });
+                    } else {
+                        bodySub.push({ letter: 'E', label: 'Transition', details: ['Transition to the conclusion and reflection.'] });
+                    }
+                } else if (type === 'descriptive') {
+                    bodySub.push({ letter: 'D', label: 'Dominant Impression', details: [
+                        'Reinforce the overall mood, tone, or feeling this section contributes to.',
+                        'Use figurative language to deepen the sensory experience.'
+                    ]});
+                    if (b < count - 1) {
+                        bodySub.push({ letter: 'E', label: 'Transition', details: [transitionSet[b] || 'Transition to the next aspect of the description.'] });
+                    } else {
+                        bodySub.push({ letter: 'E', label: 'Transition', details: ['Transition to the conclusion, bringing all impressions together.'] });
+                    }
+                } else {
+                    if (b < count - 1) {
+                        bodySub.push({ letter: 'D', label: 'Transition', details: [transitionSet[b] || 'Provide a smooth transition to the next section.'] });
+                    } else {
+                        bodySub.push({ letter: 'D', label: 'Transition', details: ['Transition to the conclusion, signaling the essay is drawing to a close.'] });
+                    }
+                }
+
+                sections.push({ numeral: toRoman(b + 2), title: bodyLabel.heading, subs: bodySub });
+            }
+
+            /* --- CONCLUSION --- */
+            var concSub = [];
+            concSub.push({ letter: 'A', label: 'Thesis Restatement', details: [conclusion.restatement] });
+            concSub.push({ letter: 'B', label: 'Summary of Main Points', details: [conclusion.summary] });
+
+            if (type === 'argumentative' || type === 'persuasive') {
+                concSub.push({ letter: 'C', label: 'Call to Action / Final Appeal', details: [conclusion.closing] });
+            } else if (type === 'narrative') {
+                concSub.push({ letter: 'C', label: 'Reflection and Insight', details: [conclusion.closing] });
+            } else if (type === 'descriptive') {
+                concSub.push({ letter: 'C', label: 'Lasting Impression', details: [conclusion.closing] });
+            } else {
+                concSub.push({ letter: 'C', label: 'Closing Thought', details: [conclusion.closing] });
+            }
+
+            sections.push({ numeral: toRoman(count + 2), title: 'Conclusion', subs: concSub });
+
+            /* Render */
+            renderOutline(sections, topic, type);
+        }
+
+        /* =============================================
+           RENDER OUTLINE
+           ============================================= */
+        function renderOutline(sections, topic, type) {
+            outlineOutput.style.display = 'block';
+            outlineTypeBadge.textContent = typeLabels[type];
+
+            var html = '';
+            html += '<div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid var(--primary);">';
+            html += '<strong style="color: var(--text-main);">Title:</strong> <span style="color: var(--text-main);">' + escHtml(topic) + '</span>';
+            html += '</div>';
+
+            for (var s = 0; s < sections.length; s++) {
+                var sec = sections[s];
+                var sectionId = 'section-' + s;
+
+                html += '<div class="outline-section" style="margin-bottom: 0.75rem; border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;">';
+
+                /* Section header (clickable) */
+                html += '<div class="outline-section-header" data-target="' + sectionId + '" style="display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 1rem; background: var(--card-bg); cursor: pointer; user-select: none; transition: background 0.2s;">';
+                html += '<span style="font-weight: 700; font-size: 1rem; color: var(--text-main);">' + escHtml(sec.numeral) + '. ' + escHtml(sec.title) + '</span>';
+                html += '<span class="outline-chevron" style="transition: transform 0.3s; font-size: 0.75rem; color: var(--text-muted);">&#9660;</span>';
+                html += '</div>';
+
+                /* Section body (collapsible) */
+                html += '<div id="' + sectionId + '" class="outline-section-body" style="max-height: 2000px; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; padding: 0 1rem 1rem 1.5rem;">';
+
+                for (var sub = 0; sub < sec.subs.length; sub++) {
+                    var item = sec.subs[sub];
+                    html += '<div style="margin-top: 0.75rem;">';
+                    html += '<div style="font-weight: 600; color: var(--primary); font-size: 0.95rem; margin-bottom: 0.25rem;">' + escHtml(item.letter) + '. ' + escHtml(item.label) + '</div>';
+
+                    for (var d = 0; d < item.details.length; d++) {
+                        html += '<div style="padding-left: 1.25rem; color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 0.15rem;">';
+                        html += '<span style="color: var(--text-muted); margin-right: 0.5rem;">' + (d + 1) + '.</span>' + escHtml(item.details[d]);
+                        html += '</div>';
+                    }
+
+                    html += '</div>';
+                }
+
+                html += '</div>';
+                html += '</div>';
+            }
+
+            outlineContent.innerHTML = html;
+
+            /* Attach collapse/expand handlers */
+            var headers = outlineContent.querySelectorAll('.outline-section-header');
+            for (var h = 0; h < headers.length; h++) {
+                headers[h].addEventListener('click', function() {
+                    var targetId = this.getAttribute('data-target');
+                    var body = document.getElementById(targetId);
+                    var chevron = this.querySelector('.outline-chevron');
+                    if (body.style.maxHeight && body.style.maxHeight !== '0px') {
+                        body.style.maxHeight = '0px';
+                        body.style.padding = '0 1rem 0 1.5rem';
+                        chevron.style.transform = 'rotate(-90deg)';
+                    } else {
+                        body.style.maxHeight = '2000px';
+                        body.style.padding = '0 1rem 1rem 1.5rem';
+                        chevron.style.transform = 'rotate(0deg)';
+                    }
+                });
+            }
+
+            /* Store sections for copy */
+            outlineContent._sections = sections;
+            outlineContent._topic = topic;
+
+            /* Scroll to output */
+            outlineOutput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        /* =============================================
+           HTML ESCAPE
+           ============================================= */
+        function escHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* =============================================
+           EXPAND / COLLAPSE ALL
+           ============================================= */
+        expandAllBtn.addEventListener('click', function() {
+            var bodies = outlineContent.querySelectorAll('.outline-section-body');
+            var chevrons = outlineContent.querySelectorAll('.outline-chevron');
+            for (var i = 0; i < bodies.length; i++) {
+                bodies[i].style.maxHeight = '2000px';
+                bodies[i].style.padding = '0 1rem 1rem 1.5rem';
+            }
+            for (var j = 0; j < chevrons.length; j++) {
+                chevrons[j].style.transform = 'rotate(0deg)';
+            }
+        });
+
+        collapseAllBtn.addEventListener('click', function() {
+            var bodies = outlineContent.querySelectorAll('.outline-section-body');
+            var chevrons = outlineContent.querySelectorAll('.outline-chevron');
+            for (var i = 0; i < bodies.length; i++) {
+                bodies[i].style.maxHeight = '0px';
+                bodies[i].style.padding = '0 1rem 0 1.5rem';
+            }
+            for (var j = 0; j < chevrons.length; j++) {
+                chevrons[j].style.transform = 'rotate(-90deg)';
+            }
+        });
+
+        /* =============================================
+           COPY OUTLINE AS PLAIN TEXT
+           ============================================= */
+        copyBtn.addEventListener('click', function() {
+            var sections = outlineContent._sections;
+            var topic = outlineContent._topic;
+            if (!sections) return;
+
+            var lines = [];
+            lines.push('Essay Outline: ' + topic);
+            lines.push('='.repeat(50));
+            lines.push('');
+
+            for (var s = 0; s < sections.length; s++) {
+                var sec = sections[s];
+                lines.push(sec.numeral + '. ' + sec.title);
+
+                for (var sub = 0; sub < sec.subs.length; sub++) {
+                    var item = sec.subs[sub];
+                    lines.push('    ' + item.letter + '. ' + item.label);
+
+                    for (var d = 0; d < item.details.length; d++) {
+                        lines.push('        ' + (d + 1) + '. ' + item.details[d]);
+                    }
+                }
+
+                lines.push('');
+            }
+
+            var text = lines.join('\n');
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Outline'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Outline'; }, 2000);
+            }
+        });
+
+        /* =============================================
+           GENERATE BUTTON
+           ============================================= */
+        generateBtn.addEventListener('click', generateOutline);
+
+        /* Allow Enter key on topic input to generate */
+        topicInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                generateOutline();
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

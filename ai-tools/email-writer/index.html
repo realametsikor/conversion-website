@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Email Writer - Generate Business Emails Instantly | ToolsNest</title>
+    <meta name="description" content="Generate professional emails for any situation. Choose your purpose, tone, and recipient to craft the perfect business email. Free, no signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/email-writer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Email Writer
+        </nav>
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Email Writer</h1>
+                <p class="text-center mb-3">Craft professional emails for any situation. Select your purpose, tone, and key points — get a polished email ready to send.</p>
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="email-purpose">Email Purpose</label>
+                            <select id="email-purpose" class="form-input">
+                                <option value="">-- Select Purpose --</option>
+                                <option value="follow-up">Follow-up</option>
+                                <option value="request">Request</option>
+                                <option value="thank-you">Thank You</option>
+                                <option value="apology">Apology</option>
+                                <option value="introduction">Introduction</option>
+                                <option value="meeting-request">Meeting Request</option>
+                                <option value="cold-outreach">Cold Outreach</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="feedback">Feedback</option>
+                                <option value="resignation">Resignation</option>
+                                <option value="recommendation-request">Recommendation Request</option>
+                                <option value="job-application">Job Application</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="email-recipient">Recipient</label>
+                            <select id="email-recipient" class="form-input">
+                                <option value="">-- Select Recipient --</option>
+                                <option value="colleague">Colleague</option>
+                                <option value="manager">Manager/Boss</option>
+                                <option value="client">Client</option>
+                                <option value="hr">HR</option>
+                                <option value="professor">Professor</option>
+                                <option value="recruiter">Recruiter</option>
+                                <option value="general">General</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="email-tone">Tone</label>
+                        <div id="tone-selector" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button type="button" class="tone-btn" data-tone="formal" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-bg); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">Formal</button>
+                            <button type="button" class="tone-btn" data-tone="professional" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-bg); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">Professional</button>
+                            <button type="button" class="tone-btn" data-tone="friendly" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-bg); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">Friendly</button>
+                            <button type="button" class="tone-btn" data-tone="persuasive" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-bg); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">Persuasive</button>
+                            <button type="button" class="tone-btn" data-tone="assertive" style="padding: 0.5rem 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--card-bg); cursor: pointer; font-family: inherit; font-size: 0.9rem; font-weight: 500; transition: all 0.2s;">Assertive</button>
+                        </div>
+                        <input type="hidden" id="email-tone" value="">
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="email-keypoints">Key Points / Context</label>
+                        <textarea id="email-keypoints" class="form-input" rows="4" placeholder="Enter the key points you want covered in the email. For example: missed deadline on the Q3 report, need extension until Friday, team was short-staffed this week"></textarea>
+                        <p class="text-muted mt-1" style="font-size: 0.8rem;">Separate multiple points with commas or new lines for best results.</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="email-sender-name">Your Name</label>
+                            <input type="text" id="email-sender-name" class="form-input" placeholder="e.g. Alex Johnson">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 1rem;">
+                            <label for="email-recipient-name">Recipient Name <span class="text-muted" style="font-size: 0.8rem;">(optional)</span></label>
+                            <input type="text" id="email-recipient-name" class="form-input" placeholder="e.g. Sarah Miller">
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.05rem; padding: 0.9rem;">Generate Email</button>
+
+                    <div id="email-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                <h3 style="color: var(--text-main); margin: 0;">Generated Email</h3>
+                                <div style="display: flex; gap: 0.75rem; align-items: center;">
+                                    <span id="email-stats" class="text-muted" style="font-size: 0.8rem;"></span>
+                                    <span id="email-word-count" class="text-muted" style="font-size: 0.8rem;"></span>
+                                </div>
+                            </div>
+
+                            <div id="subject-line-container" style="background: var(--bg-color); padding: 0.75rem 1rem; border-radius: var(--radius-sm); margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--border); gap: 0.75rem;">
+                                <div style="min-width: 0; flex: 1;">
+                                    <span style="font-weight: 600; color: var(--text-muted); font-size: 0.85rem;">Subject:</span>
+                                    <span id="subject-text" style="font-weight: 600; margin-left: 0.5rem;"></span>
+                                </div>
+                                <button id="copy-subject-btn" class="btn btn-outline" style="padding: 0.3rem 0.75rem; font-size: 0.8rem; white-space: nowrap; flex-shrink: 0;">Copy Subject</button>
+                            </div>
+
+                            <div id="email-body-container" style="background: var(--card-bg); padding: 1.5rem; border-radius: var(--radius-sm); border: 1px solid var(--border); line-height: 1.8; white-space: pre-wrap; font-size: 0.95rem; color: var(--text-main);"></div>
+
+                            <div style="display: flex; justify-content: flex-start; align-items: center; margin-top: 1rem; gap: 0.5rem; flex-wrap: wrap;">
+                                <button id="copy-email-btn" class="btn btn-primary" style="padding: 0.5rem 1.25rem; font-size: 0.9rem;">Copy Email</button>
+                                <button id="regenerate-btn" class="btn btn-outline" style="padding: 0.5rem 1.25rem; font-size: 0.9rem;">Regenerate</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select the email purpose and recipient type from the dropdown menus.</li>
+                        <li>Choose the appropriate tone for your email.</li>
+                        <li>Enter key points or context you want included in the email body.</li>
+                        <li>Enter your name for the sign-off.</li>
+                        <li>Click "Generate Email" and review the result.</li>
+                        <li>Copy the email or regenerate for a different variation.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool use AI or send my data anywhere?</h3>
+                        <p>No. This email writer runs entirely in your browser using client-side JavaScript. No API calls are made and your data never leaves your device. The emails are generated using an extensive template library combined with your inputs.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How do I get different email variations?</h3>
+                        <p>Click the "Regenerate" button to produce a new variation of your email. The tool uses multiple template structures, opening lines, transitions, and sign-offs for each purpose and tone combination, so each regeneration produces a meaningfully different email.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use these emails for professional communication?</h3>
+                        <p>Absolutely. The generated emails follow standard business communication best practices. However, we recommend reviewing and personalizing the email before sending to ensure it accurately reflects your specific situation and voice.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What should I include in the key points field?</h3>
+                        <p>Include the specific details, context, or requests you want mentioned in the email. For example: project names, deadlines, specific asks, relevant background information, or any particular points you want to emphasize. Separate multiple points with commas or new lines.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/resume-bullet-generator" class="related-link">Resume Bullet Generator</a>
+                    <a href="/ai-tools/bio-generator" class="related-link">Bio Generator</a>
+                    <a href="/ai-tools/caption-generator" class="related-link">Caption Generator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        /* =============================================
+           DOM REFERENCES
+           ============================================= */
+        var purposeEl = document.getElementById('email-purpose');
+        var recipientEl = document.getElementById('email-recipient');
+        var toneInput = document.getElementById('email-tone');
+        var keypointsEl = document.getElementById('email-keypoints');
+        var senderNameEl = document.getElementById('email-sender-name');
+        var recipientNameEl = document.getElementById('email-recipient-name');
+        var generateBtn = document.getElementById('generate-btn');
+        var outputEl = document.getElementById('email-output');
+        var subjectTextEl = document.getElementById('subject-text');
+        var subjectContainer = document.getElementById('subject-line-container');
+        var emailBodyEl = document.getElementById('email-body-container');
+        var copySubjectBtn = document.getElementById('copy-subject-btn');
+        var copyEmailBtn = document.getElementById('copy-email-btn');
+        var regenerateBtn = document.getElementById('regenerate-btn');
+        var emailStatsEl = document.getElementById('email-stats');
+        var emailWordCountEl = document.getElementById('email-word-count');
+        var toneBtns = document.querySelectorAll('.tone-btn');
+
+        /* =============================================
+           TONE SELECTOR BUTTONS
+           ============================================= */
+        for (var t = 0; t < toneBtns.length; t++) {
+            toneBtns[t].addEventListener('click', function() {
+                for (var j = 0; j < toneBtns.length; j++) {
+                    toneBtns[j].style.background = 'var(--card-bg)';
+                    toneBtns[j].style.color = 'var(--text-main)';
+                    toneBtns[j].style.borderColor = 'var(--border)';
+                }
+                this.style.background = 'var(--primary)';
+                this.style.color = 'white';
+                this.style.borderColor = 'var(--primary)';
+                toneInput.value = this.getAttribute('data-tone');
+            });
+        }
+
+        /* =============================================
+           UTILITY FUNCTIONS
+           ============================================= */
+        var variationSeed = 0;
+
+        function pick(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function pickUnique(arr, exclude) {
+            var filtered = arr.filter(function(item) { return exclude.indexOf(item) === -1; });
+            if (filtered.length === 0) filtered = arr;
+            return pick(filtered);
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        function parseKeyPoints(text) {
+            if (!text.trim()) return [];
+            return text.split(/[,\n]+/).map(function(p) { return p.trim(); }).filter(function(p) { return p.length > 0; });
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        /* =============================================
+           GREETING TEMPLATES BY TONE + RECIPIENT
+           ============================================= */
+        var greetings = {
+            formal: {
+                colleague: ['Dear {name}', 'Dear {name}'],
+                manager: ['Dear {name}', 'Dear Mr./Ms. {name}'],
+                client: ['Dear {name}', 'Dear Mr./Ms. {name}'],
+                hr: ['Dear {name}', 'Dear Human Resources Team', 'Dear HR Department'],
+                professor: ['Dear Professor {name}', 'Dear Prof. {name}', 'Dear Dr. {name}'],
+                recruiter: ['Dear {name}', 'Dear Hiring Manager'],
+                general: ['Dear {name}', 'Dear Sir/Madam', 'To Whom It May Concern']
+            },
+            professional: {
+                colleague: ['Hi {name}', 'Hello {name}', 'Dear {name}'],
+                manager: ['Hi {name}', 'Hello {name}', 'Dear {name}'],
+                client: ['Dear {name}', 'Hello {name}'],
+                hr: ['Hello {name}', 'Dear {name}', 'Dear HR Team'],
+                professor: ['Dear Professor {name}', 'Dear {name}'],
+                recruiter: ['Hello {name}', 'Dear {name}'],
+                general: ['Hello {name}', 'Hi {name}', 'Dear {name}']
+            },
+            friendly: {
+                colleague: ['Hey {name}', 'Hi {name}', 'Hi there, {name}'],
+                manager: ['Hi {name}', 'Hey {name}', 'Hello {name}'],
+                client: ['Hi {name}', 'Hello {name}', 'Hey {name}'],
+                hr: ['Hi {name}', 'Hello {name}'],
+                professor: ['Hi Professor {name}', 'Hello Professor {name}'],
+                recruiter: ['Hi {name}', 'Hello {name}'],
+                general: ['Hi {name}', 'Hey {name}', 'Hello {name}']
+            },
+            persuasive: {
+                colleague: ['Hi {name}', 'Hello {name}'],
+                manager: ['Dear {name}', 'Hi {name}'],
+                client: ['Dear {name}', 'Hello {name}'],
+                hr: ['Dear {name}', 'Hello {name}'],
+                professor: ['Dear Professor {name}', 'Dear {name}'],
+                recruiter: ['Dear {name}', 'Hello {name}'],
+                general: ['Dear {name}', 'Hello {name}']
+            },
+            assertive: {
+                colleague: ['Hi {name}', '{name}', 'Hello {name}'],
+                manager: ['Dear {name}', 'Hi {name}'],
+                client: ['Dear {name}', 'Hello {name}'],
+                hr: ['Dear {name}', 'Hello {name}'],
+                professor: ['Dear Professor {name}', 'Dear {name}'],
+                recruiter: ['Dear {name}', 'Hello {name}'],
+                general: ['Dear {name}', 'Hello {name}']
+            }
+        };
+
+        /* =============================================
+           SIGN-OFF TEMPLATES BY TONE
+           ============================================= */
+        var signOffs = {
+            formal: ['Sincerely', 'Respectfully', 'With regards', 'Yours faithfully', 'Kind regards'],
+            professional: ['Best regards', 'Kind regards', 'Best', 'Regards', 'Thank you'],
+            friendly: ['Thanks so much', 'Cheers', 'All the best', 'Warmly', 'Talk soon'],
+            persuasive: ['Looking forward to hearing from you', 'Best regards', 'With appreciation', 'Thank you for your consideration', 'Eagerly awaiting your response'],
+            assertive: ['Regards', 'Best', 'Thank you', 'Respectfully', 'Sincerely']
+        };
+
+        /* =============================================
+           SUBJECT LINE TEMPLATES BY PURPOSE
+           ============================================= */
+        var subjectTemplates = {
+            'follow-up': [
+                'Following Up: {point}',
+                'Checking In on {point}',
+                'Quick Follow-Up Regarding {point}',
+                'Follow-Up: Next Steps on {point}',
+                'Circling Back on {point}',
+                'Re: {point} - Follow-Up'
+            ],
+            'request': [
+                'Request: {point}',
+                'Assistance Needed: {point}',
+                '{point} - Request for Support',
+                'Request for {point}',
+                'Could You Help With {point}?',
+                'Action Needed: {point}'
+            ],
+            'thank-you': [
+                'Thank You for {point}',
+                'Grateful for Your Help with {point}',
+                'Appreciation: {point}',
+                'Many Thanks for {point}',
+                'Thank You - {point}'
+            ],
+            'apology': [
+                'Apology Regarding {point}',
+                'Sincere Apologies: {point}',
+                'Regarding {point} - My Apologies',
+                'I Apologize for {point}',
+                'Addressing the Issue with {point}'
+            ],
+            'introduction': [
+                'Introduction: {point}',
+                'Connecting with You Regarding {point}',
+                'Nice to Meet You - {point}',
+                'Introduction and {point}',
+                'Reaching Out: {point}'
+            ],
+            'meeting-request': [
+                'Meeting Request: {point}',
+                'Can We Schedule a Meeting About {point}?',
+                'Request to Meet - {point}',
+                'Scheduling a Discussion on {point}',
+                'Meeting Invitation: {point}'
+            ],
+            'cold-outreach': [
+                '{point} - Opportunity to Connect',
+                'Quick Question About {point}',
+                'Idea for {point}',
+                'Reaching Out Regarding {point}',
+                '{point} - Mutual Benefit',
+                'Thought You Might Be Interested: {point}'
+            ],
+            'complaint': [
+                'Concern Regarding {point}',
+                'Issue with {point} - Immediate Attention Needed',
+                'Formal Complaint: {point}',
+                '{point} - Requesting Resolution',
+                'Unsatisfied with {point} - Action Required'
+            ],
+            'feedback': [
+                'Feedback on {point}',
+                'Thoughts on {point}',
+                'My Feedback Regarding {point}',
+                '{point} - Review and Feedback',
+                'Sharing My Observations on {point}'
+            ],
+            'resignation': [
+                'Notice of Resignation',
+                'Resignation - {name}',
+                'Formal Resignation Notice',
+                'Letter of Resignation',
+                'Resignation Effective {point}'
+            ],
+            'recommendation-request': [
+                'Request for Recommendation',
+                'Would You Write a Recommendation for Me?',
+                'Recommendation Request: {point}',
+                'Seeking Your Recommendation for {point}',
+                'Request for a Letter of Recommendation'
+            ],
+            'job-application': [
+                'Application for {point}',
+                '{point} - Application from {name}',
+                'Interest in {point} Position',
+                'Application: {point}',
+                '{name} - Application for {point}'
+            ]
+        };
+
+        /* =============================================
+           TONE-SPECIFIC VOCABULARY AND PHRASES
+           ============================================= */
+        var toneVocab = {
+            formal: {
+                openers: [
+                    'I am writing to bring to your attention',
+                    'I wish to formally address',
+                    'I am reaching out in regard to',
+                    'Please allow me to address',
+                    'I would like to formally communicate'
+                ],
+                transitions: [
+                    'Furthermore', 'Additionally', 'Moreover', 'In addition to the above',
+                    'I would also like to note that', 'It is worth mentioning that', 'Please also note that'
+                ],
+                closers: [
+                    'I trust this matter will receive your prompt attention.',
+                    'Your consideration in this matter is greatly appreciated.',
+                    'I remain available at your earliest convenience should you require further information.',
+                    'Please do not hesitate to reach out should you have any questions.',
+                    'I appreciate your time and attention to this correspondence.'
+                ],
+                connectors: ['therefore', 'consequently', 'accordingly', 'as such', 'hence'],
+                emphasis: ['It is imperative that', 'I would like to underscore that', 'Please be advised that', 'It is essential to note that']
+            },
+            professional: {
+                openers: [
+                    'I wanted to reach out regarding',
+                    'I am writing to discuss',
+                    'I would like to touch base about',
+                    'I am getting in touch about',
+                    'I wanted to bring up'
+                ],
+                transitions: [
+                    'Additionally', 'On another note', 'I also wanted to mention that',
+                    'Along those lines', 'Building on that', 'Related to this',
+                    'Another important point is that'
+                ],
+                closers: [
+                    'Please let me know if you have any questions or need further clarification.',
+                    'I look forward to your thoughts on this.',
+                    'Feel free to reach out if you need anything else.',
+                    'Happy to discuss this further at your convenience.',
+                    'Let me know how you would like to proceed.'
+                ],
+                connectors: ['with that in mind', 'given this', 'as a result', 'moving forward', 'in light of this'],
+                emphasis: ['I want to highlight that', 'It is important to note that', 'I would like to emphasize that', 'A key consideration here is that']
+            },
+            friendly: {
+                openers: [
+                    'Hope you are doing well! I wanted to chat about',
+                    'Hope everything is going great on your end! Just reaching out about',
+                    'I hope this finds you well. I wanted to drop a quick note about',
+                    'Great to be in touch! I wanted to talk about',
+                    'Hope your week is going smoothly! I am reaching out about'
+                ],
+                transitions: [
+                    'Also', 'Oh, and another thing -', 'By the way', 'On a related note',
+                    'I should also mention that', 'While I have your attention', 'One more thing -'
+                ],
+                closers: [
+                    'Thanks so much for reading through all of this!',
+                    'Really appreciate your help with this!',
+                    'Let me know what you think when you get a chance!',
+                    'Would love to hear your thoughts on this!',
+                    'Thanks again, and hope to hear from you soon!'
+                ],
+                connectors: ['so', 'because of that', 'which means', 'and that is why', 'basically'],
+                emphasis: ['I really want to stress that', 'Just to make sure this is clear -', 'The key thing here is that', 'What really matters is that']
+            },
+            persuasive: {
+                openers: [
+                    'I have an exciting opportunity to share with you regarding',
+                    'I believe there is a compelling case to be made for',
+                    'I would love to present an idea that could make a real difference in',
+                    'I am confident you will find value in what I have to share about',
+                    'I have been thinking about how we could create real impact with'
+                ],
+                transitions: [
+                    'What makes this even more compelling is that', 'The benefits extend further -',
+                    'Consider also that', 'Adding to the value proposition,',
+                    'This becomes even more significant when you consider that', 'On top of that,',
+                    'The upside here is substantial because'
+                ],
+                closers: [
+                    'I am confident this will deliver significant value, and I would love to discuss it further.',
+                    'The potential here is substantial, and I believe acting sooner rather than later would be beneficial.',
+                    'I truly believe this is an opportunity worth exploring. Shall we set up a time to discuss?',
+                    'I am eager to move forward on this and would welcome the chance to discuss next steps.',
+                    'This is a rare opportunity, and I would be glad to provide any additional information you need.'
+                ],
+                connectors: ['as a result', 'this means', 'the implication is that', 'which translates to', 'effectively'],
+                emphasis: ['Critically,', 'The most important factor is that', 'What sets this apart is that', 'The real value lies in']
+            },
+            assertive: {
+                openers: [
+                    'I need to address an important matter regarding',
+                    'I am writing to clearly communicate my position on',
+                    'There is an urgent matter I need to bring to your attention about',
+                    'I want to be direct about',
+                    'I need to raise a critical point about'
+                ],
+                transitions: [
+                    'Equally important,', 'I must also point out that', 'It is also necessary to address',
+                    'There is another matter that requires attention:', 'I also need to emphasize that',
+                    'Furthermore, and this is essential,', 'Let me be clear about something else -'
+                ],
+                closers: [
+                    'I expect this to be addressed promptly and look forward to your confirmation.',
+                    'Please confirm receipt of this email and your plan of action by end of business.',
+                    'I require a response at your earliest convenience. This matter cannot wait.',
+                    'I trust this will be handled with the urgency it deserves.',
+                    'I am available to discuss this immediately if needed. Please reach out today.'
+                ],
+                connectors: ['therefore', 'as a direct consequence', 'this necessitates', 'the reality is that', 'plainly put'],
+                emphasis: ['I must insist that', 'It is non-negotiable that', 'I want to make it absolutely clear that', 'This is a priority -']
+            }
+        };
+
+        /* =============================================
+           PURPOSE-SPECIFIC BODY PARAGRAPH TEMPLATES
+           Each purpose has opening, mid-section, and
+           closing paragraph variations.
+           ============================================= */
+        var bodyTemplates = {
+            'follow-up': {
+                openings: [
+                    'I wanted to follow up on our recent conversation about {firstPoint}. I realize you may have had other priorities, but I wanted to ensure this stays on our radar.',
+                    'I am circling back regarding {firstPoint}, which we discussed recently. I wanted to check on the current status and see if there are any updates.',
+                    'Just checking in on the status of {firstPoint}. I know things have been busy, and I wanted to make sure we are still aligned on next steps.',
+                    'I hope you have had a chance to review the details about {firstPoint}. I did not want too much time to pass before reconnecting on this.',
+                    'I wanted to reconnect about {firstPoint} and see where things stand. I believe keeping momentum on this will benefit us both.'
+                ],
+                midSections: [
+                    'As we discussed, {point} remains an important consideration. I wanted to make sure this is still on track and see if there is anything I can do to help move things forward.',
+                    'Regarding {point}, I wanted to reiterate its importance to our timeline. If there are any blockers or questions, I am happy to assist in resolving them.',
+                    'I understand there may have been other priorities, but {point} is something I would like us to address in the near term. Any updates you can share would be greatly appreciated.',
+                    'I believe {point} is a key area that deserves our attention. I am reaching out to ensure we are aligned on next steps and to offer my support wherever needed.',
+                    'On the topic of {point}, I wanted to ensure we are still on the same page. Please let me know if circumstances have changed or if you need any additional information from my end.'
+                ],
+                closings: [
+                    'I would appreciate any updates you can share at your convenience. If a quick call would be easier, I am flexible with scheduling.',
+                    'Please let me know how you would like to proceed. I am ready to move forward whenever you are.',
+                    'I am committed to making progress on this and wanted to ensure we are aligned. A brief update would be very helpful.',
+                    'Your input on this would be invaluable. I am available to discuss this at a time that works for you.'
+                ]
+            },
+            'request': {
+                openings: [
+                    'I am reaching out because I could use your help with {firstPoint}. I have given this some thought and believe your involvement would make a significant difference.',
+                    'I have a request that I hope you can assist with regarding {firstPoint}. I would not ask if I did not think it was important.',
+                    'I would greatly appreciate your support with {firstPoint}. Your expertise and perspective are exactly what is needed here.',
+                    'I am writing to ask for your assistance on a matter related to {firstPoint}. I value your input and believe you are the right person to help.',
+                    'I hope I can count on your help with {firstPoint}. I have done what I can independently, but I believe collaboration will lead to a better outcome.'
+                ],
+                midSections: [
+                    'Specifically, I need help with {point}. Your expertise in this area would be incredibly valuable, and I believe your involvement would significantly improve the outcome.',
+                    'One important aspect of this request involves {point}. I have already done some groundwork, but I need your support to bring it to completion.',
+                    'To provide some context, {point} is a critical component. Without addressing this properly, we risk falling short of our goals.',
+                    'I would like to elaborate on {point}. This is particularly important because it directly impacts our broader objectives and timeline.',
+                    'When it comes to {point}, I believe your insights would be especially valuable. I would appreciate any guidance or resources you could provide.'
+                ],
+                closings: [
+                    'I understand you are busy, and I truly appreciate any time you can dedicate to this. Even a brief response pointing me in the right direction would be helpful.',
+                    'If this is something you can help with, I would be happy to work around your schedule. Please let me know what timeline works for you.',
+                    'I am more than happy to provide additional details or meet to discuss this further. Whatever works best for you.',
+                    'Thank you in advance for considering this request. I know your time is valuable, and I would not ask if it were not important.'
+                ]
+            },
+            'thank-you': {
+                openings: [
+                    'I wanted to take a moment to express my sincere gratitude for {firstPoint}. It truly made a difference, and I did not want it to go unacknowledged.',
+                    'I am writing to thank you wholeheartedly for {firstPoint}. Your generosity and effort have not gone unnoticed.',
+                    'I just wanted to reach out and say a genuine thank you for {firstPoint}. It meant more than you might realize.',
+                    'Your help with {firstPoint} has meant more than I can express, and I wanted to make sure you knew how much I appreciate it.',
+                    'I could not let another day pass without thanking you for {firstPoint}. Your support came at exactly the right time.'
+                ],
+                midSections: [
+                    'Your contribution to {point} made a real difference. It was clear that you went above and beyond, and the results speak for themselves.',
+                    'I also want to acknowledge your help with {point}. Your willingness to step up was both impressive and deeply appreciated.',
+                    'When it comes to {point}, your support was invaluable. I honestly do not know how I would have managed without your help.',
+                    'The impact of your involvement in {point} cannot be overstated. You brought a level of care and competence that elevated the entire effort.',
+                    'I was especially grateful for your help with {point}. It showed real dedication and thoughtfulness on your part.'
+                ],
+                closings: [
+                    'Once again, thank you for everything. Your generosity and support do not go unnoticed.',
+                    'I hope I can return the favor someday. Please do not hesitate to reach out if there is ever anything I can do for you.',
+                    'Your help has genuinely made a difference, and I am fortunate to have someone like you to count on.',
+                    'Thank you again from the bottom of my heart. It is people like you who make all the difference.'
+                ]
+            },
+            'apology': {
+                openings: [
+                    'I owe you a sincere apology regarding {firstPoint}. I have reflected on what happened and want to take full responsibility.',
+                    'I am writing to express my deepest apologies for {firstPoint}. I understand the impact this had, and I am committed to making it right.',
+                    'I want to address {firstPoint} directly and take full responsibility for what happened. There is no excuse, and I am sorry.',
+                    'I have been reflecting on {firstPoint}, and I realize I need to apologize. You deserved better, and I acknowledge that.',
+                    'Please accept my sincere apology for the situation involving {firstPoint}. I value our relationship and regret that my actions fell short.'
+                ],
+                midSections: [
+                    'Regarding {point}, I understand how this affected you and I take full accountability. I should have handled things differently, and I am committed to making it right.',
+                    'Looking at {point} more carefully, I can see where I fell short. There is no excuse for this, and I want you to know that I am taking concrete steps to ensure it does not happen again.',
+                    'The issue with {point} was entirely avoidable, and I accept responsibility. I have already begun implementing changes to prevent a recurrence.',
+                    'I recognize that {point} caused unnecessary difficulty, and for that I am truly sorry. I value our relationship and want to rebuild the trust that may have been affected.',
+                    'When it comes to {point}, I understand the frustration this must have caused. I want to assure you that I have learned from this experience and am taking corrective action.'
+                ],
+                closings: [
+                    'I am committed to doing better going forward. If there is anything specific I can do to make amends, please let me know.',
+                    'I value our relationship greatly and hope we can move past this. I am dedicated to regaining your trust through my actions.',
+                    'Thank you for your understanding and patience. I assure you that I take this seriously and am working to make improvements.',
+                    'I hope you can accept this apology. I am open to discussing this further if you would like, and I am committed to change.'
+                ]
+            },
+            'introduction': {
+                openings: [
+                    'I would like to introduce myself and share a bit about {firstPoint}. I have been looking forward to connecting with you.',
+                    'It is a pleasure to connect with you! I am reaching out regarding {firstPoint} and am excited about the possibility of working together.',
+                    'I have been looking forward to introducing myself. My interest in {firstPoint} led me to reach out to you.',
+                    'Allow me to introduce myself. I am writing in connection with {firstPoint}, and I believe we may have some valuable common ground.',
+                    'I am excited to reach out and introduce myself regarding {firstPoint}. I think you will find our interests are well aligned.'
+                ],
+                midSections: [
+                    'A bit about my background: {point}. I believe this experience aligns well with what you are working on, and I am eager to explore how we might collaborate.',
+                    'I wanted to share that {point}. This has given me a unique perspective that I think could be valuable in our potential collaboration.',
+                    'To give you a fuller picture, {point}. I have found that this background enables me to contribute meaningfully in areas that matter most.',
+                    'Something I think you will find relevant is that {point}. I am passionate about this area and always looking to connect with like-minded individuals.',
+                    'In terms of what I bring to the table, {point}. I am confident that my experience and enthusiasm would make for a productive partnership.'
+                ],
+                closings: [
+                    'I would love the opportunity to learn more about your work as well. Would you be open to a brief conversation?',
+                    'I believe there could be great synergy between us, and I would welcome the chance to explore that further.',
+                    'I look forward to the possibility of connecting. Please feel free to reach out at any time that is convenient.',
+                    'I hope this gives you a good sense of who I am and what I do. I would be thrilled to continue the conversation.'
+                ]
+            },
+            'meeting-request': {
+                openings: [
+                    'I would like to schedule a meeting to discuss {firstPoint}. I believe a focused conversation would be the most efficient way to make progress.',
+                    'Could we find some time to meet regarding {firstPoint}? I think a direct discussion would be much more productive than email.',
+                    'I believe a meeting would be the most productive way to address {firstPoint}. There are some nuances I think are best discussed in person or on a call.',
+                    'I am reaching out to see if we could arrange a meeting about {firstPoint}. I have some thoughts and ideas I would like to present.',
+                    'I think it would be beneficial for us to sit down and talk through {firstPoint}. A collaborative discussion could help us align quickly.'
+                ],
+                midSections: [
+                    'During the meeting, I would like to cover {point}. Having a focused discussion on this would help us align on priorities and establish clear next steps.',
+                    'One of the key topics I want to address is {point}. I think a real-time conversation would be much more efficient than going back and forth over email on this.',
+                    'I also want to use the meeting to discuss {point}. This is an area where I think collaborative input would be especially valuable.',
+                    'An important agenda item would be {point}. I have some ideas I would like to present and would value your feedback before we finalize anything.',
+                    'I think we should also discuss {point} during the meeting. Getting alignment on this early will save us time down the road.'
+                ],
+                closings: [
+                    'I am flexible with timing and can work around your schedule. Would any day this week or next work for you?',
+                    'Please let me know your availability, and I will send a calendar invite. I anticipate the meeting would take about 30 minutes.',
+                    'I can accommodate most times. A 30-45 minute slot should give us enough time to cover everything. What works for you?',
+                    'If you prefer, we could start with a quick 20-minute call. Just let me know what format and time work best for your schedule.'
+                ]
+            },
+            'cold-outreach': {
+                openings: [
+                    'I came across your work on {firstPoint} and was genuinely impressed. I thought it was worth reaching out to explore a potential connection.',
+                    'I have been following developments in {firstPoint} and thought it would be great to connect with someone as knowledgeable as yourself.',
+                    'I noticed {firstPoint} and immediately thought there could be an interesting opportunity for both of us.',
+                    'I have been researching {firstPoint} and your name came up as someone doing remarkable work in this space. I had to reach out.',
+                    'I hope this message finds you well. I wanted to reach out because {firstPoint} resonated with me, and I see potential for a meaningful connection.'
+                ],
+                midSections: [
+                    'The reason I am reaching out is related to {point}. I think there is a natural overlap between what you are doing and what I can offer, and I would love to explore that.',
+                    'I believe {point} represents an opportunity that could benefit us both. I have been working on something complementary and think a conversation could be mutually valuable.',
+                    'What specifically drew me to your work is {point}. I have some ideas about how we could collaborate or at least exchange insights.',
+                    'I should mention that {point} is central to why I am reaching out. I have a genuine interest in this area and believe we could create something meaningful together.',
+                    'To be specific about my interest: {point}. I respect your time, so I want to be upfront about what I see as potential for collaboration.'
+                ],
+                closings: [
+                    'I know cold emails can feel impersonal, but I genuinely believe this connection could be worthwhile. Would you be open to a brief 15-minute chat?',
+                    'No pressure at all - I completely understand if the timing is not right. But if this resonates with you, I would love to continue the conversation.',
+                    'I have tried to keep this concise out of respect for your time. If you are even slightly interested, I would be happy to share more details.',
+                    'I would be grateful for even a brief response. Sometimes the best opportunities come from unexpected connections.'
+                ]
+            },
+            'complaint': {
+                openings: [
+                    'I am writing to formally bring to your attention a serious concern regarding {firstPoint}. I have attempted to resolve this through other channels without success.',
+                    'I need to express my dissatisfaction with {firstPoint} and request immediate action. This matter has gone unresolved for too long.',
+                    'I am reaching out because I have encountered a significant issue with {firstPoint} that needs to be resolved promptly.',
+                    'I feel compelled to raise a formal complaint about {firstPoint}. Despite my patience, the situation has not improved.',
+                    'Despite previous attempts to resolve this, the situation involving {firstPoint} persists, and I must escalate this matter to your attention.'
+                ],
+                midSections: [
+                    'The specific issue with {point} has caused considerable inconvenience. Despite previous attempts to resolve this, the problem persists, and I expect a definitive resolution.',
+                    'I want to document that {point} has been an ongoing problem. This is not a one-time occurrence, and I believe it warrants immediate and thorough attention.',
+                    'To elaborate on {point}: the impact has been significant, both in terms of time lost and frustration experienced. I have tried to resolve this through normal channels without success.',
+                    'Another contributing factor is {point}. When combined with the other issues I have described, it is clear that this is a systemic problem requiring a comprehensive solution.',
+                    'The matter of {point} is particularly troubling because it suggests a larger pattern. I am raising this not just for my own benefit but to help prevent others from experiencing the same issue.'
+                ],
+                closings: [
+                    'I expect a formal response within five business days outlining the steps being taken to resolve this matter. Please confirm receipt of this complaint.',
+                    'I trust this will be given the attention it deserves. I am prepared to escalate further if necessary, but I would prefer to resolve this amicably.',
+                    'I would appreciate a concrete plan of action and timeline for resolution. I remain willing to cooperate fully in finding a satisfactory outcome.',
+                    'Please treat this as a priority. I am available to discuss the details further if that would help expedite a resolution.'
+                ]
+            },
+            'feedback': {
+                openings: [
+                    'I wanted to share my thoughts and feedback regarding {firstPoint}. I hope you will find these observations constructive and actionable.',
+                    'I have been reflecting on {firstPoint} and would like to offer some constructive feedback that I believe could help improve things.',
+                    'I appreciate the opportunity to provide feedback on {firstPoint}. I want to share both what I thought worked well and where I see room for improvement.',
+                    'After careful consideration, I wanted to share my observations about {firstPoint}. My goal is to be helpful and constructive.',
+                    'I have given {firstPoint} considerable thought and would like to share some candid feedback. I share this in the spirit of continuous improvement.'
+                ],
+                midSections: [
+                    'Regarding {point}, I think there is real strength here, but also room for improvement. A few targeted adjustments could make a meaningful difference in the overall outcome.',
+                    'When it comes to {point}, I was impressed by the effort but noticed some areas that could be refined. My intention is to be constructive, not critical.',
+                    'I want to highlight {point} as something that stood out to me. With some fine-tuning, I think this could go from good to excellent.',
+                    'On the topic of {point}, I have a few suggestions that I believe could enhance the quality and effectiveness. These are based on my experience and careful observation.',
+                    'My feedback on {point} is that while the foundation is solid, there are opportunities to optimize. I have some specific ideas that I think could add real value.'
+                ],
+                closings: [
+                    'I hope this feedback is helpful and taken in the constructive spirit in which it is intended. I am happy to discuss any of these points in more detail.',
+                    'Please feel free to push back on any of these observations. I value open dialogue and want this to be a two-way conversation.',
+                    'I am sharing this because I care about the outcome and believe in continuous improvement. Let me know if you would like to discuss further.',
+                    'Thank you for being open to feedback. I am always available to elaborate on these points or brainstorm solutions together.'
+                ]
+            },
+            'resignation': {
+                openings: [
+                    'I am writing to formally notify you of my resignation from my position, effective {firstPoint}. This was not an easy decision, and I wanted to communicate it thoughtfully.',
+                    'After careful consideration, I have made the difficult decision to resign from my role. My last day will be {firstPoint}. I want to ensure a smooth transition.',
+                    'Please accept this letter as formal notice of my resignation. I intend for my last working day to be {firstPoint}.',
+                    'It is with mixed emotions that I submit my resignation. I plan for my final day to be {firstPoint}. I want you to know this decision was made after considerable reflection.',
+                    'I am writing to inform you of my decision to resign from my position, with my last day being {firstPoint}. I want to express my gratitude for the opportunities I have had here.'
+                ],
+                midSections: [
+                    'I want you to know that {point}. This decision was not made lightly, and I have great respect for the opportunities I have been given here.',
+                    'Regarding {point}, I want to be transparent about my reasoning. This has been a thoughtful decision, and I believe it is the right step for my career at this time.',
+                    'I should mention that {point}. Despite my departure, I remain committed to ensuring a smooth transition and completing any outstanding responsibilities.',
+                    'To provide some context, {point}. I am grateful for my time here and want to leave on the best possible terms.',
+                    'I feel it is important to share that {point}. My time with the team has been valuable, and I will carry these experiences forward in my career.'
+                ],
+                closings: [
+                    'I am fully committed to making this transition as smooth as possible. I am happy to help train my replacement and document my ongoing projects during my remaining time.',
+                    'I will ensure all my responsibilities are properly handed over. Please let me know how I can best support the team during this transition period.',
+                    'I am grateful for everything I have learned and the relationships I have built here. I wish the team nothing but continued success.',
+                    'Thank you for the opportunities and growth during my tenure. I look forward to staying in touch and am happy to assist with the transition in any way.'
+                ]
+            },
+            'recommendation-request': {
+                openings: [
+                    'I am reaching out because I am hoping you might be willing to write a recommendation for me regarding {firstPoint}. Your perspective would carry significant weight.',
+                    'I have always valued your mentorship, and I am writing to ask if you would consider providing a recommendation for {firstPoint}.',
+                    'I am applying for {firstPoint} and immediately thought of you as someone whose recommendation would be particularly meaningful.',
+                    'I hope this is not too forward, but I would be honored if you would write a recommendation letter for me in connection with {firstPoint}.',
+                    'Given our working relationship and your firsthand knowledge of my abilities, I wanted to ask if you would be comfortable recommending me for {firstPoint}.'
+                ],
+                midSections: [
+                    'If you agree, it would be particularly helpful if you could speak to {point}. I believe your perspective on this would be especially compelling to the selection committee.',
+                    'For context, {point}. I think this information might be useful as you consider what to include in the recommendation.',
+                    'I recall our work together on {point}, and I think highlighting this experience would be very relevant to what I am applying for.',
+                    'Something I was hoping you might address is {point}. Your firsthand knowledge of my contributions in this area would carry a lot of weight.',
+                    'To help with the recommendation, I wanted to remind you of {point}. This experience was formative for me and directly relevant to my application.'
+                ],
+                closings: [
+                    'I completely understand if you are unable to do this due to time constraints. If you are willing, I can provide any additional information you might need.',
+                    'If you are comfortable providing this recommendation, I would be happy to share my updated resume and any other relevant materials.',
+                    'I would be truly grateful for your support. Please let me know if you need any details from me. There is absolutely no pressure if the timing does not work.',
+                    'Thank you for even considering this request. Your support has always meant a great deal to me, and I appreciate your time.'
+                ]
+            },
+            'job-application': {
+                openings: [
+                    'I am writing to express my strong interest in {firstPoint}. After researching the role and your organization, I am confident this is an excellent fit.',
+                    'I am excited to submit my application for {firstPoint}. The opportunity aligns perfectly with my career goals and professional strengths.',
+                    'I was thrilled to see the opening for {firstPoint} and am eager to apply. My background and passion make me a strong candidate for this role.',
+                    'I am writing to apply for {firstPoint}, a role that aligns perfectly with my skills, experience, and long-term career aspirations.',
+                    'Please find my application for {firstPoint}. I believe my unique combination of skills and experience makes me an excellent candidate.'
+                ],
+                midSections: [
+                    'I bring relevant experience in {point}. Throughout my career, I have consistently delivered results in this area and am eager to bring that same drive and expertise to your team.',
+                    'One of my strongest qualifications is {point}. I have had the opportunity to develop deep expertise here and believe it directly translates to the requirements of this role.',
+                    'I want to highlight that {point} is a key part of my candidacy. This experience has equipped me with the skills and perspective needed to make an immediate impact.',
+                    'Regarding {point}, I have a proven track record that I believe speaks for itself. I am confident I can bring the same level of excellence and dedication to this position.',
+                    'My background in {point} has prepared me well for the challenges and opportunities of this role. I am passionate about this work and eager to contribute from day one.'
+                ],
+                closings: [
+                    'I have attached my resume for your review and would welcome the opportunity to discuss how my experience aligns with your needs. Thank you for your consideration.',
+                    'I am enthusiastic about the possibility of joining your team and would love the chance to discuss my qualifications further. I am available for an interview at your convenience.',
+                    'Thank you for considering my application. I am confident I would be a strong addition to your team and look forward to the opportunity to demonstrate that.',
+                    'I am eager to learn more about this role and share how my experience can contribute to your organization. I look forward to hearing from you.'
+                ]
+            }
+        };
+
+        /* =============================================
+           EMAIL GENERATION ENGINE
+           ============================================= */
+        function generateEmail(purpose, recipient, tone, keypoints, senderName, recipientName) {
+            var points = parseKeyPoints(keypoints);
+            var firstPoint = points.length > 0 ? points[0] : 'the matter at hand';
+            var vocab = toneVocab[tone] || toneVocab.professional;
+            var templates = bodyTemplates[purpose] || bodyTemplates['request'];
+
+            /* --- SUBJECT LINE --- */
+            var subjectPool = subjectTemplates[purpose] || subjectTemplates['request'];
+            var subjectRaw = pick(subjectPool);
+            var subject = subjectRaw
+                .replace(/\{point\}/g, capitalize(firstPoint))
+                .replace(/\{firstPoint\}/g, capitalize(firstPoint))
+                .replace(/\{name\}/g, senderName || 'Applicant');
+
+            /* --- GREETING --- */
+            var greetingPool = (greetings[tone] && greetings[tone][recipient]) ? greetings[tone][recipient] : greetings.professional.general;
+            var greetingTemplate = pick(greetingPool);
+            var displayRecipientName = recipientName || (recipient === 'hr' ? 'HR Team' : recipient === 'professor' ? '[Professor Name]' : '[Recipient Name]');
+            var greeting = greetingTemplate.replace(/\{name\}/g, displayRecipientName);
+
+            /* --- OPENING PARAGRAPH --- */
+            var openingTemplate = pick(templates.openings);
+            var opening = openingTemplate.replace(/\{firstPoint\}/g, firstPoint);
+
+            /* --- BODY PARAGRAPHS (one per key point) --- */
+            var bodyParagraphs = [];
+            var usedMidTemplates = [];
+
+            if (points.length <= 1) {
+                var midTemplate = pick(templates.midSections);
+                bodyParagraphs.push(midTemplate.replace(/\{point\}/g, firstPoint));
+            } else {
+                for (var i = 0; i < points.length && i < 4; i++) {
+                    var availableTemplates = templates.midSections.filter(function(t) {
+                        return usedMidTemplates.indexOf(t) === -1;
+                    });
+                    if (availableTemplates.length === 0) availableTemplates = templates.midSections;
+
+                    var chosenTemplate = pick(availableTemplates);
+                    usedMidTemplates.push(chosenTemplate);
+
+                    var paragraph = chosenTemplate.replace(/\{point\}/g, points[i]);
+
+                    /* Add transition phrase for 2nd point onward */
+                    if (i > 0) {
+                        var transition = pick(vocab.transitions);
+                        paragraph = transition + ' ' + paragraph.charAt(0).toLowerCase() + paragraph.slice(1);
+                    }
+
+                    bodyParagraphs.push(paragraph);
+                }
+
+                /* Summarize remaining points if more than 4 */
+                if (points.length > 4) {
+                    var remaining = points.slice(4);
+                    var emphasisPhrase = pick(vocab.emphasis);
+                    bodyParagraphs.push(emphasisPhrase + ' the following items also deserve attention: ' + remaining.join(', ') + '. I wanted to ensure all of these points are on your radar as we move forward.');
+                }
+            }
+
+            /* --- CLOSING PARAGRAPH --- */
+            var closingParagraph = pick(templates.closings);
+
+            /* --- TONE-SPECIFIC FINAL SENTENCE --- */
+            var toneCloser = pick(vocab.closers);
+
+            /* --- SIGN-OFF --- */
+            var signOff = pick(signOffs[tone] || signOffs.professional);
+            var senderDisplay = senderName || '[Your Name]';
+
+            /* --- ASSEMBLE THE FULL EMAIL BODY --- */
+            var emailLines = [];
+            emailLines.push(greeting + ',');
+            emailLines.push('');
+            emailLines.push(opening);
+            emailLines.push('');
+
+            for (var p = 0; p < bodyParagraphs.length; p++) {
+                emailLines.push(bodyParagraphs[p]);
+                emailLines.push('');
+            }
+
+            emailLines.push(closingParagraph);
+            emailLines.push('');
+            emailLines.push(toneCloser);
+            emailLines.push('');
+            emailLines.push(signOff + ',');
+            emailLines.push(senderDisplay);
+
+            return {
+                subject: subject,
+                body: emailLines.join('\n')
+            };
+        }
+
+        /* =============================================
+           UI DISPLAY AND INTERACTION HANDLERS
+           ============================================= */
+        var lastGenerated = null;
+
+        function showError(msg) {
+            outputEl.style.display = 'block';
+            subjectContainer.style.display = 'none';
+            emailBodyEl.innerHTML = '<p style="color: #ef4444; margin: 0;">' + escapeHtml(msg) + '</p>';
+            emailStatsEl.textContent = '';
+            emailWordCountEl.textContent = '';
+            copyEmailBtn.style.display = 'none';
+            regenerateBtn.style.display = 'none';
+        }
+
+        function displayEmail(result) {
+            lastGenerated = result;
+            outputEl.style.display = 'block';
+            subjectContainer.style.display = 'flex';
+            copyEmailBtn.style.display = '';
+            regenerateBtn.style.display = '';
+
+            subjectTextEl.textContent = result.subject;
+            emailBodyEl.textContent = result.body;
+
+            var wordCount = countWords(result.body);
+            var readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 200));
+            emailWordCountEl.textContent = wordCount + ' words';
+            emailStatsEl.textContent = '~' + readingTimeMinutes + ' min read';
+
+            outputEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function doGenerate() {
+            var purpose = purposeEl.value;
+            var recipient = recipientEl.value;
+            var tone = toneInput.value;
+            var keypoints = keypointsEl.value.trim();
+            var senderName = senderNameEl.value.trim();
+            var recipientName = recipientNameEl.value.trim();
+
+            if (!purpose) { showError('Please select an email purpose.'); return; }
+            if (!recipient) { showError('Please select a recipient type.'); return; }
+            if (!tone) { showError('Please select a tone for your email.'); return; }
+            if (!keypoints) { showError('Please enter at least one key point or context for your email.'); return; }
+            if (!senderName) { showError('Please enter your name for the sign-off.'); return; }
+
+            var result = generateEmail(purpose, recipient, tone, keypoints, senderName, recipientName);
+            displayEmail(result);
+        }
+
+        generateBtn.addEventListener('click', doGenerate);
+
+        regenerateBtn.addEventListener('click', function() {
+            doGenerate();
+            regenerateBtn.textContent = 'Regenerated!';
+            setTimeout(function() { regenerateBtn.textContent = 'Regenerate'; }, 1500);
+        });
+
+        /* --- COPY TO CLIPBOARD --- */
+        function copyToClipboard(text, btn, originalLabel) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    btn.textContent = 'Copied!';
+                    setTimeout(function() { btn.textContent = originalLabel; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = originalLabel; }, 2000);
+            }
+        }
+
+        copySubjectBtn.addEventListener('click', function() {
+            if (lastGenerated) {
+                copyToClipboard(lastGenerated.subject, copySubjectBtn, 'Copy Subject');
+            }
+        });
+
+        copyEmailBtn.addEventListener('click', function() {
+            if (lastGenerated) {
+                var fullText = 'Subject: ' + lastGenerated.subject + '\n\n' + lastGenerated.body;
+                copyToClipboard(fullText, copyEmailBtn, 'Copy Email');
+            }
+        });
+
+        /* --- RESPONSIVE GRID ADJUSTMENT --- */
+        var formGrids = document.querySelectorAll('.tool-workspace > div[style*="grid-template-columns"]');
+        function adjustGrids() {
+            for (var g = 0; g < formGrids.length; g++) {
+                if (window.innerWidth < 600) {
+                    formGrids[g].style.gridTemplateColumns = '1fr';
+                } else {
+                    formGrids[g].style.gridTemplateColumns = '1fr 1fr';
+                }
+            }
+        }
+        adjustGrids();
+        window.addEventListener('resize', adjustGrids);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

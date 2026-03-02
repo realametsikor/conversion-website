@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Caption Generator - Create Engaging Captions | ToolsNest</title>
+    <meta name="description" content="Generate engaging social media captions for Instagram, Twitter, LinkedIn, TikTok, and more. Tailored to each platform. Free, no signup required.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/caption-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Caption Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Caption Generator</h1>
+                <p class="text-center mb-3">Generate scroll-stopping social media captions tailored to any platform. Enter your topic, choose your style, and get ready-to-post captions instantly.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="caption-topic">Topic / Context</label>
+                        <textarea id="caption-topic" class="form-input" rows="4" placeholder="Describe what your post is about. E.g., 'Launching a new eco-friendly water bottle brand targeting health-conscious millennials' or 'Behind-the-scenes of our team retreat in the mountains'." style="min-height: 120px;"></textarea>
+                        <p id="topic-char-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 characters</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="caption-platform">Platform</label>
+                            <select id="caption-platform" class="form-input">
+                                <option value="instagram">Instagram</option>
+                                <option value="twitter">Twitter / X</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="youtube">YouTube</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="caption-tone">Tone</label>
+                            <select id="caption-tone" class="form-input">
+                                <option value="professional">Professional</option>
+                                <option value="casual">Casual</option>
+                                <option value="witty">Witty</option>
+                                <option value="inspirational">Inspirational</option>
+                                <option value="educational">Educational</option>
+                                <option value="promotional">Promotional</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 2rem; margin-bottom: 1.5rem;">
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.95rem; font-weight: 500;">
+                            <input type="checkbox" id="include-cta" checked style="width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;">
+                            Include Call-to-Action
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; font-size: 0.95rem; font-weight: 500;">
+                            <input type="checkbox" id="include-emojis" checked style="width: 18px; height: 18px; accent-color: var(--primary); cursor: pointer;">
+                            Include Emojis
+                        </label>
+                    </div>
+
+                    <button id="generate-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Captions</button>
+
+                    <div id="captions-output" style="display: none; margin-top: 2rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                                <h3 style="color: var(--text-main); margin: 0;">Generated Captions</h3>
+                                <span id="platform-badge" style="display: inline-block; padding: 0.25rem 0.75rem; background: var(--primary); color: white; border-radius: 20px; font-size: 0.8rem; font-weight: 600;"></span>
+                            </div>
+                            <div id="captions-container"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your topic or context in the text area. Be as specific as possible for better results.</li>
+                        <li>Select your target social media platform from the dropdown menu.</li>
+                        <li>Choose the tone that matches your brand voice or the mood of your post.</li>
+                        <li>Toggle the Call-to-Action and Emoji options based on your preference.</li>
+                        <li>Click "Generate Captions" and copy your favorite caption with one click.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the Caption Generator work?</h3>
+                        <p>The tool uses a sophisticated template engine with hundreds of hooks, body structures, and CTAs tailored to each platform and tone. It combines your topic with platform-specific patterns to produce engaging, ready-to-post captions with relevant hashtags.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are the generated captions unique?</h3>
+                        <p>Yes. Each generation produces three distinct captions by combining different hooks, body templates, and CTA styles. The randomization ensures variety every time you click generate, even with the same topic.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool respect platform character limits?</h3>
+                        <p>Absolutely. Each caption is generated with the target platform's character limit in mind. The character count indicator shows you exactly how long each caption is relative to the platform's maximum, so you know it will fit perfectly.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data private?</h3>
+                        <p>Yes. Everything runs entirely in your browser using client-side JavaScript. Your topics and generated captions are never sent to any server or stored anywhere.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/hashtag-generator" class="related-link">Hashtag Generator</a>
+                    <a href="/ai-tools/bio-generator" class="related-link">Bio Generator</a>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =============================================
+           CONFIGURATION: Platform limits & metadata
+           ============================================= */
+        var PLATFORMS = {
+            instagram: { name: 'Instagram', limit: 2200, style: 'long-form story', icon: 'IG' },
+            twitter:   { name: 'Twitter / X', limit: 280, style: 'concise punch', icon: 'X' },
+            linkedin:  { name: 'LinkedIn', limit: 3000, style: 'professional insight', icon: 'in' },
+            facebook:  { name: 'Facebook', limit: 63206, style: 'conversational', icon: 'FB' },
+            tiktok:    { name: 'TikTok', limit: 2200, style: 'trendy short', icon: 'TT' },
+            youtube:   { name: 'YouTube', limit: 5000, style: 'description', icon: 'YT' }
+        };
+
+        /* =============================================
+           HOOK TEMPLATES (per platform + tone)
+           ============================================= */
+        var HOOKS = {
+            instagram: {
+                professional: [
+                    'Here is what most people get wrong about {topic}.',
+                    'The truth about {topic} that nobody talks about.',
+                    'After years of working with {topic}, here is what I have learned.',
+                    '{topic} changed everything for us. Here is the full story.',
+                    'We studied {topic} for months. The results surprised us.'
+                ],
+                casual: [
+                    'Okay but can we talk about {topic} for a sec?',
+                    'POV: You just discovered the magic of {topic}.',
+                    'Not gonna lie, {topic} has been a total game-changer.',
+                    'This is your sign to finally try {topic}.',
+                    'Me and {topic}? It is a whole vibe.'
+                ],
+                witty: [
+                    'If {topic} were a person, I would swipe right immediately.',
+                    '{topic} walked so everything else could run.',
+                    'Plot twist: {topic} is the main character.',
+                    'Whoever said {topic} is overrated clearly has not tried it.',
+                    'Hot take: {topic} deserves its own holiday.'
+                ],
+                inspirational: [
+                    'Every great journey starts with a single step. Ours started with {topic}.',
+                    'They told us {topic} was impossible. We proved them wrong.',
+                    'Dream big, start small, act now. That is the power of {topic}.',
+                    'Sometimes all it takes is one idea to change everything. This is ours: {topic}.',
+                    'What if I told you {topic} could transform your entire perspective?'
+                ],
+                educational: [
+                    'Did you know? Most people misunderstand {topic} completely.',
+                    'Here are 3 things I wish I knew about {topic} sooner.',
+                    'The science behind {topic} is fascinating. Let me break it down.',
+                    'Stop scrolling. You need to know this about {topic}.',
+                    'Quick thread on {topic} that could save you hours of research.'
+                ],
+                promotional: [
+                    'Introducing something special: {topic}.',
+                    'We have been working on this for months. Meet {topic}.',
+                    'This is not just another product. This is {topic}, reimagined.',
+                    'The wait is over. {topic} is officially here.',
+                    'You asked, we delivered. Say hello to {topic}.'
+                ]
+            },
+            twitter: {
+                professional: [
+                    'Unpopular opinion: {topic} is the future.',
+                    'The biggest lesson from {topic}:',
+                    'Hot take on {topic} -',
+                    '{topic} is underrated. Here is why:',
+                    'One thing about {topic} nobody talks about:'
+                ],
+                casual: [
+                    '{topic} hits different.',
+                    'Thinking about {topic} and honestly',
+                    'Me discovering {topic}:',
+                    'Just tried {topic} and wow.',
+                    'Can we normalize talking about {topic} more?'
+                ],
+                witty: [
+                    '{topic} is carrying the entire industry on its back.',
+                    'If {topic} had a dating profile, I would match.',
+                    '{topic}: 10/10, no notes.',
+                    'My therapist says I talk about {topic} too much.',
+                    '{topic} just won the internet today.'
+                ],
+                inspirational: [
+                    'Never underestimate the power of {topic}.',
+                    '{topic} taught me that anything is possible.',
+                    'Small steps lead to big results. Start with {topic}.',
+                    'Your future self will thank you for embracing {topic} today.',
+                    'Believe in {topic}. Believe in yourself.'
+                ],
+                educational: [
+                    'Quick fact about {topic}:',
+                    'TIL about {topic} -',
+                    'Here is what most people miss about {topic}:',
+                    '{topic} explained in one tweet:',
+                    'The thing about {topic} is:'
+                ],
+                promotional: [
+                    'Just launched: {topic}.',
+                    '{topic} is live. Check it out.',
+                    'We built {topic} because you deserve better.',
+                    'Big news: {topic} is here.',
+                    'Introducing {topic} - you are going to love this.'
+                ]
+            },
+            linkedin: {
+                professional: [
+                    'I have spent the last 5 years working with {topic}. Here is what I have learned.',
+                    'The most overlooked aspect of {topic} in business today.',
+                    'After leading multiple projects involving {topic}, my biggest takeaway is this.',
+                    'Why {topic} should be on every leader\'s radar right now.',
+                    'The ROI of investing in {topic} is staggering. Let me share the data.'
+                ],
+                casual: [
+                    'Real talk: {topic} has completely shifted how I think about work.',
+                    'Had a conversation about {topic} yesterday that really made me think.',
+                    'I was skeptical about {topic} at first. Then this happened.',
+                    'Something I have been reflecting on lately: {topic}.',
+                    'Coffee thought of the day: {topic} is going to change the game.'
+                ],
+                witty: [
+                    'If {topic} sent a LinkedIn connection request, I would accept immediately.',
+                    'My skill endorsements wish they were as impressive as {topic}.',
+                    '{topic} is the co-worker everyone deserves.',
+                    'Forget hustle culture. {topic} is the real productivity hack.',
+                    '{topic} just made my "Top 10 Career Moves" list.'
+                ],
+                inspirational: [
+                    'Two years ago, I knew nothing about {topic}. Today, it defines my career.',
+                    'The best investment I ever made was not financial. It was learning about {topic}.',
+                    'When people said {topic} was a risk, I saw opportunity.',
+                    'Success is not a straight line. {topic} taught me that.',
+                    '{topic} reminded me why I started this journey in the first place.'
+                ],
+                educational: [
+                    'I analyzed 100+ case studies on {topic}. Here are the key insights.',
+                    '5 misconceptions about {topic} that are costing businesses millions.',
+                    'The data is clear: {topic} is transforming the industry. Here is how.',
+                    'A deep dive into {topic} that every professional needs to read.',
+                    'What the latest research tells us about {topic}.'
+                ],
+                promotional: [
+                    'Thrilled to announce: we are launching {topic}.',
+                    'After months of development, {topic} is ready for the world.',
+                    'Our team has poured their hearts into {topic}. Today, we share it with you.',
+                    'We saw a gap in the market. {topic} fills it perfectly.',
+                    'Proud to introduce {topic} to the professional community.'
+                ]
+            },
+            facebook: {
+                professional: [
+                    'Something we have learned about {topic} that we want to share with our community.',
+                    'We have been working hard on understanding {topic}, and the results are in.',
+                    'Big news about {topic} that we are excited to share.',
+                    '{topic} has been a game-changer for our team. Here is the story.',
+                    'Reflecting on our journey with {topic} and what it means going forward.'
+                ],
+                casual: [
+                    'Okay friends, let us talk about {topic}!',
+                    'Anyone else obsessed with {topic} or is it just us?',
+                    'Weekend vibes: thinking about {topic} and feeling good.',
+                    'Just had the BEST experience with {topic} and had to share.',
+                    'Tag someone who needs to know about {topic}!'
+                ],
+                witty: [
+                    '{topic} is the friend who always shows up with snacks.',
+                    'When someone asks me about {topic}, I pull up a chair.',
+                    'If {topic} were a Facebook status, it would be "It\'s Complicated" (in the best way).',
+                    '{topic}: because adulting is hard and we deserve nice things.',
+                    'Scientists confirm: {topic} is good for the soul. (Okay, maybe we made that up.)'
+                ],
+                inspirational: [
+                    'Sometimes the smallest changes create the biggest impact. That is {topic} for us.',
+                    'We started with a dream. {topic} made it a reality.',
+                    'Every day is a chance to grow. Today, we choose {topic}.',
+                    'The most meaningful things in life are not things. Unless it is {topic}.',
+                    'Sharing this because {topic} genuinely changed our perspective.'
+                ],
+                educational: [
+                    'Did you know this about {topic}? We were surprised too.',
+                    '5 things about {topic} that everyone should understand.',
+                    'Quick knowledge drop: {topic} is more important than you think.',
+                    'We did the research on {topic} so you do not have to.',
+                    'Here is what you need to know about {topic} right now.'
+                ],
+                promotional: [
+                    'It is finally here! Introducing {topic}.',
+                    'We are so excited to share {topic} with our amazing community.',
+                    'You have been asking for it. {topic} is now available!',
+                    'Something special is happening: {topic} just launched.',
+                    'Our newest creation is live: {topic}. Check it out!'
+                ]
+            },
+            tiktok: {
+                professional: [
+                    'Things about {topic} that will blow your mind',
+                    'The truth about {topic} no one talks about',
+                    'Wait for it... {topic} explained',
+                    '{topic} 101: what you NEED to know',
+                    'Why {topic} is about to change everything'
+                ],
+                casual: [
+                    'Me when I discovered {topic}',
+                    'Tell me you love {topic} without telling me you love {topic}',
+                    'POV: {topic} just entered the chat',
+                    'This is your sign to try {topic}',
+                    'Storytime: how {topic} changed my life'
+                ],
+                witty: [
+                    'When people say {topic} is overrated vs when they try it',
+                    '{topic} ate and left no crumbs',
+                    'The way {topic} just cleared my skin, watered my crops, and paid my bills',
+                    '{topic} understood the assignment',
+                    'Nobody: / Me talking about {topic}: *chef kiss*'
+                ],
+                inspirational: [
+                    'This is what happens when you believe in {topic}',
+                    'From zero to hero with {topic}',
+                    'Watch this if you need motivation about {topic}',
+                    '{topic} glow up that hits different',
+                    'Never give up on {topic}. Watch why.'
+                ],
+                educational: [
+                    'Things I wish I knew about {topic} sooner',
+                    '{topic} hack that actually works',
+                    'Wait... did you know this about {topic}?',
+                    'Replying to @viewer: {topic} explained',
+                    'How {topic} actually works (simplified)'
+                ],
+                promotional: [
+                    'We made {topic} and it is going viral',
+                    'Run do not walk: {topic} just dropped',
+                    '{topic} reveal - was it worth it?',
+                    'Testing {topic} so you do not have to',
+                    'Unboxing {topic} - first impressions'
+                ]
+            },
+            youtube: {
+                professional: [
+                    'The Complete Guide to {topic} - Everything You Need to Know',
+                    '{topic}: A Deep Dive Into What Really Works',
+                    'Why {topic} Matters More Than You Think | Full Breakdown',
+                    'I Spent 30 Days Studying {topic}. Here Are My Findings.',
+                    '{topic} Masterclass: From Beginner to Expert'
+                ],
+                casual: [
+                    'I Tried {topic} and Here Is What Happened...',
+                    'Let us Talk About {topic} (No Fluff, Just Real Talk)',
+                    '{topic} Vlog: My Honest Experience',
+                    'Everything Wrong (and Right) With {topic}',
+                    'Reacting to {topic} - I Was NOT Ready'
+                ],
+                witty: [
+                    'I Let {topic} Control My Life for 24 Hours',
+                    '{topic} But Make It Actually Entertaining',
+                    'The {topic} Video the Internet Did Not Know It Needed',
+                    'Rating {topic} on a Scale of "Meh" to "Mind-Blown"',
+                    'If {topic} Were a Movie, This Would Be the Trailer'
+                ],
+                inspirational: [
+                    'How {topic} Changed My Life (And How It Can Change Yours)',
+                    'The Incredible Story Behind {topic}',
+                    'From Nothing to {topic}: The Journey Nobody Expected',
+                    'Why I Bet Everything on {topic}',
+                    '{topic}: The Documentary Nobody Asked For But Everyone Needed'
+                ],
+                educational: [
+                    '{topic} Explained Simply in Under 10 Minutes',
+                    'The Science Behind {topic} | Research-Backed Analysis',
+                    '{topic} Tutorial: Step-by-Step Guide for Beginners',
+                    '10 Facts About {topic} That Will Change Your Perspective',
+                    'How {topic} Actually Works - The Full Explanation'
+                ],
+                promotional: [
+                    'Introducing {topic} - Official Launch Video',
+                    '{topic} Review: Is It Worth the Hype?',
+                    'Why We Created {topic} and Why You Need It',
+                    '{topic} Unboxed: First Look and Full Demo',
+                    'The Story Behind {topic} | Behind the Scenes'
+                ]
+            }
+        };
+
+        /* =============================================
+           BODY TEMPLATES (per platform)
+           ============================================= */
+        var BODIES = {
+            instagram: [
+                'We have been on quite the journey with {topic} and it has taught us so much along the way. From the early days of figuring things out to where we are now, every step has been worth it. The biggest takeaway? Consistency and authenticity always win.',
+                'There is something special about {topic} that just resonates deeply. When you pour your passion into something meaningful, the results speak for themselves. Here is what we discovered after going all-in.',
+                'Let me share something personal about our experience with {topic}. It was not always smooth sailing, but the challenges shaped us into who we are today. And honestly, we would not change a thing.',
+                'The story behind {topic} is one that needs to be told. It started with a simple idea, grew into something bigger than we imagined, and now it is making a real difference. Here is the full breakdown.',
+                'What if I told you that {topic} is just the beginning? We have been quietly working behind the scenes, and what comes next is going to blow your mind. Stay with us for this one.'
+            ],
+            twitter: [
+                'The key insight: {topic} works because it solves a real problem that people face every single day.',
+                'Biggest mistake people make with {topic}? Overcomplicating it. Keep it simple.',
+                'After deep-diving into {topic}, the takeaway is clear: start now, iterate later.',
+                '{topic} in a nutshell: less noise, more value.',
+                'Three words about {topic}: it just works.'
+            ],
+            linkedin: [
+                'In my experience, the most successful approach to {topic} comes down to three principles: clarity, consistency, and courage. Too many professionals overthink this. The data shows that those who take action, even imperfect action, outperform those who wait for the perfect moment.\n\nHere is what I have seen work repeatedly:\n- Start with a clear objective\n- Measure what matters, not what is easy\n- Iterate based on real feedback\n\nThe professionals who embrace {topic} early are positioning themselves for significant competitive advantage.',
+                'I recently had a conversation that completely shifted my perspective on {topic}. A colleague shared their experience implementing it at scale, and the results were remarkable.\n\nKey metrics improved by double digits. Team morale went up. Client satisfaction reached all-time highs.\n\nThe lesson? {topic} is not just a trend. It is a fundamental shift in how we approach our work. And the earlier you adapt, the better positioned you will be.',
+                'Let me be direct: if you are not paying attention to {topic}, you are already behind.\n\nI have seen firsthand how organizations that invest in {topic} outperform their competitors. The evidence is overwhelming.\n\nBut here is the nuance most people miss: it is not about adopting {topic} blindly. It is about understanding how it fits into your specific context and executing with intention.\n\nThe best leaders I know treat {topic} as a strategic advantage, not just another initiative.',
+                'Three years ago, I made a prediction about {topic}. Many disagreed.\n\nFast forward to today: the market has validated that prediction beyond my expectations.\n\nWhat I learned from this experience is that {topic} rewards those who combine vision with execution. It is not enough to see the future; you have to build it.\n\nFor anyone still on the fence about {topic}, consider this your wake-up call.',
+                'The conversation around {topic} has evolved significantly, and I think it is time we address the elephant in the room.\n\nMost advice about {topic} is recycled, generic, and frankly unhelpful. What professionals actually need is a framework they can apply immediately.\n\nHere is the framework I use, refined over years of hands-on experience with {topic}:\n\n1. Assess your current position honestly\n2. Identify the highest-leverage opportunities\n3. Execute relentlessly on the top three\n4. Review and adjust quarterly\n\nSimple? Yes. Easy? No. Effective? Absolutely.'
+            ],
+            facebook: [
+                'We are so excited to share this with our community! {topic} has been an incredible journey, and every single one of you has played a part in making it happen. Seriously, we could not have done this without your support and enthusiasm.\n\nHere is what makes {topic} special: it was built with real people in mind. Your feedback shaped every decision, and we are proud of what we have created together.',
+                'Hey everyone! We wanted to take a moment to talk about {topic} because it has been on our minds a lot lately. The response has been absolutely incredible, and we are genuinely blown away by how many of you have reached out to share your experiences.\n\nThe thing about {topic} is that it brings people together in the most unexpected ways. And that community aspect? That is what makes it all worth it.',
+                'Big update, friends! We have been working hard on {topic} and wanted to give you an inside look at what has been happening behind the scenes. Spoiler alert: it is pretty awesome.\n\nWhat started as a simple idea has grown into something we are truly proud of. {topic} represents our commitment to delivering real value, and we cannot wait for you to experience it.',
+                'Happy to share some thoughts on {topic} that we think you will find really valuable. We have been talking to so many of you about this, and the conversations have been amazing.\n\nThe bottom line is that {topic} has the potential to make a real difference in how we approach things. And we are here to make sure everyone has access to it.',
+                'This might be our favorite post yet. {topic} is something we have been passionate about for a long time, and today we finally get to share the full story with all of you.\n\nFrom the initial spark of inspiration to the countless hours of work, {topic} has been a labor of love. Thank you for being part of this journey with us.'
+            ],
+            tiktok: [
+                'You need to see this. {topic} is literally changing the game right now and most people have no idea.',
+                'Okay this is the {topic} content you have been waiting for. Trust the process.',
+                'Save this for later because {topic} is about to be your new obsession.',
+                'The fact that more people do not know about {topic} is actually wild.',
+                'This {topic} hack changed everything for me and I need everyone to know.'
+            ],
+            youtube: [
+                'In this video, we are going deep on {topic}. Whether you are a complete beginner or have some experience, this guide covers everything you need to know.\n\nWe will start with the fundamentals, break down the key concepts, and then show you real-world applications that you can implement immediately. No fluff, no filler, just actionable content about {topic} that you can use right away.\n\nTimestamps for your convenience are below.',
+                'Welcome back to the channel! Today we are tackling one of the most requested topics: {topic}. I have spent weeks researching, testing, and compiling everything into this comprehensive breakdown.\n\nWhat makes this different from other videos on {topic}? We are not just skimming the surface. We are going into the details that actually matter and showing you the strategies that produce real results.',
+                'If you have been curious about {topic}, this is the only video you need to watch. I have condensed hours of research into a clear, step-by-step guide that anyone can follow.\n\nBy the end of this video, you will have a complete understanding of {topic} and a clear action plan to move forward. Make sure to stick around until the end because the last point is the most important.',
+                'Today is a big one. We are finally covering {topic} in the detail it deserves. This has been one of the most requested topics on this channel, and I wanted to make sure I did it justice.\n\nHere is what we are covering: the basics, the advanced strategies, common mistakes to avoid, and real-world examples that illustrate exactly how {topic} works in practice.',
+                'Let me save you months of trial and error with {topic}. Everything I am about to share comes from hands-on experience and extensive research.\n\nI have made every mistake possible with {topic} so you do not have to. In this video, I am laying it all out: what works, what does not, and the exact steps I would follow if I were starting from scratch today.'
+            ]
+        };
+
+        /* =============================================
+           CTA TEMPLATES (per platform)
+           ============================================= */
+        var CTAS = {
+            instagram: [
+                'Double-tap if this resonates with you! Drop a comment below and let us know your thoughts.',
+                'Save this post for later and share it with someone who needs to see this today.',
+                'Follow us for more content like this. Hit the link in bio to learn more.',
+                'What do you think? Tell us in the comments! And do not forget to share.',
+                'Ready to take the next step? Link in bio. Tag a friend who would love this.',
+                'Agree or disagree? Let us hear your take in the comments below.'
+            ],
+            twitter: [
+                'RT if you agree.',
+                'Thoughts? Reply below.',
+                'Follow for more insights like this.',
+                'Drop a like if this resonated.',
+                'Bookmark this for later.',
+                'What is your take? Quote tweet this.'
+            ],
+            linkedin: [
+                'I would love to hear your perspective on this. What has been your experience? Share in the comments below.',
+                'If this resonated with you, consider sharing it with your network. Let us keep this conversation going.',
+                'Follow me for more insights on topics like this. And feel free to connect -- I always enjoy meeting like-minded professionals.',
+                'What would you add to this list? Drop your thoughts in the comments. The best insights often come from this community.',
+                'Agree? Disagree? Either way, I want to hear from you. The best conversations start with different perspectives.',
+                'If you found this valuable, hit the bell on my profile for future posts. And share your own experience in the comments.'
+            ],
+            facebook: [
+                'Like this post and share it with someone who needs to hear this today!',
+                'Drop a comment below and tell us what you think! We read every single one.',
+                'Share this with your friends and family -- they will thank you later!',
+                'Hit that share button and spread the word! Tag someone who would love this.',
+                'What are your thoughts? We would love to hear from you in the comments!',
+                'Follow our page for more content like this. And do not forget to share!'
+            ],
+            tiktok: [
+                'Follow for part 2!',
+                'Save this and thank me later.',
+                'Comment your experience below!',
+                'Share this with someone who needs it.',
+                'Follow for more content like this!',
+                'Stitch this with your reaction!'
+            ],
+            youtube: [
+                'If you found this helpful, smash the like button and subscribe for more content like this. Hit the bell so you never miss an upload.',
+                'Leave a comment below with your biggest takeaway. I read and respond to as many comments as I can.',
+                'Like, subscribe, and share this with someone who needs to see it. Links to everything mentioned are in the description below.',
+                'What topic should I cover next? Drop your suggestions in the comments. And if you are new here, welcome -- consider subscribing.',
+                'Thanks for watching! If this helped you, the best way to support the channel is to like, comment, and share. See you in the next one.'
+            ]
+        };
+
+        /* =============================================
+           HASHTAG DATABASE (by topic keywords)
+           ============================================= */
+        var HASHTAG_SETS = {
+            business: ['#Business', '#Entrepreneur', '#StartupLife', '#BusinessTips', '#CEO', '#SmallBusiness', '#GrowthMindset', '#BusinessStrategy'],
+            marketing: ['#Marketing', '#DigitalMarketing', '#ContentMarketing', '#MarketingTips', '#SocialMediaMarketing', '#BrandStrategy', '#MarketingStrategy', '#GrowthHacking'],
+            tech: ['#Tech', '#Technology', '#Innovation', '#AI', '#Coding', '#TechNews', '#Developer', '#FutureTech'],
+            fitness: ['#Fitness', '#FitLife', '#Workout', '#GymMotivation', '#HealthyLifestyle', '#FitnessGoals', '#TrainHard', '#FitFam'],
+            health: ['#Health', '#Wellness', '#HealthyLiving', '#SelfCare', '#MentalHealth', '#Nutrition', '#HealthTips', '#WellnessJourney'],
+            food: ['#Foodie', '#FoodLover', '#Cooking', '#Recipe', '#Delicious', '#HomeCooking', '#FoodPhotography', '#EatClean'],
+            travel: ['#Travel', '#Wanderlust', '#TravelGram', '#Explore', '#Adventure', '#TravelPhotography', '#Vacation', '#TravelTips'],
+            fashion: ['#Fashion', '#Style', '#OOTD', '#FashionBlogger', '#StyleInspo', '#Trendy', '#FashionTrends', '#LookOfTheDay'],
+            beauty: ['#Beauty', '#Skincare', '#MakeupLover', '#BeautyTips', '#GlowUp', '#SkincareRoutine', '#BeautyCommunity', '#NaturalBeauty'],
+            education: ['#Education', '#Learning', '#Knowledge', '#StudyTips', '#EdTech', '#OnlineLearning', '#LifelongLearning', '#LearnSomethingNew'],
+            motivation: ['#Motivation', '#Inspiration', '#MindsetMatters', '#Success', '#Goals', '#DreamBig', '#NeverGiveUp', '#PositiveVibes'],
+            photography: ['#Photography', '#PhotoOfTheDay', '#VisualArt', '#Creative', '#Camera', '#Photographer', '#InstaPhoto', '#StreetPhotography'],
+            nature: ['#Nature', '#NatureLovers', '#Outdoors', '#NaturePhotography', '#Earth', '#GreenLiving', '#WildLife', '#NaturalBeauty'],
+            music: ['#Music', '#MusicLover', '#NewMusic', '#MusicLife', '#Playlist', '#Acoustic', '#MusicIsLife', '#NowPlaying'],
+            art: ['#Art', '#Artist', '#ArtWork', '#Creative', '#DigitalArt', '#ArtCommunity', '#ContemporaryArt', '#ArtDaily'],
+            finance: ['#Finance', '#Investing', '#MoneyTips', '#FinancialFreedom', '#WealthBuilding', '#PersonalFinance', '#StockMarket', '#MoneyMatters'],
+            sustainability: ['#Sustainability', '#EcoFriendly', '#GreenLiving', '#ClimateAction', '#Sustainable', '#ZeroWaste', '#EcoConscious', '#GoGreen'],
+            lifestyle: ['#Lifestyle', '#LifeGoals', '#DailyInspiration', '#LiveYourBestLife', '#Mindfulness', '#HappyLife', '#LifeHacks', '#Balanced'],
+            product: ['#NewProduct', '#ProductLaunch', '#Innovation', '#MustHave', '#Trending', '#JustLaunched', '#ProductReview', '#NewRelease'],
+            social: ['#Community', '#Together', '#ShareTheLove', '#Support', '#Connection', '#Gratitude', '#Kindness', '#SpreadLove']
+        };
+
+        var PLATFORM_HASHTAGS = {
+            instagram: ['#InstaGood', '#Instagram', '#Reels', '#InstaDaily', '#ExplorePage'],
+            twitter: ['#TwitterThread', '#Thread', '#TechTwitter'],
+            linkedin: ['#LinkedIn', '#Networking', '#CareerGrowth', '#ProfessionalDevelopment', '#Leadership'],
+            facebook: ['#Facebook', '#Community', '#Share', '#FeelGood'],
+            tiktok: ['#TikTok', '#FYP', '#ForYou', '#Viral', '#TikTokMadeMeBuyIt', '#Trending'],
+            youtube: ['#YouTube', '#YouTuber', '#Subscribe', '#VideoOfTheDay', '#Tutorial']
+        };
+
+        /* =============================================
+           EMOJI MAP (by topic keywords)
+           ============================================= */
+        var EMOJI_MAP = {
+            business: ['\u{1F4BC}', '\u{1F4C8}', '\u{1F4B0}', '\u{1F3AF}', '\u{1F680}'],
+            marketing: ['\u{1F4E3}', '\u{1F4CA}', '\u{1F3AF}', '\u{2728}', '\u{1F4A1}'],
+            tech: ['\u{1F4BB}', '\u{1F916}', '\u{2699}\uFE0F', '\u{1F680}', '\u{1F4F1}'],
+            fitness: ['\u{1F4AA}', '\u{1F3CB}\uFE0F', '\u{1F525}', '\u{1F947}', '\u{1F6B4}'],
+            health: ['\u{1F49A}', '\u{1F33F}', '\u{1F9D8}', '\u{2764}\uFE0F', '\u{1F34E}'],
+            food: ['\u{1F37D}\uFE0F', '\u{1F468}\u200D\u{1F373}', '\u{1F60B}', '\u{1F355}', '\u{2615}'],
+            travel: ['\u{2708}\uFE0F', '\u{1F30D}', '\u{1F3D6}\uFE0F', '\u{1F5FA}\uFE0F', '\u{1F9F3}'],
+            fashion: ['\u{1F457}', '\u{1F460}', '\u{2728}', '\u{1F484}', '\u{1F45C}'],
+            beauty: ['\u{2728}', '\u{1F338}', '\u{1F484}', '\u{1F48E}', '\u{1F31F}'],
+            education: ['\u{1F4DA}', '\u{1F393}', '\u{270F}\uFE0F', '\u{1F4A1}', '\u{1F9E0}'],
+            motivation: ['\u{1F525}', '\u{1F4AA}', '\u{2B50}', '\u{1F680}', '\u{1F31F}'],
+            photography: ['\u{1F4F7}', '\u{1F3A8}', '\u{1F305}', '\u{2728}', '\u{1F4F8}'],
+            nature: ['\u{1F33F}', '\u{1F333}', '\u{1F30E}', '\u{1F338}', '\u{2600}\uFE0F'],
+            music: ['\u{1F3B5}', '\u{1F3B6}', '\u{1F3A4}', '\u{1F3B8}', '\u{1F3A7}'],
+            art: ['\u{1F3A8}', '\u{1F58C}\uFE0F', '\u{2728}', '\u{1F308}', '\u{1F5BC}\uFE0F'],
+            finance: ['\u{1F4B0}', '\u{1F4C8}', '\u{1F4B5}', '\u{1F3E6}', '\u{1F4B3}'],
+            sustainability: ['\u{1F33F}', '\u{267B}\uFE0F', '\u{1F30D}', '\u{1F331}', '\u{1F49A}'],
+            launch: ['\u{1F680}', '\u{1F389}', '\u{1F31F}', '\u{2728}', '\u{1F4E2}'],
+            love: ['\u{2764}\uFE0F', '\u{1F496}', '\u{1F970}', '\u{1F49D}', '\u{1F618}'],
+            celebration: ['\u{1F389}', '\u{1F38A}', '\u{1F973}', '\u{2728}', '\u{1F382}'],
+            default: ['\u{2728}', '\u{1F4A1}', '\u{1F525}', '\u{1F31F}', '\u{1F680}', '\u{1F3AF}', '\u{1F4DD}']
+        };
+
+        /* =============================================
+           UTILITY FUNCTIONS
+           ============================================= */
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function pickRandomN(arr, n) {
+            var shuffled = arr.slice().sort(function() { return 0.5 - Math.random(); });
+            return shuffled.slice(0, n);
+        }
+
+        function pickUniqueN(arr, n, exclude) {
+            var filtered = arr.filter(function(item) { return exclude.indexOf(item) === -1; });
+            if (filtered.length < n) filtered = arr.slice();
+            return pickRandomN(filtered, n);
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function extractTopicKeyword(topic) {
+            var lower = topic.toLowerCase();
+            var keywords = Object.keys(HASHTAG_SETS);
+            var matched = [];
+            for (var i = 0; i < keywords.length; i++) {
+                if (lower.indexOf(keywords[i]) !== -1) {
+                    matched.push(keywords[i]);
+                }
+            }
+            /* Check for related words */
+            var relatedMap = {
+                business: ['company', 'startup', 'enterprise', 'brand', 'corporate', 'b2b', 'saas', 'agency'],
+                marketing: ['campaign', 'ads', 'advertising', 'seo', 'branding', 'content', 'audience', 'engagement'],
+                tech: ['software', 'app', 'digital', 'computer', 'ai', 'data', 'code', 'programming', 'website', 'platform'],
+                fitness: ['gym', 'exercise', 'workout', 'training', 'muscle', 'sports', 'running', 'yoga'],
+                health: ['wellness', 'mental', 'nutrition', 'diet', 'organic', 'medical', 'vitamins'],
+                food: ['recipe', 'cooking', 'restaurant', 'meal', 'cuisine', 'baking', 'chef', 'kitchen', 'eat'],
+                travel: ['vacation', 'trip', 'explore', 'adventure', 'destination', 'tourism', 'flight', 'hotel', 'beach', 'mountain'],
+                fashion: ['clothing', 'outfit', 'wear', 'dress', 'apparel', 'designer', 'wardrobe', 'trend'],
+                beauty: ['skincare', 'makeup', 'cosmetic', 'glow', 'routine', 'serum', 'moisturizer'],
+                education: ['learn', 'study', 'course', 'school', 'university', 'teaching', 'tutorial', 'training'],
+                motivation: ['inspire', 'dream', 'goal', 'success', 'mindset', 'growth', 'achieve', 'ambition'],
+                finance: ['money', 'invest', 'stock', 'wealth', 'budget', 'saving', 'crypto', 'economy'],
+                sustainability: ['eco', 'green', 'environment', 'climate', 'renewable', 'recycle', 'carbon', 'planet'],
+                product: ['launch', 'release', 'new product', 'introducing', 'just launched', 'unveil', 'announce'],
+                photography: ['photo', 'camera', 'portrait', 'landscape', 'shoot'],
+                nature: ['outdoor', 'garden', 'forest', 'ocean', 'park', 'wildlife'],
+                music: ['song', 'album', 'playlist', 'concert', 'artist', 'band'],
+                art: ['creative', 'design', 'illustration', 'painting', 'gallery']
+            };
+            var relKeys = Object.keys(relatedMap);
+            for (var r = 0; r < relKeys.length; r++) {
+                if (matched.indexOf(relKeys[r]) === -1) {
+                    var relWords = relatedMap[relKeys[r]];
+                    for (var w = 0; w < relWords.length; w++) {
+                        if (lower.indexOf(relWords[w]) !== -1) {
+                            matched.push(relKeys[r]);
+                            break;
+                        }
+                    }
+                }
+            }
+            if (matched.length === 0) matched.push('lifestyle');
+            return matched;
+        }
+
+        function getEmojis(topic, count) {
+            var categories = extractTopicKeyword(topic);
+            var allEmojis = [];
+            for (var i = 0; i < categories.length; i++) {
+                var emojis = EMOJI_MAP[categories[i]] || [];
+                allEmojis = allEmojis.concat(emojis);
+            }
+            if (allEmojis.length === 0) allEmojis = EMOJI_MAP['default'];
+            /* Deduplicate */
+            var unique = [];
+            for (var j = 0; j < allEmojis.length; j++) {
+                if (unique.indexOf(allEmojis[j]) === -1) unique.push(allEmojis[j]);
+            }
+            return pickRandomN(unique, count);
+        }
+
+        function getHashtags(topic, platform, count) {
+            var categories = extractTopicKeyword(topic);
+            var allTags = [];
+            for (var i = 0; i < categories.length; i++) {
+                var tags = HASHTAG_SETS[categories[i]] || [];
+                allTags = allTags.concat(tags);
+            }
+            /* Add platform-specific hashtags */
+            var platTags = PLATFORM_HASHTAGS[platform] || [];
+            allTags = allTags.concat(platTags);
+            /* Deduplicate */
+            var unique = [];
+            for (var j = 0; j < allTags.length; j++) {
+                if (unique.indexOf(allTags[j]) === -1) unique.push(allTags[j]);
+            }
+            return pickRandomN(unique, count);
+        }
+
+        function fillTemplate(template, topic) {
+            return template.replace(/\{topic\}/g, topic);
+        }
+
+        function shortenForTwitter(text, maxLen) {
+            if (text.length <= maxLen) return text;
+            /* Trim at last space before limit */
+            var trimmed = text.substring(0, maxLen - 3);
+            var lastSpace = trimmed.lastIndexOf(' ');
+            if (lastSpace > maxLen * 0.5) trimmed = trimmed.substring(0, lastSpace);
+            return trimmed + '...';
+        }
+
+        /* =============================================
+           CAPTION GENERATION ENGINE
+           ============================================= */
+        function generateCaptions(topic, platform, tone, includeCta, includeEmojis) {
+            var platformConf = PLATFORMS[platform];
+            var hooks = HOOKS[platform][tone] || HOOKS[platform]['professional'];
+            var bodies = BODIES[platform];
+            var ctas = CTAS[platform];
+
+            var captions = [];
+            var usedHookIndices = [];
+            var usedBodyIndices = [];
+
+            for (var c = 0; c < 3; c++) {
+                /* Pick unique hook */
+                var hookIdx;
+                var attempts = 0;
+                do {
+                    hookIdx = Math.floor(Math.random() * hooks.length);
+                    attempts++;
+                } while (usedHookIndices.indexOf(hookIdx) !== -1 && attempts < 20);
+                usedHookIndices.push(hookIdx);
+
+                /* Pick unique body */
+                var bodyIdx;
+                attempts = 0;
+                do {
+                    bodyIdx = Math.floor(Math.random() * bodies.length);
+                    attempts++;
+                } while (usedBodyIndices.indexOf(bodyIdx) !== -1 && attempts < 20);
+                usedBodyIndices.push(bodyIdx);
+
+                var hook = fillTemplate(hooks[hookIdx], topic);
+                var body = fillTemplate(bodies[bodyIdx], topic);
+                var cta = includeCta ? pickRandom(ctas) : '';
+
+                /* Build caption based on platform style */
+                var captionParts = [];
+                var hashtagCount = platform === 'twitter' ? 3 : (platform === 'tiktok' ? 5 : 6);
+                var hashtags = getHashtags(topic, platform, hashtagCount);
+                var hashtagStr = hashtags.join(' ');
+
+                if (includeEmojis) {
+                    var emojis = getEmojis(topic, 4);
+                    if (platform === 'twitter') {
+                        /* Twitter: emoji at start or end, keep it short */
+                        captionParts.push(emojis[0] + ' ' + hook);
+                        captionParts.push(body);
+                        if (cta) captionParts.push(cta + ' ' + emojis[1]);
+                    } else if (platform === 'tiktok') {
+                        /* TikTok: emoji-heavy */
+                        captionParts.push(emojis[0] + ' ' + hook + ' ' + emojis[1]);
+                        captionParts.push(body + ' ' + emojis[2]);
+                        if (cta) captionParts.push(cta + ' ' + emojis[3]);
+                    } else if (platform === 'linkedin') {
+                        /* LinkedIn: subtle emoji use */
+                        captionParts.push(emojis[0] + ' ' + hook);
+                        captionParts.push(body);
+                        if (cta) captionParts.push(cta);
+                    } else if (platform === 'youtube') {
+                        /* YouTube: emojis in description */
+                        captionParts.push(emojis[0] + ' ' + hook);
+                        captionParts.push(body);
+                        if (cta) captionParts.push(emojis[1] + ' ' + cta);
+                    } else {
+                        /* Instagram, Facebook: rich emoji use */
+                        captionParts.push(emojis[0] + ' ' + hook + ' ' + emojis[1]);
+                        captionParts.push(body);
+                        if (cta) captionParts.push(emojis[2] + ' ' + cta);
+                    }
+                } else {
+                    captionParts.push(hook);
+                    captionParts.push(body);
+                    if (cta) captionParts.push(cta);
+                }
+
+                var fullCaption = captionParts.join('\n\n');
+
+                /* Add hashtags */
+                if (platform === 'twitter') {
+                    fullCaption = fullCaption + '\n\n' + hashtagStr;
+                    /* Enforce Twitter limit */
+                    fullCaption = shortenForTwitter(fullCaption, platformConf.limit);
+                } else {
+                    fullCaption = fullCaption + '\n\n' + hashtagStr;
+                }
+
+                captions.push({
+                    number: c + 1,
+                    hook: hook,
+                    full: fullCaption,
+                    charCount: fullCaption.length,
+                    limit: platformConf.limit,
+                    platform: platformConf.name
+                });
+            }
+
+            return captions;
+        }
+
+        /* =============================================
+           DOM ELEMENTS
+           ============================================= */
+        var topicEl = document.getElementById('caption-topic');
+        var topicCharCount = document.getElementById('topic-char-count');
+        var platformEl = document.getElementById('caption-platform');
+        var toneEl = document.getElementById('caption-tone');
+        var ctaEl = document.getElementById('include-cta');
+        var emojiEl = document.getElementById('include-emojis');
+        var generateBtn = document.getElementById('generate-btn');
+        var outputEl = document.getElementById('captions-output');
+        var containerEl = document.getElementById('captions-container');
+        var platformBadge = document.getElementById('platform-badge');
+
+        /* Live character count for topic */
+        topicEl.addEventListener('input', function() {
+            topicCharCount.textContent = topicEl.value.length + ' characters';
+        });
+
+        /* =============================================
+           RENDER CAPTIONS
+           ============================================= */
+        function renderCaptions(captions) {
+            containerEl.innerHTML = '';
+
+            for (var i = 0; i < captions.length; i++) {
+                var cap = captions[i];
+                var overLimit = cap.charCount > cap.limit;
+                var percentage = Math.min(100, Math.round((cap.charCount / cap.limit) * 100));
+                var barColor = percentage < 70 ? 'var(--accent)' : (percentage < 90 ? '#f59e0b' : '#ef4444');
+
+                var card = document.createElement('div');
+                card.style.cssText = 'background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.5rem; margin-bottom: 1rem; position: relative;';
+
+                var headerHtml = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">'
+                    + '<span style="font-weight: 700; font-size: 0.9rem; color: var(--primary);">Caption ' + cap.number + '</span>'
+                    + '<button class="btn btn-outline copy-caption-btn" style="padding: 0.4rem 0.75rem; font-size: 0.8rem;" data-index="' + i + '">Copy</button>'
+                    + '</div>';
+
+                var captionHtml = '<pre style="white-space: pre-wrap; word-wrap: break-word; font-family: inherit; font-size: 0.925rem; line-height: 1.7; color: var(--text-main); margin: 0; background: var(--card-bg); padding: 1rem; border-radius: var(--radius-sm); border: 1px solid var(--border);">'
+                    + escapeHtml(cap.full)
+                    + '</pre>';
+
+                var charCountHtml = '<div style="margin-top: 0.75rem;">'
+                    + '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">'
+                    + '<span style="font-size: 0.8rem; color: var(--text-muted);">' + cap.charCount + ' / ' + cap.limit + ' characters</span>'
+                    + '<span style="font-size: 0.8rem; font-weight: 600; color: ' + (overLimit ? '#ef4444' : 'var(--accent)') + ';">'
+                    + (overLimit ? 'Over limit' : percentage + '% used') + '</span>'
+                    + '</div>'
+                    + '<div style="width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">'
+                    + '<div style="width: ' + percentage + '%; height: 100%; background: ' + barColor + '; border-radius: 3px; transition: width 0.3s;"></div>'
+                    + '</div>'
+                    + '</div>';
+
+                card.innerHTML = headerHtml + captionHtml + charCountHtml;
+                containerEl.appendChild(card);
+            }
+
+            /* Attach copy handlers */
+            var copyBtns = containerEl.querySelectorAll('.copy-caption-btn');
+            for (var j = 0; j < copyBtns.length; j++) {
+                (function(btn, idx) {
+                    btn.addEventListener('click', function() {
+                        var text = captions[idx].full;
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText(text).then(function() {
+                                btn.textContent = 'Copied!';
+                                btn.style.background = 'var(--accent)';
+                                btn.style.color = 'white';
+                                btn.style.borderColor = 'var(--accent)';
+                                setTimeout(function() {
+                                    btn.textContent = 'Copy';
+                                    btn.style.background = '';
+                                    btn.style.color = '';
+                                    btn.style.borderColor = '';
+                                }, 2000);
+                            });
+                        } else {
+                            var textarea = document.createElement('textarea');
+                            textarea.value = text;
+                            textarea.style.position = 'fixed';
+                            textarea.style.opacity = '0';
+                            document.body.appendChild(textarea);
+                            textarea.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(textarea);
+                            btn.textContent = 'Copied!';
+                            btn.style.background = 'var(--accent)';
+                            btn.style.color = 'white';
+                            btn.style.borderColor = 'var(--accent)';
+                            setTimeout(function() {
+                                btn.textContent = 'Copy';
+                                btn.style.background = '';
+                                btn.style.color = '';
+                                btn.style.borderColor = '';
+                            }, 2000);
+                        }
+                    });
+                })(copyBtns[j], parseInt(copyBtns[j].getAttribute('data-index'), 10));
+            }
+        }
+
+        /* =============================================
+           GENERATE BUTTON HANDLER
+           ============================================= */
+        generateBtn.addEventListener('click', function() {
+            var topic = topicEl.value.trim();
+
+            if (!topic) {
+                outputEl.style.display = 'block';
+                containerEl.innerHTML = '<div style="text-align: center; padding: 1.5rem;"><p style="color: #ef4444; margin: 0; font-weight: 500;">Please enter a topic or context to generate captions.</p></div>';
+                platformBadge.textContent = '';
+                return;
+            }
+
+            if (topic.length < 5) {
+                outputEl.style.display = 'block';
+                containerEl.innerHTML = '<div style="text-align: center; padding: 1.5rem;"><p style="color: #ef4444; margin: 0; font-weight: 500;">Please provide more detail about your topic for better captions (at least 5 characters).</p></div>';
+                platformBadge.textContent = '';
+                return;
+            }
+
+            var platform = platformEl.value;
+            var tone = toneEl.value;
+            var includeCta = ctaEl.checked;
+            var includeEmojis = emojiEl.checked;
+
+            /* Animate button */
+            generateBtn.textContent = 'Generating...';
+            generateBtn.disabled = true;
+
+            setTimeout(function() {
+                var captions = generateCaptions(topic, platform, tone, includeCta, includeEmojis);
+
+                platformBadge.textContent = PLATFORMS[platform].name;
+                outputEl.style.display = 'block';
+                renderCaptions(captions);
+
+                generateBtn.textContent = 'Regenerate Captions';
+                generateBtn.disabled = false;
+
+                /* Scroll to output */
+                outputEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 400);
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

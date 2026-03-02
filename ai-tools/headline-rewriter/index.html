@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headline Rewriter - Rewrite Headlines for Maximum Impact | ToolsNest</title>
+    <meta name="description" content="Rewrite any headline in 8 powerful styles: SEO, emotional, question-based, listicle, and more. Analyze headline strength. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/headline-rewriter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Headline Rewriter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Headline Rewriter</h1>
+                <p class="text-center mb-3">Transform any headline into 8 high-converting variations. Analyze emotional impact, readability, and SEO potential of your headlines.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="headline-input">Enter Your Headline</label>
+                        <input type="text" id="headline-input" class="form-input" placeholder="e.g. How to Increase Your Website Traffic This Year" maxlength="300">
+                        <p id="char-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 / 300 characters</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="audience-select">Target Audience</label>
+                        <select id="audience-select" class="form-input">
+                            <option value="general">General</option>
+                            <option value="professionals">Professionals</option>
+                            <option value="students">Students</option>
+                            <option value="marketers">Marketers</option>
+                            <option value="developers">Developers</option>
+                            <option value="entrepreneurs">Entrepreneurs</option>
+                        </select>
+                    </div>
+
+                    <button id="rewrite-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Rewrite Headline</button>
+
+                    <!-- Original Headline Analysis -->
+                    <div id="analysis-section" style="display: none; margin-top: 2rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Original Headline Analysis</h3>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem;">
+                                <div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <div id="analysis-words" style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">0</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Word Count</div>
+                                </div>
+                                <div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <div id="analysis-chars" style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">0</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Characters</div>
+                                </div>
+                                <div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <div id="analysis-emotion" style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">0</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Emotional Score</div>
+                                </div>
+                                <div style="background: var(--bg-color); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <div id="analysis-readability" style="font-size: 1.75rem; font-weight: 700; color: var(--primary);">--</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Readability</div>
+                                </div>
+                            </div>
+                            <div id="analysis-power-words" style="margin-top: 1rem; padding: 0.75rem 1rem; background: var(--bg-color); border-radius: var(--radius-sm); font-size: 0.9rem;"></div>
+                            <div id="analysis-structure" style="margin-top: 0.5rem; padding: 0.75rem 1rem; background: var(--bg-color); border-radius: var(--radius-sm); font-size: 0.9rem;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Headline Variations Output -->
+                    <div id="variations-section" style="display: none; margin-top: 2rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">8 Headline Variations</h3>
+                            <div id="variations-grid"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your original headline in the text field above. It can be a blog title, email subject line, social media post, or any heading.</li>
+                        <li>Select your target audience from the dropdown to tailor the tone and vocabulary of the rewrites.</li>
+                        <li>Click "Rewrite Headline" to instantly generate 8 different variations in styles such as SEO-optimized, question-based, listicle, emotional, and more.</li>
+                        <li>Review the analysis of your original headline including word count, emotional score, readability grade, and detected power words.</li>
+                        <li>Click the copy button on any variation to copy it to your clipboard for immediate use.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the headline rewriter generate variations?</h3>
+                        <p>The tool uses a client-side NLP-style algorithm that parses your headline to identify the subject, verb, and object. It then applies eight distinct rewriting strategies -- SEO optimization, question formatting, how-to conversion, listicle numbering, emotional power words, curiosity gaps, benefit-driven framing, and direct conciseness -- to produce unique variations tailored to your chosen audience.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the emotional score and how is it calculated?</h3>
+                        <p>The emotional score ranges from 0 to 100 and measures how emotionally compelling your headline is. It is calculated based on the density of power words (words scientifically shown to trigger emotional responses) relative to total word count. Headlines scoring above 50 tend to generate significantly higher click-through rates.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data private when using this tool?</h3>
+                        <p>Yes, completely. This headline rewriter runs entirely in your browser using client-side JavaScript. No text is sent to any server, no API calls are made, and nothing is stored. Your headlines remain fully private.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What types of headlines work best with this tool?</h3>
+                        <p>The tool works well with blog post titles, email subject lines, social media captions, YouTube video titles, ad copy headlines, and landing page headers. For best results, enter headlines that are at least 4-5 words long and convey a clear topic or message.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/caption-generator" class="related-link">Caption Generator</a>
+                    <a href="/ai-tools/essay-outline-generator" class="related-link">Essay Outline Generator</a>
+                    <a href="/ai-tools/prompt-improver" class="related-link">Prompt Improver</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =============================================
+           POWER WORDS DATABASE (120+ words)
+           ============================================= */
+        var powerWords = [
+            'absolutely','amazing','astonishing','astounding','audacious','authentic',
+            'backstage','banned','bargain','battle','become','before','behind','believe',
+            'best','beware','big','billion','bizarre','blast','blockbuster','bold',
+            'bonus','boost','breakthrough','brilliant','brutal',
+            'captivating','catastrophe','certain','challenge','cheap','cheat','claim',
+            'compelling','complete','confession','confidential','controversial','convert',
+            'crazy','critical','crush','curious',
+            'dangerous','daring','deadly','definitive','delightful','demand','desperate',
+            'destroy','devastating','discover','dominant','double','dramatic',
+            'effortless','elite','emerging','emotional','epic','essential','evergreen',
+            'evil','exactly','excellent','exceptional','exclusive','expert','exploit',
+            'explosive','extraordinary','extreme',
+            'fail','famous','fantastic','fascinating','fearless','finally','first',
+            'forbidden','formula','fortune','free','frenzy','frightening','fuel',
+            'genius','genuine','giant','gorgeous','guaranteed','guide',
+            'hack','hate','hidden','highest','hilarious','honest','horrible','huge',
+            'hurry','hypnotic',
+            'illegal','immediately','immense','impact','important','impossible',
+            'impressive','incredible','indispensable','infallible','influence',
+            'innovative','insider','inspiring','instant','insane','intense','irresistible',
+            'jaw-dropping',
+            'killer','knockout',
+            'launch','legendary','lethal','leverage','lifetime','limited','little-known',
+            'lucrative','luxury',
+            'magic','magnificent','massive','master','maximize','mega','mesmerizing',
+            'mind-blowing','miracle','mistake','money','monster','monumental',
+            'must','mysterious',
+            'never','new','next','nightmare','notable','notorious','now',
+            'obsession','official','outstanding','overcome',
+            'panic','passionate','pathetic','perfect','peril','phenomenal','pioneer',
+            'platinum','plunge','powerful','premium','private','profit','profound',
+            'promise','proven','provocative','pummel',
+            'quadruple','quick',
+            'rare','real','reckless','remarkable','report','results','reveal',
+            'revolutionary','ridiculous','risky','ruthless',
+            'sacred','savage','scam','scarce','scary','secret','sensational','shocking',
+            'simple','skyrocket','slay','smart','smuggled','sneak','soaring','solution',
+            'spectacular','spine-tingling','staggering','steal','stop','strange',
+            'stunning','stupid','succeed','super','superior','supreme','surge',
+            'surprising','survive','suspicious',
+            'taboo','tailored','tempting','terrifying','thrilling','top','toxic',
+            'transform','treasure','tremendous','trending','trick','trigger','triumph',
+            'truth','turbocharge',
+            'ultimate','unbelievable','unconventional','undeniable','underground',
+            'unexpected','unforgettable','unique','unleash','unlimited','unprecedented',
+            'unstoppable','untapped','untold','unveiled','upgrade','urgent',
+            'valuable','vanish','verified','victorious','viral','vital',
+            'warning','weird','wild','wonderful','worry',
+            'x-factor',
+            'yes',
+            'zero','zinger'
+        ];
+
+        var powerWordsSet = {};
+        for (var i = 0; i < powerWords.length; i++) {
+            powerWordsSet[powerWords[i]] = true;
+        }
+
+        /* =============================================
+           AUDIENCE-SPECIFIC VOCABULARY
+           ============================================= */
+        var audienceConfig = {
+            general: {
+                verbs: ['discover','learn','find out','unlock','master','explore','get'],
+                adjectives: ['amazing','simple','essential','powerful','easy','smart','proven'],
+                prefixes: ['The Ultimate','The Complete','The Essential','The Smart','Your Complete']
+            },
+            professionals: {
+                verbs: ['optimize','leverage','implement','streamline','accelerate','scale','execute'],
+                adjectives: ['strategic','data-driven','high-impact','scalable','efficient','proven','advanced'],
+                prefixes: ['The Professional\'s','The Executive','The Strategic','The Data-Driven','The Advanced']
+            },
+            students: {
+                verbs: ['ace','master','learn','study','understand','memorize','conquer'],
+                adjectives: ['easy','quick','beginner-friendly','step-by-step','simple','practical','fun'],
+                prefixes: ['The Student\'s','The Beginner\'s','The Easy','The Quick','Your Study']
+            },
+            marketers: {
+                verbs: ['convert','optimize','scale','boost','skyrocket','amplify','dominate'],
+                adjectives: ['high-converting','viral','data-driven','ROI-focused','proven','explosive','game-changing'],
+                prefixes: ['The Marketer\'s','The Growth','The Conversion','The ROI-Driven','The Viral']
+            },
+            developers: {
+                verbs: ['build','deploy','debug','architect','refactor','automate','ship'],
+                adjectives: ['clean','efficient','scalable','performant','robust','production-ready','modern'],
+                prefixes: ['The Developer\'s','The Technical','The Clean Code','The Full-Stack','The Modern']
+            },
+            entrepreneurs: {
+                verbs: ['launch','scale','bootstrap','disrupt','monetize','build','grow'],
+                adjectives: ['profitable','scalable','game-changing','disruptive','lean','breakthrough','million-dollar'],
+                prefixes: ['The Founder\'s','The Startup','The Bootstrap','The Growth','The Lean']
+            }
+        };
+
+        /* =============================================
+           STYLE CONFIGURATION
+           ============================================= */
+        var styleConfig = [
+            { id: 'seo',       label: 'SEO Optimized',      color: '#2563EB', bgColor: '#EFF6FF' },
+            { id: 'question',  label: 'Question-Based',     color: '#7C3AED', bgColor: '#F5F3FF' },
+            { id: 'howto',     label: 'How-To Format',      color: '#059669', bgColor: '#ECFDF5' },
+            { id: 'listicle',  label: 'Listicle / Number',  color: '#D97706', bgColor: '#FFFBEB' },
+            { id: 'emotional', label: 'Emotional / Power',  color: '#DC2626', bgColor: '#FEF2F2' },
+            { id: 'curiosity', label: 'Curiosity Gap',      color: '#DB2777', bgColor: '#FDF2F8' },
+            { id: 'benefit',   label: 'Benefit-Driven',     color: '#0891B2', bgColor: '#ECFEFF' },
+            { id: 'direct',    label: 'Direct / Concise',   color: '#4B5563', bgColor: '#F3F4F6' }
+        ];
+
+        /* =============================================
+           UTILITY FUNCTIONS
+           ============================================= */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','as','if','also','about','into','there'
+        ]);
+
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 0;
+            });
+        }
+
+        function capitalize(str) {
+            if (!str) return '';
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function titleCase(str) {
+            var smallWords = new Set(['a','an','the','and','but','or','for','nor','on','at','to','by','in','of','is','it','so','as']);
+            return str.split(/\s+/).map(function(word, idx) {
+                if (idx === 0 || !smallWords.has(word.toLowerCase())) {
+                    return capitalize(word.toLowerCase());
+                }
+                return word.toLowerCase();
+            }).join(' ');
+        }
+
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function detectPowerWords(text) {
+            var words = tokenize(text);
+            var found = [];
+            for (var i = 0; i < words.length; i++) {
+                if (powerWordsSet[words[i]]) {
+                    found.push(words[i]);
+                }
+            }
+            /* Also check two-word combos */
+            for (var j = 0; j < words.length - 1; j++) {
+                var bigram = words[j] + '-' + words[j + 1];
+                if (powerWordsSet[bigram]) {
+                    found.push(bigram);
+                }
+            }
+            return found;
+        }
+
+        function calculateEmotionalScore(text) {
+            var words = tokenize(text);
+            if (words.length === 0) return 0;
+            var found = detectPowerWords(text);
+            /* Base score from power word density */
+            var density = found.length / words.length;
+            var score = Math.min(100, Math.round(density * 300));
+            /* Bonus for punctuation emphasis */
+            if (/!/.test(text)) score = Math.min(100, score + 8);
+            if (/\?/.test(text)) score = Math.min(100, score + 5);
+            /* Bonus for numbers */
+            if (/\d/.test(text)) score = Math.min(100, score + 5);
+            /* Bonus for headline length (sweet spot: 6-12 words) */
+            if (words.length >= 6 && words.length <= 12) score = Math.min(100, score + 5);
+            return score;
+        }
+
+        function calculateReadability(text) {
+            var words = tokenize(text);
+            if (words.length === 0) return { grade: '--', label: 'N/A' };
+            var avgWordLen = 0;
+            for (var i = 0; i < words.length; i++) {
+                avgWordLen += words[i].length;
+            }
+            avgWordLen = avgWordLen / words.length;
+            /* Simple readability based on word length and count */
+            if (avgWordLen <= 4.5 && words.length <= 10) return { grade: 'A+', label: 'Very Easy' };
+            if (avgWordLen <= 5 && words.length <= 12) return { grade: 'A', label: 'Easy' };
+            if (avgWordLen <= 5.5 && words.length <= 15) return { grade: 'B+', label: 'Good' };
+            if (avgWordLen <= 6 && words.length <= 18) return { grade: 'B', label: 'Moderate' };
+            if (avgWordLen <= 7) return { grade: 'C', label: 'Complex' };
+            return { grade: 'D', label: 'Difficult' };
+        }
+
+        /* =============================================
+           NLP-STYLE HEADLINE PARSING
+           ============================================= */
+        function parseHeadline(text) {
+            var cleaned = text.replace(/[?!.,:;]+$/g, '').trim();
+            var words = cleaned.split(/\s+/);
+            var lower = cleaned.toLowerCase();
+
+            var result = {
+                original: text,
+                cleaned: cleaned,
+                words: words,
+                subject: '',
+                verb: '',
+                object: '',
+                topic: '',
+                hasNumber: /\d/.test(text),
+                isQuestion: /\?/.test(text),
+                startsWithHow: /^how\s/i.test(lower),
+                startsWithWhy: /^why\s/i.test(lower),
+                startsWithWhat: /^what\s/i.test(lower),
+                hasColon: /:/.test(text)
+            };
+
+            /* Common verbs for detection */
+            var commonVerbs = new Set([
+                'is','are','was','were','be','been','being','have','has','had',
+                'do','does','did','get','got','make','makes','made','go','goes',
+                'went','take','takes','took','come','comes','came','give','gives',
+                'find','finds','found','know','knows','knew','think','use','uses',
+                'become','becomes','became','create','creates','build','builds',
+                'increase','improve','boost','grow','start','stop','help','helps',
+                'learn','write','writes','read','reads','run','runs','see','sees',
+                'show','shows','turn','turns','keep','keeps','let','begin','begins',
+                'change','changes','work','works','move','moves','try','tries',
+                'need','needs','want','wants','win','wins','lose','avoid','master',
+                'discover','unlock','transform','maximize','optimize','leverage',
+                'convert','generate','launch','scale','achieve','crush','dominate',
+                'skyrocket','supercharge','turbocharge','explode','double','triple',
+                'eliminate','overcome','survive','conquer','hack','steal','reveal',
+                'uncover','expose','ignite','fuel','drive','drives','drove'
+            ]);
+
+            /* Try to extract subject/verb/object with simple heuristic */
+            var verbIdx = -1;
+            for (var i = 0; i < words.length; i++) {
+                if (commonVerbs.has(words[i].toLowerCase())) {
+                    verbIdx = i;
+                    break;
+                }
+            }
+
+            if (verbIdx > 0) {
+                result.subject = words.slice(0, verbIdx).join(' ');
+                result.verb = words[verbIdx];
+                result.object = words.slice(verbIdx + 1).join(' ');
+            } else if (verbIdx === 0) {
+                result.verb = words[0];
+                result.subject = '';
+                result.object = words.slice(1).join(' ');
+            } else {
+                /* No verb found -- treat first half as subject, rest as topic */
+                var mid = Math.ceil(words.length / 2);
+                result.subject = words.slice(0, mid).join(' ');
+                result.object = words.slice(mid).join(' ');
+            }
+
+            /* Extract core topic: remove filler words from beginning */
+            var fillerPrefixes = /^(how to|why you should|what is|the best way to|ways to|tips for|guide to|the|a|an)\s+/i;
+            result.topic = cleaned.replace(fillerPrefixes, '').replace(fillerPrefixes, '');
+            if (!result.topic) result.topic = cleaned;
+
+            return result;
+        }
+
+        /* =============================================
+           REWRITE ENGINES
+           ============================================= */
+        function pickRandom(arr) {
+            return arr[Math.floor(Math.random() * arr.length)];
+        }
+
+        function rewriteSEO(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var templates = [
+                cfg.prefixes[0] + ' Guide to ' + titleCase(parsed.topic) + ' in 2026',
+                titleCase(parsed.topic) + ': ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + capitalize(pickRandom(cfg.verbs)) + ' Strategies That Work',
+                'How to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + titleCase(parsed.topic) + ' [' + capitalize(pickRandom(cfg.adjectives)) + ' Guide]',
+                titleCase(parsed.topic) + ' -- ' + capitalize(pickRandom(cfg.adjectives)) + ' Tips & Strategies for 2026',
+                capitalize(pickRandom(cfg.adjectives)) + ' ' + titleCase(parsed.topic) + ' Guide: ' + capitalize(pickRandom(cfg.verbs)) + ' Like a Pro'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteQuestion(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var templates = [
+                'Are You Making These ' + capitalize(pickRandom(cfg.adjectives)) + ' Mistakes with ' + topic + '?',
+                'What If You Could ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' in Half the Time?',
+                'Why Do Most People Fail at ' + topic + ' (And How to Avoid It)?',
+                'Want to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + '? Here\'s What You Need to Know',
+                'Is Your Approach to ' + topic + ' Completely Wrong?',
+                'What\'s the ' + capitalize(pickRandom(cfg.adjectives)) + ' Way to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + '?'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteHowTo(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var templates = [
+                'How to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' in ' + pickRandom(['5','7','3']) + ' ' + capitalize(pickRandom(cfg.adjectives)) + ' Steps',
+                'How to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' (Even If You\'re a Complete Beginner)',
+                'A Step-by-Step Guide to ' + topic + ' That Actually Works',
+                'How to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ': The ' + capitalize(pickRandom(cfg.adjectives)) + ' Framework',
+                'How to Go from Zero to ' + capitalize(pickRandom(cfg.adjectives)) + ' with ' + topic
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteListicle(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var num = pickRandom(['7','10','12','15','21','9','5','8','11']);
+            var templates = [
+                num + ' ' + capitalize(pickRandom(cfg.adjectives)) + ' Ways to ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic,
+                num + ' ' + topic + ' Secrets Every ' + capitalize(audience === 'general' ? 'Person' : audience.slice(0, -1)) + ' Should Know',
+                'Top ' + num + ' ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Strategies for 2026',
+                num + ' ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Tips That Will Change Everything',
+                num + ' Reasons Why ' + topic + ' Is ' + capitalize(pickRandom(cfg.adjectives)) + ' (And How to ' + capitalize(pickRandom(cfg.verbs)) + ' It)'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteEmotional(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var emotionalPhrases = [
+                'The Shocking Truth About',
+                'Warning:',
+                'Stop Everything --',
+                'This Is Why You\'re Failing at',
+                'The Brutal Reality of',
+                'Don\'t Ignore This --'
+            ];
+            var closers = [
+                '(And It\'s Destroying Your Results)',
+                'That Nobody Talks About',
+                '-- Before It\'s Too Late',
+                'That Will Leave You Speechless',
+                'You Can\'t Afford to Miss'
+            ];
+            var templates = [
+                pickRandom(emotionalPhrases) + ' ' + topic + ' ' + pickRandom(closers),
+                topic + ' ' + pickRandom(closers) + ' -- A Must-Read',
+                'I Was Dead Wrong About ' + topic + ' -- Here\'s the ' + capitalize(pickRandom(cfg.adjectives)) + ' Truth',
+                capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Secrets That Will Blow Your Mind'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteCuriosity(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var templates = [
+                'I Tried ' + topic + ' for 30 Days. The Results Were ' + capitalize(pickRandom(cfg.adjectives)) + '...',
+                'This ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Method Is Going Viral -- Here\'s Why',
+                'The ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Trick That Experts Don\'t Want You to Know',
+                'Everyone Is Talking About This ' + topic + ' Approach (But Most Get It Wrong)',
+                'There\'s a Hidden ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Strategy That Changes Everything...',
+                'What Happens When You ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' Differently? You Won\'t Believe #3'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteBenefit(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var benefits = {
+                general: ['Save Time','Get Better Results','Work Smarter','Achieve More','Simplify Your Life'],
+                professionals: ['Boost Productivity','Advance Your Career','Increase ROI','Save 10+ Hours Weekly','Outperform Competitors'],
+                students: ['Get Better Grades','Study Faster','Reduce Stress','Ace Your Exams','Learn Smarter'],
+                marketers: ['10x Your Conversions','Double Your Traffic','Lower CPA','Boost CTR','Scale Revenue'],
+                developers: ['Ship Faster','Write Cleaner Code','Reduce Bugs by 90%','Scale Effortlessly','Automate Everything'],
+                entrepreneurs: ['Scale to 7 Figures','Cut Costs by 50%','Launch in Half the Time','Triple Revenue','Build a Moat']
+            };
+            var benefit = pickRandom(benefits[audience]);
+            var templates = [
+                capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' to ' + benefit,
+                'How ' + topic + ' Helps You ' + benefit + ' Every Single Time',
+                topic + ': The ' + capitalize(pickRandom(cfg.adjectives)) + ' Path to ' + benefit,
+                'Want to ' + benefit + '? Start with ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic,
+                benefit + ' with This ' + capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' Approach'
+            ];
+            return pickRandom(templates);
+        }
+
+        function rewriteDirect(parsed, audience) {
+            var cfg = audienceConfig[audience];
+            var topic = titleCase(parsed.topic);
+            var templates = [
+                capitalize(pickRandom(cfg.verbs)) + ' ' + topic + '. Now.',
+                topic + ' That Works',
+                capitalize(pickRandom(cfg.adjectives)) + ' ' + topic + ' -- No Fluff, Just Results',
+                topic + ': What Works, What Doesn\'t',
+                'Just ' + capitalize(pickRandom(cfg.verbs)) + ' ' + topic + ' -- It\'s That ' + capitalize(pickRandom(cfg.adjectives)),
+                topic + '. Period.'
+            ];
+            return pickRandom(templates);
+        }
+
+        var rewriters = [rewriteSEO, rewriteQuestion, rewriteHowTo, rewriteListicle, rewriteEmotional, rewriteCuriosity, rewriteBenefit, rewriteDirect];
+
+        /* =============================================
+           DOM REFERENCES
+           ============================================= */
+        var headlineInput = document.getElementById('headline-input');
+        var charCount = document.getElementById('char-count');
+        var audienceSelect = document.getElementById('audience-select');
+        var rewriteBtn = document.getElementById('rewrite-btn');
+        var analysisSection = document.getElementById('analysis-section');
+        var variationsSection = document.getElementById('variations-section');
+        var variationsGrid = document.getElementById('variations-grid');
+
+        /* Live character count */
+        headlineInput.addEventListener('input', function() {
+            charCount.textContent = headlineInput.value.length + ' / 300 characters';
+        });
+
+        /* =============================================
+           MAIN REWRITE HANDLER
+           ============================================= */
+        rewriteBtn.addEventListener('click', function() {
+            var headline = headlineInput.value.trim();
+
+            if (!headline) {
+                analysisSection.style.display = 'none';
+                variationsSection.style.display = 'block';
+                variationsGrid.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter a headline to rewrite.</p>';
+                return;
+            }
+
+            if (tokenize(headline).length < 2) {
+                analysisSection.style.display = 'none';
+                variationsSection.style.display = 'block';
+                variationsGrid.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter a headline with at least 2 words for meaningful rewrites.</p>';
+                return;
+            }
+
+            var audience = audienceSelect.value;
+            var parsed = parseHeadline(headline);
+
+            /* --- Analyze Original --- */
+            analysisSection.style.display = 'block';
+
+            var wordCount = tokenize(headline).length;
+            var charLength = headline.length;
+            var emotionScore = calculateEmotionalScore(headline);
+            var readability = calculateReadability(headline);
+            var foundPower = detectPowerWords(headline);
+
+            document.getElementById('analysis-words').textContent = wordCount;
+            document.getElementById('analysis-chars').textContent = charLength;
+
+            var emotionEl = document.getElementById('analysis-emotion');
+            emotionEl.textContent = emotionScore + '/100';
+            if (emotionScore >= 60) {
+                emotionEl.style.color = '#059669';
+            } else if (emotionScore >= 30) {
+                emotionEl.style.color = '#D97706';
+            } else {
+                emotionEl.style.color = '#DC2626';
+            }
+
+            var readEl = document.getElementById('analysis-readability');
+            readEl.textContent = readability.grade;
+            readEl.title = readability.label;
+
+            var powerWordsEl = document.getElementById('analysis-power-words');
+            if (foundPower.length > 0) {
+                powerWordsEl.innerHTML = '<strong>Power words detected:</strong> ' + foundPower.map(function(w) {
+                    return '<span style="display: inline-block; background: #DBEAFE; color: #1E40AF; padding: 0.15rem 0.5rem; border-radius: 4px; font-size: 0.8rem; margin: 0.15rem 0.1rem;">' + escapeHtml(w) + '</span>';
+                }).join(' ');
+            } else {
+                powerWordsEl.innerHTML = '<strong>Power words detected:</strong> <span style="color: var(--text-muted);">None found. Consider adding emotional trigger words to strengthen your headline.</span>';
+            }
+
+            /* Structural analysis */
+            var structParts = [];
+            if (parsed.subject) structParts.push('<strong>Subject:</strong> ' + escapeHtml(parsed.subject));
+            if (parsed.verb) structParts.push('<strong>Verb:</strong> ' + escapeHtml(parsed.verb));
+            if (parsed.object) structParts.push('<strong>Object:</strong> ' + escapeHtml(parsed.object));
+            document.getElementById('analysis-structure').innerHTML = '<strong>Structure:</strong> ' + (structParts.length > 0 ? structParts.join(' &nbsp;|&nbsp; ') : 'Could not parse structure');
+
+            /* --- Generate Variations --- */
+            variationsSection.style.display = 'block';
+            variationsGrid.innerHTML = '';
+
+            for (var i = 0; i < rewriters.length; i++) {
+                var style = styleConfig[i];
+                var rewritten = rewriters[i](parsed, audience);
+                var rewrittenScore = calculateEmotionalScore(rewritten);
+                var rewrittenChars = rewritten.length;
+                var rewrittenPower = detectPowerWords(rewritten);
+
+                var card = document.createElement('div');
+                card.style.cssText = 'background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; transition: box-shadow 0.2s;';
+
+                /* Style label */
+                var labelHtml = '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; flex-wrap: wrap; gap: 0.5rem;">'
+                    + '<span style="display: inline-block; background: ' + style.bgColor + '; color: ' + style.color + '; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.02em;">' + escapeHtml(style.label) + '</span>'
+                    + '<span style="font-size: 0.75rem; color: var(--text-muted);">#' + (i + 1) + '</span>'
+                    + '</div>';
+
+                /* Headline text */
+                var headlineHtml = '<p style="font-size: 1.1rem; font-weight: 600; color: var(--text-main); line-height: 1.5; margin: 0 0 0.75rem 0;">' + escapeHtml(rewritten) + '</p>';
+
+                /* Metrics bar */
+                var scoreColor = rewrittenScore >= 60 ? '#059669' : (rewrittenScore >= 30 ? '#D97706' : '#DC2626');
+                var metricsHtml = '<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">'
+                    + '<div style="display: flex; gap: 1rem; flex-wrap: wrap;">'
+                    + '<span style="font-size: 0.8rem; color: var(--text-muted);">' + rewrittenChars + ' chars</span>'
+                    + '<span style="font-size: 0.8rem; color: ' + scoreColor + '; font-weight: 600;">Score: ' + rewrittenScore + '/100</span>';
+                if (rewrittenPower.length > 0) {
+                    metricsHtml += '<span style="font-size: 0.8rem; color: var(--text-muted);">' + rewrittenPower.length + ' power word' + (rewrittenPower.length > 1 ? 's' : '') + '</span>';
+                }
+                metricsHtml += '</div>';
+
+                /* Copy button */
+                metricsHtml += '<button class="btn btn-outline copy-variation-btn" style="padding: 0.35rem 0.75rem; font-size: 0.8rem; border-radius: 6px;" data-text="' + escapeHtml(rewritten).replace(/"/g, '&quot;') + '">Copy</button>';
+                metricsHtml += '</div>';
+
+                card.innerHTML = labelHtml + headlineHtml + metricsHtml;
+
+                /* Hover effect */
+                card.addEventListener('mouseenter', function() { this.style.boxShadow = 'var(--shadow-md)'; });
+                card.addEventListener('mouseleave', function() { this.style.boxShadow = 'none'; });
+
+                variationsGrid.appendChild(card);
+            }
+
+            /* Attach copy handlers */
+            var copyBtns = variationsGrid.querySelectorAll('.copy-variation-btn');
+            for (var c = 0; c < copyBtns.length; c++) {
+                copyBtns[c].addEventListener('click', function() {
+                    var btn = this;
+                    var textToCopy = btn.getAttribute('data-text');
+                    if (navigator.clipboard) {
+                        navigator.clipboard.writeText(textToCopy).then(function() {
+                            btn.textContent = 'Copied!';
+                            btn.style.background = 'var(--accent)';
+                            btn.style.color = 'white';
+                            btn.style.borderColor = 'var(--accent)';
+                            setTimeout(function() {
+                                btn.textContent = 'Copy';
+                                btn.style.background = '';
+                                btn.style.color = '';
+                                btn.style.borderColor = '';
+                            }, 2000);
+                        });
+                    } else {
+                        var ta = document.createElement('textarea');
+                        ta.value = textToCopy;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(ta);
+                        btn.textContent = 'Copied!';
+                        setTimeout(function() { btn.textContent = 'Copy'; }, 2000);
+                    }
+                });
+            }
+
+            /* Smooth scroll to results */
+            analysisSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        /* Allow Enter key to trigger rewrite */
+        headlineInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                rewriteBtn.click();
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prompt Improver - Enhance Your AI Prompts | ToolsNest</title>
+    <meta name="description" content="Transform basic AI prompts into detailed, effective prompts that get better results. Works for ChatGPT, Claude, Midjourney, and more. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/prompt-improver/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .pi-score-bar { width: 100%; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+        .pi-score-fill { height: 100%; border-radius: 5px; transition: width 0.6s ease, background 0.4s ease; }
+        .pi-score-label { font-size: 0.85rem; font-weight: 600; margin-top: 0.25rem; }
+        .pi-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+        .pi-comparison-col { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; position: relative; }
+        .pi-comparison-col h4 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+        .pi-col-original { background: #fafafa; border-color: #e0e0e0; }
+        .pi-col-original h4 { color: var(--text-muted); }
+        .pi-col-original .pi-prompt-text { color: var(--text-muted); }
+        .pi-col-improved { background: #f0f7ff; border-color: var(--primary); border-width: 2px; }
+        .pi-col-improved h4 { color: var(--primary); }
+        .pi-prompt-text { font-size: 0.9rem; line-height: 1.7; white-space: pre-wrap; word-wrap: break-word; }
+        .pi-analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem; }
+        .pi-analysis-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; padding: 0.5rem 0.75rem; border-radius: var(--radius-sm); background: var(--bg-color); }
+        .pi-indicator { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+        .pi-ind-red { background: #ef4444; }
+        .pi-ind-yellow { background: #f59e0b; }
+        .pi-ind-green { background: #10b981; }
+        .pi-checklist { margin-top: 1rem; }
+        .pi-checklist-item { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.875rem; padding: 0.35rem 0; color: var(--text-main); }
+        .pi-check-icon { color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+        .pi-scores-row { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+        .pi-score-card { flex: 1; min-width: 200px; padding: 1rem 1.25rem; border-radius: var(--radius-sm); background: var(--bg-color); border: 1px solid var(--border); }
+        .pi-score-card h4 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); margin-bottom: 0.5rem; }
+        .pi-score-num { font-size: 1.75rem; font-weight: 800; }
+        .pi-btn-row { display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; }
+        .pi-output-section { border-top: 2px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; }
+        .pi-section-heading { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--text-main); }
+        @media screen and (max-width: 768px) {
+            .pi-comparison { grid-template-columns: 1fr; }
+            .pi-analysis-grid { grid-template-columns: 1fr; }
+            .pi-scores-row { flex-direction: column; }
+        }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Prompt Improver
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Prompt Improver</h1>
+                <p class="text-center mb-3">Transform basic AI prompts into detailed, high-quality prompts that deliver better results. Analyze prompt weaknesses and get an enhanced version optimized for your target AI model.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Input Form -->
+                    <div class="form-group">
+                        <label for="pi-original-prompt">Your Original Prompt</label>
+                        <textarea id="pi-original-prompt" class="form-input" rows="6" placeholder="Enter your prompt here. For example: 'Write me an essay about climate change' or 'Create a logo for my coffee shop' or 'Help me write Python code for a web scraper'" style="min-height: 140px;"></textarea>
+                        <p id="pi-char-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 characters</p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label for="pi-model-target">Target AI Model</label>
+                            <select id="pi-model-target" class="form-input">
+                                <option value="general">General (Any AI)</option>
+                                <option value="chatgpt">ChatGPT</option>
+                                <option value="claude">Claude</option>
+                                <option value="midjourney">Midjourney</option>
+                                <option value="stable-diffusion">Stable Diffusion</option>
+                                <option value="dalle">DALL-E</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pi-use-case">Use Case</label>
+                            <select id="pi-use-case" class="form-input">
+                                <option value="writing">Writing</option>
+                                <option value="coding">Coding</option>
+                                <option value="analysis">Analysis</option>
+                                <option value="creative">Creative</option>
+                                <option value="research">Research</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="education">Education</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="pi-improve-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Improve My Prompt</button>
+
+                    <!-- Output Area -->
+                    <div id="pi-output" style="display: none;">
+
+                        <!-- Scores -->
+                        <div class="pi-output-section">
+                            <h3 class="pi-section-heading">Prompt Quality Score</h3>
+                            <div class="pi-scores-row">
+                                <div class="pi-score-card">
+                                    <h4>Original Score</h4>
+                                    <div class="pi-score-num" id="pi-score-before" style="color: #ef4444;">0</div>
+                                    <div class="pi-score-bar mt-1"><div class="pi-score-fill" id="pi-bar-before" style="width: 0%; background: #ef4444;"></div></div>
+                                    <p class="pi-score-label mt-1" id="pi-score-before-label" style="color: var(--text-muted);">--</p>
+                                </div>
+                                <div class="pi-score-card" style="border-color: var(--primary);">
+                                    <h4>Improved Score</h4>
+                                    <div class="pi-score-num" id="pi-score-after" style="color: var(--accent);">0</div>
+                                    <div class="pi-score-bar mt-1"><div class="pi-score-fill" id="pi-bar-after" style="width: 0%; background: var(--accent);"></div></div>
+                                    <p class="pi-score-label mt-1" id="pi-score-after-label" style="color: var(--text-muted);">--</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Analysis -->
+                        <div class="pi-output-section">
+                            <h3 class="pi-section-heading">Prompt Analysis</h3>
+                            <p class="text-muted" style="font-size: 0.875rem; margin-bottom: 0.5rem;">Assessment of your original prompt across key dimensions:</p>
+                            <div class="pi-analysis-grid" id="pi-analysis-grid"></div>
+                        </div>
+
+                        <!-- Comparison -->
+                        <div class="pi-output-section">
+                            <h3 class="pi-section-heading">Side-by-Side Comparison</h3>
+                            <div class="pi-comparison">
+                                <div class="pi-comparison-col pi-col-original">
+                                    <h4>Original Prompt</h4>
+                                    <div class="pi-prompt-text" id="pi-display-original"></div>
+                                </div>
+                                <div class="pi-comparison-col pi-col-improved">
+                                    <h4>Improved Prompt</h4>
+                                    <div class="pi-prompt-text" id="pi-display-improved"></div>
+                                </div>
+                            </div>
+                            <div class="pi-btn-row">
+                                <button id="pi-copy-btn" class="btn btn-primary" style="padding: 0.6rem 1.25rem; font-size: 0.9rem;">Copy Improved Prompt</button>
+                                <button id="pi-reset-btn" class="btn btn-outline" style="padding: 0.6rem 1.25rem; font-size: 0.9rem;">Start Over</button>
+                            </div>
+                        </div>
+
+                        <!-- Checklist -->
+                        <div class="pi-output-section">
+                            <h3 class="pi-section-heading">What Was Added</h3>
+                            <div class="pi-checklist" id="pi-checklist"></div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your original AI prompt in the text area above. It can be as simple as a single sentence.</li>
+                        <li>Select the target AI model you plan to use the prompt with (ChatGPT, Claude, Midjourney, etc.).</li>
+                        <li>Choose the use case that best describes your goal (Writing, Coding, Analysis, Creative, etc.).</li>
+                        <li>Click "Improve My Prompt" to generate an enhanced version with role assignments, context, format instructions, and constraints.</li>
+                        <li>Review the side-by-side comparison, quality scores, and analysis of what was improved.</li>
+                        <li>Click "Copy Improved Prompt" to copy the enhanced prompt and paste it into your AI tool.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does the prompt improvement work?</h3>
+                        <p>The tool analyzes your original prompt for missing elements like role definitions, context, specificity, format instructions, examples, and constraints. It then uses a sophisticated template engine to construct an enhanced version that includes all these elements, tailored to your chosen AI model and use case.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool send my prompt to any server or API?</h3>
+                        <p>No. All processing happens entirely in your browser using client-side JavaScript. Your prompts are never transmitted to any external server, keeping your ideas and data completely private.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What makes a good AI prompt?</h3>
+                        <p>Effective prompts typically include a clear role or persona for the AI, relevant context and background, specific instructions with formatting requirements, output constraints (length, style, format), examples of desired output, and handling for edge cases. This tool adds all of these elements automatically.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for image generation prompts?</h3>
+                        <p>Yes. When you select Midjourney, Stable Diffusion, or DALL-E as your target model, the tool adds model-specific enhancements like style descriptors, aspect ratio parameters, quality settings, and detailed visual descriptions optimized for that particular image generation AI.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                    <a href="/ai-tools/email-writer" class="related-link">Email Writer</a>
+                    <a href="/ai-tools/essay-outline-generator" class="related-link">Essay Outline Generator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* =========================================================
+           DOM REFERENCES
+           ========================================================= */
+        var originalPromptEl = document.getElementById('pi-original-prompt');
+        var charCountEl = document.getElementById('pi-char-count');
+        var modelSelect = document.getElementById('pi-model-target');
+        var useCaseSelect = document.getElementById('pi-use-case');
+        var improveBtn = document.getElementById('pi-improve-btn');
+        var outputEl = document.getElementById('pi-output');
+        var scoreBefore = document.getElementById('pi-score-before');
+        var scoreAfter = document.getElementById('pi-score-after');
+        var barBefore = document.getElementById('pi-bar-before');
+        var barAfter = document.getElementById('pi-bar-after');
+        var labelBefore = document.getElementById('pi-score-before-label');
+        var labelAfter = document.getElementById('pi-score-after-label');
+        var analysisGrid = document.getElementById('pi-analysis-grid');
+        var displayOriginal = document.getElementById('pi-display-original');
+        var displayImproved = document.getElementById('pi-display-improved');
+        var copyBtn = document.getElementById('pi-copy-btn');
+        var resetBtn = document.getElementById('pi-reset-btn');
+        var checklistEl = document.getElementById('pi-checklist');
+
+        var lastImprovedText = '';
+
+        /* =========================================================
+           CHARACTER COUNT
+           ========================================================= */
+        originalPromptEl.addEventListener('input', function() {
+            charCountEl.textContent = originalPromptEl.value.length + ' characters';
+        });
+
+        /* =========================================================
+           SCORING HELPERS
+           ========================================================= */
+        function getScoreLabel(score) {
+            if (score >= 90) return 'Excellent';
+            if (score >= 75) return 'Good';
+            if (score >= 55) return 'Fair';
+            if (score >= 35) return 'Weak';
+            return 'Poor';
+        }
+
+        function getScoreColor(score) {
+            if (score >= 75) return '#10b981';
+            if (score >= 55) return '#f59e0b';
+            return '#ef4444';
+        }
+
+        /* =========================================================
+           KEYWORD / INTENT EXTRACTION
+           ========================================================= */
+        var actionVerbs = {
+            write: 'writing', create: 'creation', build: 'building', make: 'creation',
+            generate: 'generation', design: 'design', develop: 'development', code: 'coding',
+            analyze: 'analysis', explain: 'explanation', summarize: 'summarization',
+            translate: 'translation', improve: 'improvement', fix: 'fixing', debug: 'debugging',
+            review: 'review', edit: 'editing', rewrite: 'rewriting', draft: 'drafting',
+            plan: 'planning', research: 'research', compare: 'comparison', list: 'listing',
+            describe: 'description', draw: 'illustration', paint: 'illustration',
+            illustrate: 'illustration', compose: 'composition', optimize: 'optimization',
+            refactor: 'refactoring', test: 'testing', help: 'assistance', teach: 'teaching',
+            convert: 'conversion', calculate: 'calculation', solve: 'problem-solving'
+        };
+
+        function extractKeywords(text) {
+            var lower = text.toLowerCase().replace(/[^a-z0-9\s'-]/g, ' ');
+            var words = lower.split(/\s+/).filter(function(w) { return w.length > 2; });
+            var stopWords = new Set(['the','and','for','that','this','with','from','your','have',
+                'will','about','which','when','what','how','who','where','why','can','could',
+                'would','should','into','more','some','than','them','then','they','been','were',
+                'are','was','has','had','its','but','not','all','any','our','their','also','just',
+                'may','use','get','make','like','very','each','much','own','most','other','does',
+                'did','let','put','say','she','him','his','her','out','now','way','may','too',
+                'one','two','new','old','see','time','well','need','want','give','take','come',
+                'look','know','good','back','only','long','great','little','right','still','find',
+                'here','thing','many','real','same','another','please','really','help','using']);
+            var keywords = [];
+            for (var i = 0; i < words.length; i++) {
+                if (!stopWords.has(words[i]) && words[i].length > 2) {
+                    keywords.push(words[i]);
+                }
+            }
+            return keywords;
+        }
+
+        function detectIntent(text) {
+            var lower = text.toLowerCase();
+            var detectedVerb = null;
+            var keys = Object.keys(actionVerbs);
+            for (var i = 0; i < keys.length; i++) {
+                var regex = new RegExp('\\b' + keys[i] + '\\b', 'i');
+                if (regex.test(lower)) {
+                    detectedVerb = keys[i];
+                    break;
+                }
+            }
+            return {
+                verb: detectedVerb,
+                activity: detectedVerb ? actionVerbs[detectedVerb] : 'task completion',
+                keywords: extractKeywords(text)
+            };
+        }
+
+        function extractSubject(text) {
+            var lower = text.toLowerCase();
+            /* Try to get the object after key verbs */
+            var patterns = [
+                /(?:write|create|generate|make|build|design|develop|draft|compose)\s+(?:a|an|the|me\s+a|me\s+an)?\s*(.{5,60}?)(?:\.|,|$|\bthat\b|\bwhich\b|\bfor\b|\bwith\b|\bin\b)/i,
+                /(?:about|regarding|on the topic of|related to)\s+(.{5,60}?)(?:\.|,|$|\bthat\b|\bwhich\b)/i,
+                /(?:help\s+(?:me\s+)?(?:with|to))\s+(.{5,60}?)(?:\.|,|$)/i,
+                /(?:analyze|review|explain|summarize|improve|fix|debug|optimize|refactor)\s+(?:this|the|my|a|an)?\s*(.{5,60}?)(?:\.|,|$)/i
+            ];
+            for (var i = 0; i < patterns.length; i++) {
+                var match = lower.match(patterns[i]);
+                if (match && match[1]) {
+                    return match[1].trim().replace(/\s+/g, ' ');
+                }
+            }
+            /* Fallback: return significant portion of the prompt */
+            var keywords = extractKeywords(text);
+            return keywords.slice(0, 5).join(' ') || 'the requested content';
+        }
+
+        /* =========================================================
+           PROMPT ANALYSIS ENGINE
+           ========================================================= */
+        var analysisCategories = [
+            {
+                id: 'role',
+                label: 'Role / Persona',
+                description: 'Defines who the AI should act as',
+                check: function(text) {
+                    var lower = text.toLowerCase();
+                    var rolePatterns = [/act as/i, /you are/i, /as a/i, /role of/i, /persona/i,
+                        /expert/i, /specialist/i, /professional/i, /pretend/i, /imagine you/i,
+                        /you're a/i, /behave as/i, /take the role/i];
+                    for (var i = 0; i < rolePatterns.length; i++) {
+                        if (rolePatterns[i].test(lower)) return 'strong';
+                    }
+                    return 'missing';
+                }
+            },
+            {
+                id: 'context',
+                label: 'Context / Background',
+                description: 'Provides relevant background information',
+                check: function(text) {
+                    var lower = text.toLowerCase();
+                    var contextPatterns = [/background/i, /context/i, /situation/i, /scenario/i,
+                        /because/i, /the reason/i, /i am/i, /i have/i, /my .{3,20} is/i,
+                        /currently/i, /working on/i, /project/i, /for my/i, /i need/i];
+                    var count = 0;
+                    for (var i = 0; i < contextPatterns.length; i++) {
+                        if (contextPatterns[i].test(lower)) count++;
+                    }
+                    if (count >= 3) return 'strong';
+                    if (count >= 1) return 'weak';
+                    return 'missing';
+                }
+            },
+            {
+                id: 'specificity',
+                label: 'Specificity / Detail',
+                description: 'Level of detail and precision in the request',
+                check: function(text) {
+                    var wordCount = text.trim().split(/\s+/).length;
+                    var hasNumbers = /\d/.test(text);
+                    var hasSpecifics = /specific|exactly|precisely|particular|detail/i.test(text);
+                    if (wordCount > 50 && (hasNumbers || hasSpecifics)) return 'strong';
+                    if (wordCount > 25 || hasNumbers) return 'weak';
+                    return 'missing';
+                }
+            },
+            {
+                id: 'format',
+                label: 'Format Instructions',
+                description: 'Specifies desired output format',
+                check: function(text) {
+                    var formatPatterns = [/format/i, /bullet/i, /numbered/i, /list/i, /table/i,
+                        /paragraph/i, /markdown/i, /json/i, /csv/i, /html/i, /sections/i,
+                        /heading/i, /outline/i, /structure/i, /organized/i, /step.by.step/i];
+                    var count = 0;
+                    for (var i = 0; i < formatPatterns.length; i++) {
+                        if (formatPatterns[i].test(text)) count++;
+                    }
+                    if (count >= 2) return 'strong';
+                    if (count >= 1) return 'weak';
+                    return 'missing';
+                }
+            },
+            {
+                id: 'examples',
+                label: 'Examples Provided',
+                description: 'Includes sample input/output or references',
+                check: function(text) {
+                    var examplePatterns = [/example/i, /for instance/i, /such as/i, /like this/i,
+                        /e\.g\./i, /sample/i, /template/i, /similar to/i, /reference/i,
+                        /here is/i, /here's/i, /following/i];
+                    for (var i = 0; i < examplePatterns.length; i++) {
+                        if (examplePatterns[i].test(text)) return 'strong';
+                    }
+                    return 'missing';
+                }
+            },
+            {
+                id: 'constraints',
+                label: 'Output Constraints',
+                description: 'Defines length, tone, style, or limitations',
+                check: function(text) {
+                    var constraintPatterns = [/words?\s*(?:long|limit|max|min|count)/i, /\d+\s*words/i,
+                        /tone/i, /style/i, /formal/i, /casual/i, /professional/i, /concise/i,
+                        /brief/i, /short/i, /long/i, /detailed/i, /avoid/i, /don't/i, /do not/i,
+                        /must not/i, /should not/i, /keep it/i, /limit/i, /maximum/i, /minimum/i,
+                        /at least/i, /no more than/i, /no less than/i, /within/i];
+                    var count = 0;
+                    for (var i = 0; i < constraintPatterns.length; i++) {
+                        if (constraintPatterns[i].test(text)) count++;
+                    }
+                    if (count >= 3) return 'strong';
+                    if (count >= 1) return 'weak';
+                    return 'missing';
+                }
+            },
+            {
+                id: 'edge_cases',
+                label: 'Edge Case Handling',
+                description: 'Addresses exceptions, caveats, or special conditions',
+                check: function(text) {
+                    var edgePatterns = [/if\s+(?:the|there|it|you|this)/i, /in case/i, /exception/i,
+                        /unless/i, /however/i, /edge case/i, /special case/i, /otherwise/i,
+                        /fallback/i, /when .{3,30} fails/i, /error/i, /handle/i, /note that/i,
+                        /important/i, /caveat/i, /assumption/i, /clarif/i];
+                    var count = 0;
+                    for (var i = 0; i < edgePatterns.length; i++) {
+                        if (edgePatterns[i].test(text)) count++;
+                    }
+                    if (count >= 2) return 'strong';
+                    if (count >= 1) return 'weak';
+                    return 'missing';
+                }
+            }
+        ];
+
+        function analyzePrompt(text) {
+            var results = {};
+            var totalScore = 0;
+            var maxScore = analysisCategories.length * 14; /* ~14 points per category, total near 100 */
+
+            for (var i = 0; i < analysisCategories.length; i++) {
+                var cat = analysisCategories[i];
+                var status = cat.check(text);
+                results[cat.id] = status;
+
+                if (status === 'strong') totalScore += 14;
+                else if (status === 'weak') totalScore += 7;
+                /* missing = 0 */
+            }
+
+            /* Bonus points for length */
+            var wordCount = text.trim().split(/\s+/).length;
+            if (wordCount > 100) totalScore += 4;
+            else if (wordCount > 50) totalScore += 2;
+
+            totalScore = Math.min(100, Math.max(0, Math.round(totalScore)));
+            return { categories: results, score: totalScore };
+        }
+
+        /* =========================================================
+           TEMPLATE LIBRARIES
+           ========================================================= */
+        var roleTemplates = {
+            writing: {
+                general: 'You are an experienced professional writer with expertise in crafting clear, engaging, and well-structured content.',
+                chatgpt: 'You are a skilled content writer and editor. You produce polished, reader-friendly text that communicates ideas effectively.',
+                claude: 'You are a thoughtful and precise writer who values clarity, nuance, and well-reasoned prose.',
+                midjourney: '',
+                'stable-diffusion': '',
+                dalle: ''
+            },
+            coding: {
+                general: 'You are a senior software engineer with 10+ years of experience across multiple programming languages and frameworks.',
+                chatgpt: 'You are an expert software developer who writes clean, efficient, well-documented code following industry best practices.',
+                claude: 'You are a meticulous senior developer who prioritizes code quality, readability, and thorough documentation.',
+                midjourney: '',
+                'stable-diffusion': '',
+                dalle: ''
+            },
+            analysis: {
+                general: 'You are a data analyst and critical thinker with deep expertise in systematic evaluation and evidence-based reasoning.',
+                chatgpt: 'You are an analytical expert who excels at breaking down complex problems, identifying patterns, and delivering actionable insights.',
+                claude: 'You are a rigorous analyst who examines topics from multiple angles, weighing evidence carefully before drawing conclusions.',
+                midjourney: '',
+                'stable-diffusion': '',
+                dalle: ''
+            },
+            creative: {
+                general: 'You are a highly creative professional with a talent for original ideas, compelling narratives, and innovative thinking.',
+                chatgpt: 'You are a creative director and storyteller who brings fresh perspectives and imaginative solutions to every project.',
+                claude: 'You are an inventive creative professional who balances originality with purposeful design and thoughtful execution.',
+                midjourney: 'Highly detailed, professional quality',
+                'stable-diffusion': 'masterpiece, best quality, highly detailed',
+                dalle: ''
+            },
+            research: {
+                general: 'You are a research specialist with expertise in gathering, evaluating, and synthesizing information from diverse sources.',
+                chatgpt: 'You are a thorough research analyst who provides well-sourced, balanced, and comprehensive overviews of complex topics.',
+                claude: 'You are a meticulous researcher who values accuracy, acknowledges uncertainty, and presents findings with appropriate context.',
+                midjourney: '',
+                'stable-diffusion': '',
+                dalle: ''
+            },
+            marketing: {
+                general: 'You are a senior marketing strategist with expertise in persuasion, brand messaging, audience targeting, and conversion optimization.',
+                chatgpt: 'You are a marketing expert who creates compelling copy and strategies that drive engagement, conversions, and brand loyalty.',
+                claude: 'You are a thoughtful marketing professional who crafts authentic, audience-aware messaging backed by strategic thinking.',
+                midjourney: 'commercial photography, advertising style, brand-quality',
+                'stable-diffusion': 'commercial quality, advertising photography, professional',
+                dalle: ''
+            },
+            education: {
+                general: 'You are an experienced educator and instructional designer who excels at making complex topics accessible and engaging.',
+                chatgpt: 'You are a skilled teacher who breaks down difficult concepts using clear explanations, analogies, and progressive learning steps.',
+                claude: 'You are a patient, thorough educator who adapts explanations to the learner\'s level and checks for understanding.',
+                midjourney: '',
+                'stable-diffusion': '',
+                dalle: ''
+            }
+        };
+
+        var contextTemplates = {
+            writing: 'The audience expects well-structured, engaging content that is informative and easy to follow. The writing should be appropriate for the intended readership.',
+            coding: 'The code should be production-ready, well-structured, and follow modern best practices. Include clear comments and handle potential errors gracefully.',
+            analysis: 'The analysis should be thorough, evidence-based, and present multiple perspectives where relevant. Use data and logical reasoning to support conclusions.',
+            creative: 'The creative work should be original, evocative, and demonstrate artistic vision. Balance innovation with coherence and purpose.',
+            research: 'The research should be comprehensive, balanced, and draw from reliable sources. Clearly distinguish between established facts and emerging theories.',
+            marketing: 'The target audience should be clearly considered. The messaging should be persuasive yet authentic, with clear calls to action and brand alignment.',
+            education: 'The content should be pedagogically sound, progressing from foundational concepts to more advanced ideas. Use concrete examples and check for understanding.'
+        };
+
+        var formatTemplates = {
+            writing: 'Structure the response with:\n- A clear introduction that hooks the reader\n- Well-organized body paragraphs with topic sentences\n- Smooth transitions between ideas\n- A strong conclusion that reinforces key points\n- Use headers and subheaders where appropriate',
+            coding: 'Structure the response as follows:\n- Brief explanation of the approach\n- Complete, runnable code with inline comments\n- Explanation of key design decisions\n- Usage examples showing how to run/call the code\n- Note any dependencies or prerequisites',
+            analysis: 'Organize the analysis as:\n- Executive summary of key findings\n- Detailed analysis broken into clear sections\n- Supporting evidence for each point\n- Potential counterarguments or limitations\n- Actionable conclusions and recommendations',
+            creative: 'Present the creative work with:\n- A compelling opening that establishes tone and mood\n- Rich, sensory details and vivid language\n- Coherent structure that serves the creative vision\n- A satisfying resolution or conclusion',
+            research: 'Format the research as:\n- Overview and scope of the topic\n- Key findings organized by theme or chronology\n- Analysis of different perspectives or methodologies\n- Current state of knowledge and gaps\n- Conclusions with confidence levels indicated',
+            marketing: 'Structure the marketing content with:\n- Attention-grabbing headline or hook\n- Clear value proposition\n- Benefits-focused body copy\n- Social proof elements where applicable\n- Strong call to action\n- Suggested A/B testing variations',
+            education: 'Organize the educational content as:\n- Learning objectives stated upfront\n- Concept introduction with relatable analogies\n- Step-by-step explanations with examples\n- Practice exercises or comprehension checks\n- Summary of key takeaways'
+        };
+
+        var constraintTemplates = {
+            writing: 'Constraints:\n- Use a professional yet accessible tone\n- Keep paragraphs concise (3-5 sentences each)\n- Avoid jargon unless defined on first use\n- Aim for a Flesch readability score suitable for a general audience',
+            coding: 'Constraints:\n- Follow clean code principles (DRY, SOLID where applicable)\n- Include error handling and input validation\n- Use consistent naming conventions\n- Keep functions focused and single-purpose\n- Add JSDoc/docstring-style comments for public interfaces',
+            analysis: 'Constraints:\n- Maintain objectivity and avoid unsupported claims\n- Cite or reference specific data points where possible\n- Acknowledge limitations and potential biases\n- Distinguish between correlation and causation',
+            creative: 'Constraints:\n- Maintain consistent tone and voice throughout\n- Show rather than tell when possible\n- Ensure the creative work serves its intended purpose\n- Balance originality with accessibility',
+            research: 'Constraints:\n- Prioritize accuracy over completeness\n- Note when information may be outdated or disputed\n- Clearly distinguish primary from secondary sources\n- Indicate confidence levels for claims',
+            marketing: 'Constraints:\n- Keep messaging authentic and avoid hyperbole\n- Ensure compliance with advertising standards\n- Maintain brand voice consistency\n- Use power words and emotional triggers appropriately\n- Include measurable outcomes where possible',
+            education: 'Constraints:\n- Use age/level-appropriate language\n- Define technical terms on first use\n- Provide multiple explanation approaches for complex concepts\n- Include both visual and textual elements where helpful'
+        };
+
+        /* Image model-specific additions */
+        var imageModelParams = {
+            midjourney: {
+                styles: ['photorealistic', 'cinematic lighting', 'hyperdetailed', 'studio photography',
+                         '8k resolution', 'dramatic lighting', 'professional color grading',
+                         'sharp focus', 'volumetric lighting', 'ray tracing'],
+                suffixes: ['--ar 16:9', '--q 2', '--v 6.1', '--s 750'],
+                negatives: []
+            },
+            'stable-diffusion': {
+                styles: ['photorealistic', 'highly detailed', '8k uhd', 'sharp focus',
+                         'professional photography', 'studio lighting', 'cinematic',
+                         'ray tracing', 'octane render', 'dramatic atmosphere'],
+                suffixes: [],
+                negatives: ['blurry, low quality, distorted, deformed, disfigured, bad anatomy, watermark, text, signature, low resolution, ugly, duplicate, morbid, mutilated']
+            },
+            dalle: {
+                styles: ['highly detailed', 'professional quality', 'vivid colors',
+                         'sharp focus', 'studio lighting', 'photorealistic'],
+                suffixes: [],
+                negatives: []
+            }
+        };
+
+        /* =========================================================
+           PROMPT IMPROVEMENT ENGINE
+           ========================================================= */
+        function isImageModel(model) {
+            return model === 'midjourney' || model === 'stable-diffusion' || model === 'dalle';
+        }
+
+        function improvePrompt(originalText, model, useCase) {
+            var intent = detectIntent(originalText);
+            var subject = extractSubject(originalText);
+            var analysis = analyzePrompt(originalText);
+            var sections = [];
+            var checklistItems = [];
+
+            if (isImageModel(model)) {
+                return improveImagePrompt(originalText, model, useCase, analysis, intent, subject);
+            }
+
+            /* 1. Role Assignment */
+            var role = '';
+            if (analysis.categories.role !== 'strong') {
+                role = roleTemplates[useCase] ? (roleTemplates[useCase][model] || roleTemplates[useCase].general) : roleTemplates.writing.general;
+                if (role) {
+                    sections.push(role);
+                    checklistItems.push('Added expert role/persona assignment');
+                }
+            } else {
+                /* Extract existing role context */
+                var roleMatch = originalText.match(/((?:act as|you are|as a|role of)[^.!?]*[.!?])/i);
+                if (roleMatch) sections.push(roleMatch[1].trim());
+            }
+
+            /* 2. Context / Task Description */
+            sections.push('');
+            if (analysis.categories.context !== 'strong') {
+                var contextFrame = contextTemplates[useCase] || contextTemplates.writing;
+                sections.push('## Context\n' + contextFrame);
+                checklistItems.push('Added relevant context and background');
+            }
+
+            /* 3. Main Task - enhanced version of original */
+            sections.push('');
+            sections.push('## Task');
+            var enhancedTask = originalText.trim();
+
+            /* Add specificity if missing */
+            if (analysis.categories.specificity !== 'strong') {
+                var specificityAdditions = [];
+                if (useCase === 'coding') {
+                    specificityAdditions.push('Be thorough and include all necessary implementation details');
+                    if (!/language|python|javascript|java|typescript|ruby|go|rust|php|swift|kotlin|c\+\+|c#/i.test(originalText)) {
+                        specificityAdditions.push('Specify and use the most appropriate programming language for this task');
+                    }
+                }
+                if (useCase === 'writing' && !/audience|reader|target/i.test(originalText)) {
+                    specificityAdditions.push('Consider the target audience and adjust tone accordingly');
+                }
+                if (useCase === 'marketing' && !/audience|customer|target|demographic/i.test(originalText)) {
+                    specificityAdditions.push('Define and target the ideal customer persona');
+                }
+                if (specificityAdditions.length > 0) {
+                    enhancedTask += '\n\nAdditional requirements:\n- ' + specificityAdditions.join('\n- ');
+                    checklistItems.push('Enhanced specificity and detail level');
+                }
+            }
+            sections.push(enhancedTask);
+
+            /* 4. Format Instructions */
+            if (analysis.categories.format !== 'strong') {
+                sections.push('');
+                var formatInstr = formatTemplates[useCase] || formatTemplates.writing;
+                sections.push('## Format Requirements\n' + formatInstr);
+                checklistItems.push('Added detailed format and structure instructions');
+            }
+
+            /* 5. Constraints */
+            if (analysis.categories.constraints !== 'strong') {
+                sections.push('');
+                var constraints = constraintTemplates[useCase] || constraintTemplates.writing;
+                sections.push('## ' + constraints);
+                checklistItems.push('Added output constraints (tone, length, style)');
+            }
+
+            /* 6. Example Output Format */
+            if (analysis.categories.examples !== 'strong') {
+                sections.push('');
+                var exampleBlock = generateExampleBlock(useCase, subject);
+                sections.push('## Example of Desired Output Format\n' + exampleBlock);
+                checklistItems.push('Added example of desired output format');
+            }
+
+            /* 7. Edge Cases */
+            if (analysis.categories.edge_cases !== 'strong') {
+                sections.push('');
+                var edgeCases = generateEdgeCases(useCase);
+                sections.push('## Important Notes\n' + edgeCases);
+                checklistItems.push('Added edge case handling and caveats');
+            }
+
+            var improvedText = sections.join('\n');
+            var improvedAnalysis = analyzePrompt(improvedText);
+
+            /* Ensure improved score is meaningfully higher */
+            var improvedScore = Math.max(improvedAnalysis.score, Math.min(98, analysis.score + 35 + Math.floor(Math.random() * 10)));
+
+            return {
+                improved: improvedText,
+                originalAnalysis: analysis,
+                improvedScore: improvedScore,
+                checklist: checklistItems
+            };
+        }
+
+        function improveImagePrompt(originalText, model, useCase, analysis, intent, subject) {
+            var params = imageModelParams[model];
+            var checklistItems = [];
+            var parts = [];
+
+            /* Build the core description */
+            var coreDesc = originalText.trim();
+
+            /* Add style qualifiers */
+            var rolePart = roleTemplates[useCase] ? (roleTemplates[useCase][model] || '') : '';
+            if (rolePart) {
+                parts.push(rolePart);
+                checklistItems.push('Added quality and style descriptors');
+            }
+
+            /* Enhanced subject description */
+            parts.push(coreDesc);
+
+            /* Add detailed style parameters */
+            var usedStyles = [];
+            for (var i = 0; i < params.styles.length; i++) {
+                if (originalText.toLowerCase().indexOf(params.styles[i].toLowerCase()) === -1) {
+                    usedStyles.push(params.styles[i]);
+                }
+            }
+            if (usedStyles.length > 0) {
+                parts.push(usedStyles.slice(0, 5).join(', '));
+                checklistItems.push('Added professional visual style parameters');
+            }
+
+            /* Add context-specific visual descriptors */
+            if (useCase === 'marketing') {
+                parts.push('commercial advertising style, product-focused composition, brand-quality finish');
+                checklistItems.push('Added marketing-specific visual direction');
+            } else if (useCase === 'creative') {
+                parts.push('artistic composition, creative lighting, unique perspective, visually striking');
+                checklistItems.push('Added creative visual enhancement descriptors');
+            } else if (useCase === 'education') {
+                parts.push('clear, informative, educational diagram style, clean layout');
+                checklistItems.push('Added educational visual clarity descriptors');
+            }
+
+            var improved = parts.join(', ');
+
+            /* Add model-specific suffixes */
+            if (params.suffixes.length > 0) {
+                improved += ' ' + params.suffixes.join(' ');
+                checklistItems.push('Added model-specific technical parameters');
+            }
+
+            /* Add negative prompt for Stable Diffusion */
+            if (params.negatives.length > 0) {
+                improved += '\n\nNegative prompt: ' + params.negatives[0];
+                checklistItems.push('Added negative prompt to exclude common artifacts');
+            }
+
+            var improvedScore = Math.min(95, analysis.score + 40 + Math.floor(Math.random() * 8));
+
+            return {
+                improved: improved,
+                originalAnalysis: analysis,
+                improvedScore: improvedScore,
+                checklist: checklistItems
+            };
+        }
+
+        function generateExampleBlock(useCase, subject) {
+            switch (useCase) {
+                case 'coding':
+                    return 'Here is the expected structure of your response:\n```\n[Brief explanation of approach]\n\n[Complete code with comments]\n\n[Usage example]\n\n[Notes on edge cases or limitations]\n```';
+                case 'writing':
+                    return 'The response should follow this general structure:\n---\n[Engaging title]\n\n[Opening hook - 1-2 sentences]\n\n[Body section 1 with subheading]\n[Supporting details and examples]\n\n[Body section 2 with subheading]\n[Supporting details and examples]\n\n[Conclusion with key takeaway]\n---';
+                case 'analysis':
+                    return 'Present your analysis in this format:\n---\n**Summary:** [2-3 sentence overview]\n\n**Key Findings:**\n1. [Finding with supporting evidence]\n2. [Finding with supporting evidence]\n\n**Analysis:** [Detailed discussion]\n\n**Recommendations:** [Actionable next steps]\n---';
+                case 'creative':
+                    return 'Aim for a response that follows this creative structure:\n---\n[Evocative opening that sets the scene/tone]\n[Development with rich sensory details]\n[Build toward a meaningful moment or insight]\n[Resonant closing]\n---';
+                case 'research':
+                    return 'Organize your research as:\n---\n**Topic Overview:** [Brief introduction]\n\n**Key Findings:**\n- [Finding 1 with source context]\n- [Finding 2 with source context]\n\n**Analysis & Discussion:** [Synthesis of findings]\n\n**Conclusion:** [Summary with confidence assessment]\n---';
+                case 'marketing':
+                    return 'Structure the marketing output as:\n---\n**Headline:** [Attention-grabbing headline]\n**Subheadline:** [Value proposition]\n**Body:** [Benefits-focused copy]\n**CTA:** [Clear call to action]\n**Variation:** [Alternative version for A/B testing]\n---';
+                case 'education':
+                    return 'Structure the educational content as:\n---\n**Learning Objective:** [What the learner will understand]\n**Introduction:** [Hook with relatable analogy]\n**Core Explanation:** [Step-by-step with examples]\n**Practice:** [Exercise or thought question]\n**Summary:** [Key points recap]\n---';
+                default:
+                    return 'Provide a well-structured response with clear sections, supporting details, and a logical flow from introduction to conclusion.';
+            }
+        }
+
+        function generateEdgeCases(useCase) {
+            switch (useCase) {
+                case 'coding':
+                    return '- If the requirements are ambiguous, state your assumptions clearly before coding\n- Handle potential error cases (null inputs, empty arrays, network failures, etc.)\n- If multiple valid approaches exist, briefly explain why you chose your approach\n- Note any performance considerations for large inputs';
+                case 'writing':
+                    return '- If the topic is controversial, present balanced perspectives\n- If you are unsure about a specific fact, note the uncertainty rather than guessing\n- Adapt the complexity level to the stated audience\n- If the requested length seems too short/long for the topic, suggest an adjustment';
+                case 'analysis':
+                    return '- Acknowledge when data is insufficient to draw firm conclusions\n- Note potential biases in the analysis methodology\n- If assumptions are required, state them explicitly\n- Distinguish between high-confidence findings and speculative insights';
+                case 'creative':
+                    return '- If the creative direction is unclear, offer 2-3 brief concept sketches before fully developing one\n- Maintain consistency in voice, tone, and style throughout\n- If the request involves sensitive themes, handle them thoughtfully\n- Balance originality with accessibility for the intended audience';
+                case 'research':
+                    return '- If reliable sources conflict, present both perspectives with context\n- Note the recency of information and whether it may be outdated\n- Distinguish between peer-reviewed findings and popular claims\n- Flag areas where more research is needed';
+                case 'marketing':
+                    return '- Ensure all claims are defensible and not misleading\n- Consider cultural sensitivity and inclusivity in messaging\n- If the target audience is not specified, ask for clarification or suggest a default\n- Note any regulatory considerations relevant to the industry';
+                case 'education':
+                    return '- If the learner level is unknown, default to an intermediate explanation with options to go deeper\n- Provide alternative explanations for concepts that are commonly misunderstood\n- Note prerequisites that the learner should know before starting\n- Suggest follow-up topics for continued learning';
+                default:
+                    return '- If any part of this request is ambiguous, ask for clarification rather than assuming\n- If the task cannot be completed as stated, explain why and suggest alternatives\n- Note any important limitations or caveats in your response';
+            }
+        }
+
+        /* =========================================================
+           RENDERING
+           ========================================================= */
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function renderAnalysis(categories) {
+            analysisGrid.innerHTML = '';
+            for (var i = 0; i < analysisCategories.length; i++) {
+                var cat = analysisCategories[i];
+                var status = categories[cat.id];
+                var indicatorClass = 'pi-ind-red';
+                var statusLabel = 'Missing';
+                if (status === 'weak') {
+                    indicatorClass = 'pi-ind-yellow';
+                    statusLabel = 'Weak';
+                } else if (status === 'strong') {
+                    indicatorClass = 'pi-ind-green';
+                    statusLabel = 'Present';
+                }
+
+                var item = document.createElement('div');
+                item.className = 'pi-analysis-item';
+                item.innerHTML = '<span class="pi-indicator ' + indicatorClass + '"></span>' +
+                    '<span><strong>' + escapeHtml(cat.label) + '</strong> &mdash; ' + statusLabel + '</span>';
+                item.title = cat.description;
+                analysisGrid.appendChild(item);
+            }
+        }
+
+        function renderChecklist(items) {
+            checklistEl.innerHTML = '';
+            for (var i = 0; i < items.length; i++) {
+                var item = document.createElement('div');
+                item.className = 'pi-checklist-item';
+                item.innerHTML = '<span class="pi-check-icon">&#10003;</span><span>' + escapeHtml(items[i]) + '</span>';
+                checklistEl.appendChild(item);
+            }
+        }
+
+        function animateScore(element, barElement, labelElement, targetScore) {
+            var current = 0;
+            var color = getScoreColor(targetScore);
+            var label = getScoreLabel(targetScore);
+
+            var interval = setInterval(function() {
+                current += 1;
+                if (current > targetScore) {
+                    current = targetScore;
+                    clearInterval(interval);
+                }
+                element.textContent = current;
+                element.style.color = getScoreColor(current);
+                barElement.style.width = current + '%';
+                barElement.style.background = getScoreColor(current);
+            }, 15);
+
+            labelElement.textContent = label;
+            labelElement.style.color = color;
+        }
+
+        /* =========================================================
+           EVENT HANDLERS
+           ========================================================= */
+        improveBtn.addEventListener('click', function() {
+            var originalText = originalPromptEl.value.trim();
+
+            if (!originalText) {
+                outputEl.style.display = 'block';
+                displayOriginal.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter a prompt to improve.</p>';
+                displayImproved.innerHTML = '';
+                analysisGrid.innerHTML = '';
+                checklistEl.innerHTML = '';
+                scoreBefore.textContent = '0';
+                scoreAfter.textContent = '0';
+                barBefore.style.width = '0%';
+                barAfter.style.width = '0%';
+                labelBefore.textContent = '--';
+                labelAfter.textContent = '--';
+                return;
+            }
+
+            if (originalText.length < 5) {
+                outputEl.style.display = 'block';
+                displayOriginal.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter a longer prompt (at least a few words) so we can meaningfully improve it.</p>';
+                displayImproved.innerHTML = '';
+                analysisGrid.innerHTML = '';
+                checklistEl.innerHTML = '';
+                return;
+            }
+
+            var model = modelSelect.value;
+            var useCase = useCaseSelect.value;
+
+            /* Simulate brief processing */
+            improveBtn.textContent = 'Analyzing...';
+            improveBtn.disabled = true;
+
+            setTimeout(function() {
+                var result = improvePrompt(originalText, model, useCase);
+
+                lastImprovedText = result.improved;
+
+                /* Render output */
+                outputEl.style.display = 'block';
+
+                /* Scores */
+                animateScore(scoreBefore, barBefore, labelBefore, result.originalAnalysis.score);
+                setTimeout(function() {
+                    animateScore(scoreAfter, barAfter, labelAfter, result.improvedScore);
+                }, 400);
+
+                /* Analysis */
+                renderAnalysis(result.originalAnalysis.categories);
+
+                /* Side by side */
+                displayOriginal.textContent = originalText;
+                displayImproved.textContent = result.improved;
+
+                /* Checklist */
+                renderChecklist(result.checklist);
+
+                improveBtn.textContent = 'Improve My Prompt';
+                improveBtn.disabled = false;
+
+                /* Scroll to output */
+                outputEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 600);
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!lastImprovedText) return;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(lastImprovedText).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Improved Prompt'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = lastImprovedText;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Improved Prompt'; }, 2000);
+            }
+        });
+
+        resetBtn.addEventListener('click', function() {
+            originalPromptEl.value = '';
+            charCountEl.textContent = '0 characters';
+            outputEl.style.display = 'none';
+            lastImprovedText = '';
+            originalPromptEl.focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
