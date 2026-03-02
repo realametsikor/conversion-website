@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /sw.js
 
 Sitemap: https://www.usetoolnest.com/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
