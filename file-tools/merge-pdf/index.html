@@ -41,6 +41,7 @@
       ]
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563EB">
 </head>
@@ -283,6 +284,8 @@
             }
         }
 
+        var mergedPdfBytes = null;
+
         mergeBtn.addEventListener('click', function() {
             if (selectedFiles.length < 2) {
                 alert('Please select at least 2 PDF files to merge.');
@@ -290,41 +293,59 @@
             }
             filesArea.style.display = 'none';
             processingArea.style.display = 'block';
-            simulateProcessing();
+            mergePDFs();
         });
 
-        function simulateProcessing() {
-            var progress = 0;
-            var interval = setInterval(function() {
-                progress += Math.random() * 6 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(showResult, 400);
-                }
-                progressBar.style.width = progress + '%';
-                progressText.textContent = Math.round(progress) + '%';
-            }, 150);
+        function updateProgress(value) {
+            progressBar.style.width = value + '%';
+            progressText.textContent = Math.round(value) + '%';
         }
 
-        function showResult() {
-            processingArea.style.display = 'none';
-            resultArea.style.display = 'block';
-            resultInfo.textContent = selectedFiles.length + ' PDF files merged into one document.';
+        async function mergePDFs() {
+            try {
+                var PDFLib = window.PDFLib;
+                var mergedPdf = await PDFLib.PDFDocument.create();
+                var totalFiles = selectedFiles.length;
+
+                for (var i = 0; i < totalFiles; i++) {
+                    updateProgress((i / totalFiles) * 80);
+                    var arrayBuffer = await selectedFiles[i].arrayBuffer();
+                    try {
+                        var sourcePdf = await PDFLib.PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
+                        var copiedPages = await mergedPdf.copyPages(sourcePdf, sourcePdf.getPageIndices());
+                        for (var j = 0; j < copiedPages.length; j++) {
+                            mergedPdf.addPage(copiedPages[j]);
+                        }
+                    } catch (fileErr) {
+                        alert('Could not read "' + selectedFiles[i].name + '": ' + fileErr.message);
+                        processingArea.style.display = 'none';
+                        filesArea.style.display = 'block';
+                        updateProgress(0);
+                        return;
+                    }
+                }
+
+                updateProgress(90);
+                mergedPdfBytes = await mergedPdf.save();
+                updateProgress(100);
+
+                setTimeout(function() {
+                    processingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    var totalPages = 0;
+                    resultInfo.textContent = selectedFiles.length + ' PDF files merged successfully (' + (mergedPdfBytes.length / 1024).toFixed(1) + ' KB).';
+                }, 300);
+            } catch (err) {
+                alert('Error merging PDFs: ' + err.message);
+                processingArea.style.display = 'none';
+                filesArea.style.display = 'block';
+                updateProgress(0);
+            }
         }
 
         downloadBtn.addEventListener('click', function() {
-            var content = 'Merged PDF Document\n\n';
-            content += 'This is a placeholder for the merged PDF.\n\n';
-            content += 'Files merged (' + selectedFiles.length + '):\n';
-            for (var i = 0; i < selectedFiles.length; i++) {
-                content += '  ' + (i + 1) + '. ' + selectedFiles[i].name + ' (' + (selectedFiles[i].size / 1024).toFixed(1) + ' KB)\n';
-            }
-            content += '\nNote: Actual PDF merging requires server-side processing with a PDF library.\n';
-            content += 'In a production environment, this would be a real merged PDF document.\n';
-            content += '\nMerged with ToolsNest Merge PDF Tool.';
-
-            var blob = new Blob([content], { type: 'application/pdf' });
+            if (!mergedPdfBytes) return;
+            var blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
             var url = URL.createObjectURL(blob);
             var a = document.createElement('a');
             a.href = url;
@@ -337,6 +358,7 @@
 
         resetBtn.addEventListener('click', function() {
             selectedFiles = [];
+            mergedPdfBytes = null;
             fileInput.value = '';
             fileInputMore.value = '';
             progressBar.style.width = '0%';

@@ -101,7 +101,7 @@
                                 <div style="font-size:3rem;margin-bottom:1rem;color:var(--accent);">&#10003;</div>
                                 <h3>Audio Extracted Successfully!</h3>
                                 <div id="result-stats" style="margin:1rem auto;max-width:350px;background:var(--bg-color);border-radius:var(--radius-sm);padding:1.25rem;text-align:left;"></div>
-                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download MP3</button>
+                                <button id="download-btn" class="btn btn-accent" style="margin-top:1rem;">Download Audio</button>
                                 <br>
                                 <button id="reset-btn" class="btn btn-outline" style="margin-top:0.75rem;">Convert Another Video</button>
                             </div>
@@ -180,6 +180,7 @@
         var resetBtn = document.getElementById('reset-btn');
         var workspace = document.getElementById('tool-workspace');
         var selectedFile = null;
+        var audioBlob = null;
 
         workspace.addEventListener('dragover', function(e) {
             e.preventDefault();
@@ -220,7 +221,6 @@
             var sizeMB = (file.size / (1024 * 1024)).toFixed(2);
             fileInfo.innerHTML = '<span style="font-size:1.5rem;">&#127909;</span> <strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
 
-            /* Video preview */
             var videoURL = URL.createObjectURL(file);
             videoEl.src = videoURL;
 
@@ -231,69 +231,120 @@
         convertBtn.addEventListener('click', function() {
             optionsArea.style.display = 'none';
             processingArea.style.display = 'block';
-            simulateProcessing();
+            extractAudio();
         });
 
-        function simulateProcessing() {
-            var progress = 0;
-            var stages = ['Analyzing audio stream...', 'Extracting audio track...', 'Encoding to MP3...', 'Finalizing...'];
-            var interval = setInterval(function() {
-                progress += Math.random() * 5 + 1.5;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(showResult, 500);
-                }
-                var stageIdx = Math.min(Math.floor(progress / 25), stages.length - 1);
-                progressBar.style.width = progress + '%';
-                progressText.textContent = stages[stageIdx] + ' ' + Math.round(progress) + '%';
-            }, 150);
+        function updateProgress(value, stage) {
+            progressBar.style.width = value + '%';
+            progressText.textContent = stage + ' ' + Math.round(value) + '%';
         }
 
-        function showResult() {
-            processingArea.style.display = 'none';
-            resultArea.style.display = 'block';
+        function audioBufferToWav(buffer) {
+            var numChannels = buffer.numberOfChannels;
+            var sampleRate = buffer.sampleRate;
+            var format = 1;
+            var bitsPerSample = 16;
 
-            var bitrate = document.getElementById('bitrate-select').value;
-            var originalSize = selectedFile.size;
-            /* Estimate MP3 size: roughly audio is 10-20% of video size for typical MP4s */
-            var estimateRatio = { '128': 0.08, '192': 0.12, '256': 0.16, '320': 0.20 };
-            var ratio = estimateRatio[bitrate] || 0.12;
-            var estimatedSize = Math.round(originalSize * ratio);
-            var duration = videoEl.duration;
-            var durationStr = '--:--';
-            if (duration && isFinite(duration)) {
-                var mins = Math.floor(duration / 60);
-                var secs = Math.floor(duration % 60);
-                durationStr = mins + ':' + (secs < 10 ? '0' : '') + secs;
+            var interleaved;
+            if (numChannels === 2) {
+                var left = buffer.getChannelData(0);
+                var right = buffer.getChannelData(1);
+                interleaved = new Float32Array(left.length + right.length);
+                for (var i = 0, j = 0; i < left.length; i++) {
+                    interleaved[j++] = left[i];
+                    interleaved[j++] = right[i];
+                }
+            } else {
+                interleaved = buffer.getChannelData(0);
             }
 
-            function formatSize(bytes) {
-                if (bytes < 1024) return bytes + ' B';
-                if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-                return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+            var dataLength = interleaved.length * (bitsPerSample / 8);
+            var headerLength = 44;
+            var wavBuffer = new ArrayBuffer(headerLength + dataLength);
+            var view = new DataView(wavBuffer);
+
+            function writeString(offset, str) {
+                for (var i = 0; i < str.length; i++) {
+                    view.setUint8(offset + i, str.charCodeAt(i));
+                }
             }
 
-            resultStats.innerHTML =
-                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original video:</span><strong>' + formatSize(originalSize) + '</strong></div>' +
-                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Duration:</span><strong>' + durationStr + '</strong></div>' +
-                '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Audio bitrate:</span><strong>' + bitrate + ' kbps</strong></div>' +
-                '<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Estimated MP3 size:</span><strong style="color:var(--accent);">' + formatSize(estimatedSize) + '</strong></div>';
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + dataLength, true);
+            writeString(8, 'WAVE');
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, format, true);
+            view.setUint16(22, numChannels, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * numChannels * (bitsPerSample / 8), true);
+            view.setUint16(32, numChannels * (bitsPerSample / 8), true);
+            view.setUint16(34, bitsPerSample, true);
+            writeString(36, 'data');
+            view.setUint32(40, dataLength, true);
+
+            var offset = 44;
+            for (var i = 0; i < interleaved.length; i++) {
+                var sample = Math.max(-1, Math.min(1, interleaved[i]));
+                sample = sample < 0 ? sample * 0x8000 : sample * 0x7FFF;
+                view.setInt16(offset, sample, true);
+                offset += 2;
+            }
+
+            return new Blob([wavBuffer], { type: 'audio/wav' });
+        }
+
+        async function extractAudio() {
+            try {
+                updateProgress(10, 'Reading video file...');
+                var arrayBuffer = await selectedFile.arrayBuffer();
+
+                updateProgress(30, 'Decoding audio track...');
+                var AudioCtx = window.AudioContext || window.webkitAudioContext;
+                var audioCtx = new AudioCtx();
+                var audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+                updateProgress(70, 'Encoding audio...');
+                audioBlob = audioBufferToWav(audioBuffer);
+
+                updateProgress(100, 'Complete!');
+                await audioCtx.close();
+
+                var duration = audioBuffer.duration;
+                var durationStr = '--:--';
+                if (duration && isFinite(duration)) {
+                    var mins = Math.floor(duration / 60);
+                    var secs = Math.floor(duration % 60);
+                    durationStr = mins + ':' + (secs < 10 ? '0' : '') + secs;
+                }
+
+                function formatSize(bytes) {
+                    if (bytes < 1024) return bytes + ' B';
+                    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+                    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+                }
+
+                setTimeout(function() {
+                    processingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    resultStats.innerHTML =
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Original video:</span><strong>' + formatSize(selectedFile.size) + '</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Duration:</span><strong>' + durationStr + '</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;margin-bottom:0.5rem;"><span style="color:var(--text-muted);">Format:</span><strong>WAV (uncompressed)</strong></div>' +
+                        '<div style="display:flex;justify-content:space-between;"><span style="color:var(--text-muted);">Audio file size:</span><strong style="color:var(--accent);">' + formatSize(audioBlob.size) + '</strong></div>';
+                }, 300);
+            } catch (err) {
+                alert('Error extracting audio: ' + err.message);
+                processingArea.style.display = 'none';
+                optionsArea.style.display = 'block';
+                updateProgress(0, '');
+            }
         }
 
         downloadBtn.addEventListener('click', function() {
-            var bitrate = document.getElementById('bitrate-select').value;
-            var newName = selectedFile.name.replace(/\.mp4$/i, '.mp3');
-            var content = 'MP3 Audio File Placeholder\n\n';
-            content += 'Source video: ' + selectedFile.name + '\n';
-            content += 'Source size: ' + (selectedFile.size / (1024 * 1024)).toFixed(2) + ' MB\n';
-            content += 'Audio bitrate: ' + bitrate + ' kbps\n\n';
-            content += 'Note: Actual MP4-to-MP3 conversion requires server-side processing with an audio codec library like FFmpeg.\n';
-            content += 'In a production environment, this would be the extracted MP3 audio from your video.\n';
-            content += '\nConverted with ToolsNest MP4 to MP3 Converter.';
-
-            var blob = new Blob([content], { type: 'audio/mpeg' });
-            var url = URL.createObjectURL(blob);
+            if (!audioBlob) return;
+            var newName = selectedFile.name.replace(/\.mp4$/i, '.wav');
+            var url = URL.createObjectURL(audioBlob);
             var a = document.createElement('a');
             a.href = url;
             a.download = newName;
@@ -305,6 +356,7 @@
 
         resetBtn.addEventListener('click', function() {
             selectedFile = null;
+            audioBlob = null;
             fileInput.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';

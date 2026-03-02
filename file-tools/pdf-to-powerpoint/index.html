@@ -41,17 +41,11 @@
       ]
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563EB">
 </head>
-<body data-social-bar>
-    <script src="/components/header.js"></script>
-
-    <main>
-        <section class="section">
-            <div class="container">
-                <div class="breadcrumb">
-                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; PDF to PowerPoint
                 </div>
 
                 <div class="tool-layout">
@@ -143,6 +137,8 @@
 
     <script>
     (function() {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         var fileInput = document.getElementById('file-input');
         var uploadArea = document.getElementById('upload-area');
         var processingArea = document.getElementById('processing-area');
@@ -155,8 +151,8 @@
         var resetBtn = document.getElementById('reset-btn');
         var workspace = document.getElementById('tool-workspace');
         var selectedFile = null;
+        var pptxBlob = null;
 
-        /* Drag and drop */
         workspace.addEventListener('dragover', function(e) {
             e.preventDefault();
             workspace.style.borderColor = 'var(--primary)';
@@ -196,41 +192,106 @@
             fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
             uploadArea.style.display = 'none';
             processingArea.style.display = 'block';
-            simulateProcessing();
+            convertPdfToPptx();
         }
 
-        function simulateProcessing() {
-            var progress = 0;
-            var interval = setInterval(function() {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(showResult, 400);
+        function updateProgress(value) {
+            progressBar.style.width = value + '%';
+            progressText.textContent = Math.round(value) + '%';
+        }
+
+        async function convertPdfToPptx() {
+            try {
+                var arrayBuffer = await selectedFile.arrayBuffer();
+                var pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+                var numPages = pdf.numPages;
+                var slideImages = [];
+
+                for (var i = 1; i <= numPages; i++) {
+                    updateProgress((i / numPages) * 70);
+                    var page = await pdf.getPage(i);
+                    var viewport = page.getViewport({ scale: 2 });
+                    var canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    var ctx = canvas.getContext('2d');
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+                    var dataUrl = canvas.toDataURL('image/png');
+                    var base64 = dataUrl.split(',')[1];
+                    slideImages.push({ base64: base64, width: viewport.width, height: viewport.height });
                 }
-                progressBar.style.width = progress + '%';
-                progressText.textContent = Math.round(progress) + '%';
-            }, 150);
-        }
 
-        function showResult() {
-            processingArea.style.display = 'none';
-            resultArea.style.display = 'block';
-            var newName = selectedFile.name.replace(/\.pdf$/i, '.pptx');
-            resultInfo.textContent = newName + ' is ready for download.';
+                updateProgress(80);
+
+                var zip = new JSZip();
+                var emuW = 9144000;
+                var emuH = 6858000;
+
+                var contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Default Extension="png" ContentType="image/png"/><Override PartName="/ppt/presentation.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.presentation.main+xml"/>';
+
+                var presRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">';
+
+                var presSlides = '';
+
+                for (var s = 0; s < slideImages.length; s++) {
+                    var sn = s + 1;
+                    contentTypes += '<Override PartName="/ppt/slides/slide' + sn + '.xml" ContentType="application/vnd.openxmlformats-officedocument.presentationml.slide+xml"/>';
+                    presRels += '<Relationship Id="rId' + sn + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/slide" Target="slides/slide' + sn + '.xml"/>';
+                    presSlides += '<p:sldId id="' + (256 + s) + '" r:id="rId' + sn + '"/>';
+
+                    var img = slideImages[s];
+                    zip.folder('ppt/media').file('image' + sn + '.png', img.base64, { base64: true });
+
+                    var slideRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/image' + sn + '.png"/></Relationships>';
+                    zip.folder('ppt/slides/_rels').file('slide' + sn + '.xml.rels', slideRels);
+
+                    var slideXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                        '<p:sld xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">' +
+                        '<p:cSld><p:spTree><p:nvGrpSpPr><p:cNvPr id="1" name=""/><p:cNvGrpSpPr/><p:nvPr/></p:nvGrpSpPr><p:grpSpPr/>' +
+                        '<p:pic><p:nvPicPr><p:cNvPr id="2" name="Image ' + sn + '"/><p:cNvPicPr><a:picLocks noChangeAspect="1"/></p:cNvPicPr><p:nvPr/></p:nvPicPr>' +
+                        '<p:blipFill><a:blip r:embed="rId1"/><a:stretch><a:fillRect/></a:stretch></p:blipFill>' +
+                        '<p:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="' + emuW + '" cy="' + emuH + '"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></p:spPr>' +
+                        '</p:pic></p:spTree></p:cSld></p:sld>';
+                    zip.folder('ppt/slides').file('slide' + sn + '.xml', slideXml);
+                }
+
+                contentTypes += '</Types>';
+                presRels += '</Relationships>';
+
+                var presentationXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                    '<p:presentation xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:p="http://schemas.openxmlformats.org/presentationml/2006/main">' +
+                    '<p:sldMasterIdLst/><p:sldIdLst>' + presSlides + '</p:sldIdLst>' +
+                    '<p:sldSz cx="' + emuW + '" cy="' + emuH + '" type="screen4x3"/>' +
+                    '<p:notesSz cx="' + emuH + '" cy="' + emuW + '"/></p:presentation>';
+
+                zip.file('[Content_Types].xml', contentTypes);
+                zip.folder('_rels').file('.rels', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="ppt/presentation.xml"/></Relationships>');
+                zip.folder('ppt').file('presentation.xml', presentationXml);
+                zip.folder('ppt/_rels').file('presentation.xml.rels', presRels);
+
+                updateProgress(95);
+
+                pptxBlob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
+
+                updateProgress(100);
+                setTimeout(function() {
+                    processingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    var newName = selectedFile.name.replace(/\.pdf$/i, '.pptx');
+                    resultInfo.textContent = newName + ' is ready for download (' + numPages + ' slides created).';
+                }, 300);
+            } catch (err) {
+                alert('Error converting PDF: ' + err.message);
+                processingArea.style.display = 'none';
+                uploadArea.style.display = 'block';
+                updateProgress(0);
+            }
         }
 
         downloadBtn.addEventListener('click', function() {
+            if (!pptxBlob) return;
             var newName = selectedFile.name.replace(/\.pdf$/i, '.pptx');
-            var content = 'This is a placeholder PowerPoint document.\n\n';
-            content += 'Original file: ' + selectedFile.name + '\n';
-            content += 'Original size: ' + (selectedFile.size / 1024).toFixed(1) + ' KB\n\n';
-            content += 'Note: Actual PDF-to-PowerPoint conversion requires server-side processing.\n';
-            content += 'In a production environment, this file would contain the converted slides from your PDF.\n';
-            content += '\nConverted with ToolsNest PDF to PowerPoint Converter.';
-
-            var blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.presentationml.presentation' });
-            var url = URL.createObjectURL(blob);
+            var url = URL.createObjectURL(pptxBlob);
             var a = document.createElement('a');
             a.href = url;
             a.download = newName;
@@ -242,6 +303,7 @@
 
         resetBtn.addEventListener('click', function() {
             selectedFile = null;
+            pptxBlob = null;
             fileInput.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';

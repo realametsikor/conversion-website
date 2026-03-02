@@ -41,17 +41,11 @@
       ]
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563EB">
 </head>
-<body data-social-bar>
-    <script src="/components/header.js"></script>
-
-    <main>
-        <section class="section">
-            <div class="container">
-                <div class="breadcrumb">
-                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; PDF to Word
                 </div>
 
                 <div class="tool-layout">
@@ -143,6 +137,8 @@
 
     <script>
     (function() {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         var fileInput = document.getElementById('file-input');
         var uploadArea = document.getElementById('upload-area');
         var processingArea = document.getElementById('processing-area');
@@ -155,8 +151,8 @@
         var resetBtn = document.getElementById('reset-btn');
         var workspace = document.getElementById('tool-workspace');
         var selectedFile = null;
+        var docxBlob = null;
 
-        /* Drag and drop */
         workspace.addEventListener('dragover', function(e) {
             e.preventDefault();
             workspace.style.borderColor = 'var(--primary)';
@@ -196,41 +192,111 @@
             fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
             uploadArea.style.display = 'none';
             processingArea.style.display = 'block';
-            simulateProcessing();
+            convertPdfToWord();
         }
 
-        function simulateProcessing() {
-            var progress = 0;
-            var interval = setInterval(function() {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(showResult, 400);
+        function updateProgress(value) {
+            progressBar.style.width = value + '%';
+            progressText.textContent = Math.round(value) + '%';
+        }
+
+        function escapeXml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        async function convertPdfToWord() {
+            try {
+                var arrayBuffer = await selectedFile.arrayBuffer();
+                var pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+                var numPages = pdf.numPages;
+                var pageTexts = [];
+
+                for (var i = 1; i <= numPages; i++) {
+                    updateProgress((i / numPages) * 70);
+                    var page = await pdf.getPage(i);
+                    var textContent = await page.getTextContent();
+                    var lines = [];
+                    var lastY = null;
+                    var currentLine = '';
+
+                    for (var j = 0; j < textContent.items.length; j++) {
+                        var item = textContent.items[j];
+                        var y = Math.round(item.transform[5]);
+                        if (lastY !== null && Math.abs(y - lastY) > 5) {
+                            lines.push(currentLine);
+                            currentLine = '';
+                        }
+                        currentLine += item.str;
+                        lastY = y;
+                    }
+                    if (currentLine) lines.push(currentLine);
+                    pageTexts.push(lines);
                 }
-                progressBar.style.width = progress + '%';
-                progressText.textContent = Math.round(progress) + '%';
-            }, 150);
-        }
 
-        function showResult() {
-            processingArea.style.display = 'none';
-            resultArea.style.display = 'block';
-            var newName = selectedFile.name.replace(/\.pdf$/i, '.docx');
-            resultInfo.textContent = newName + ' is ready for download.';
+                updateProgress(80);
+
+                var bodyXml = '';
+                for (var p = 0; p < pageTexts.length; p++) {
+                    if (p > 0) {
+                        bodyXml += '<w:p><w:pPr><w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr></w:pPr></w:p>';
+                    }
+                    var lines = pageTexts[p];
+                    for (var l = 0; l < lines.length; l++) {
+                        bodyXml += '<w:p><w:r><w:t xml:space="preserve">' + escapeXml(lines[l]) + '</w:t></w:r></w:p>';
+                    }
+                }
+
+                var documentXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                    '<w:document xmlns:wpc="http://schemas.microsoft.com/office/word/2010/wordprocessingCanvas" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" xmlns:m="http://schemas.openxmlformats.org/officeDocument/2006/math" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml" xmlns:wpg="http://schemas.microsoft.com/office/word/2010/wordprocessingGroup" xmlns:wpi="http://schemas.microsoft.com/office/word/2010/wordprocessingInk" xmlns:wne="http://schemas.microsoft.com/office/word/2006/wordml" xmlns:wps="http://schemas.microsoft.com/office/word/2010/wordprocessingShape" mc:Ignorable="w14 wp14">' +
+                    '<w:body>' + bodyXml +
+                    '<w:sectPr><w:pgSz w:w="12240" w:h="15840"/><w:pgMar w:top="1440" w:right="1440" w:bottom="1440" w:left="1440"/></w:sectPr>' +
+                    '</w:body></w:document>';
+
+                var contentTypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+                    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+                    '<Default Extension="xml" ContentType="application/xml"/>' +
+                    '<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>' +
+                    '</Types>';
+
+                var rels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+                    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>' +
+                    '</Relationships>';
+
+                var wordRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+                    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+                    '</Relationships>';
+
+                updateProgress(90);
+
+                var zip = new JSZip();
+                zip.file('[Content_Types].xml', contentTypes);
+                zip.folder('_rels').file('.rels', rels);
+                zip.folder('word').file('document.xml', documentXml);
+                zip.folder('word/_rels').file('document.xml.rels', wordRels);
+
+                docxBlob = await zip.generateAsync({ type: 'blob', mimeType: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+
+                updateProgress(100);
+                setTimeout(function() {
+                    processingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    var newName = selectedFile.name.replace(/\.pdf$/i, '.docx');
+                    resultInfo.textContent = newName + ' is ready for download (' + numPages + ' pages converted).';
+                }, 300);
+            } catch (err) {
+                alert('Error converting PDF: ' + err.message);
+                processingArea.style.display = 'none';
+                uploadArea.style.display = 'block';
+                updateProgress(0);
+            }
         }
 
         downloadBtn.addEventListener('click', function() {
+            if (!docxBlob) return;
             var newName = selectedFile.name.replace(/\.pdf$/i, '.docx');
-            var content = 'This is a placeholder Word document.\n\n';
-            content += 'Original file: ' + selectedFile.name + '\n';
-            content += 'Original size: ' + (selectedFile.size / 1024).toFixed(1) + ' KB\n\n';
-            content += 'Note: Actual PDF-to-Word conversion requires server-side processing.\n';
-            content += 'In a production environment, this file would contain the converted content from your PDF.\n';
-            content += '\nConverted with ToolsNest PDF to Word Converter.';
-
-            var blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
-            var url = URL.createObjectURL(blob);
+            var url = URL.createObjectURL(docxBlob);
             var a = document.createElement('a');
             a.href = url;
             a.download = newName;
@@ -242,6 +308,7 @@
 
         resetBtn.addEventListener('click', function() {
             selectedFile = null;
+            docxBlob = null;
             fileInput.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';
