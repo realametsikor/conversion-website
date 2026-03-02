@@ -369,4 +369,24 @@
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://www.usetoolnest.com/blog/new-free-online-tools-2026</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/blog/best-free-ai-writing-tools</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/blog/free-online-calculators-guide</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/blog/best-free-file-conversion-tools</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
