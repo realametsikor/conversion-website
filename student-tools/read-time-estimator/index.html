@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Time Estimator - Calculate Reading Time Free | ToolsNest</title>
+    <meta name="description" content="Estimate reading time, speaking time, word count, and readability for any text. Works entirely in your browser -- free, private, and instant.">
+    <link rel="canonical" href="https://www.usetoolnest.com/student-tools/read-time-estimator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Read Time Estimator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Read Time Estimator</h1>
+                <p class="text-center mb-3">Paste or type any text to instantly see reading time, speaking time, word count, readability level, and more. Everything runs in your browser -- no data leaves your device.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="input-text">Paste or Type Your Text Below</label>
+                        <textarea id="input-text" class="form-input" rows="10" placeholder="Start typing or paste your text here. Statistics will update in real time as you type." style="min-height: 200px;"></textarea>
+                        <p id="live-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="speed-select">Reading Speed</label>
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center;">
+                            <select id="speed-select" class="form-input" style="width: auto; min-width: 160px;">
+                                <option value="150">Slow (150 WPM)</option>
+                                <option value="200" selected>Average (200 WPM)</option>
+                                <option value="300">Fast (300 WPM)</option>
+                                <option value="custom">Custom</option>
+                            </select>
+                            <input id="custom-speed" type="number" class="form-input" min="50" max="1500" value="200" placeholder="WPM" style="width: 100px; display: none;">
+                        </div>
+                    </div>
+
+                    <!-- Results -->
+                    <div id="results-area" style="margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Text Statistics</h3>
+
+                            <!-- Time estimates -->
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                                <div style="background: #EFF6FF; border-radius: var(--radius-sm); padding: 1.25rem; text-align: center; border: 1px solid #BFDBFE;">
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Reading Time</p>
+                                    <p id="stat-read-time" style="font-size: 1.75rem; font-weight: 800; color: var(--primary); margin: 0;">0 min 0 sec</p>
+                                </div>
+                                <div style="background: #ECFDF5; border-radius: var(--radius-sm); padding: 1.25rem; text-align: center; border: 1px solid #A7F3D0;">
+                                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Speaking Time</p>
+                                    <p id="stat-speak-time" style="font-size: 1.75rem; font-weight: 800; color: var(--accent); margin: 0;">0 min 0 sec</p>
+                                </div>
+                            </div>
+
+                            <!-- Metric cards grid -->
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-bottom: 1.5rem;">
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Words</p>
+                                    <p id="stat-words" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Characters</p>
+                                    <p id="stat-chars" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Chars (no spaces)</p>
+                                    <p id="stat-chars-no-space" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Sentences</p>
+                                    <p id="stat-sentences" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Paragraphs</p>
+                                    <p id="stat-paragraphs" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                                <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1rem; text-align: center;">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.03em;">Avg Words/Sentence</p>
+                                    <p id="stat-avg-words" style="font-size: 1.5rem; font-weight: 700; color: var(--text-main); margin: 0;">0</p>
+                                </div>
+                            </div>
+
+                            <!-- Reading level -->
+                            <div style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; margin-bottom: 1.5rem;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                                    <p style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); margin: 0;">Reading Level</p>
+                                    <p id="reading-level-label" style="font-size: 0.85rem; font-weight: 600; color: var(--primary); margin: 0;">N/A</p>
+                                </div>
+                                <div style="width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden;">
+                                    <div id="reading-level-bar" style="height: 100%; width: 0%; background: var(--primary); border-radius: 4px; transition: width 0.3s ease;"></div>
+                                </div>
+                                <p id="reading-level-desc" class="text-muted" style="font-size: 0.8rem; margin-top: 0.5rem;">Enter text above to see the Flesch-Kincaid grade level.</p>
+                            </div>
+
+                            <!-- Copy button -->
+                            <button id="copy-stats-btn" class="btn btn-outline" style="width: 100%; padding: 0.75rem; font-size: 0.95rem;">Copy Stats</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area above. Statistics update in real time as you type.</li>
+                        <li>Select a reading speed -- Slow (150 WPM), Average (200 WPM), Fast (300 WPM) -- or enter a custom speed.</li>
+                        <li>Review the estimated reading time, speaking time, word count, character counts, sentence and paragraph counts, and readability grade level.</li>
+                        <li>Click "Copy Stats" to copy all statistics to your clipboard for easy sharing or reference.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How is reading time calculated?</h3>
+                        <p>Reading time is calculated by dividing the total word count by your selected reading speed in words per minute (WPM). The average adult reads at roughly 200-250 WPM for non-technical content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the speaking time based on?</h3>
+                        <p>Speaking time uses a rate of approximately 130 words per minute, which is typical for presentations, speeches, and public speaking. This is slower than silent reading because spoken delivery includes natural pauses and emphasis.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the reading level indicator work?</h3>
+                        <p>The reading level is calculated using the Flesch-Kincaid Grade Level formula, which considers the average number of words per sentence and the average number of syllables per word. The result corresponds to a U.S. school grade level.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my text stored or sent anywhere?</h3>
+                        <p>No. All processing happens entirely in your browser using client-side JavaScript. Your text is never uploaded to any server. Nothing is stored after you close the page.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for presentations and speeches?</h3>
+                        <p>Absolutely. Use the speaking time estimate to gauge how long a presentation or speech will take. A typical 10-minute presentation, for example, is roughly 1,300 words.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/student-tools/study-timer" class="related-link">Study Timer</a>
+                    <a href="/student-tools/flashcard-maker" class="related-link">Flashcard Maker</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputText = document.getElementById('input-text');
+        var liveWordCount = document.getElementById('live-word-count');
+        var speedSelect = document.getElementById('speed-select');
+        var customSpeed = document.getElementById('custom-speed');
+
+        var statReadTime = document.getElementById('stat-read-time');
+        var statSpeakTime = document.getElementById('stat-speak-time');
+        var statWords = document.getElementById('stat-words');
+        var statChars = document.getElementById('stat-chars');
+        var statCharsNoSpace = document.getElementById('stat-chars-no-space');
+        var statSentences = document.getElementById('stat-sentences');
+        var statParagraphs = document.getElementById('stat-paragraphs');
+        var statAvgWords = document.getElementById('stat-avg-words');
+
+        var readingLevelLabel = document.getElementById('reading-level-label');
+        var readingLevelBar = document.getElementById('reading-level-bar');
+        var readingLevelDesc = document.getElementById('reading-level-desc');
+        var copyStatsBtn = document.getElementById('copy-stats-btn');
+
+        var SPEAKING_WPM = 130;
+
+        /* Show/hide custom speed input */
+        speedSelect.addEventListener('change', function() {
+            if (speedSelect.value === 'custom') {
+                customSpeed.style.display = 'inline-block';
+                customSpeed.focus();
+            } else {
+                customSpeed.style.display = 'none';
+            }
+            updateStats();
+        });
+
+        customSpeed.addEventListener('input', function() {
+            updateStats();
+        });
+
+        function getReadingWPM() {
+            if (speedSelect.value === 'custom') {
+                var val = parseInt(customSpeed.value, 10);
+                return (val && val > 0) ? val : 200;
+            }
+            return parseInt(speedSelect.value, 10);
+        }
+
+        /* Count words */
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        /* Count sentences */
+        function countSentences(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            var matches = trimmed.match(/[.!?]+/g);
+            if (!matches) return trimmed.length > 0 ? 1 : 0;
+            return matches.length;
+        }
+
+        /* Count paragraphs */
+        function countParagraphs(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            var paras = trimmed.split(/\n\s*\n/);
+            var count = 0;
+            for (var i = 0; i < paras.length; i++) {
+                if (paras[i].trim().length > 0) count++;
+            }
+            return count || (trimmed.length > 0 ? 1 : 0);
+        }
+
+        /* Format time from total seconds */
+        function formatTime(totalSeconds) {
+            totalSeconds = Math.round(totalSeconds);
+            if (totalSeconds < 0) totalSeconds = 0;
+            var min = Math.floor(totalSeconds / 60);
+            var sec = totalSeconds % 60;
+            return min + ' min ' + sec + ' sec';
+        }
+
+        /* Count syllables in a word (approximation) */
+        function countSyllables(word) {
+            word = word.toLowerCase().replace(/[^a-z]/g, '');
+            if (word.length <= 2) return 1;
+
+            /* Remove trailing silent e */
+            word = word.replace(/e$/, '');
+
+            /* Count vowel groups */
+            var vowelGroups = word.match(/[aeiouy]+/g);
+            if (!vowelGroups) return 1;
+
+            var count = vowelGroups.length;
+            return count < 1 ? 1 : count;
+        }
+
+        /* Calculate Flesch-Kincaid Grade Level */
+        function calcFleschKincaidGrade(text) {
+            var words = text.trim().split(/\s+/).filter(function(w) { return w.length > 0; });
+            var wordCount = words.length;
+            if (wordCount === 0) return 0;
+
+            var sentenceCount = countSentences(text);
+            if (sentenceCount === 0) sentenceCount = 1;
+
+            var totalSyllables = 0;
+            for (var i = 0; i < words.length; i++) {
+                totalSyllables += countSyllables(words[i]);
+            }
+
+            var avgWordsPerSentence = wordCount / sentenceCount;
+            var avgSyllablesPerWord = totalSyllables / wordCount;
+
+            /* Flesch-Kincaid Grade Level formula */
+            var grade = (0.39 * avgWordsPerSentence) + (11.8 * avgSyllablesPerWord) - 15.59;
+
+            return grade;
+        }
+
+        /* Get a human-readable label for the grade level */
+        function getGradeLabel(grade) {
+            if (grade < 1) return 'Very Easy';
+            if (grade < 6) return 'Grade ' + Math.ceil(grade) + ' (Elementary)';
+            if (grade < 9) return 'Grade ' + Math.ceil(grade) + ' (Middle School)';
+            if (grade < 13) return 'Grade ' + Math.ceil(grade) + ' (High School)';
+            if (grade < 17) return 'College Level';
+            return 'Graduate / Professional';
+        }
+
+        /* Get a description for the reading level */
+        function getGradeDescription(grade) {
+            if (grade < 1) return 'Very easy to read. Understandable by young children.';
+            if (grade < 6) return 'Easy to read. Suitable for elementary-level readers.';
+            if (grade < 9) return 'Standard difficulty. Suitable for middle school readers.';
+            if (grade < 13) return 'Moderately difficult. Suitable for high school students.';
+            if (grade < 17) return 'Difficult. Typical of academic and college-level writing.';
+            return 'Very difficult. Typical of graduate-level or professional writing.';
+        }
+
+        /* Main update function */
+        function updateStats() {
+            var text = inputText.value;
+            var trimmed = text.trim();
+
+            var wordCount = countWords(trimmed);
+            var charCount = text.length;
+            var charCountNoSpace = text.replace(/\s/g, '').length;
+            var sentenceCount = countSentences(trimmed);
+            var paragraphCount = countParagraphs(text);
+            var avgWordsPerSentence = sentenceCount > 0 ? (wordCount / sentenceCount) : 0;
+
+            var readWPM = getReadingWPM();
+            var readSeconds = wordCount > 0 ? (wordCount / readWPM) * 60 : 0;
+            var speakSeconds = wordCount > 0 ? (wordCount / SPEAKING_WPM) * 60 : 0;
+
+            /* Update live word count under textarea */
+            liveWordCount.textContent = wordCount + ' words';
+
+            /* Update time estimates */
+            statReadTime.textContent = formatTime(readSeconds);
+            statSpeakTime.textContent = formatTime(speakSeconds);
+
+            /* Update metric cards */
+            statWords.textContent = wordCount.toLocaleString();
+            statChars.textContent = charCount.toLocaleString();
+            statCharsNoSpace.textContent = charCountNoSpace.toLocaleString();
+            statSentences.textContent = sentenceCount.toLocaleString();
+            statParagraphs.textContent = paragraphCount.toLocaleString();
+            statAvgWords.textContent = avgWordsPerSentence.toFixed(1);
+
+            /* Update reading level */
+            if (wordCount >= 10) {
+                var grade = calcFleschKincaidGrade(trimmed);
+                var clampedGrade = Math.max(0, Math.min(grade, 20));
+                var barPercent = Math.min((clampedGrade / 18) * 100, 100);
+
+                readingLevelLabel.textContent = getGradeLabel(grade);
+                readingLevelBar.style.width = barPercent + '%';
+
+                /* Color the bar based on difficulty */
+                if (grade < 6) {
+                    readingLevelBar.style.background = 'var(--accent)';
+                } else if (grade < 13) {
+                    readingLevelBar.style.background = 'var(--primary)';
+                } else {
+                    readingLevelBar.style.background = '#EF4444';
+                }
+
+                readingLevelDesc.textContent = getGradeDescription(grade) + ' (Flesch-Kincaid Grade: ' + grade.toFixed(1) + ')';
+            } else {
+                readingLevelLabel.textContent = 'N/A';
+                readingLevelBar.style.width = '0%';
+                readingLevelDesc.textContent = wordCount === 0
+                    ? 'Enter text above to see the Flesch-Kincaid grade level.'
+                    : 'Enter at least 10 words for an accurate reading level estimate.';
+            }
+        }
+
+        /* Real-time updates on input */
+        inputText.addEventListener('input', updateStats);
+
+        /* Copy all stats to clipboard */
+        copyStatsBtn.addEventListener('click', function() {
+            var text = inputText.value.trim();
+            var wordCount = countWords(text);
+            var sentenceCount = countSentences(text);
+            var readWPM = getReadingWPM();
+
+            var statsText = 'Text Statistics (ToolsNest Read Time Estimator)\n'
+                + '================================================\n'
+                + 'Reading Time:        ' + statReadTime.textContent + ' (at ' + readWPM + ' WPM)\n'
+                + 'Speaking Time:       ' + statSpeakTime.textContent + ' (at ' + SPEAKING_WPM + ' WPM)\n'
+                + 'Words:               ' + statWords.textContent + '\n'
+                + 'Characters:          ' + statChars.textContent + '\n'
+                + 'Characters (no sp.): ' + statCharsNoSpace.textContent + '\n'
+                + 'Sentences:           ' + statSentences.textContent + '\n'
+                + 'Paragraphs:          ' + statParagraphs.textContent + '\n'
+                + 'Avg Words/Sentence:  ' + statAvgWords.textContent + '\n'
+                + 'Reading Level:       ' + readingLevelLabel.textContent + '\n';
+
+            if (wordCount >= 10) {
+                var grade = calcFleschKincaidGrade(text);
+                statsText += 'Flesch-Kincaid Grade: ' + grade.toFixed(1) + '\n';
+            }
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(statsText).then(function() {
+                    copyStatsBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyStatsBtn.textContent = 'Copy Stats'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = statsText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyStatsBtn.textContent = 'Copied!';
+                setTimeout(function() { copyStatsBtn.textContent = 'Copy Stats'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

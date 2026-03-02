@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to Speech - Convert Text to Audio Free | ToolsNest</title>
+    <meta name="description" content="Convert text to speech online for free using the Web Speech API. Adjust voice, speed, and pitch. Download audio, highlight sentences, and more. No API calls -- runs entirely in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/ai-tools/text-to-speech/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .tts-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .tts-controls .form-group {
+            flex: 1 1 200px;
+            margin-bottom: 0;
+        }
+        .tts-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .tts-buttons .btn {
+            flex: 1 1 auto;
+            min-width: 100px;
+            padding: 0.75rem 1rem;
+            font-size: 0.95rem;
+        }
+        .slider-group label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .slider-group input[type="range"] {
+            width: 100%;
+            margin-top: 0.25rem;
+            accent-color: var(--primary);
+        }
+        .speaking-indicator {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: #EFF6FF;
+            border-radius: var(--radius-sm);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        .speaking-indicator.active {
+            display: flex;
+        }
+        .speaking-bars {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 18px;
+        }
+        .speaking-bars span {
+            display: block;
+            width: 3px;
+            background: var(--primary);
+            border-radius: 1px;
+            animation: barPulse 1s ease-in-out infinite;
+        }
+        .speaking-bars span:nth-child(1) { height: 6px; animation-delay: 0s; }
+        .speaking-bars span:nth-child(2) { height: 12px; animation-delay: 0.15s; }
+        .speaking-bars span:nth-child(3) { height: 18px; animation-delay: 0.3s; }
+        .speaking-bars span:nth-child(4) { height: 12px; animation-delay: 0.45s; }
+        .speaking-bars span:nth-child(5) { height: 6px; animation-delay: 0.6s; }
+        @keyframes barPulse {
+            0%, 100% { transform: scaleY(0.4); }
+            50% { transform: scaleY(1); }
+        }
+        .paused .speaking-bars span {
+            animation-play-state: paused;
+        }
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        #tts-text-display {
+            background: var(--bg-color);
+            padding: 1.25rem;
+            border-radius: var(--radius-sm);
+            line-height: 1.8;
+            border-left: 4px solid var(--primary);
+            max-height: 200px;
+            overflow-y: auto;
+            display: none;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+        #tts-text-display .highlight {
+            background: #FEF08A;
+            border-radius: 2px;
+            padding: 1px 0;
+        }
+        .tts-unsupported {
+            background: #FEF2F2;
+            color: #DC2626;
+            padding: 1.25rem;
+            border-radius: var(--radius-sm);
+            text-align: center;
+            font-weight: 500;
+        }
+        .download-note {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        select.form-input {
+            appearance: auto;
+        }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Text to Speech
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Text to Speech</h1>
+                <p class="text-center mb-3">Convert any text to natural-sounding speech using your browser's built-in voices. Adjust speed, pitch, and voice. No API calls -- everything runs privately in your browser.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div id="tts-unsupported" class="tts-unsupported" style="display: none;">
+                        Your browser does not support the Web Speech API. Please try a modern browser such as Chrome, Edge, or Safari.
+                    </div>
+
+                    <div id="tts-app">
+                        <div class="form-group">
+                            <label for="tts-input">Enter Your Text</label>
+                            <textarea id="tts-input" class="form-input" rows="8" placeholder="Type or paste the text you want to hear spoken aloud. You can enter up to 10,000 characters." style="min-height: 180px;" maxlength="10000"></textarea>
+                            <p id="tts-char-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 characters | 0 words</p>
+                        </div>
+
+                        <div class="tts-controls">
+                            <div class="form-group">
+                                <label for="tts-voice">Voice</label>
+                                <select id="tts-voice" class="form-input">
+                                    <option value="">Loading voices...</option>
+                                </select>
+                            </div>
+                            <div class="form-group slider-group">
+                                <label for="tts-speed">Speed <span id="tts-speed-val">1x</span></label>
+                                <input type="range" id="tts-speed" min="0.5" max="2" step="0.1" value="1">
+                            </div>
+                            <div class="form-group slider-group">
+                                <label for="tts-pitch">Pitch <span id="tts-pitch-val">1</span></label>
+                                <input type="range" id="tts-pitch" min="0.5" max="2" step="0.1" value="1">
+                            </div>
+                        </div>
+
+                        <div class="speaking-indicator" id="tts-indicator">
+                            <div class="speaking-bars">
+                                <span></span><span></span><span></span><span></span><span></span>
+                            </div>
+                            <span id="tts-indicator-text">Speaking...</span>
+                        </div>
+
+                        <div class="progress-bar-container" id="tts-progress-container" style="display: none;">
+                            <div class="progress-bar-fill" id="tts-progress-fill"></div>
+                        </div>
+
+                        <div id="tts-text-display"></div>
+
+                        <div class="tts-buttons">
+                            <button id="tts-speak-btn" class="btn btn-primary">Speak</button>
+                            <button id="tts-pause-btn" class="btn btn-outline" disabled>Pause</button>
+                            <button id="tts-stop-btn" class="btn btn-outline" disabled>Stop</button>
+                            <button id="tts-download-btn" class="btn btn-accent" disabled>Download Audio</button>
+                        </div>
+                        <p id="tts-download-note" class="download-note" style="display: none;"></p>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Type or paste the text you want to convert to speech into the input area above.</li>
+                        <li>Select a voice from the dropdown. Available voices depend on your browser and operating system.</li>
+                        <li>Adjust the speed and pitch sliders to customize the output to your preference.</li>
+                        <li>Click "Speak" to start listening. Use "Pause" to pause and "Resume" to continue.</li>
+                        <li>Watch the highlighted text display to follow along with the reading position.</li>
+                        <li>Click "Stop" at any time to end playback.</li>
+                        <li>Use "Download Audio" to record the speech and save it as an audio file (browser support varies).</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this text to speech tool work?</h3>
+                        <p>This tool uses the Web Speech API built into modern browsers. It converts your text into spoken audio using the voices installed on your device. No data is sent to any server -- everything happens locally in your browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why do I see different voices on different devices?</h3>
+                        <p>The available voices depend on your operating system and browser. Windows, macOS, Android, and iOS each provide their own set of text-to-speech voices. Chrome may offer additional Google voices as well.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I download the audio as a file?</h3>
+                        <p>The download feature uses the MediaRecorder API to attempt to capture speech output. Due to browser limitations, not all browsers support recording the speech synthesis output directly. If download is not available in your browser, you will see an informative message.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a character limit?</h3>
+                        <p>The input area supports up to 10,000 characters. For very long texts, some browsers may split the speech into smaller chunks automatically. The tool works best with texts up to a few thousand words.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool support multiple languages?</h3>
+                        <p>Yes, if your browser and operating system have voices for other languages installed, they will appear in the voice selector dropdown. Select a voice that matches the language of your text for best results.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/speech-to-text" class="related-link">Speech to Text</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* Check for Speech Synthesis support */
+        if (!('speechSynthesis' in window)) {
+            document.getElementById('tts-unsupported').style.display = 'block';
+            document.getElementById('tts-app').style.display = 'none';
+            return;
+        }
+
+        var synth = window.speechSynthesis;
+        var inputEl = document.getElementById('tts-input');
+        var charCountEl = document.getElementById('tts-char-count');
+        var voiceSelect = document.getElementById('tts-voice');
+        var speedSlider = document.getElementById('tts-speed');
+        var speedVal = document.getElementById('tts-speed-val');
+        var pitchSlider = document.getElementById('tts-pitch');
+        var pitchVal = document.getElementById('tts-pitch-val');
+        var speakBtn = document.getElementById('tts-speak-btn');
+        var pauseBtn = document.getElementById('tts-pause-btn');
+        var stopBtn = document.getElementById('tts-stop-btn');
+        var downloadBtn = document.getElementById('tts-download-btn');
+        var downloadNote = document.getElementById('tts-download-note');
+        var indicator = document.getElementById('tts-indicator');
+        var indicatorText = document.getElementById('tts-indicator-text');
+        var progressContainer = document.getElementById('tts-progress-container');
+        var progressFill = document.getElementById('tts-progress-fill');
+        var textDisplay = document.getElementById('tts-text-display');
+
+        var voices = [];
+        var currentUtterance = null;
+        var isPaused = false;
+        var sentences = [];
+        var currentSentenceIndex = 0;
+
+        /* ---- Character and word count ---- */
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        inputEl.addEventListener('input', function() {
+            var text = inputEl.value;
+            charCountEl.textContent = text.length + ' characters | ' + countWords(text) + ' words';
+        });
+
+        /* ---- Populate voices ---- */
+        function populateVoices() {
+            voices = synth.getVoices();
+            if (voices.length === 0) return;
+
+            voiceSelect.innerHTML = '';
+            var defaultIndex = 0;
+
+            for (var i = 0; i < voices.length; i++) {
+                var option = document.createElement('option');
+                option.value = i;
+                option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+                if (voices[i].default) {
+                    option.textContent += ' -- DEFAULT';
+                    defaultIndex = i;
+                }
+                voiceSelect.appendChild(option);
+            }
+
+            voiceSelect.value = defaultIndex;
+        }
+
+        populateVoices();
+        if (synth.onvoiceschanged !== undefined) {
+            synth.onvoiceschanged = populateVoices;
+        }
+
+        /* ---- Slider value display ---- */
+        speedSlider.addEventListener('input', function() {
+            speedVal.textContent = parseFloat(speedSlider.value).toFixed(1) + 'x';
+        });
+
+        pitchSlider.addEventListener('input', function() {
+            pitchVal.textContent = parseFloat(pitchSlider.value).toFixed(1);
+        });
+
+        /* ---- Split text into sentences ---- */
+        function splitIntoSentences(text) {
+            var raw = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            if (!raw) return [];
+
+            /* Split on sentence-ending punctuation */
+            var parts = raw.match(/[^.!?]*[.!?]+[\s]*/g);
+            if (parts && parts.length > 0) {
+                var result = [];
+                for (var i = 0; i < parts.length; i++) {
+                    var s = parts[i].trim();
+                    if (s.length > 0) result.push(s);
+                }
+                /* Capture any trailing text without punctuation */
+                var joined = parts.join('');
+                var remaining = raw.substring(joined.length).trim();
+                if (remaining.length > 0) {
+                    result.push(remaining);
+                }
+                return result;
+            }
+
+            /* If no sentence-ending punctuation found, treat the whole text as one sentence */
+            return [raw];
+        }
+
+        /* ---- Build sentence display ---- */
+        function buildSentenceDisplay() {
+            textDisplay.innerHTML = '';
+            for (var i = 0; i < sentences.length; i++) {
+                var span = document.createElement('span');
+                span.setAttribute('data-sentence-index', i);
+                span.textContent = sentences[i] + ' ';
+                textDisplay.appendChild(span);
+            }
+        }
+
+        function highlightSentence(index) {
+            var spans = textDisplay.querySelectorAll('span[data-sentence-index]');
+            for (var i = 0; i < spans.length; i++) {
+                spans[i].className = '';
+            }
+            if (index >= 0 && index < spans.length) {
+                spans[index].className = 'highlight';
+                /* Scroll highlighted sentence into view within the display container */
+                spans[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function updateProgress() {
+            if (sentences.length === 0) {
+                progressFill.style.width = '0%';
+                return;
+            }
+            var percent = ((currentSentenceIndex + 1) / sentences.length) * 100;
+            progressFill.style.width = Math.min(percent, 100) + '%';
+        }
+
+        /* ---- Set UI state ---- */
+        function setStateIdle() {
+            speakBtn.textContent = 'Speak';
+            speakBtn.disabled = false;
+            pauseBtn.textContent = 'Pause';
+            pauseBtn.disabled = true;
+            stopBtn.disabled = true;
+            downloadBtn.disabled = false;
+            indicator.classList.remove('active', 'paused');
+            progressContainer.style.display = 'none';
+            progressFill.style.width = '0%';
+            isPaused = false;
+        }
+
+        function setStateSpeaking() {
+            speakBtn.textContent = 'Speaking...';
+            speakBtn.disabled = true;
+            pauseBtn.textContent = 'Pause';
+            pauseBtn.disabled = false;
+            stopBtn.disabled = false;
+            downloadBtn.disabled = true;
+            indicator.classList.add('active');
+            indicator.classList.remove('paused');
+            indicatorText.textContent = 'Speaking...';
+            progressContainer.style.display = 'block';
+            textDisplay.style.display = 'block';
+        }
+
+        function setStatePaused() {
+            speakBtn.disabled = true;
+            pauseBtn.textContent = 'Resume';
+            pauseBtn.disabled = false;
+            stopBtn.disabled = false;
+            indicator.classList.add('active', 'paused');
+            indicatorText.textContent = 'Paused';
+        }
+
+        /* ---- Speak sentence by sentence ---- */
+        function speakSentences(startIndex) {
+            if (startIndex >= sentences.length) {
+                setStateIdle();
+                textDisplay.style.display = 'none';
+                return;
+            }
+
+            currentSentenceIndex = startIndex;
+            highlightSentence(currentSentenceIndex);
+            updateProgress();
+
+            var utterance = new SpeechSynthesisUtterance(sentences[currentSentenceIndex]);
+            currentUtterance = utterance;
+
+            var selectedVoiceIndex = parseInt(voiceSelect.value, 10);
+            if (voices[selectedVoiceIndex]) {
+                utterance.voice = voices[selectedVoiceIndex];
+            }
+            utterance.rate = parseFloat(speedSlider.value);
+            utterance.pitch = parseFloat(pitchSlider.value);
+
+            utterance.onend = function() {
+                if (isPaused) return;
+                speakSentences(currentSentenceIndex + 1);
+            };
+
+            utterance.onerror = function(event) {
+                if (event.error === 'canceled' || event.error === 'interrupted') return;
+                setStateIdle();
+            };
+
+            synth.speak(utterance);
+        }
+
+        /* ---- Speak button ---- */
+        speakBtn.addEventListener('click', function() {
+            var text = inputEl.value.trim();
+            if (!text) {
+                inputEl.focus();
+                return;
+            }
+
+            synth.cancel();
+            isPaused = false;
+            sentences = splitIntoSentences(text);
+            if (sentences.length === 0) return;
+
+            buildSentenceDisplay();
+            setStateSpeaking();
+            speakSentences(0);
+        });
+
+        /* ---- Pause / Resume button ---- */
+        pauseBtn.addEventListener('click', function() {
+            if (synth.speaking && !isPaused) {
+                synth.pause();
+                isPaused = true;
+                setStatePaused();
+            } else if (isPaused) {
+                synth.resume();
+                isPaused = false;
+                setStateSpeaking();
+            }
+        });
+
+        /* ---- Stop button ---- */
+        stopBtn.addEventListener('click', function() {
+            isPaused = false;
+            synth.cancel();
+            setStateIdle();
+            textDisplay.style.display = 'none';
+        });
+
+        /* ---- Download feature ---- */
+        var canRecordAudio = (typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined') && typeof MediaRecorder !== 'undefined';
+
+        downloadBtn.addEventListener('click', function() {
+            var text = inputEl.value.trim();
+            if (!text) {
+                inputEl.focus();
+                return;
+            }
+
+            if (!canRecordAudio) {
+                downloadNote.style.display = 'block';
+                downloadNote.textContent = 'Audio download is not supported in your browser. Please try Chrome or Edge for this feature.';
+                return;
+            }
+
+            downloadNote.style.display = 'block';
+            downloadNote.textContent = 'Recording audio... The text will be spoken and recorded. Please wait until playback finishes.';
+
+            downloadBtn.disabled = true;
+            speakBtn.disabled = true;
+
+            try {
+                var AudioCtx = window.AudioContext || window.webkitAudioContext;
+                var audioCtx = new AudioCtx();
+                var dest = audioCtx.createMediaStreamDestination();
+
+                /* Determine a supported MIME type */
+                var mimeType = '';
+                var fileExtension = '';
+                if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+                    mimeType = 'audio/webm;codecs=opus';
+                    fileExtension = '.webm';
+                } else if (MediaRecorder.isTypeSupported('audio/webm')) {
+                    mimeType = 'audio/webm';
+                    fileExtension = '.webm';
+                } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
+                    mimeType = 'audio/ogg;codecs=opus';
+                    fileExtension = '.ogg';
+                } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+                    mimeType = 'audio/mp4';
+                    fileExtension = '.mp4';
+                } else {
+                    mimeType = '';
+                    fileExtension = '.webm';
+                }
+
+                var recorderOptions = mimeType ? { mimeType: mimeType } : {};
+                var recorder = new MediaRecorder(dest.stream, recorderOptions);
+                var chunks = [];
+
+                recorder.ondataavailable = function(e) {
+                    if (e.data.size > 0) chunks.push(e.data);
+                };
+
+                recorder.onstop = function() {
+                    var blob = new Blob(chunks, { type: mimeType || 'audio/webm' });
+                    var url = URL.createObjectURL(blob);
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'tts-audio' + fileExtension;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    audioCtx.close();
+                    downloadNote.textContent = 'Download complete. Note: Due to browser limitations, the audio file may be silent or empty if your browser does not route speech synthesis through the Web Audio API. In that case, consider using a screen recording tool to capture the audio.';
+                    setStateIdle();
+                };
+
+                /* Create an oscillator at zero gain to keep the audio context stream alive */
+                var oscillator = audioCtx.createOscillator();
+                var gainNode = audioCtx.createGain();
+                gainNode.gain.value = 0;
+                oscillator.connect(gainNode);
+                gainNode.connect(dest);
+                oscillator.start();
+
+                recorder.start();
+
+                /* Speak the text while recording */
+                synth.cancel();
+                isPaused = false;
+                var dlSentences = splitIntoSentences(text);
+                sentences = dlSentences;
+                buildSentenceDisplay();
+                setStateSpeaking();
+                downloadBtn.disabled = true;
+
+                var dlIndex = 0;
+
+                function speakForDownload(idx) {
+                    if (idx >= dlSentences.length) {
+                        oscillator.stop();
+                        recorder.stop();
+                        return;
+                    }
+
+                    currentSentenceIndex = idx;
+                    highlightSentence(idx);
+                    updateProgress();
+
+                    var utt = new SpeechSynthesisUtterance(dlSentences[idx]);
+                    var selectedVoiceIndex = parseInt(voiceSelect.value, 10);
+                    if (voices[selectedVoiceIndex]) {
+                        utt.voice = voices[selectedVoiceIndex];
+                    }
+                    utt.rate = parseFloat(speedSlider.value);
+                    utt.pitch = parseFloat(pitchSlider.value);
+
+                    utt.onend = function() {
+                        speakForDownload(idx + 1);
+                    };
+
+                    utt.onerror = function(event) {
+                        if (event.error === 'canceled' || event.error === 'interrupted') {
+                            oscillator.stop();
+                            recorder.stop();
+                            return;
+                        }
+                        speakForDownload(idx + 1);
+                    };
+
+                    synth.speak(utt);
+                }
+
+                speakForDownload(0);
+
+            } catch (err) {
+                downloadNote.style.display = 'block';
+                downloadNote.textContent = 'Could not record audio: ' + err.message + '. Your browser may not support capturing speech synthesis output. Try using Chrome or Edge, or use a screen recording tool to capture the audio.';
+                setStateIdle();
+            }
+        });
+
+        /* ---- Stop button should also stop any recording in progress ---- */
+        var originalStopHandler = stopBtn.onclick;
+        stopBtn.addEventListener('click', function() {
+            isPaused = false;
+            synth.cancel();
+        });
+
+        /* ---- Initialize download button state ---- */
+        if (!canRecordAudio) {
+            downloadBtn.title = 'Audio recording is not supported in this browser';
+        }
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

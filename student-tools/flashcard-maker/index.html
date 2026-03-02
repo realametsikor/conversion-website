@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Maker - Create Study Flashcards Free | ToolsNest</title>
+    <meta name="description" content="Create, study, and export flashcards for free. Flip cards with 3D animations, mark known vs review, shuffle, import/export CSV. No sign-up, works in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/student-tools/flashcard-maker/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .flashcard-scene {
+            perspective: 1000px;
+            width: 100%;
+            max-width: 500px;
+            height: 280px;
+            margin: 0 auto;
+        }
+        .flashcard {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+            cursor: pointer;
+        }
+        .flashcard.is-flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border-radius: var(--radius);
+            border: 2px solid var(--border);
+            background: var(--card-bg);
+            box-shadow: var(--shadow-md);
+            font-size: 1.15rem;
+            line-height: 1.6;
+            text-align: center;
+            word-break: break-word;
+            overflow-y: auto;
+        }
+        .flashcard-face--front {
+            background: linear-gradient(135deg, #EFF6FF, var(--card-bg));
+            border-color: var(--primary);
+        }
+        .flashcard-face--front::before {
+            content: 'FRONT';
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--primary);
+            opacity: 0.6;
+        }
+        .flashcard-face--back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #ECFDF5, var(--card-bg));
+            border-color: var(--accent);
+        }
+        .flashcard-face--back::before {
+            content: 'BACK';
+            position: absolute;
+            top: 0.75rem;
+            left: 1rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            opacity: 0.6;
+        }
+        .card-entry {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-color);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+        .card-entry .card-fields {
+            flex: 1;
+            display: flex;
+            gap: 0.75rem;
+        }
+        .card-entry .card-fields input {
+            flex: 1;
+        }
+        .card-entry .card-number {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            min-width: 1.5rem;
+            padding-top: 0.6rem;
+        }
+        .remove-card-btn {
+            background: none;
+            border: 1px solid #ef4444;
+            color: #ef4444;
+            border-radius: var(--radius-sm);
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: 500;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .remove-card-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+        .study-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .study-actions {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .btn-known {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-known:hover { background: var(--accent-hover); }
+        .btn-review {
+            background: #f59e0b;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-review:hover { background: #d97706; }
+        .card-status-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 1rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        .badge-known {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        .badge-review {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        .study-progress {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .study-progress-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            margin: 0.5rem auto 0;
+            overflow: hidden;
+        }
+        .study-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+        .study-stats {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+        }
+        .study-stats span {
+            color: var(--text-muted);
+        }
+        .stat-known { color: var(--accent) !important; font-weight: 600; }
+        .stat-review { color: #f59e0b !important; font-weight: 600; }
+        .import-area {
+            display: none;
+            margin-top: 1rem;
+        }
+        .card-counter {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .toolbar-row {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+        .toolbar-row .btn {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+        }
+        @media screen and (max-width: 600px) {
+            .card-entry .card-fields {
+                flex-direction: column;
+            }
+            .flashcard-scene {
+                height: 220px;
+            }
+            .study-nav {
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Flashcard Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Flashcard Maker</h1>
+                <p class="text-center mb-3">Create custom flashcards, study with flip animations, and track your progress. Import or export cards as CSV. Everything runs in your browser -- free and private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <!-- Create Mode -->
+                    <div id="create-mode">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <p id="card-counter" class="card-counter" style="margin: 0;">0 cards</p>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button id="import-toggle-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Import CSV</button>
+                                <button id="export-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Export Cards</button>
+                            </div>
+                        </div>
+
+                        <div id="import-area" class="import-area">
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label for="import-text">Paste CSV (front,back per line)</label>
+                                <textarea id="import-text" class="form-input" rows="4" placeholder="What is H2O?,Water&#10;What is the capital of France?,Paris&#10;Newton's first law,An object at rest stays at rest"></textarea>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                                <button id="import-btn" class="btn btn-primary" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Import</button>
+                                <button id="import-cancel-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Cancel</button>
+                            </div>
+                        </div>
+
+                        <div id="cards-list"></div>
+
+                        <button id="add-card-btn" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 0.85rem; margin-top: 0.5rem;">+ Add Card</button>
+
+                        <div class="toolbar-row" style="margin-top: 1.5rem;">
+                            <button id="study-btn" class="btn btn-accent" style="flex: 1; font-size: 1rem; padding: 0.85rem;" disabled>Study Mode</button>
+                        </div>
+                    </div>
+
+                    <!-- Study Mode -->
+                    <div id="study-mode" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem;">
+                            <button id="back-to-create-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Back to Editor</button>
+                            <button id="shuffle-btn" class="btn btn-outline" style="font-size: 0.85rem; padding: 0.5rem 1rem;">Shuffle</button>
+                        </div>
+
+                        <div class="study-progress">
+                            <span id="progress-text">Card 1 of 1</span>
+                            <div class="study-progress-bar">
+                                <div id="progress-fill" class="study-progress-fill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="flashcard-scene" id="flashcard-scene">
+                            <div class="flashcard" id="flashcard">
+                                <div class="flashcard-face flashcard-face--front" id="flash-front">
+                                    <span id="card-status-front"></span>
+                                    <span>Front</span>
+                                </div>
+                                <div class="flashcard-face flashcard-face--back" id="flash-back">
+                                    <span id="card-status-back"></span>
+                                    <span>Back</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p style="text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 0.75rem;">Click or tap the card to flip it</p>
+
+                        <div class="study-nav">
+                            <button id="prev-btn" class="btn btn-outline" style="padding: 0.5rem 1.25rem;">Previous</button>
+                            <button id="next-btn" class="btn btn-outline" style="padding: 0.5rem 1.25rem;">Next</button>
+                        </div>
+
+                        <div class="study-actions">
+                            <button id="mark-known-btn" class="btn btn-known">Mark as Known</button>
+                            <button id="mark-review-btn" class="btn btn-review">Mark for Review</button>
+                        </div>
+
+                        <div class="study-stats">
+                            <span class="stat-known" id="known-count">Known: 0</span>
+                            <span class="stat-review" id="review-count">Review: 0</span>
+                            <span id="unmarked-count">Unmarked: 0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Add Card" to create a new flashcard. Enter the question or term on the front and the answer or definition on the back.</li>
+                        <li>Add as many cards as you need. Use the "Remove" button to delete any card you no longer want.</li>
+                        <li>To bulk-create cards, click "Import CSV" and paste comma-separated lines (front,back format).</li>
+                        <li>Click "Study Mode" to begin studying. Click or tap a card to flip between the front and back sides.</li>
+                        <li>Use "Next" and "Previous" to navigate between cards. Mark cards as "Known" or "For Review" to track your progress.</li>
+                        <li>Click "Shuffle" to randomize the card order. Use "Export Cards" to download your deck as a CSV file.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Is this flashcard maker really free?</h3>
+                        <p>Yes, completely free. There are no sign-ups, no accounts, and no limits on how many cards you can create. The tool runs entirely in your browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my flashcards saved anywhere?</h3>
+                        <p>Your cards exist only in the current browser session. They are not sent to any server. Use the "Export Cards" button to download your deck as a CSV file so you can reload it later using "Import CSV."</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format does the CSV import/export use?</h3>
+                        <p>Each line should contain the front text and back text separated by a comma. For example: "What is photosynthesis?,The process by which plants convert sunlight into energy." If your text contains commas, only the first comma is used as the delimiter.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this on my phone?</h3>
+                        <p>Yes, the flashcard maker is fully responsive and works on mobile devices. You can tap to flip cards and swipe through your deck using the navigation buttons.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does "Mark as Known" and "Mark for Review" do?</h3>
+                        <p>These buttons help you track your study progress. Cards marked as "Known" are ones you have memorized, while "For Review" cards need more practice. The stats are displayed below the card during study mode.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/student-tools/study-timer" class="related-link">Study Timer</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/student-tools/citation-generator" class="related-link">Citation Generator</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var cards = [];
+        var currentIndex = 0;
+        var studyOrder = [];
+
+        /* DOM Elements - Create Mode */
+        var cardsList = document.getElementById('cards-list');
+        var addCardBtn = document.getElementById('add-card-btn');
+        var cardCounter = document.getElementById('card-counter');
+        var studyBtn = document.getElementById('study-btn');
+        var exportBtn = document.getElementById('export-btn');
+        var importToggleBtn = document.getElementById('import-toggle-btn');
+        var importArea = document.getElementById('import-area');
+        var importText = document.getElementById('import-text');
+        var importBtn = document.getElementById('import-btn');
+        var importCancelBtn = document.getElementById('import-cancel-btn');
+
+        /* DOM Elements - Study Mode */
+        var createMode = document.getElementById('create-mode');
+        var studyMode = document.getElementById('study-mode');
+        var flashcard = document.getElementById('flashcard');
+        var flashFront = document.getElementById('flash-front');
+        var flashBack = document.getElementById('flash-back');
+        var cardStatusFront = document.getElementById('card-status-front');
+        var cardStatusBack = document.getElementById('card-status-back');
+        var progressText = document.getElementById('progress-text');
+        var progressFill = document.getElementById('progress-fill');
+        var prevBtn = document.getElementById('prev-btn');
+        var nextBtn = document.getElementById('next-btn');
+        var markKnownBtn = document.getElementById('mark-known-btn');
+        var markReviewBtn = document.getElementById('mark-review-btn');
+        var knownCountEl = document.getElementById('known-count');
+        var reviewCountEl = document.getElementById('review-count');
+        var unmarkedCountEl = document.getElementById('unmarked-count');
+        var backToCreateBtn = document.getElementById('back-to-create-btn');
+        var shuffleBtn = document.getElementById('shuffle-btn');
+
+        /* Escape HTML to prevent XSS */
+        function escapeHtml(str) {
+            var div = document.createElement('div');
+            div.appendChild(document.createTextNode(str));
+            return div.innerHTML;
+        }
+
+        /* Update the card counter display */
+        function updateCounter() {
+            var count = cards.length;
+            cardCounter.textContent = count + (count === 1 ? ' card' : ' cards');
+            studyBtn.disabled = count === 0;
+        }
+
+        /* Render all card entries in the editor */
+        function renderCards() {
+            cardsList.innerHTML = '';
+            for (var i = 0; i < cards.length; i++) {
+                var entry = document.createElement('div');
+                entry.className = 'card-entry';
+                entry.setAttribute('data-index', i);
+
+                var num = document.createElement('span');
+                num.className = 'card-number';
+                num.textContent = (i + 1);
+
+                var fields = document.createElement('div');
+                fields.className = 'card-fields';
+
+                var frontInput = document.createElement('input');
+                frontInput.type = 'text';
+                frontInput.className = 'form-input';
+                frontInput.placeholder = 'Front (Question/Term)';
+                frontInput.value = cards[i].front;
+                frontInput.setAttribute('data-index', i);
+                frontInput.setAttribute('data-side', 'front');
+
+                var backInput = document.createElement('input');
+                backInput.type = 'text';
+                backInput.className = 'form-input';
+                backInput.placeholder = 'Back (Answer/Definition)';
+                backInput.value = cards[i].back;
+                backInput.setAttribute('data-index', i);
+                backInput.setAttribute('data-side', 'back');
+
+                fields.appendChild(frontInput);
+                fields.appendChild(backInput);
+
+                var removeBtn = document.createElement('button');
+                removeBtn.className = 'remove-card-btn';
+                removeBtn.textContent = 'Remove';
+                removeBtn.setAttribute('data-index', i);
+
+                entry.appendChild(num);
+                entry.appendChild(fields);
+                entry.appendChild(removeBtn);
+                cardsList.appendChild(entry);
+            }
+            updateCounter();
+        }
+
+        /* Sync input changes back to the cards array */
+        cardsList.addEventListener('input', function(e) {
+            if (e.target.tagName === 'INPUT') {
+                var idx = parseInt(e.target.getAttribute('data-index'), 10);
+                var side = e.target.getAttribute('data-side');
+                if (side === 'front') {
+                    cards[idx].front = e.target.value;
+                } else if (side === 'back') {
+                    cards[idx].back = e.target.value;
+                }
+            }
+        });
+
+        /* Handle remove button clicks via event delegation */
+        cardsList.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-card-btn')) {
+                var idx = parseInt(e.target.getAttribute('data-index'), 10);
+                cards.splice(idx, 1);
+                renderCards();
+            }
+        });
+
+        /* Add a new empty card */
+        addCardBtn.addEventListener('click', function() {
+            cards.push({ front: '', back: '', status: 'unmarked' });
+            renderCards();
+            /* Focus the new front input */
+            var inputs = cardsList.querySelectorAll('input[data-side="front"]');
+            if (inputs.length > 0) {
+                inputs[inputs.length - 1].focus();
+            }
+        });
+
+        /* Import/Export toggle */
+        importToggleBtn.addEventListener('click', function() {
+            importArea.style.display = importArea.style.display === 'none' ? 'block' : 'block';
+            importArea.style.display = 'block';
+            importText.focus();
+        });
+
+        importCancelBtn.addEventListener('click', function() {
+            importArea.style.display = 'none';
+            importText.value = '';
+        });
+
+        /* Import CSV */
+        importBtn.addEventListener('click', function() {
+            var text = importText.value.trim();
+            if (!text) return;
+
+            var lines = text.split('\n');
+            var imported = 0;
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim();
+                if (!line) continue;
+
+                /* Split on first comma only */
+                var commaIdx = line.indexOf(',');
+                var front, back;
+
+                if (commaIdx === -1) {
+                    front = line;
+                    back = '';
+                } else {
+                    front = line.substring(0, commaIdx).trim();
+                    back = line.substring(commaIdx + 1).trim();
+                }
+
+                /* Remove surrounding quotes if present */
+                if (front.length >= 2 && front.charAt(0) === '"' && front.charAt(front.length - 1) === '"') {
+                    front = front.substring(1, front.length - 1);
+                }
+                if (back.length >= 2 && back.charAt(0) === '"' && back.charAt(back.length - 1) === '"') {
+                    back = back.substring(1, back.length - 1);
+                }
+
+                if (front) {
+                    cards.push({ front: front, back: back, status: 'unmarked' });
+                    imported++;
+                }
+            }
+
+            if (imported > 0) {
+                renderCards();
+                importArea.style.display = 'none';
+                importText.value = '';
+            }
+        });
+
+        /* Export to CSV */
+        exportBtn.addEventListener('click', function() {
+            if (cards.length === 0) return;
+
+            var csvContent = '';
+            for (var i = 0; i < cards.length; i++) {
+                var front = cards[i].front.replace(/"/g, '""');
+                var back = cards[i].back.replace(/"/g, '""');
+                csvContent += '"' + front + '","' + back + '"\n';
+            }
+
+            var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            var link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'flashcards.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+        });
+
+        /* Enter Study Mode */
+        studyBtn.addEventListener('click', function() {
+            /* Filter out cards with empty fronts */
+            var validCards = [];
+            for (var i = 0; i < cards.length; i++) {
+                if (cards[i].front.trim()) {
+                    validCards.push(cards[i]);
+                }
+            }
+
+            if (validCards.length === 0) {
+                alert('Please add at least one card with text on the front side.');
+                return;
+            }
+
+            cards = validCards;
+            studyOrder = [];
+            for (var j = 0; j < cards.length; j++) {
+                studyOrder.push(j);
+            }
+            currentIndex = 0;
+
+            createMode.style.display = 'none';
+            studyMode.style.display = 'block';
+            showCard();
+        });
+
+        /* Back to editor */
+        backToCreateBtn.addEventListener('click', function() {
+            studyMode.style.display = 'none';
+            createMode.style.display = 'block';
+            renderCards();
+        });
+
+        /* Flip card */
+        flashcard.addEventListener('click', function() {
+            flashcard.classList.toggle('is-flipped');
+        });
+
+        /* Show current card */
+        function showCard() {
+            if (studyOrder.length === 0) return;
+
+            var cardIdx = studyOrder[currentIndex];
+            var card = cards[cardIdx];
+
+            flashcard.classList.remove('is-flipped');
+
+            /* Short delay so the flip resets before new content appears */
+            setTimeout(function() {
+                flashFront.querySelector('span:last-child').textContent = card.front;
+                flashBack.querySelector('span:last-child').textContent = card.back || '(no answer)';
+            }, 50);
+
+            /* Update status badges */
+            updateStatusBadge(card.status);
+
+            /* Progress */
+            progressText.textContent = 'Card ' + (currentIndex + 1) + ' of ' + studyOrder.length;
+            var pct = ((currentIndex + 1) / studyOrder.length) * 100;
+            progressFill.style.width = pct + '%';
+
+            /* Nav buttons */
+            prevBtn.disabled = currentIndex <= 0;
+            nextBtn.disabled = currentIndex >= studyOrder.length - 1;
+
+            updateStats();
+        }
+
+        /* Update status badge on card faces */
+        function updateStatusBadge(status) {
+            cardStatusFront.className = 'card-status-badge';
+            cardStatusBack.className = 'card-status-badge';
+
+            if (status === 'known') {
+                cardStatusFront.className = 'card-status-badge badge-known';
+                cardStatusFront.textContent = 'KNOWN';
+                cardStatusBack.className = 'card-status-badge badge-known';
+                cardStatusBack.textContent = 'KNOWN';
+            } else if (status === 'review') {
+                cardStatusFront.className = 'card-status-badge badge-review';
+                cardStatusFront.textContent = 'REVIEW';
+                cardStatusBack.className = 'card-status-badge badge-review';
+                cardStatusBack.textContent = 'REVIEW';
+            } else {
+                cardStatusFront.textContent = '';
+                cardStatusBack.textContent = '';
+            }
+        }
+
+        /* Update study stats */
+        function updateStats() {
+            var known = 0;
+            var review = 0;
+            var unmarked = 0;
+            for (var i = 0; i < cards.length; i++) {
+                if (cards[i].status === 'known') known++;
+                else if (cards[i].status === 'review') review++;
+                else unmarked++;
+            }
+            knownCountEl.textContent = 'Known: ' + known;
+            reviewCountEl.textContent = 'Review: ' + review;
+            unmarkedCountEl.textContent = 'Unmarked: ' + unmarked;
+        }
+
+        /* Navigation */
+        prevBtn.addEventListener('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                showCard();
+            }
+        });
+
+        nextBtn.addEventListener('click', function() {
+            if (currentIndex < studyOrder.length - 1) {
+                currentIndex++;
+                showCard();
+            }
+        });
+
+        /* Mark as Known */
+        markKnownBtn.addEventListener('click', function() {
+            var cardIdx = studyOrder[currentIndex];
+            cards[cardIdx].status = cards[cardIdx].status === 'known' ? 'unmarked' : 'known';
+            updateStatusBadge(cards[cardIdx].status);
+            updateStats();
+        });
+
+        /* Mark for Review */
+        markReviewBtn.addEventListener('click', function() {
+            var cardIdx = studyOrder[currentIndex];
+            cards[cardIdx].status = cards[cardIdx].status === 'review' ? 'unmarked' : 'review';
+            updateStatusBadge(cards[cardIdx].status);
+            updateStats();
+        });
+
+        /* Shuffle */
+        shuffleBtn.addEventListener('click', function() {
+            /* Fisher-Yates shuffle */
+            for (var i = studyOrder.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = studyOrder[i];
+                studyOrder[i] = studyOrder[j];
+                studyOrder[j] = temp;
+            }
+            currentIndex = 0;
+            showCard();
+        });
+
+        /* Keyboard support */
+        document.addEventListener('keydown', function(e) {
+            if (studyMode.style.display === 'none') return;
+
+            /* Ignore if user is typing in an input */
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                flashcard.classList.toggle('is-flipped');
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    showCard();
+                }
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentIndex < studyOrder.length - 1) {
+                    currentIndex++;
+                    showCard();
+                }
+            }
+        });
+
+        /* Initialize with one empty card */
+        cards.push({ front: '', back: '', status: 'unmarked' });
+        renderCards();
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker - Check Text for Originality Free | ToolsNest</title>
+    <meta name="description" content="Check your text for originality with our advanced plagiarism checker. Detects inconsistent writing styles, duplicated phrases, and tone shifts. Free, private, browser-based.">
+    <link rel="canonical" href="https://www.usetoolnest.com/ai-tools/plagiarism-checker/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Plagiarism Checker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Plagiarism Checker</h1>
+                <p class="text-center mb-3">Paste any text to analyze it for originality. Detects inconsistent writing styles, duplicated phrases, and tone shifts -- all processed client-side in your browser, fully private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="input-text">Paste Your Text Below</label>
+                        <textarea id="input-text" class="form-input" rows="10" placeholder="Paste or type your text here. For best results, use at least a few paragraphs so the tool can analyze writing style patterns across sentences." style="min-height: 200px;"></textarea>
+                        <p id="input-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <button id="check-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Check for Plagiarism</button>
+
+                    <div id="results-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Analysis Results</h3>
+
+                            <div id="score-display" style="text-align: center; margin-bottom: 1.5rem;">
+                                <div id="score-circle" style="display: inline-flex; align-items: center; justify-content: center; width: 120px; height: 120px; border-radius: 50%; border: 6px solid #22c55e; margin-bottom: 0.75rem;">
+                                    <span id="score-value" style="font-size: 2rem; font-weight: 700; color: var(--text-main);">0%</span>
+                                </div>
+                                <p id="score-label" style="font-size: 1rem; font-weight: 600; margin: 0;">Originality Score</p>
+                            </div>
+
+                            <div id="stats-bar" style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; padding: 1rem; background: var(--bg-color); border-radius: var(--radius-sm);">
+                                <div style="text-align: center;">
+                                    <span id="stat-sentences" style="font-size: 1.25rem; font-weight: 700; color: var(--text-main);">0</span>
+                                    <br><span class="text-muted" style="font-size: 0.8rem;">Sentences</span>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span id="stat-flagged" style="font-size: 1.25rem; font-weight: 700; color: #ef4444;">0</span>
+                                    <br><span class="text-muted" style="font-size: 0.8rem;">Flagged</span>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span id="stat-suspicious" style="font-size: 1.25rem; font-weight: 700; color: #eab308;">0</span>
+                                    <br><span class="text-muted" style="font-size: 0.8rem;">Suspicious</span>
+                                </div>
+                                <div style="text-align: center;">
+                                    <span id="stat-original" style="font-size: 1.25rem; font-weight: 700; color: #22c55e;">0</span>
+                                    <br><span class="text-muted" style="font-size: 0.8rem;">Original</span>
+                                </div>
+                            </div>
+
+                            <h4 style="margin-bottom: 0.75rem; color: var(--text-main);">Highlighted Text</h4>
+                            <div id="highlighted-text" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary); margin-bottom: 1rem;"></div>
+
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; font-size: 0.8rem;">
+                                <span><span style="display: inline-block; width: 14px; height: 14px; background: #bbf7d0; border-radius: 3px; vertical-align: middle; margin-right: 4px;"></span> Likely Original</span>
+                                <span><span style="display: inline-block; width: 14px; height: 14px; background: #fef08a; border-radius: 3px; vertical-align: middle; margin-right: 4px;"></span> Suspicious</span>
+                                <span><span style="display: inline-block; width: 14px; height: 14px; background: #fecaca; border-radius: 3px; vertical-align: middle; margin-right: 4px;"></span> Likely Copied</span>
+                            </div>
+
+                            <h4 style="margin-bottom: 0.75rem; color: var(--text-main);">Detailed Analysis</h4>
+                            <div id="analysis-details" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8;"></div>
+
+                            <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Report</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area above. Use at least a few paragraphs for accurate analysis.</li>
+                        <li>Click the "Check for Plagiarism" button to run the originality analysis.</li>
+                        <li>Review the originality score, highlighted text with color-coded sentences, and detailed findings.</li>
+                        <li>Click "Copy Report" to copy the full analysis report to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this plagiarism checker work?</h3>
+                        <p>This tool analyzes your text for signs of non-original content by examining writing style consistency, sentence complexity variance, vocabulary shifts, tone and formality changes, and duplicated phrases. It assigns each sentence an originality likelihood and calculates an overall score.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool check against online sources?</h3>
+                        <p>No. This tool performs heuristic analysis entirely in your browser. It does not compare your text against any online database or external source. It detects plagiarism indicators such as inconsistent writing patterns that suggest text was copied from multiple sources.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my text sent to any server?</h3>
+                        <p>No. All processing happens client-side in your browser using JavaScript. Your text never leaves your device, making this tool completely private and secure.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What do the color highlights mean?</h3>
+                        <p>Green highlighted sentences appear to be original based on consistent writing patterns. Yellow sentences show some suspicious indicators such as moderate style shifts. Red sentences have strong plagiarism indicators like abrupt complexity changes or duplicated phrasing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate is the originality score?</h3>
+                        <p>The score is a heuristic estimate based on writing style analysis. It is useful for spotting inconsistencies that may indicate copied content, but it is not a substitute for database-backed plagiarism detection services. Use it as a first-pass screening tool.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputText = document.getElementById('input-text');
+        var inputWordCount = document.getElementById('input-word-count');
+        var checkBtn = document.getElementById('check-btn');
+        var resultsOutput = document.getElementById('results-output');
+        var scoreCircle = document.getElementById('score-circle');
+        var scoreValue = document.getElementById('score-value');
+        var scoreLabel = document.getElementById('score-label');
+        var statSentences = document.getElementById('stat-sentences');
+        var statFlagged = document.getElementById('stat-flagged');
+        var statSuspicious = document.getElementById('stat-suspicious');
+        var statOriginal = document.getElementById('stat-original');
+        var highlightedText = document.getElementById('highlighted-text');
+        var analysisDetails = document.getElementById('analysis-details');
+        var copyBtn = document.getElementById('copy-btn');
+
+        /* Common English stop words */
+        var stopWords = new Set([
+            'a','an','the','and','or','but','in','on','at','to','for','of','with','by',
+            'from','is','was','are','were','be','been','being','have','has','had','do',
+            'does','did','will','would','shall','should','may','might','must','can',
+            'could','this','that','these','those','it','its','i','me','my','we','our',
+            'you','your','he','him','his','she','her','they','them','their','what',
+            'which','who','whom','when','where','why','how','all','each','every','both',
+            'few','more','most','other','some','such','no','not','only','own','same',
+            'so','than','too','very','just','because','as','until','while','about',
+            'between','through','during','before','after','above','below','up','down',
+            'out','off','over','under','again','further','then','once','if','also',
+            'into','there','here','new','one','two','said','like','get','make','go',
+            'know','take','see','come','think','look','want','give','use','find','tell',
+            'ask','work','seem','feel','try','leave','call','need','become','keep','let',
+            'begin','show','hear','play','run','move','live','believe','bring','happen',
+            'write','provide','sit','stand','lose','pay','meet','include','continue',
+            'set','learn','change','lead','understand','watch','follow','stop','create',
+            'speak','read','allow','add','spend','grow','open','walk','win','offer',
+            'remember','love','consider','appear','buy','wait','serve','die','send',
+            'expect','build','stay','fall','cut','reach','kill','remain','am','able',
+            'much','many','well','back','still','even','any','right','now','going',
+            'thing','way','may','then','around','long','really','great','part','over'
+        ]);
+
+        /* Academic/complex vocabulary indicators */
+        var complexWords = new Set([
+            'furthermore','moreover','nevertheless','notwithstanding','consequently',
+            'subsequently','aforementioned','henceforth','whereby','thereof','herein',
+            'therein','paradigm','methodology','epistemology','ontology','heuristic',
+            'empirical','quantitative','qualitative','juxtaposition','dichotomy',
+            'ubiquitous','concomitant','exacerbate','ameliorate','promulgate',
+            'elucidate','delineate','extrapolate','hypothesize','corroborate',
+            'substantiate','nomenclature','ramification','phenomenon','synthesis',
+            'antithesis','postulate','predicate','proliferation','manifestation',
+            'implementation','infrastructure','utilization','facilitation','optimization'
+        ]);
+
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        /* Update live word count */
+        inputText.addEventListener('input', function() {
+            inputWordCount.textContent = countWords(inputText.value) + ' words';
+        });
+
+        /* Split text into sentences */
+        function splitSentences(text) {
+            var raw = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            var sentences = [];
+            var regex = /[^.!?]*[.!?]+[\s]*/g;
+            var match;
+
+            while ((match = regex.exec(raw)) !== null) {
+                var s = match[0].trim();
+                if (s.length > 5) {
+                    sentences.push(s);
+                }
+            }
+
+            if (sentences.length === 0 && raw.length > 0) {
+                sentences = raw.split(/[.!?\n]+/).filter(function(s) {
+                    return s.trim().length > 5;
+                }).map(function(s) {
+                    return s.trim() + '.';
+                });
+            }
+
+            return sentences;
+        }
+
+        /* Tokenize into lowercase words */
+        function tokenize(text) {
+            return text.toLowerCase().replace(/[^a-z0-9\s'-]/g, '').split(/\s+/).filter(function(w) {
+                return w.length > 1;
+            });
+        }
+
+        /* Get content words (non-stop words) */
+        function getContentWords(tokens) {
+            return tokens.filter(function(w) {
+                return !stopWords.has(w);
+            });
+        }
+
+        /* Calculate average word length for a set of tokens */
+        function avgWordLength(tokens) {
+            if (tokens.length === 0) return 0;
+            var total = 0;
+            for (var i = 0; i < tokens.length; i++) {
+                total += tokens[i].length;
+            }
+            return total / tokens.length;
+        }
+
+        /* Count syllables in a word (approximate) */
+        function countSyllables(word) {
+            word = word.toLowerCase().replace(/[^a-z]/g, '');
+            if (word.length <= 3) return 1;
+            word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, '');
+            word = word.replace(/^y/, '');
+            var matches = word.match(/[aeiouy]{1,2}/g);
+            return matches ? matches.length : 1;
+        }
+
+        /* Calculate Flesch reading ease for a sentence */
+        function fleschScore(sentence) {
+            var tokens = tokenize(sentence);
+            if (tokens.length === 0) return 100;
+            var syllableCount = 0;
+            for (var i = 0; i < tokens.length; i++) {
+                syllableCount += countSyllables(tokens[i]);
+            }
+            var avgSyllables = syllableCount / tokens.length;
+            /* Simplified Flesch based on syllables per word */
+            return Math.max(0, Math.min(100, 206.835 - (84.6 * avgSyllables) + (1.015 * tokens.length / 1)));
+        }
+
+        /* Calculate complexity score for a sentence (0-1, higher = more complex) */
+        function sentenceComplexity(sentence) {
+            var tokens = tokenize(sentence);
+            var contentTokens = getContentWords(tokens);
+            if (tokens.length === 0) return 0;
+
+            /* Factor 1: Sentence length */
+            var lengthScore = Math.min(tokens.length / 40, 1);
+
+            /* Factor 2: Average word length */
+            var avgLen = avgWordLength(tokens);
+            var wordLengthScore = Math.min(avgLen / 8, 1);
+
+            /* Factor 3: Complex vocabulary count */
+            var complexCount = 0;
+            for (var i = 0; i < tokens.length; i++) {
+                if (complexWords.has(tokens[i])) complexCount++;
+            }
+            var vocabScore = Math.min(complexCount / 3, 1);
+
+            /* Factor 4: Content word ratio (higher = denser, more complex) */
+            var contentRatio = contentTokens.length / tokens.length;
+
+            /* Factor 5: Syllable density */
+            var totalSyllables = 0;
+            for (var j = 0; j < tokens.length; j++) {
+                totalSyllables += countSyllables(tokens[j]);
+            }
+            var syllableDensity = Math.min((totalSyllables / tokens.length) / 3, 1);
+
+            return (lengthScore * 0.2) + (wordLengthScore * 0.2) + (vocabScore * 0.25) + (contentRatio * 0.15) + (syllableDensity * 0.2);
+        }
+
+        /* Detect formality level (0 = very informal, 1 = very formal) */
+        function formalityLevel(sentence) {
+            var lower = sentence.toLowerCase();
+            var tokens = tokenize(sentence);
+            if (tokens.length === 0) return 0.5;
+
+            var formalIndicators = 0;
+            var informalIndicators = 0;
+
+            /* Formal indicators */
+            var formalPatterns = [
+                /\bhowever\b/, /\btherefore\b/, /\bfurthermore\b/, /\bmoreover\b/,
+                /\bconsequently\b/, /\bnevertheless\b/, /\bin addition\b/, /\baccordingly\b/,
+                /\bsubsequently\b/, /\bthus\b/, /\bhence\b/, /\bwhereas\b/,
+                /\bnotwithstanding\b/, /\binsofar\b/, /\binasmuch\b/
+            ];
+
+            var informalPatterns = [
+                /\bkinda\b/, /\bgonna\b/, /\bwanna\b/, /\bgotta\b/, /\baint\b/,
+                /\byeah\b/, /\bnope\b/, /\bcool\b/, /\bawesome\b/, /\bstuff\b/,
+                /\bthings\b/, /\bguys\b/, /\bbasically\b/, /\bliterally\b/,
+                /\bsuper\b/, /\btotally\b/, /!{2,}/, /\bbtw\b/, /\bomg\b/,
+                /\blol\b/, /\bimo\b/, /\bimho\b/
+            ];
+
+            for (var i = 0; i < formalPatterns.length; i++) {
+                if (formalPatterns[i].test(lower)) formalIndicators++;
+            }
+            for (var j = 0; j < informalPatterns.length; j++) {
+                if (informalPatterns[j].test(lower)) informalIndicators++;
+            }
+
+            /* Passive voice as a formality indicator */
+            if (/\b(?:is|was|are|were|been|being)\s+\w+ed\b/.test(lower)) {
+                formalIndicators++;
+            }
+
+            /* Contractions as informality indicators */
+            if (/\b\w+n't\b/.test(lower) || /\b\w+'re\b/.test(lower) || /\b\w+'ve\b/.test(lower) || /\b\w+'ll\b/.test(lower)) {
+                informalIndicators++;
+            }
+
+            /* Long average word length suggests formality */
+            var aLen = avgWordLength(tokens);
+            if (aLen > 5.5) formalIndicators++;
+            if (aLen < 3.8) informalIndicators++;
+
+            var total = formalIndicators + informalIndicators;
+            if (total === 0) return 0.5;
+            return formalIndicators / total;
+        }
+
+        /* Find duplicated n-grams between sentences */
+        function findDuplicatePhrases(sentences) {
+            var ngramMap = {};
+            var duplicates = [];
+            var minN = 4;
+
+            for (var i = 0; i < sentences.length; i++) {
+                var tokens = tokenize(sentences[i]);
+                for (var n = minN; n <= Math.min(tokens.length, 8); n++) {
+                    for (var j = 0; j <= tokens.length - n; j++) {
+                        var ngram = tokens.slice(j, j + n).join(' ');
+                        if (ngramMap[ngram] !== undefined && ngramMap[ngram] !== i) {
+                            duplicates.push({
+                                phrase: ngram,
+                                sentenceA: ngramMap[ngram],
+                                sentenceB: i,
+                                length: n
+                            });
+                        } else if (ngramMap[ngram] === undefined) {
+                            ngramMap[ngram] = i;
+                        }
+                    }
+                }
+            }
+
+            return duplicates;
+        }
+
+        /* Main analysis function */
+        function analyzePlagiarism(text) {
+            var sentences = splitSentences(text);
+            if (sentences.length === 0) {
+                return null;
+            }
+
+            /* Calculate per-sentence metrics */
+            var metrics = [];
+            for (var i = 0; i < sentences.length; i++) {
+                var tokens = tokenize(sentences[i]);
+                metrics.push({
+                    index: i,
+                    text: sentences[i],
+                    wordCount: tokens.length,
+                    complexity: sentenceComplexity(sentences[i]),
+                    formality: formalityLevel(sentences[i]),
+                    avgWordLen: avgWordLength(tokens),
+                    syllableDensity: (function() {
+                        var total = 0;
+                        for (var k = 0; k < tokens.length; k++) total += countSyllables(tokens[k]);
+                        return tokens.length > 0 ? total / tokens.length : 0;
+                    })()
+                });
+            }
+
+            /* Calculate global averages and standard deviations */
+            var avgComplexity = 0, avgFormality = 0, avgWordCt = 0, avgWL = 0;
+            for (var m = 0; m < metrics.length; m++) {
+                avgComplexity += metrics[m].complexity;
+                avgFormality += metrics[m].formality;
+                avgWordCt += metrics[m].wordCount;
+                avgWL += metrics[m].avgWordLen;
+            }
+            avgComplexity /= metrics.length;
+            avgFormality /= metrics.length;
+            avgWordCt /= metrics.length;
+            avgWL /= metrics.length;
+
+            var stdComplexity = 0, stdFormality = 0, stdWordCt = 0, stdWL = 0;
+            for (var s = 0; s < metrics.length; s++) {
+                stdComplexity += Math.pow(metrics[s].complexity - avgComplexity, 2);
+                stdFormality += Math.pow(metrics[s].formality - avgFormality, 2);
+                stdWordCt += Math.pow(metrics[s].wordCount - avgWordCt, 2);
+                stdWL += Math.pow(metrics[s].avgWordLen - avgWL, 2);
+            }
+            stdComplexity = Math.sqrt(stdComplexity / metrics.length);
+            stdFormality = Math.sqrt(stdFormality / metrics.length);
+            stdWordCt = Math.sqrt(stdWordCt / metrics.length);
+            stdWL = Math.sqrt(stdWL / metrics.length);
+
+            /* Find duplicated phrases */
+            var duplicates = findDuplicatePhrases(sentences);
+            var duplicatedSentences = new Set();
+            for (var d = 0; d < duplicates.length; d++) {
+                duplicatedSentences.add(duplicates[d].sentenceA);
+                duplicatedSentences.add(duplicates[d].sentenceB);
+            }
+
+            /* Score each sentence: 0 = very suspicious, 1 = likely original */
+            var sentenceScores = [];
+            var findings = [];
+
+            for (var idx = 0; idx < metrics.length; idx++) {
+                var score = 1.0;
+                var reasons = [];
+
+                /* Check complexity deviation */
+                if (stdComplexity > 0.05) {
+                    var complexityDeviation = Math.abs(metrics[idx].complexity - avgComplexity) / (stdComplexity || 1);
+                    if (complexityDeviation > 2.0) {
+                        score -= 0.3;
+                        reasons.push('significant complexity shift (deviation: ' + complexityDeviation.toFixed(1) + 'x)');
+                    } else if (complexityDeviation > 1.5) {
+                        score -= 0.15;
+                        reasons.push('moderate complexity shift');
+                    }
+                }
+
+                /* Check formality deviation */
+                if (stdFormality > 0.05) {
+                    var formalityDeviation = Math.abs(metrics[idx].formality - avgFormality) / (stdFormality || 1);
+                    if (formalityDeviation > 2.0) {
+                        score -= 0.25;
+                        reasons.push('tone/formality change detected');
+                    } else if (formalityDeviation > 1.5) {
+                        score -= 0.1;
+                        reasons.push('slight tone shift');
+                    }
+                }
+
+                /* Check sentence length deviation */
+                if (stdWordCt > 3) {
+                    var lengthDeviation = Math.abs(metrics[idx].wordCount - avgWordCt) / (stdWordCt || 1);
+                    if (lengthDeviation > 2.5) {
+                        score -= 0.2;
+                        reasons.push('unusual sentence length (' + metrics[idx].wordCount + ' words vs avg ' + Math.round(avgWordCt) + ')');
+                    } else if (lengthDeviation > 1.8) {
+                        score -= 0.1;
+                        reasons.push('atypical sentence length');
+                    }
+                }
+
+                /* Check word length / vocabulary deviation */
+                if (stdWL > 0.3) {
+                    var wlDeviation = Math.abs(metrics[idx].avgWordLen - avgWL) / (stdWL || 1);
+                    if (wlDeviation > 2.0) {
+                        score -= 0.2;
+                        reasons.push('vocabulary complexity shift (avg word length: ' + metrics[idx].avgWordLen.toFixed(1) + ' vs overall ' + avgWL.toFixed(1) + ')');
+                    } else if (wlDeviation > 1.5) {
+                        score -= 0.1;
+                        reasons.push('minor vocabulary shift');
+                    }
+                }
+
+                /* Check for duplicated phrases */
+                if (duplicatedSentences.has(idx)) {
+                    score -= 0.35;
+                    reasons.push('contains duplicated phrases found elsewhere in the text');
+                }
+
+                /* Adjacent sentence comparison: abrupt style jumps */
+                if (idx > 0) {
+                    var complexDiff = Math.abs(metrics[idx].complexity - metrics[idx - 1].complexity);
+                    var formalDiff = Math.abs(metrics[idx].formality - metrics[idx - 1].formality);
+                    if (complexDiff > 0.4 && formalDiff > 0.3) {
+                        score -= 0.2;
+                        reasons.push('abrupt style change from previous sentence');
+                    }
+                }
+
+                score = Math.max(0, Math.min(1, score));
+
+                sentenceScores.push({
+                    index: idx,
+                    text: sentences[idx],
+                    score: score,
+                    reasons: reasons,
+                    wordCount: metrics[idx].wordCount,
+                    complexity: metrics[idx].complexity,
+                    formality: metrics[idx].formality
+                });
+            }
+
+            /* Calculate overall originality score */
+            var totalScore = 0;
+            var totalWeight = 0;
+            for (var sc = 0; sc < sentenceScores.length; sc++) {
+                var weight = sentenceScores[sc].wordCount;
+                totalScore += sentenceScores[sc].score * weight;
+                totalWeight += weight;
+            }
+            var overallScore = totalWeight > 0 ? (totalScore / totalWeight) * 100 : 100;
+
+            /* Count categories */
+            var flaggedCount = 0, suspiciousCount = 0, originalCount = 0;
+            for (var c = 0; c < sentenceScores.length; c++) {
+                if (sentenceScores[c].score < 0.5) flaggedCount++;
+                else if (sentenceScores[c].score < 0.8) suspiciousCount++;
+                else originalCount++;
+            }
+
+            return {
+                sentences: sentenceScores,
+                overallScore: overallScore,
+                totalSentences: sentences.length,
+                flaggedCount: flaggedCount,
+                suspiciousCount: suspiciousCount,
+                originalCount: originalCount,
+                duplicates: duplicates,
+                avgComplexity: avgComplexity,
+                stdComplexity: stdComplexity,
+                avgFormality: avgFormality,
+                stdFormality: stdFormality
+            };
+        }
+
+        /* Escape HTML entities */
+        function escapeHtml(text) {
+            return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        /* Get color for a score */
+        function getScoreColor(score) {
+            if (score >= 0.8) return '#22c55e';
+            if (score >= 0.5) return '#eab308';
+            return '#ef4444';
+        }
+
+        function getHighlightBg(score) {
+            if (score >= 0.8) return '#bbf7d0';
+            if (score >= 0.5) return '#fef08a';
+            return '#fecaca';
+        }
+
+        /* Render results */
+        function renderResults(result) {
+            /* Score circle */
+            var score = Math.round(result.overallScore);
+            scoreValue.textContent = score + '%';
+            var circleColor = getScoreColor(score / 100);
+            scoreCircle.style.borderColor = circleColor;
+
+            if (score >= 80) {
+                scoreLabel.textContent = 'Originality Score - Likely Original';
+                scoreLabel.style.color = '#22c55e';
+            } else if (score >= 50) {
+                scoreLabel.textContent = 'Originality Score - Needs Review';
+                scoreLabel.style.color = '#eab308';
+            } else {
+                scoreLabel.textContent = 'Originality Score - Potential Plagiarism';
+                scoreLabel.style.color = '#ef4444';
+            }
+
+            /* Stats */
+            statSentences.textContent = result.totalSentences;
+            statFlagged.textContent = result.flaggedCount;
+            statSuspicious.textContent = result.suspiciousCount;
+            statOriginal.textContent = result.originalCount;
+
+            /* Highlighted text */
+            var highlightedHtml = '';
+            for (var i = 0; i < result.sentences.length; i++) {
+                var s = result.sentences[i];
+                var bg = getHighlightBg(s.score);
+                highlightedHtml += '<span style="background: ' + bg + '; padding: 2px 4px; border-radius: 3px; display: inline;" title="Originality: ' + Math.round(s.score * 100) + '%">' + escapeHtml(s.text) + '</span> ';
+            }
+            highlightedText.innerHTML = highlightedHtml;
+
+            /* Detailed analysis */
+            var detailsHtml = '';
+
+            /* Overall findings */
+            detailsHtml += '<div style="margin-bottom: 1rem;">';
+            detailsHtml += '<strong>Overall Writing Consistency:</strong> ';
+            if (result.stdComplexity < 0.1 && result.stdFormality < 0.15) {
+                detailsHtml += '<span style="color: #22c55e;">Writing style is consistent throughout the text.</span>';
+            } else if (result.stdComplexity < 0.2 || result.stdFormality < 0.25) {
+                detailsHtml += '<span style="color: #eab308;">Some variation in writing style detected.</span>';
+            } else {
+                detailsHtml += '<span style="color: #ef4444;">Significant writing style inconsistencies detected, suggesting possible mixed sources.</span>';
+            }
+            detailsHtml += '</div>';
+
+            /* Duplicate phrases */
+            if (result.duplicates.length > 0) {
+                detailsHtml += '<div style="margin-bottom: 1rem;">';
+                detailsHtml += '<strong style="color: #ef4444;">Duplicated Phrases Found:</strong><ul style="margin: 0.5rem 0 0 1.5rem;">';
+                var shownDuplicates = new Set();
+                for (var d = 0; d < result.duplicates.length && d < 5; d++) {
+                    var phrase = result.duplicates[d].phrase;
+                    if (!shownDuplicates.has(phrase)) {
+                        detailsHtml += '<li>"' + escapeHtml(phrase) + '" (found in sentences ' + (result.duplicates[d].sentenceA + 1) + ' and ' + (result.duplicates[d].sentenceB + 1) + ')</li>';
+                        shownDuplicates.add(phrase);
+                    }
+                }
+                detailsHtml += '</ul></div>';
+            }
+
+            /* Per-sentence flags */
+            var flaggedSentences = result.sentences.filter(function(s) { return s.reasons.length > 0; });
+            if (flaggedSentences.length > 0) {
+                detailsHtml += '<div><strong>Sentence-Level Findings:</strong>';
+                detailsHtml += '<div style="margin-top: 0.5rem;">';
+                for (var f = 0; f < flaggedSentences.length; f++) {
+                    var sent = flaggedSentences[f];
+                    var sentColor = getScoreColor(sent.score);
+                    var preview = sent.text.length > 80 ? sent.text.substring(0, 80) + '...' : sent.text;
+                    detailsHtml += '<div style="margin-bottom: 0.75rem; padding: 0.75rem; background: var(--bg-main); border-radius: var(--radius-sm); border-left: 3px solid ' + sentColor + ';">';
+                    detailsHtml += '<div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Sentence ' + (sent.index + 1) + ' (Originality: ' + Math.round(sent.score * 100) + '%)</div>';
+                    detailsHtml += '<div style="font-size: 0.9rem; margin-bottom: 0.5rem;">"' + escapeHtml(preview) + '"</div>';
+                    detailsHtml += '<ul style="margin: 0 0 0 1.25rem; font-size: 0.85rem; color: ' + sentColor + ';">';
+                    for (var r = 0; r < sent.reasons.length; r++) {
+                        detailsHtml += '<li>' + escapeHtml(sent.reasons[r]) + '</li>';
+                    }
+                    detailsHtml += '</ul></div>';
+                }
+                detailsHtml += '</div></div>';
+            } else {
+                detailsHtml += '<div><strong>Sentence-Level Findings:</strong> <span style="color: #22c55e;">No issues detected. All sentences appear stylistically consistent.</span></div>';
+            }
+
+            analysisDetails.innerHTML = detailsHtml;
+        }
+
+        /* Generate plain text report for copying */
+        function generateReport(result) {
+            var report = '=== PLAGIARISM CHECK REPORT ===\n\n';
+            report += 'Originality Score: ' + Math.round(result.overallScore) + '%\n';
+            report += 'Total Sentences: ' + result.totalSentences + '\n';
+            report += 'Likely Original: ' + result.originalCount + '\n';
+            report += 'Suspicious: ' + result.suspiciousCount + '\n';
+            report += 'Likely Copied: ' + result.flaggedCount + '\n\n';
+
+            if (result.duplicates.length > 0) {
+                report += '--- DUPLICATED PHRASES ---\n';
+                var shownDups = new Set();
+                for (var d = 0; d < result.duplicates.length; d++) {
+                    var phrase = result.duplicates[d].phrase;
+                    if (!shownDups.has(phrase)) {
+                        report += '- "' + phrase + '" (sentences ' + (result.duplicates[d].sentenceA + 1) + ' and ' + (result.duplicates[d].sentenceB + 1) + ')\n';
+                        shownDups.add(phrase);
+                    }
+                }
+                report += '\n';
+            }
+
+            var flagged = result.sentences.filter(function(s) { return s.reasons.length > 0; });
+            if (flagged.length > 0) {
+                report += '--- FLAGGED SENTENCES ---\n';
+                for (var f = 0; f < flagged.length; f++) {
+                    var s = flagged[f];
+                    report += '\nSentence ' + (s.index + 1) + ' (Originality: ' + Math.round(s.score * 100) + '%):\n';
+                    report += '"' + s.text + '"\n';
+                    report += 'Issues: ' + s.reasons.join('; ') + '\n';
+                }
+            } else {
+                report += '--- No flagged sentences. Text appears original. ---\n';
+            }
+
+            report += '\n=== Generated by ToolsNest Plagiarism Checker ===';
+            return report;
+        }
+
+        var lastResult = null;
+
+        checkBtn.addEventListener('click', function() {
+            var text = inputText.value.trim();
+
+            if (!text) {
+                resultsOutput.style.display = 'block';
+                highlightedText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter some text to check for plagiarism.</p>';
+                analysisDetails.innerHTML = '';
+                scoreValue.textContent = '--';
+                scoreCircle.style.borderColor = 'var(--border)';
+                scoreLabel.textContent = 'Originality Score';
+                scoreLabel.style.color = 'var(--text-main)';
+                statSentences.textContent = '0';
+                statFlagged.textContent = '0';
+                statSuspicious.textContent = '0';
+                statOriginal.textContent = '0';
+                lastResult = null;
+                return;
+            }
+
+            var wordCount = countWords(text);
+            if (wordCount < 20) {
+                resultsOutput.style.display = 'block';
+                highlightedText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter more text. The plagiarism checker works best with at least a few paragraphs (20+ words).</p>';
+                analysisDetails.innerHTML = '';
+                scoreValue.textContent = '--';
+                scoreCircle.style.borderColor = 'var(--border)';
+                scoreLabel.textContent = 'Originality Score';
+                scoreLabel.style.color = 'var(--text-main)';
+                statSentences.textContent = '0';
+                statFlagged.textContent = '0';
+                statSuspicious.textContent = '0';
+                statOriginal.textContent = '0';
+                lastResult = null;
+                return;
+            }
+
+            var result = analyzePlagiarism(text);
+
+            if (!result) {
+                resultsOutput.style.display = 'block';
+                highlightedText.innerHTML = '<p style="color: #ef4444; margin: 0;">Could not extract sentences from the text. Please use proper punctuation.</p>';
+                analysisDetails.innerHTML = '';
+                lastResult = null;
+                return;
+            }
+
+            lastResult = result;
+            resultsOutput.style.display = 'block';
+            renderResults(result);
+        });
+
+        copyBtn.addEventListener('click', function() {
+            if (!lastResult) return;
+
+            var reportText = generateReport(lastResult);
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(reportText).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Report'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = reportText;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Report'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

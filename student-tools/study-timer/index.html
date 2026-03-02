@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Timer (Pomodoro) - Focus Timer for Productivity | ToolsNest</title>
+    <meta name="description" content="Free Pomodoro study timer to boost focus and productivity. Customizable work and break durations, session tracking, and audio notifications. Works entirely in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/student-tools/study-timer/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/student-tools">Student Tools</a> &gt; Study Timer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Study Timer (Pomodoro)</h1>
+                <p class="text-center mb-3">Stay focused with the Pomodoro technique. Work in timed intervals with short and long breaks to maximize productivity. Runs entirely in your browser -- no sign-up required.</p>
+
+                <div class="tool-workspace" style="text-align: center; padding: 2rem;">
+
+                    <!-- Timer Display -->
+                    <div id="timer-display" style="
+                        width: 220px;
+                        height: 220px;
+                        border-radius: 50%;
+                        border: 6px solid var(--primary);
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        margin: 0 auto 1rem;
+                        background: var(--card-bg);
+                        box-shadow: 0 4px 24px rgba(37,99,235,0.12);
+                        transition: border-color 0.4s, box-shadow 0.4s;
+                    ">
+                        <span id="timer-label" style="
+                            font-size: 0.85rem;
+                            font-weight: 600;
+                            text-transform: uppercase;
+                            letter-spacing: 0.08em;
+                            color: var(--primary);
+                            margin-bottom: 0.25rem;
+                            transition: color 0.4s;
+                        ">Work</span>
+                        <span id="timer-countdown" style="
+                            font-size: 3.5rem;
+                            font-weight: 800;
+                            color: var(--text-main);
+                            line-height: 1;
+                            font-variant-numeric: tabular-nums;
+                        ">25:00</span>
+                    </div>
+
+                    <!-- Session Counter -->
+                    <p id="session-counter" style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">Pomodoros completed: <strong>0</strong></p>
+
+                    <!-- Control Buttons -->
+                    <div style="display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                        <button id="start-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1rem;">Start</button>
+                        <button id="pause-btn" class="btn btn-outline" style="padding: 0.75rem 2rem; font-size: 1rem;" disabled>Pause</button>
+                        <button id="reset-btn" class="btn btn-outline" style="padding: 0.75rem 2rem; font-size: 1rem;">Reset</button>
+                    </div>
+
+                    <!-- Mode Buttons -->
+                    <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                        <button class="mode-btn btn btn-primary" data-mode="work" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Work</button>
+                        <button class="mode-btn btn btn-outline" data-mode="shortBreak" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Short Break</button>
+                        <button class="mode-btn btn btn-outline" data-mode="longBreak" style="padding: 0.5rem 1.25rem; font-size: 0.85rem;">Long Break</button>
+                    </div>
+
+                    <!-- Custom Duration Settings -->
+                    <div style="border-top: 2px solid var(--border); padding-top: 1.5rem; text-align: left;">
+                        <h3 style="margin-bottom: 1rem; font-size: 1rem; color: var(--text-main); text-align: center;">Custom Durations (minutes)</h3>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; max-width: 450px; margin: 0 auto;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="work-duration" style="font-size: 0.85rem;">Work</label>
+                                <input id="work-duration" type="number" class="form-input" value="25" min="1" max="120" style="text-align: center;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="short-break-duration" style="font-size: 0.85rem;">Short Break</label>
+                                <input id="short-break-duration" type="number" class="form-input" value="5" min="1" max="60" style="text-align: center;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="long-break-duration" style="font-size: 0.85rem;">Long Break</label>
+                                <input id="long-break-duration" type="number" class="form-input" value="15" min="1" max="60" style="text-align: center;">
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 0.75rem;">
+                            <button id="apply-durations-btn" class="btn btn-outline" style="padding: 0.4rem 1.25rem; font-size: 0.85rem;">Apply</button>
+                        </p>
+                    </div>
+
+                    <!-- Session Log -->
+                    <div style="border-top: 2px solid var(--border); padding-top: 1.5rem; margin-top: 1.5rem; text-align: left;">
+                        <h3 style="margin-bottom: 0.75rem; font-size: 1rem; color: var(--text-main); text-align: center;">Session Log</h3>
+                        <div id="session-log" style="
+                            max-height: 200px;
+                            overflow-y: auto;
+                            background: var(--bg-color);
+                            border-radius: var(--radius-sm);
+                            padding: 1rem;
+                            border: 1px solid var(--border);
+                        ">
+                            <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0; text-align: center;">No sessions completed yet. Start your first pomodoro!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Start" to begin a 25-minute work session. The timer counts down and the display shows the remaining time.</li>
+                        <li>Focus on your task until the timer rings. An audio notification will alert you when the session ends.</li>
+                        <li>Take a 5-minute short break. After every 4 work sessions, the timer will suggest a 15-minute long break.</li>
+                        <li>Use the mode buttons to manually switch between Work, Short Break, and Long Break sessions.</li>
+                        <li>Customize durations in the settings area and click "Apply" to use your preferred intervals.</li>
+                        <li>Track your progress using the session counter and session log at the bottom of the timer.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the Pomodoro Technique?</h3>
+                        <p>The Pomodoro Technique is a time management method developed by Francesco Cirillo. It uses a timer to break work into focused intervals (typically 25 minutes), separated by short breaks. After four work intervals, a longer break is taken. This approach helps maintain concentration and prevents burnout.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I change the timer durations?</h3>
+                        <p>Yes. Use the custom duration inputs to set your preferred work, short break, and long break times in minutes. Click "Apply" to save your settings. The timer will use your custom durations for all future sessions.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this timer work offline?</h3>
+                        <p>Once the page is loaded, the timer runs entirely in your browser using client-side JavaScript. No internet connection is needed to use the timer, although you need to keep the browser tab open for it to count down.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will I hear a notification when the timer ends?</h3>
+                        <p>Yes. The timer uses the Web Audio API to play a short beep tone when a session ends. Make sure your device volume is on. No external audio files are required -- the sound is generated directly in the browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data stored anywhere?</h3>
+                        <p>No. All timer data and session logs stay in your browser for the current page session. Nothing is sent to a server or stored permanently. Refreshing the page will reset your session log.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/student-tools/flashcard-maker" class="related-link">Flashcard Maker</a>
+                    <a href="/student-tools/read-time-estimator" class="related-link">Read Time Estimator</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* --- Configuration --- */
+        var durations = {
+            work: 25 * 60,
+            shortBreak: 5 * 60,
+            longBreak: 15 * 60
+        };
+
+        /* --- State --- */
+        var currentMode = 'work';       /* 'work', 'shortBreak', 'longBreak' */
+        var timeRemaining = durations.work;
+        var timerInterval = null;
+        var isRunning = false;
+        var pomodorosCompleted = 0;
+        var sessionLog = [];
+
+        /* --- DOM References --- */
+        var timerDisplay = document.getElementById('timer-display');
+        var timerLabel = document.getElementById('timer-label');
+        var timerCountdown = document.getElementById('timer-countdown');
+        var sessionCounter = document.getElementById('session-counter');
+        var startBtn = document.getElementById('start-btn');
+        var pauseBtn = document.getElementById('pause-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var modeBtns = document.querySelectorAll('.mode-btn');
+        var workDurationInput = document.getElementById('work-duration');
+        var shortBreakInput = document.getElementById('short-break-duration');
+        var longBreakInput = document.getElementById('long-break-duration');
+        var applyBtn = document.getElementById('apply-durations-btn');
+        var sessionLogEl = document.getElementById('session-log');
+
+        /* --- Color Themes per Mode --- */
+        var modeColors = {
+            work: { border: 'var(--primary)', shadow: 'rgba(37,99,235,0.12)', label: 'var(--primary)' },
+            shortBreak: { border: 'var(--accent)', shadow: 'rgba(16,185,129,0.12)', label: 'var(--accent)' },
+            longBreak: { border: '#F59E0B', shadow: 'rgba(245,158,11,0.12)', label: '#F59E0B' }
+        };
+
+        var modeLabels = {
+            work: 'Work',
+            shortBreak: 'Short Break',
+            longBreak: 'Long Break'
+        };
+
+        /* --- Helper: Format seconds to MM:SS --- */
+        function formatTime(totalSeconds) {
+            var m = Math.floor(totalSeconds / 60);
+            var s = totalSeconds % 60;
+            return (m < 10 ? '0' + m : m) + ':' + (s < 10 ? '0' + s : s);
+        }
+
+        /* --- Helper: Get current time as HH:MM string --- */
+        function getTimestamp() {
+            var now = new Date();
+            var h = now.getHours();
+            var m = now.getMinutes();
+            var ampm = h >= 12 ? 'PM' : 'AM';
+            h = h % 12;
+            if (h === 0) h = 12;
+            return (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m) + ' ' + ampm;
+        }
+
+        /* --- Update Display --- */
+        function updateDisplay() {
+            timerCountdown.textContent = formatTime(timeRemaining);
+            timerLabel.textContent = modeLabels[currentMode];
+
+            var colors = modeColors[currentMode];
+            timerDisplay.style.borderColor = colors.border;
+            timerDisplay.style.boxShadow = '0 4px 24px ' + colors.shadow;
+            timerLabel.style.color = colors.label;
+
+            /* Update document title with timer */
+            document.title = formatTime(timeRemaining) + ' - ' + modeLabels[currentMode] + ' | ToolsNest';
+
+            /* Update mode buttons */
+            for (var i = 0; i < modeBtns.length; i++) {
+                var btn = modeBtns[i];
+                var btnMode = btn.getAttribute('data-mode');
+                if (btnMode === currentMode) {
+                    btn.className = 'mode-btn btn btn-primary';
+                    if (currentMode === 'shortBreak') {
+                        btn.style.background = 'var(--accent)';
+                        btn.style.borderColor = 'var(--accent)';
+                        btn.style.color = 'white';
+                    } else if (currentMode === 'longBreak') {
+                        btn.style.background = '#F59E0B';
+                        btn.style.borderColor = '#F59E0B';
+                        btn.style.color = 'white';
+                    } else {
+                        btn.style.background = '';
+                        btn.style.borderColor = '';
+                        btn.style.color = '';
+                    }
+                } else {
+                    btn.className = 'mode-btn btn btn-outline';
+                    btn.style.background = '';
+                    btn.style.borderColor = '';
+                    btn.style.color = '';
+                }
+            }
+
+            sessionCounter.innerHTML = 'Pomodoros completed: <strong>' + pomodorosCompleted + '</strong>';
+        }
+
+        /* --- Audio Notification (Web Audio API) --- */
+        function playBeep() {
+            try {
+                var audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                /* Play three short beeps */
+                var beepCount = 3;
+                for (var i = 0; i < beepCount; i++) {
+                    var oscillator = audioCtx.createOscillator();
+                    var gainNode = audioCtx.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    gainNode.gain.setValueAtTime(0.3, audioCtx.currentTime + i * 0.25);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + i * 0.25 + 0.2);
+                    oscillator.start(audioCtx.currentTime + i * 0.25);
+                    oscillator.stop(audioCtx.currentTime + i * 0.25 + 0.2);
+                }
+            } catch (e) {
+                /* Audio not supported -- fail silently */
+            }
+        }
+
+        /* --- Session Log --- */
+        function addLogEntry(mode, duration) {
+            var durationMin = Math.round(duration / 60);
+            var entry = {
+                mode: modeLabels[mode],
+                duration: durationMin,
+                time: getTimestamp()
+            };
+            sessionLog.push(entry);
+            renderLog();
+        }
+
+        function renderLog() {
+            if (sessionLog.length === 0) {
+                sessionLogEl.innerHTML = '<p style="color: var(--text-muted); font-size: 0.85rem; margin: 0; text-align: center;">No sessions completed yet. Start your first pomodoro!</p>';
+                return;
+            }
+
+            var html = '';
+            for (var i = sessionLog.length - 1; i >= 0; i--) {
+                var entry = sessionLog[i];
+                var dotColor = 'var(--primary)';
+                if (entry.mode === 'Short Break') dotColor = 'var(--accent)';
+                else if (entry.mode === 'Long Break') dotColor = '#F59E0B';
+
+                html += '<div style="display: flex; align-items: center; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem;">';
+                html += '<span style="width: 10px; height: 10px; border-radius: 50%; background: ' + dotColor + '; flex-shrink: 0;"></span>';
+                html += '<span style="color: var(--text-main); font-weight: 500;">' + entry.mode + '</span>';
+                html += '<span style="color: var(--text-muted);">' + entry.duration + ' min</span>';
+                html += '<span style="color: var(--text-muted); margin-left: auto;">' + entry.time + '</span>';
+                html += '</div>';
+            }
+            sessionLogEl.innerHTML = html;
+        }
+
+        /* --- Timer Tick --- */
+        function tick() {
+            if (timeRemaining <= 0) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+                isRunning = false;
+                playBeep();
+                onSessionEnd();
+                return;
+            }
+            timeRemaining--;
+            updateDisplay();
+        }
+
+        /* --- Session End Logic --- */
+        function onSessionEnd() {
+            addLogEntry(currentMode, durations[currentMode]);
+
+            if (currentMode === 'work') {
+                pomodorosCompleted++;
+                /* After 4 work sessions, suggest long break */
+                if (pomodorosCompleted % 4 === 0) {
+                    switchMode('longBreak');
+                } else {
+                    switchMode('shortBreak');
+                }
+            } else {
+                /* Break ended, switch back to work */
+                switchMode('work');
+            }
+
+            updateDisplay();
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = 'Start';
+        }
+
+        /* --- Switch Mode --- */
+        function switchMode(mode) {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            isRunning = false;
+            currentMode = mode;
+            timeRemaining = durations[mode];
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = 'Start';
+            updateDisplay();
+        }
+
+        /* --- Control: Start --- */
+        startBtn.addEventListener('click', function() {
+            if (isRunning) return;
+            isRunning = true;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            timerInterval = setInterval(tick, 1000);
+        });
+
+        /* --- Control: Pause --- */
+        pauseBtn.addEventListener('click', function() {
+            if (!isRunning) return;
+            isRunning = false;
+            clearInterval(timerInterval);
+            timerInterval = null;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = 'Resume';
+        });
+
+        /* --- Control: Reset --- */
+        resetBtn.addEventListener('click', function() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            isRunning = false;
+            timeRemaining = durations[currentMode];
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = 'Start';
+            updateDisplay();
+        });
+
+        /* --- Mode Buttons --- */
+        for (var i = 0; i < modeBtns.length; i++) {
+            modeBtns[i].addEventListener('click', function() {
+                var mode = this.getAttribute('data-mode');
+                switchMode(mode);
+            });
+        }
+
+        /* --- Apply Custom Durations --- */
+        applyBtn.addEventListener('click', function() {
+            var workVal = parseInt(workDurationInput.value, 10);
+            var shortVal = parseInt(shortBreakInput.value, 10);
+            var longVal = parseInt(longBreakInput.value, 10);
+
+            if (isNaN(workVal) || workVal < 1) workVal = 25;
+            if (isNaN(shortVal) || shortVal < 1) shortVal = 5;
+            if (isNaN(longVal) || longVal < 1) longVal = 15;
+
+            if (workVal > 120) workVal = 120;
+            if (shortVal > 60) shortVal = 60;
+            if (longVal > 60) longVal = 60;
+
+            workDurationInput.value = workVal;
+            shortBreakInput.value = shortVal;
+            longBreakInput.value = longVal;
+
+            durations.work = workVal * 60;
+            durations.shortBreak = shortVal * 60;
+            durations.longBreak = longVal * 60;
+
+            /* Reset current timer to new duration */
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            isRunning = false;
+            timeRemaining = durations[currentMode];
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            startBtn.textContent = 'Start';
+            updateDisplay();
+
+            /* Brief feedback on the button */
+            var originalText = applyBtn.textContent;
+            applyBtn.textContent = 'Applied!';
+            setTimeout(function() { applyBtn.textContent = originalText; }, 1500);
+        });
+
+        /* --- Initial Render --- */
+        updateDisplay();
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
