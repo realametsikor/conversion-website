@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Thumbnail Maker Free Online - Create Custom Thumbnails | ToolsNest</title>
+    <meta name="description" content="Create stunning YouTube thumbnails online for free. Choose from preset sizes, add text, customize colors, and download in 1280x720. No signup needed.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/youtube-thumbnail-maker/">
+
+    <meta property="og:title" content="YouTube Thumbnail Maker Free Online - Create Custom Thumbnails | ToolsNest">
+    <meta property="og:description" content="Create stunning YouTube thumbnails online for free. Choose from preset sizes, add text, customize colors, and download in 1280x720. No signup needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/youtube-thumbnail-maker/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="YouTube Thumbnail Maker Free Online - Create Custom Thumbnails | ToolsNest">
+    <meta name="twitter:description" content="Create stunning YouTube thumbnails online for free. Choose from preset sizes, add text, customize colors, and download in 1280x720. No signup needed.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "YouTube Thumbnail Maker"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; YouTube Thumbnail Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">YouTube Thumbnail Maker</h1>
+                <p class="text-center mb-3">Create eye-catching YouTube thumbnails in seconds. Upload a background image or pick a solid color, add bold headline text, and download your custom 1280x720 thumbnail for free.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload a Background Image or Start with a Solid Color</h3>
+                        <p class="text-muted mb-2">Drag and drop an image here, or click the button below. Supports JPG, PNG, and WebP.</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary" style="margin-right: 0.5rem;">Select Image</label>
+                        <button id="start-solid-btn" class="btn btn-accent">Start with Solid Color</button>
+                    </div>
+
+                    <div id="editor-section" style="display: none; text-align: left;">
+                        <div style="position: relative; margin-bottom: 1.5rem;">
+                            <canvas id="preview-canvas" style="width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border);"></canvas>
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Background Color</p>
+                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                <input type="color" id="bg-color" value="#1a1a2e" style="width: 50px; height: 40px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;">
+                                <span class="text-muted" style="font-size: 0.85rem;">Used when no background image is uploaded, or behind transparent areas.</span>
+                            </div>
+                        </div>
+
+                        <div style="background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Headline Text</p>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <input type="text" id="text-input" class="form-input" placeholder="Enter your thumbnail headline..." value="">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label>Font Size: <span id="font-size-value">48</span>px</label>
+                                <input type="range" id="font-size" min="24" max="80" value="48" style="width: 100%;">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label>Text Color</label>
+                                    <input type="color" id="text-color" value="#ffffff" style="width: 100%; height: 40px; border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer;">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label>Text Position</label>
+                                    <select id="text-position" class="form-input">
+                                        <option value="top">Top</option>
+                                        <option value="center" selected>Center</option>
+                                        <option value="bottom">Bottom</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                            <button id="download-btn" class="btn btn-accent" style="padding: 1rem; font-size: 1.1rem;">Download PNG</button>
+                            <button id="reset-btn" class="btn btn-outline" style="padding: 1rem; font-size: 1.1rem;">Start Over</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Upload a background image by dragging and dropping it onto the workspace, or click "Select Image" to browse your device. You can also click "Start with Solid Color" to skip the image upload.</li>
+                        <li>Type your headline text into the text field. The canvas preview updates in real time.</li>
+                        <li>Adjust the font size using the slider (24px to 80px) and pick a text color with the color picker.</li>
+                        <li>Choose the text position from the dropdown: Top, Center, or Bottom of the thumbnail.</li>
+                        <li>Optionally change the background color if you started with a solid color or want a colored backdrop.</li>
+                        <li>Click "Download PNG" to save your finished thumbnail at 1280x720 resolution, ready for YouTube.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What size are the thumbnails created by this tool?</h3>
+                        <p>All thumbnails are generated at 1280x720 pixels, which is the recommended resolution by YouTube for custom thumbnails with a 16:9 aspect ratio.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do I need to sign up or pay to use this tool?</h3>
+                        <p>No. This YouTube Thumbnail Maker is completely free and requires no signup, account, or payment. Just open the page and start creating.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to a server?</h3>
+                        <p>No. All processing happens entirely in your browser using the Canvas API. Your images never leave your device, ensuring complete privacy.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I create a thumbnail without uploading a background image?</h3>
+                        <p>Yes. Click "Start with Solid Color" to begin with a blank canvas. You can pick any background color and add your headline text on top of it.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What font is used for the headline text?</h3>
+                        <p>The tool uses the bold Impact font, which is a popular choice for YouTube thumbnails because of its wide, attention-grabbing letterforms. A black stroke outline is applied for readability on any background.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/youtube-banner-maker" class="related-link">YouTube Banner Maker</a>
+                    <a href="/image-tools/thumbnail-text-adder" class="related-link">Thumbnail Text Adder</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var CANVAS_WIDTH = 1280;
+        var CANVAS_HEIGHT = 720;
+
+        var dropZone = document.getElementById('drop-zone');
+        var fileInput = document.getElementById('file-input');
+        var startSolidBtn = document.getElementById('start-solid-btn');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var canvas = document.getElementById('preview-canvas');
+        var ctx = canvas.getContext('2d');
+
+        var bgColorInput = document.getElementById('bg-color');
+        var textInput = document.getElementById('text-input');
+        var fontSizeSlider = document.getElementById('font-size');
+        var fontSizeValue = document.getElementById('font-size-value');
+        var textColorInput = document.getElementById('text-color');
+        var textPositionSelect = document.getElementById('text-position');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var currentImage = null;
+
+        canvas.width = CANVAS_WIDTH;
+        canvas.height = CANVAS_HEIGHT;
+
+        function showEditor() {
+            uploadSection.style.display = 'none';
+            editorSection.style.display = 'block';
+            render();
+        }
+
+        function render() {
+            ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+            // Draw background color first
+            ctx.fillStyle = bgColorInput.value;
+            ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+            // Draw background image if present
+            if (currentImage) {
+                var imgRatio = currentImage.width / currentImage.height;
+                var canvasRatio = CANVAS_WIDTH / CANVAS_HEIGHT;
+                var sx, sy, sw, sh;
+
+                if (imgRatio > canvasRatio) {
+                    sh = currentImage.height;
+                    sw = sh * canvasRatio;
+                    sx = (currentImage.width - sw) / 2;
+                    sy = 0;
+                } else {
+                    sw = currentImage.width;
+                    sh = sw / canvasRatio;
+                    sx = 0;
+                    sy = (currentImage.height - sh) / 2;
+                }
+
+                ctx.drawImage(currentImage, sx, sy, sw, sh, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+            }
+
+            // Draw headline text
+            var text = textInput.value;
+            if (!text) return;
+
+            var fontSize = parseInt(fontSizeSlider.value);
+            ctx.font = 'bold ' + fontSize + 'px Impact, "Arial Black", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = textColorInput.value;
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = Math.max(2, Math.round(fontSize / 12));
+            ctx.lineJoin = 'round';
+            ctx.miterLimit = 2;
+
+            var x = CANVAS_WIDTH / 2;
+            var y;
+            var position = textPositionSelect.value;
+
+            if (position === 'top') {
+                y = fontSize + 40;
+            } else if (position === 'bottom') {
+                y = CANVAS_HEIGHT - fontSize - 20;
+            } else {
+                y = CANVAS_HEIGHT / 2;
+            }
+
+            // Word wrap for long text
+            var maxWidth = CANVAS_WIDTH - 80;
+            var words = text.split(' ');
+            var lines = [];
+            var currentLine = '';
+
+            for (var i = 0; i < words.length; i++) {
+                var testLine = currentLine ? currentLine + ' ' + words[i] : words[i];
+                var metrics = ctx.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            if (currentLine) {
+                lines.push(currentLine);
+            }
+
+            var lineHeight = fontSize * 1.2;
+            var totalHeight = lines.length * lineHeight;
+            var startY;
+
+            if (position === 'top') {
+                startY = fontSize + 40;
+            } else if (position === 'bottom') {
+                startY = CANVAS_HEIGHT - totalHeight - 20;
+            } else {
+                startY = (CANVAS_HEIGHT - totalHeight) / 2 + fontSize / 2;
+            }
+
+            for (var j = 0; j < lines.length; j++) {
+                var ly = startY + j * lineHeight;
+                ctx.strokeText(lines[j], x, ly);
+                ctx.fillText(lines[j], x, ly);
+            }
+        }
+
+        function loadImageFile(file) {
+            if (!file || !file.type.match(/^image\/(jpeg|png|webp)$/)) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    showEditor();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // File input change
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadImageFile(fileInput.files[0]);
+            }
+        });
+
+        // Drag and drop
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = 'rgba(37, 99, 235, 0.04)';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                loadImageFile(e.dataTransfer.files[0]);
+            }
+        });
+
+        // Start with solid color
+        startSolidBtn.addEventListener('click', function() {
+            currentImage = null;
+            showEditor();
+        });
+
+        // Real-time updates
+        textInput.addEventListener('input', render);
+        bgColorInput.addEventListener('input', render);
+        textColorInput.addEventListener('input', render);
+        textPositionSelect.addEventListener('change', render);
+
+        fontSizeSlider.addEventListener('input', function() {
+            fontSizeValue.textContent = fontSizeSlider.value;
+            render();
+        });
+
+        // Download
+        downloadBtn.addEventListener('click', function() {
+            render();
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'youtube-thumbnail-1280x720.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            textInput.value = '';
+            fontSizeSlider.value = 48;
+            fontSizeValue.textContent = '48';
+            textColorInput.value = '#ffffff';
+            bgColorInput.value = '#1a1a2e';
+            textPositionSelect.value = 'center';
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

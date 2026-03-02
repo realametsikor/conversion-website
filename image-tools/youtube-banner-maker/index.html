@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Banner Maker Free Online - Create Channel Art 2560x1440 | ToolsNest</title>
+    <meta name="description" content="Design a YouTube channel banner online for free. Create 2560x1440 channel art with custom text, colors, and images. Download instantly, no signup required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/youtube-banner-maker/">
+
+    <meta property="og:title" content="YouTube Banner Maker Free Online - Create Channel Art 2560x1440 | ToolsNest">
+    <meta property="og:description" content="Design a YouTube channel banner online for free. Create 2560x1440 channel art with custom text, colors, and images. Download instantly, no signup required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/youtube-banner-maker/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="YouTube Banner Maker Free Online - Create Channel Art 2560x1440 | ToolsNest">
+    <meta name="twitter:description" content="Design a YouTube channel banner online for free. Create 2560x1440 channel art with custom text, colors, and images. Download instantly, no signup required.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "YouTube Banner Maker"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; YouTube Banner Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">YouTube Banner Maker</h1>
+                <p class="text-center mb-3">Create professional YouTube channel art at 2560x1440 pixels. Add text, choose colors, and download instantly.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="setup-section">
+                        <h3 class="mb-2">Background</h3>
+                        <p class="text-muted mb-2">Upload a background image or choose a solid color / gradient</p>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                            <input type="file" id="bg-file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                            <label for="bg-file-input" class="btn btn-primary" style="cursor: pointer;">Upload Background Image</label>
+                        </div>
+
+                        <div id="drag-hint" style="border: 2px dashed var(--border); border-radius: var(--radius-sm); padding: 2rem; text-align: center; margin-bottom: 1.5rem; cursor: pointer;" role="button" tabindex="0">
+                            <p class="text-muted" style="margin: 0;">Or drag &amp; drop an image here</p>
+                        </div>
+
+                        <p class="text-muted mb-2" style="font-weight: 600;">Or choose a preset background:</p>
+                        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; margin-bottom: 1.5rem;">
+                            <button class="btn gradient-btn" data-gradient="blue" style="width: 48px; height: 48px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); cursor: pointer;" title="Blue Gradient"></button>
+                            <button class="btn gradient-btn" data-gradient="purple" style="width: 48px; height: 48px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #2b1055, #6441a5, #d53369); cursor: pointer;" title="Purple Gradient"></button>
+                            <button class="btn gradient-btn" data-gradient="red" style="width: 48px; height: 48px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #1f1c2c, #c0392b, #e74c3c); cursor: pointer;" title="Red Gradient"></button>
+                            <button class="btn gradient-btn" data-gradient="green" style="width: 48px; height: 48px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0f3443, #34e89e, #0f3443); cursor: pointer;" title="Green Gradient"></button>
+                            <button class="btn gradient-btn" data-gradient="dark" style="width: 48px; height: 48px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e); cursor: pointer;" title="Dark Gradient"></button>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <label for="bg-solid-color" class="text-muted" style="font-size: 0.85rem;">Solid:</label>
+                                <input type="color" id="bg-solid-color" value="#1a1a2e" style="width: 48px; height: 48px; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 2px; cursor: pointer;">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="editor-section" style="display: none; text-align: left;">
+                        <div class="text-center mb-3" style="position: relative;">
+                            <canvas id="banner-canvas" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border);"></canvas>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                <input type="checkbox" id="show-safe-area" checked> Show safe area guide (1546x423)
+                            </label>
+                        </div>
+
+                        <h3 class="mb-2" style="margin-top: 1rem;">Channel Name</h3>
+                        <div class="form-group">
+                            <input type="text" id="channel-name" class="form-input" placeholder="Enter your channel name" maxlength="80">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Name Font Size</label>
+                                <input type="range" id="name-font-size" min="30" max="120" value="72" style="width: 100%;">
+                                <span id="name-font-size-label" class="text-muted" style="font-size: 0.85rem;">72px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Name Color</label>
+                                <input type="color" id="name-color" value="#FFFFFF" style="width: 48px; height: 36px; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 2px; cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <h3 class="mb-2" style="margin-top: 1rem;">Tagline</h3>
+                        <div class="form-group">
+                            <input type="text" id="tagline-text" class="form-input" placeholder="Enter a tagline or description" maxlength="120">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label>Tagline Font Size</label>
+                                <input type="range" id="tagline-font-size" min="16" max="60" value="32" style="width: 100%;">
+                                <span id="tagline-font-size-label" class="text-muted" style="font-size: 0.85rem;">32px</span>
+                            </div>
+                            <div class="form-group">
+                                <label>Tagline Color</label>
+                                <input type="color" id="tagline-color" value="#CCCCCC" style="width: 48px; height: 36px; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 2px; cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <h3 class="mb-2" style="margin-top: 1rem;">Background</h3>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem;">
+                            <input type="file" id="bg-change-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                            <label for="bg-change-input" class="btn" style="border: 2px solid var(--border); background: var(--bg-color); cursor: pointer;">Change Image</label>
+                            <button id="bg-gradient-toggle" class="btn" style="border: 2px solid var(--border); background: var(--bg-color);">Use Gradient</button>
+                        </div>
+
+                        <div id="gradient-picker" style="display: none; margin-bottom: 1rem;">
+                            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-start;">
+                                <button class="btn editor-gradient-btn" data-gradient="blue" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); cursor: pointer;" title="Blue"></button>
+                                <button class="btn editor-gradient-btn" data-gradient="purple" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #2b1055, #6441a5, #d53369); cursor: pointer;" title="Purple"></button>
+                                <button class="btn editor-gradient-btn" data-gradient="red" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #1f1c2c, #c0392b, #e74c3c); cursor: pointer;" title="Red"></button>
+                                <button class="btn editor-gradient-btn" data-gradient="green" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0f3443, #34e89e, #0f3443); cursor: pointer;" title="Green"></button>
+                                <button class="btn editor-gradient-btn" data-gradient="dark" style="width: 40px; height: 40px; border-radius: var(--radius-sm); border: 2px solid var(--border); background: linear-gradient(135deg, #0c0c0c, #1a1a2e, #16213e); cursor: pointer;" title="Dark"></button>
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <label class="text-muted" style="font-size: 0.85rem;">Solid:</label>
+                                    <input type="color" id="editor-solid-color" value="#1a1a2e" style="width: 40px; height: 40px; border: 2px solid var(--border); border-radius: var(--radius-sm); padding: 2px; cursor: pointer;">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-center" style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem;">
+                            <button id="download-btn" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.1rem;">Download Banner (PNG)</button>
+                            <button id="reset-btn" class="btn" style="padding: 1rem 2rem; font-size: 1.1rem; border: 2px solid var(--border); background: var(--bg-color);">Start Over</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Upload a background image by clicking "Upload Background Image" or dragging a file onto the drop zone, or pick a preset gradient or solid color.</li>
+                        <li>Type your channel name in the "Channel Name" field and adjust the font size and color to your liking.</li>
+                        <li>Optionally add a tagline below your channel name with its own font size and color controls.</li>
+                        <li>Use the "Show safe area guide" checkbox to see which part of the banner is visible across all devices (TV, desktop, tablet, mobile).</li>
+                        <li>Click "Download Banner (PNG)" to save your finished 2560x1440 channel art. Upload it directly to YouTube.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the recommended YouTube banner size?</h3>
+                        <p>YouTube recommends uploading channel art at 2560x1440 pixels. This tool creates banners at exactly that resolution so your art looks sharp on TVs, desktops, tablets, and phones.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the safe area on a YouTube banner?</h3>
+                        <p>The safe area is a 1546x423 pixel region centered on the banner. Text and logos placed within this zone are guaranteed to be visible on all devices, including mobile phones. Content outside this area may be cropped on smaller screens.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to a server?</h3>
+                        <p>No. Everything runs entirely in your browser using the HTML5 Canvas API. Your images and text never leave your device and are never sent to any server.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats can I use as a background?</h3>
+                        <p>You can upload JPG, PNG, and WebP images as backgrounds. The finished banner is always exported as a high-quality PNG file ready for YouTube upload.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Do I need to sign up or pay to use this tool?</h3>
+                        <p>No. This YouTube Banner Maker is completely free with no signup, no watermark, and no usage limits. Create and download as many banners as you like.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/youtube-thumbnail-maker" class="related-link">YouTube Thumbnail Maker</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var CANVAS_W = 2560;
+        var CANVAS_H = 1440;
+        var SAFE_W = 1546;
+        var SAFE_H = 423;
+
+        var canvas = document.getElementById('banner-canvas');
+        var ctx = canvas.getContext('2d');
+        canvas.width = CANVAS_W;
+        canvas.height = CANVAS_H;
+
+        var setupSection = document.getElementById('setup-section');
+        var editorSection = document.getElementById('editor-section');
+        var dropZone = document.getElementById('drop-zone');
+        var dragHint = document.getElementById('drag-hint');
+        var bgFileInput = document.getElementById('bg-file-input');
+        var bgChangeInput = document.getElementById('bg-change-input');
+        var bgSolidColor = document.getElementById('bg-solid-color');
+        var editorSolidColor = document.getElementById('editor-solid-color');
+        var bgGradientToggle = document.getElementById('bg-gradient-toggle');
+        var gradientPicker = document.getElementById('gradient-picker');
+        var channelNameInput = document.getElementById('channel-name');
+        var nameFontSizeInput = document.getElementById('name-font-size');
+        var nameFontSizeLabel = document.getElementById('name-font-size-label');
+        var nameColorInput = document.getElementById('name-color');
+        var taglineTextInput = document.getElementById('tagline-text');
+        var taglineFontSizeInput = document.getElementById('tagline-font-size');
+        var taglineFontSizeLabel = document.getElementById('tagline-font-size-label');
+        var taglineColorInput = document.getElementById('tagline-color');
+        var showSafeArea = document.getElementById('show-safe-area');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var bgImage = null;
+        var bgType = 'gradient';
+        var bgGradient = 'dark';
+        var bgSolid = '#1a1a2e';
+
+        var gradients = {
+            blue: function(ctx, w, h) {
+                var g = ctx.createLinearGradient(0, 0, w, h);
+                g.addColorStop(0, '#0f2027');
+                g.addColorStop(0.5, '#203a43');
+                g.addColorStop(1, '#2c5364');
+                return g;
+            },
+            purple: function(ctx, w, h) {
+                var g = ctx.createLinearGradient(0, 0, w, h);
+                g.addColorStop(0, '#2b1055');
+                g.addColorStop(0.5, '#6441a5');
+                g.addColorStop(1, '#d53369');
+                return g;
+            },
+            red: function(ctx, w, h) {
+                var g = ctx.createLinearGradient(0, 0, w, h);
+                g.addColorStop(0, '#1f1c2c');
+                g.addColorStop(0.5, '#c0392b');
+                g.addColorStop(1, '#e74c3c');
+                return g;
+            },
+            green: function(ctx, w, h) {
+                var g = ctx.createLinearGradient(0, 0, w, h);
+                g.addColorStop(0, '#0f3443');
+                g.addColorStop(0.5, '#34e89e');
+                g.addColorStop(1, '#0f3443');
+                return g;
+            },
+            dark: function(ctx, w, h) {
+                var g = ctx.createLinearGradient(0, 0, w, h);
+                g.addColorStop(0, '#0c0c0c');
+                g.addColorStop(0.5, '#1a1a2e');
+                g.addColorStop(1, '#16213e');
+                return g;
+            }
+        };
+
+        function drawBackground() {
+            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+            if (bgType === 'image' && bgImage) {
+                var imgRatio = bgImage.width / bgImage.height;
+                var canvasRatio = CANVAS_W / CANVAS_H;
+                var sx, sy, sw, sh;
+                if (imgRatio > canvasRatio) {
+                    sh = bgImage.height;
+                    sw = bgImage.height * canvasRatio;
+                    sx = (bgImage.width - sw) / 2;
+                    sy = 0;
+                } else {
+                    sw = bgImage.width;
+                    sh = bgImage.width / canvasRatio;
+                    sx = 0;
+                    sy = (bgImage.height - sh) / 2;
+                }
+                ctx.drawImage(bgImage, sx, sy, sw, sh, 0, 0, CANVAS_W, CANVAS_H);
+            } else if (bgType === 'solid') {
+                ctx.fillStyle = bgSolid;
+                ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+            } else if (bgType === 'gradient' && gradients[bgGradient]) {
+                ctx.fillStyle = gradients[bgGradient](ctx, CANVAS_W, CANVAS_H);
+                ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+            } else {
+                ctx.fillStyle = '#1a1a2e';
+                ctx.fillRect(0, 0, CANVAS_W, CANVAS_H);
+            }
+        }
+
+        function drawSafeArea() {
+            if (!showSafeArea.checked) return;
+            var safeX = (CANVAS_W - SAFE_W) / 2;
+            var safeY = (CANVAS_H - SAFE_H) / 2;
+            ctx.save();
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.lineWidth = 4;
+            ctx.setLineDash([20, 10]);
+            ctx.strokeRect(safeX, safeY, SAFE_W, SAFE_H);
+            ctx.setLineDash([]);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+            ctx.font = '24px Arial, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.textBaseline = 'top';
+            ctx.fillText('Safe area (' + SAFE_W + 'x' + SAFE_H + ') — visible on all devices', safeX + 12, safeY + 10);
+            ctx.restore();
+        }
+
+        function drawText() {
+            var channelName = channelNameInput.value;
+            var tagline = taglineTextInput.value;
+            var nameFontSize = parseInt(nameFontSizeInput.value);
+            var nameColor = nameColorInput.value;
+            var taglineFontSize = parseInt(taglineFontSizeInput.value);
+            var taglineColor = taglineColorInput.value;
+
+            var centerX = CANVAS_W / 2;
+            var centerY = CANVAS_H / 2;
+
+            var totalHeight = 0;
+            if (channelName) totalHeight += nameFontSize;
+            if (channelName && tagline) totalHeight += 20;
+            if (tagline) totalHeight += taglineFontSize;
+
+            var startY = centerY - totalHeight / 2;
+
+            if (channelName) {
+                ctx.save();
+                ctx.font = 'bold ' + nameFontSize + 'px Arial, Helvetica, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                ctx.fillStyle = nameColor;
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+                ctx.shadowBlur = 10;
+                ctx.shadowOffsetX = 3;
+                ctx.shadowOffsetY = 3;
+
+                var maxWidth = SAFE_W - 60;
+                var nameLines = wrapText(channelName, maxWidth, ctx);
+                for (var i = 0; i < nameLines.length; i++) {
+                    ctx.fillText(nameLines[i], centerX, startY + i * (nameFontSize + 8));
+                }
+                startY += nameLines.length * (nameFontSize + 8);
+                ctx.restore();
+            }
+
+            if (tagline) {
+                if (channelName) startY += 12;
+                ctx.save();
+                ctx.font = taglineFontSize + 'px Arial, Helvetica, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'top';
+                ctx.fillStyle = taglineColor;
+                ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+                ctx.shadowBlur = 8;
+                ctx.shadowOffsetX = 2;
+                ctx.shadowOffsetY = 2;
+
+                var maxTaglineWidth = SAFE_W - 80;
+                var tagLines = wrapText(tagline, maxTaglineWidth, ctx);
+                for (var j = 0; j < tagLines.length; j++) {
+                    ctx.fillText(tagLines[j], centerX, startY + j * (taglineFontSize + 6));
+                }
+                ctx.restore();
+            }
+        }
+
+        function wrapText(text, maxWidth, context) {
+            var words = text.split(' ');
+            var lines = [];
+            var currentLine = words[0] || '';
+            for (var i = 1; i < words.length; i++) {
+                var testLine = currentLine + ' ' + words[i];
+                var metrics = context.measureText(testLine);
+                if (metrics.width > maxWidth && currentLine !== '') {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine = testLine;
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        function render() {
+            drawBackground();
+            drawText();
+            drawSafeArea();
+        }
+
+        function showEditor() {
+            setupSection.style.display = 'none';
+            editorSection.style.display = 'block';
+            render();
+        }
+
+        function loadBgImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    bgImage = img;
+                    bgType = 'image';
+                    showEditor();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function setGradientBg(gradientName) {
+            bgType = 'gradient';
+            bgGradient = gradientName;
+            bgImage = null;
+        }
+
+        function setSolidBg(color) {
+            bgType = 'solid';
+            bgSolid = color;
+            bgImage = null;
+        }
+
+        // Setup section: file input
+        bgFileInput.addEventListener('change', function() {
+            if (!bgFileInput.files || !bgFileInput.files[0]) return;
+            loadBgImage(bgFileInput.files[0]);
+        });
+
+        // Setup section: drag and drop
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragHint.style.borderColor = 'var(--primary)';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragHint.style.borderColor = 'var(--border)';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dragHint.style.borderColor = 'var(--border)';
+            var files = e.dataTransfer.files;
+            if (files && files.length > 0) {
+                var file = files[0];
+                if (file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                    loadBgImage(file);
+                }
+            }
+        });
+
+        dragHint.addEventListener('click', function() {
+            bgFileInput.click();
+        });
+
+        // Setup section: gradient buttons
+        var setupGradientBtns = document.querySelectorAll('.gradient-btn');
+        for (var g = 0; g < setupGradientBtns.length; g++) {
+            setupGradientBtns[g].addEventListener('click', function() {
+                setGradientBg(this.getAttribute('data-gradient'));
+                showEditor();
+            });
+        }
+
+        // Setup section: solid color
+        bgSolidColor.addEventListener('change', function() {
+            setSolidBg(bgSolidColor.value);
+            showEditor();
+        });
+
+        // Editor: change background image
+        bgChangeInput.addEventListener('change', function() {
+            if (!bgChangeInput.files || !bgChangeInput.files[0]) return;
+            loadBgImage(bgChangeInput.files[0]);
+        });
+
+        // Editor: toggle gradient picker
+        bgGradientToggle.addEventListener('click', function() {
+            if (gradientPicker.style.display === 'none') {
+                gradientPicker.style.display = 'block';
+            } else {
+                gradientPicker.style.display = 'none';
+            }
+        });
+
+        // Editor: gradient buttons
+        var editorGradientBtns = document.querySelectorAll('.editor-gradient-btn');
+        for (var eg = 0; eg < editorGradientBtns.length; eg++) {
+            editorGradientBtns[eg].addEventListener('click', function() {
+                setGradientBg(this.getAttribute('data-gradient'));
+                render();
+            });
+        }
+
+        // Editor: solid color
+        editorSolidColor.addEventListener('input', function() {
+            setSolidBg(editorSolidColor.value);
+            render();
+        });
+
+        // Text inputs: real-time preview
+        channelNameInput.addEventListener('input', render);
+        taglineTextInput.addEventListener('input', render);
+
+        nameFontSizeInput.addEventListener('input', function() {
+            nameFontSizeLabel.textContent = nameFontSizeInput.value + 'px';
+            render();
+        });
+
+        nameColorInput.addEventListener('input', render);
+
+        taglineFontSizeInput.addEventListener('input', function() {
+            taglineFontSizeLabel.textContent = taglineFontSizeInput.value + 'px';
+            render();
+        });
+
+        taglineColorInput.addEventListener('input', render);
+
+        showSafeArea.addEventListener('change', render);
+
+        // Download
+        downloadBtn.addEventListener('click', function() {
+            var wasSafeAreaOn = showSafeArea.checked;
+            showSafeArea.checked = false;
+            render();
+
+            var link = document.createElement('a');
+            link.download = 'youtube-banner-2560x1440.png';
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            showSafeArea.checked = wasSafeAreaOn;
+            render();
+        });
+
+        // Reset
+        resetBtn.addEventListener('click', function() {
+            bgImage = null;
+            bgType = 'gradient';
+            bgGradient = 'dark';
+            bgSolid = '#1a1a2e';
+            channelNameInput.value = '';
+            taglineTextInput.value = '';
+            nameFontSizeInput.value = 72;
+            nameFontSizeLabel.textContent = '72px';
+            nameColorInput.value = '#FFFFFF';
+            taglineFontSizeInput.value = 32;
+            taglineFontSizeLabel.textContent = '32px';
+            taglineColorInput.value = '#CCCCCC';
+            showSafeArea.checked = true;
+            bgFileInput.value = '';
+            bgChangeInput.value = '';
+            bgSolidColor.value = '#1a1a2e';
+            editorSolidColor.value = '#1a1a2e';
+            gradientPicker.style.display = 'none';
+            ctx.clearRect(0, 0, CANVAS_W, CANVAS_H);
+            editorSection.style.display = 'none';
+            setupSection.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

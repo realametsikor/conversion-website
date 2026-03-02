@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Collage Maker Free Online - Create Collages Instantly | ToolsNest</title>
+    <meta name="description" content="Create beautiful photo collages online for free. Choose layouts, add multiple images, customize spacing, and download as PNG. No signup required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/collage-maker/">
+
+    <meta property="og:title" content="Photo Collage Maker Free Online - Create Collages Instantly | ToolsNest">
+    <meta property="og:description" content="Create beautiful photo collages online for free. Choose layouts, add multiple images, customize spacing, and download as PNG. No signup required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/collage-maker/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Photo Collage Maker Free Online - Create Collages Instantly | ToolsNest">
+    <meta name="twitter:description" content="Create beautiful photo collages online for free. Choose layouts, add multiple images, customize spacing, and download as PNG. No signup required.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Collage Maker"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Collage Maker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Photo Collage Maker</h1>
+                <p class="text-center mb-3">Create stunning photo collages in seconds. Upload multiple images, pick a grid layout, adjust spacing and background color, then download your collage as a PNG. Everything runs in your browser — no uploads, no signup.</p>
+
+                <div class="tool-workspace" id="collage-workspace">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Images</h3>
+                        <p class="text-muted mb-2">Select multiple JPG, PNG, or WebP images</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" multiple style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Images</label>
+                        <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.85rem;" id="file-count"></p>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div class="form-group">
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Grid Layout</label>
+                            <div id="layout-options" style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-primary layout-option" data-cols="2" data-rows="1" style="flex: 1; min-width: 100px;">2x1</button>
+                                <button class="btn layout-option" data-cols="2" data-rows="2" style="flex: 1; min-width: 100px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">2x2</button>
+                                <button class="btn layout-option" data-cols="3" data-rows="1" style="flex: 1; min-width: 100px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">3x1</button>
+                                <button class="btn layout-option" data-cols="1" data-rows="3" style="flex: 1; min-width: 100px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">1x3</button>
+                                <button class="btn layout-option" data-cols="3" data-rows="3" style="flex: 1; min-width: 100px; background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">3x3</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1.25rem;">
+                            <label for="gap-slider" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Gap / Spacing: <span id="gap-value">10</span>px</label>
+                            <input type="range" id="gap-slider" class="form-input" min="0" max="20" value="10" style="width: 100%;">
+                        </div>
+
+                        <div class="form-group" style="margin-top: 1.25rem;">
+                            <label for="bg-color" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Background Color</label>
+                            <input type="color" id="bg-color" class="form-input" value="#ffffff" style="width: 60px; height: 40px; padding: 2px; cursor: pointer;">
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Collage Preview</p>
+                            <canvas id="collage-canvas" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border); display: block; margin: 0 auto;"></canvas>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 1.5rem;">
+                            <button id="download-btn" class="btn btn-accent" style="width: 100%; padding: 1rem; font-size: 1.1rem;">Download Collage as PNG</button>
+                        </div>
+
+                        <div class="text-center" style="margin-top: 1rem;">
+                            <button id="reset-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 2px solid var(--border);">Start Over</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Images" to upload multiple JPG, PNG, or WebP photos from your device.</li>
+                        <li>Choose a grid layout — 2x1, 2x2, 3x1, 1x3, or 3x3 — depending on how many images you want in your collage.</li>
+                        <li>Use the spacing slider to adjust the gap between images (0–20 pixels).</li>
+                        <li>Pick a background color for the gaps and borders using the color picker.</li>
+                        <li>Preview your collage in real time, then click "Download Collage as PNG" to save it.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What size is the output collage?</h3>
+                        <p>The collage canvas is 1200 pixels wide. The height is calculated automatically based on the grid layout you choose, so the aspect ratio stays balanced for every configuration.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How many images can I add to a collage?</h3>
+                        <p>The number of images depends on the layout you select. A 2x1 layout uses 2 images, 2x2 uses 4, 3x1 and 1x3 use 3, and a 3x3 layout uses up to 9 images. Extra images beyond the grid size are ignored.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my photos uploaded to a server?</h3>
+                        <p>No. All processing happens entirely in your browser using the HTML5 Canvas API. Your photos never leave your device, so your privacy is fully protected.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format is the downloaded collage?</h3>
+                        <p>The collage is downloaded as a high-quality PNG file, which preserves sharp details and supports transparency if your background is set to a solid color.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What happens if I upload fewer images than the grid requires?</h3>
+                        <p>Empty cells will be filled with the selected background color. You can still download the collage — it just means some grid slots will appear blank.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/instagram-grid-splitter" class="related-link">Instagram Grid Splitter</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Image Compressor</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var fileCount = document.getElementById('file-count');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var canvas = document.getElementById('collage-canvas');
+        var ctx = canvas.getContext('2d');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+        var gapSlider = document.getElementById('gap-slider');
+        var gapValue = document.getElementById('gap-value');
+        var bgColorInput = document.getElementById('bg-color');
+        var layoutOptions = document.querySelectorAll('.layout-option');
+
+        var loadedImages = [];
+        var selectedCols = 2;
+        var selectedRows = 1;
+        var CANVAS_WIDTH = 1200;
+
+        function updateLayoutStyles() {
+            layoutOptions.forEach(function(btn) {
+                var cols = parseInt(btn.getAttribute('data-cols'));
+                var rows = parseInt(btn.getAttribute('data-rows'));
+                if (cols === selectedCols && rows === selectedRows) {
+                    btn.style.background = '';
+                    btn.style.color = '';
+                    btn.style.border = '';
+                    btn.className = 'btn btn-primary layout-option';
+                } else {
+                    btn.style.background = 'var(--bg-color)';
+                    btn.style.color = 'var(--text-main)';
+                    btn.style.border = '2px solid var(--border)';
+                    btn.className = 'btn layout-option';
+                }
+            });
+        }
+
+        function drawCollage() {
+            var gap = parseInt(gapSlider.value);
+            var bgColor = bgColorInput.value;
+            var totalCells = selectedCols * selectedRows;
+
+            var cellWidth = (CANVAS_WIDTH - gap * (selectedCols + 1)) / selectedCols;
+            var cellHeight = cellWidth;
+            var canvasHeight = cellHeight * selectedRows + gap * (selectedRows + 1);
+
+            canvas.width = CANVAS_WIDTH;
+            canvas.height = canvasHeight;
+
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, CANVAS_WIDTH, canvasHeight);
+
+            for (var row = 0; row < selectedRows; row++) {
+                for (var col = 0; col < selectedCols; col++) {
+                    var index = row * selectedCols + col;
+                    var x = gap + col * (cellWidth + gap);
+                    var y = gap + row * (cellHeight + gap);
+
+                    if (index < loadedImages.length && loadedImages[index]) {
+                        var img = loadedImages[index];
+                        var imgRatio = img.width / img.height;
+                        var cellRatio = cellWidth / cellHeight;
+                        var sx, sy, sw, sh;
+
+                        if (imgRatio > cellRatio) {
+                            sh = img.height;
+                            sw = sh * cellRatio;
+                            sx = (img.width - sw) / 2;
+                            sy = 0;
+                        } else {
+                            sw = img.width;
+                            sh = sw / cellRatio;
+                            sx = 0;
+                            sy = (img.height - sh) / 2;
+                        }
+
+                        ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                    }
+                }
+            }
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (!fileInput.files || fileInput.files.length === 0) return;
+            var files = Array.prototype.slice.call(fileInput.files);
+            fileCount.textContent = files.length + ' image' + (files.length > 1 ? 's' : '') + ' selected';
+            loadedImages = [];
+            var loaded = 0;
+
+            files.forEach(function(file, i) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = new Image();
+                    img.onload = function() {
+                        loadedImages[i] = img;
+                        loaded++;
+                        if (loaded === files.length) {
+                            uploadSection.style.display = 'none';
+                            editorSection.style.display = 'block';
+                            updateLayoutStyles();
+                            drawCollage();
+                        }
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        layoutOptions.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                selectedCols = parseInt(btn.getAttribute('data-cols'));
+                selectedRows = parseInt(btn.getAttribute('data-rows'));
+                updateLayoutStyles();
+                drawCollage();
+            });
+        });
+
+        gapSlider.addEventListener('input', function() {
+            gapValue.textContent = gapSlider.value;
+            drawCollage();
+        });
+
+        bgColorInput.addEventListener('input', function() {
+            drawCollage();
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'collage-' + selectedCols + 'x' + selectedRows + '.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                setTimeout(function() {
+                    URL.revokeObjectURL(url);
+                }, 1000);
+            }, 'image/png');
+        });
+
+        resetBtn.addEventListener('click', function() {
+            loadedImages = [];
+            fileInput.value = '';
+            fileCount.textContent = '';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            selectedCols = 2;
+            selectedRows = 1;
+            gapSlider.value = 10;
+            gapValue.textContent = '10';
+            bgColorInput.value = '#ffffff';
+            updateLayoutStyles();
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

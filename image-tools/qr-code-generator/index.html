@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator Free Online - Create Custom QR Codes | ToolsNest</title>
+    <meta name="description" content="Generate QR codes online for free. Create QR codes for URLs, text, Wi-Fi, email, and phone numbers. Customize colors and download as PNG instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/qr-code-generator/">
+
+    <meta property="og:title" content="QR Code Generator Free Online - Create Custom QR Codes | ToolsNest">
+    <meta property="og:description" content="Generate QR codes online for free. Create QR codes for URLs, text, Wi-Fi, email, and phone numbers. Customize colors and download as PNG instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/qr-code-generator/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="QR Code Generator Free Online - Create Custom QR Codes | ToolsNest">
+    <meta name="twitter:description" content="Generate QR codes online for free. Create QR codes for URLs, text, Wi-Fi, email, and phone numbers. Customize colors and download as PNG instantly.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "QR Code Generator Free Online - Create Custom QR Codes"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; QR Code Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">QR Code Generator</h1>
+                <p class="text-center mb-3">Create custom QR codes for URLs, text, Wi-Fi, email, and phone numbers. Free, instant, and private.</p>
+
+                <div class="tool-workspace">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+                        <div>
+                            <div class="form-group">
+                                <label for="input-type">Input Type</label>
+                                <select id="input-type" class="form-input">
+                                    <option value="url">URL</option>
+                                    <option value="text">Text</option>
+                                    <option value="wifi">Wi-Fi</option>
+                                    <option value="email">Email</option>
+                                    <option value="phone">Phone</option>
+                                </select>
+                            </div>
+
+                            <div id="fields-url" class="form-group">
+                                <label for="qr-url">URL</label>
+                                <input type="text" id="qr-url" class="form-input" value="https://" placeholder="https://example.com">
+                            </div>
+
+                            <div id="fields-text" class="form-group" style="display:none;">
+                                <label for="qr-text">Text</label>
+                                <textarea id="qr-text" class="form-input" rows="4" placeholder="Enter your text here"></textarea>
+                            </div>
+
+                            <div id="fields-wifi" style="display:none;">
+                                <div class="form-group">
+                                    <label for="wifi-ssid">Network Name (SSID)</label>
+                                    <input type="text" id="wifi-ssid" class="form-input" placeholder="MyWiFiNetwork">
+                                </div>
+                                <div class="form-group">
+                                    <label for="wifi-pass">Password</label>
+                                    <input type="text" id="wifi-pass" class="form-input" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <label for="wifi-enc">Encryption</label>
+                                    <select id="wifi-enc" class="form-input">
+                                        <option value="WPA">WPA/WPA2</option>
+                                        <option value="WEP">WEP</option>
+                                        <option value="nopass">None</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="fields-email" class="form-group" style="display:none;">
+                                <label for="qr-email">Email Address</label>
+                                <input type="email" id="qr-email" class="form-input" placeholder="name@example.com">
+                            </div>
+
+                            <div id="fields-phone" class="form-group" style="display:none;">
+                                <label for="qr-phone">Phone Number</label>
+                                <input type="tel" id="qr-phone" class="form-input" placeholder="+1234567890">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="qr-size">QR Code Size</label>
+                                <select id="qr-size" class="form-input">
+                                    <option value="200">200 x 200 px</option>
+                                    <option value="300" selected>300 x 300 px</option>
+                                    <option value="400">400 x 400 px</option>
+                                    <option value="500">500 x 500 px</option>
+                                </select>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="qr-fg">Foreground Color</label>
+                                    <input type="color" id="qr-fg" class="form-input" value="#000000" style="height:42px;padding:4px;cursor:pointer;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="qr-bg">Background Color</label>
+                                    <input type="color" id="qr-bg" class="form-input" value="#ffffff" style="height:42px;padding:4px;cursor:pointer;">
+                                </div>
+                            </div>
+
+                            <button id="generate-btn" class="btn btn-primary" style="width:100%;padding:1rem;font-size:1.1rem;">Generate QR Code</button>
+                        </div>
+
+                        <div style="text-align:center;">
+                            <div id="qr-preview" style="display:inline-block;padding:1rem;background:#fff;border-radius:var(--radius-sm);border:1px solid var(--border);min-height:200px;min-width:200px;display:flex;align-items:center;justify-content:center;">
+                                <p class="text-muted" id="qr-placeholder">Your QR code will appear here</p>
+                                <canvas id="qr-canvas" style="display:none;"></canvas>
+                            </div>
+                            <div class="mt-2">
+                                <button id="download-btn" class="btn btn-accent" style="display:none;">Download as PNG</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select the input type from the dropdown: URL, Text, Wi-Fi, Email, or Phone.</li>
+                        <li>Enter the content you want to encode into the QR code.</li>
+                        <li>Choose a size and optionally customize the foreground and background colors.</li>
+                        <li>Click "Generate QR Code" to create your QR code instantly.</li>
+                        <li>Click "Download as PNG" to save the QR code image to your device.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Can I scan the generated QR codes with any phone?</h3>
+                        <p>Yes. The QR codes generated by this tool follow the standard QR code specification and can be scanned by any modern smartphone camera or QR code scanning app on both iOS and Android devices.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How much data can a QR code hold?</h3>
+                        <p>QR codes can store up to approximately 2,953 bytes of data. For practical use, short URLs and text up to a few hundred characters work best. This tool supports content suitable for QR code versions 1 through 10.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I customize the colors of my QR code?</h3>
+                        <p>Yes. You can change both the foreground (dark module) color and background color using the color pickers. Make sure there is enough contrast between the two colors so scanners can read the code reliably.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is my data private when generating QR codes?</h3>
+                        <p>Absolutely. This tool generates QR codes entirely in your browser using JavaScript. No data is sent to any server. Your content stays completely private on your device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What size should I choose for my QR code?</h3>
+                        <p>For digital use (websites, emails), 300x300 pixels works well. For print materials like posters or business cards, choose 400 or 500 pixels to ensure the code remains scannable when printed at various sizes.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/barcode-generator" class="related-link">Barcode Generator</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Image Compressor</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ===================================================================
+         * Minimal QR Code Generator - Pure Vanilla JS
+         * Supports QR Versions 1-10, Error Correction Level M, Byte Mode
+         * Implements: data encoding, error correction (Reed-Solomon GF(256)),
+         * matrix construction, masking, and format info.
+         * =================================================================== */
+
+        // GF(256) arithmetic for Reed-Solomon error correction
+        var GF = (function() {
+            var EXP = new Array(256);
+            var LOG = new Array(256);
+            var x = 1;
+            for (var i = 0; i < 256; i++) {
+                EXP[i] = x;
+                LOG[x] = i;
+                x <<= 1;
+                if (x & 256) x ^= 285; // primitive polynomial x^8+x^4+x^3+x^2+1
+            }
+            LOG[0] = 255;
+            return {
+                exp: function(n) { return EXP[((n % 255) + 255) % 255]; },
+                log: function(n) { return LOG[n]; },
+                mul: function(a, b) {
+                    if (a === 0 || b === 0) return 0;
+                    return EXP[(LOG[a] + LOG[b]) % 255];
+                }
+            };
+        })();
+
+        function rsGenPoly(nsym) {
+            var g = [1];
+            for (var i = 0; i < nsym; i++) {
+                var ng = new Array(g.length + 1);
+                for (var k = 0; k < ng.length; k++) ng[k] = 0;
+                for (var j = 0; j < g.length; j++) {
+                    ng[j] ^= g[j];
+                    ng[j + 1] ^= GF.mul(g[j], GF.exp(i));
+                }
+                g = ng;
+            }
+            return g;
+        }
+
+        function rsEncode(data, nsym) {
+            var gen = rsGenPoly(nsym);
+            var res = new Array(data.length + nsym);
+            for (var i = 0; i < res.length; i++) res[i] = 0;
+            for (var i = 0; i < data.length; i++) res[i] = data[i];
+            for (var i = 0; i < data.length; i++) {
+                var coef = res[i];
+                if (coef !== 0) {
+                    for (var j = 0; j < gen.length; j++) {
+                        res[i + j] ^= GF.mul(gen[j], coef);
+                    }
+                }
+            }
+            return res.slice(data.length);
+        }
+
+        // QR Version parameters for EC level M
+        // [totalCodewords, ecCodewordsPerBlock, numBlocks_group1, dataPerBlock_group1, numBlocks_group2, dataPerBlock_group2]
+        var VERSION_PARAMS = {
+            1:  [26,  10, 1, 16, 0, 0],
+            2:  [44,  16, 1, 28, 0, 0],
+            3:  [70,  26, 1, 44, 0, 0],
+            4:  [100, 18, 2, 32, 0, 0],
+            5:  [134, 24, 2, 43, 0, 0],
+            6:  [172, 16, 4, 27, 0, 0],
+            7:  [196, 18, 4, 31, 0, 0],
+            8:  [242, 22, 2, 38, 2, 39],
+            9:  [292, 22, 3, 36, 2, 37],
+            10: [346, 26, 4, 43, 1, 44]
+        };
+
+        // Data capacity in bytes for each version at EC level M (byte mode)
+        var DATA_CAPACITY = {1:16, 2:28, 3:44, 4:64, 5:86, 6:108, 7:124, 8:154, 9:182, 10:216};
+
+        // Alignment pattern positions
+        var ALIGN_POS = {
+            2: [6,18], 3: [6,22], 4: [6,26], 5: [6,30], 6: [6,34],
+            7: [6,22,38], 8: [6,24,42], 9: [6,26,46], 10: [6,28,50]
+        };
+
+        function getVersion(dataLen) {
+            for (var v = 1; v <= 10; v++) {
+                if (dataLen <= DATA_CAPACITY[v]) return v;
+            }
+            return -1;
+        }
+
+        function encodeData(text, version) {
+            var params = VERSION_PARAMS[version];
+            var totalData = params[0] - (params[2] + params[4]) * params[1]; // total data codewords
+            // Actually compute total data codewords properly
+            var totalDataCW = params[2] * params[3] + params[4] * params[5];
+            var bytes = [];
+            for (var i = 0; i < text.length; i++) {
+                var c = text.charCodeAt(i);
+                if (c < 128) {
+                    bytes.push(c);
+                } else if (c < 2048) {
+                    bytes.push(0xC0 | (c >> 6), 0x80 | (c & 0x3F));
+                } else {
+                    bytes.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 0x3F), 0x80 | (c & 0x3F));
+                }
+            }
+
+            // Byte mode indicator: 0100, then character count
+            var bits = [];
+            // Mode indicator: 4 bits for byte mode = 0100
+            bits.push(0, 1, 0, 0);
+            // Character count indicator: 8 bits for versions 1-9, 16 bits for 10+
+            var ccBits = version <= 9 ? 8 : 16;
+            for (var i = ccBits - 1; i >= 0; i--) {
+                bits.push((bytes.length >> i) & 1);
+            }
+            // Data
+            for (var i = 0; i < bytes.length; i++) {
+                for (var b = 7; b >= 0; b--) {
+                    bits.push((bytes[i] >> b) & 1);
+                }
+            }
+            // Terminator: up to 4 zero bits
+            var maxBits = totalDataCW * 8;
+            var termLen = Math.min(4, maxBits - bits.length);
+            for (var i = 0; i < termLen; i++) bits.push(0);
+            // Pad to byte boundary
+            while (bits.length % 8 !== 0) bits.push(0);
+            // Convert to codewords
+            var codewords = [];
+            for (var i = 0; i < bits.length; i += 8) {
+                var val = 0;
+                for (var b = 0; b < 8; b++) val = (val << 1) | (bits[i + b] || 0);
+                codewords.push(val);
+            }
+            // Pad codewords
+            var padBytes = [236, 17];
+            var pi = 0;
+            while (codewords.length < totalDataCW) {
+                codewords.push(padBytes[pi % 2]);
+                pi++;
+            }
+
+            return codewords;
+        }
+
+        function interleaveBlocks(codewords, version) {
+            var params = VERSION_PARAMS[version];
+            var ecPerBlock = params[1];
+            var g1Blocks = params[2];
+            var g1Data = params[3];
+            var g2Blocks = params[4];
+            var g2Data = params[5];
+
+            var blocks = [];
+            var ecBlocks = [];
+            var idx = 0;
+
+            for (var i = 0; i < g1Blocks; i++) {
+                blocks.push(codewords.slice(idx, idx + g1Data));
+                idx += g1Data;
+            }
+            for (var i = 0; i < g2Blocks; i++) {
+                blocks.push(codewords.slice(idx, idx + g2Data));
+                idx += g2Data;
+            }
+
+            for (var i = 0; i < blocks.length; i++) {
+                ecBlocks.push(rsEncode(blocks[i], ecPerBlock));
+            }
+
+            // Interleave data
+            var result = [];
+            var maxDataLen = Math.max(g1Data, g2Data);
+            for (var i = 0; i < maxDataLen; i++) {
+                for (var j = 0; j < blocks.length; j++) {
+                    if (i < blocks[j].length) result.push(blocks[j][i]);
+                }
+            }
+            // Interleave EC
+            for (var i = 0; i < ecPerBlock; i++) {
+                for (var j = 0; j < ecBlocks.length; j++) {
+                    result.push(ecBlocks[j][i]);
+                }
+            }
+
+            return result;
+        }
+
+        function createMatrix(version) {
+            var size = 17 + version * 4;
+            var matrix = [];
+            var reserved = [];
+            for (var r = 0; r < size; r++) {
+                matrix.push(new Array(size));
+                reserved.push(new Array(size));
+                for (var c = 0; c < size; c++) {
+                    matrix[r][c] = 0;
+                    reserved[r][c] = false;
+                }
+            }
+            return { matrix: matrix, reserved: reserved, size: size };
+        }
+
+        function placeFinderPattern(m, row, col) {
+            for (var r = -1; r <= 7; r++) {
+                for (var c = -1; c <= 7; c++) {
+                    var rr = row + r;
+                    var cc = col + c;
+                    if (rr < 0 || rr >= m.size || cc < 0 || cc >= m.size) continue;
+                    if ((r >= 0 && r <= 6 && (c === 0 || c === 6)) ||
+                        (c >= 0 && c <= 6 && (r === 0 || r === 6)) ||
+                        (r >= 2 && r <= 4 && c >= 2 && c <= 4)) {
+                        m.matrix[rr][cc] = 1;
+                    } else {
+                        m.matrix[rr][cc] = 0;
+                    }
+                    m.reserved[rr][cc] = true;
+                }
+            }
+        }
+
+        function placeAlignmentPattern(m, row, col) {
+            for (var r = -2; r <= 2; r++) {
+                for (var c = -2; c <= 2; c++) {
+                    if (Math.abs(r) === 2 || Math.abs(c) === 2 || (r === 0 && c === 0)) {
+                        m.matrix[row + r][col + c] = 1;
+                    } else {
+                        m.matrix[row + r][col + c] = 0;
+                    }
+                    m.reserved[row + r][col + c] = true;
+                }
+            }
+        }
+
+        function placePatterns(m, version) {
+            // Finder patterns
+            placeFinderPattern(m, 0, 0);
+            placeFinderPattern(m, 0, m.size - 7);
+            placeFinderPattern(m, m.size - 7, 0);
+
+            // Alignment patterns
+            if (ALIGN_POS[version]) {
+                var pos = ALIGN_POS[version];
+                for (var i = 0; i < pos.length; i++) {
+                    for (var j = 0; j < pos.length; j++) {
+                        // Skip if overlaps finder
+                        if (i === 0 && j === 0) continue;
+                        if (i === 0 && j === pos.length - 1) continue;
+                        if (i === pos.length - 1 && j === 0) continue;
+                        placeAlignmentPattern(m, pos[i], pos[j]);
+                    }
+                }
+            }
+
+            // Timing patterns
+            for (var i = 8; i < m.size - 8; i++) {
+                if (!m.reserved[6][i]) {
+                    m.matrix[6][i] = (i % 2 === 0) ? 1 : 0;
+                    m.reserved[6][i] = true;
+                }
+                if (!m.reserved[i][6]) {
+                    m.matrix[i][6] = (i % 2 === 0) ? 1 : 0;
+                    m.reserved[i][6] = true;
+                }
+            }
+
+            // Dark module
+            m.matrix[m.size - 8][8] = 1;
+            m.reserved[m.size - 8][8] = true;
+
+            // Reserve format info areas
+            for (var i = 0; i < 8; i++) {
+                m.reserved[8][i] = true;
+                m.reserved[8][m.size - 1 - i] = true;
+                m.reserved[i][8] = true;
+                m.reserved[m.size - 1 - i][8] = true;
+            }
+            m.reserved[8][8] = true;
+
+            // Reserve version info areas (version >= 7)
+            if (version >= 7) {
+                for (var i = 0; i < 6; i++) {
+                    for (var j = 0; j < 3; j++) {
+                        m.reserved[i][m.size - 11 + j] = true;
+                        m.reserved[m.size - 11 + j][i] = true;
+                    }
+                }
+            }
+        }
+
+        function placeData(m, data) {
+            var bits = [];
+            for (var i = 0; i < data.length; i++) {
+                for (var b = 7; b >= 0; b--) {
+                    bits.push((data[i] >> b) & 1);
+                }
+            }
+
+            var bitIdx = 0;
+            var upward = true;
+            for (var col = m.size - 1; col >= 0; col -= 2) {
+                if (col === 6) col = 5; // skip timing column
+                for (var cnt = 0; cnt < m.size; cnt++) {
+                    var row = upward ? (m.size - 1 - cnt) : cnt;
+                    for (var dc = 0; dc <= 1; dc++) {
+                        var c = col - dc;
+                        if (c < 0) continue;
+                        if (!m.reserved[row][c]) {
+                            m.matrix[row][c] = bitIdx < bits.length ? bits[bitIdx] : 0;
+                            bitIdx++;
+                        }
+                    }
+                }
+                upward = !upward;
+            }
+        }
+
+        // Mask patterns
+        var MASK_FNS = [
+            function(r, c) { return (r + c) % 2 === 0; },
+            function(r, c) { return r % 2 === 0; },
+            function(r, c) { return c % 3 === 0; },
+            function(r, c) { return (r + c) % 3 === 0; },
+            function(r, c) { return (Math.floor(r / 2) + Math.floor(c / 3)) % 2 === 0; },
+            function(r, c) { return ((r * c) % 2 + (r * c) % 3) === 0; },
+            function(r, c) { return ((r * c) % 2 + (r * c) % 3) % 2 === 0; },
+            function(r, c) { return ((r + c) % 2 + (r * c) % 3) % 2 === 0; }
+        ];
+
+        function applyMask(m, maskIdx) {
+            var fn = MASK_FNS[maskIdx];
+            for (var r = 0; r < m.size; r++) {
+                for (var c = 0; c < m.size; c++) {
+                    if (!m.reserved[r][c] && fn(r, c)) {
+                        m.matrix[r][c] ^= 1;
+                    }
+                }
+            }
+        }
+
+        // Format info bits for EC level M (binary: 00) and mask patterns 0-7
+        // Format = 5 bits (EC+mask) + 10 bits BCH error correction, XORed with 101010000010010
+        var FORMAT_BITS = (function() {
+            // EC level M = 00, then mask 0-7
+            // The 5 data bits are: ecLevel(2 bits) + mask(3 bits)
+            // M = 00
+            function calcFormatBits(ecLevel, mask) {
+                var data = (ecLevel << 3) | mask;
+                // BCH(15,5) encoding
+                var d = data << 10;
+                var gen = 0x537; // 10100110111
+                for (var i = 14; i >= 10; i--) {
+                    if (d & (1 << i)) {
+                        d ^= gen << (i - 10);
+                    }
+                }
+                var result = ((data << 10) | d) ^ 0x5412; // XOR mask
+                return result;
+            }
+            var fb = [];
+            for (var mask = 0; mask < 8; mask++) {
+                fb.push(calcFormatBits(0, mask)); // EC M = 0
+            }
+            return fb;
+        })();
+
+        function placeFormatInfo(m, maskIdx) {
+            var bits = FORMAT_BITS[maskIdx];
+            // Place around top-left finder
+            var positions1 = [
+                [8, 0], [8, 1], [8, 2], [8, 3], [8, 4], [8, 5],
+                [8, 7], [8, 8], [7, 8], [5, 8], [4, 8], [3, 8],
+                [2, 8], [1, 8], [0, 8]
+            ];
+            // Place around other finders
+            var positions2 = [
+                [m.size - 1, 8], [m.size - 2, 8], [m.size - 3, 8],
+                [m.size - 4, 8], [m.size - 5, 8], [m.size - 6, 8],
+                [m.size - 7, 8],
+                [8, m.size - 8], [8, m.size - 7], [8, m.size - 6],
+                [8, m.size - 5], [8, m.size - 4], [8, m.size - 3],
+                [8, m.size - 2], [8, m.size - 1]
+            ];
+
+            for (var i = 0; i < 15; i++) {
+                var bit = (bits >> (14 - i)) & 1;
+                m.matrix[positions1[i][0]][positions1[i][1]] = bit;
+                m.matrix[positions2[i][0]][positions2[i][1]] = bit;
+            }
+        }
+
+        // Penalty score calculation
+        function calcPenalty(m) {
+            var penalty = 0;
+            var size = m.size;
+
+            // Rule 1: runs of same color in rows and columns
+            for (var r = 0; r < size; r++) {
+                var runLen = 1;
+                for (var c = 1; c < size; c++) {
+                    if (m.matrix[r][c] === m.matrix[r][c - 1]) {
+                        runLen++;
+                    } else {
+                        if (runLen >= 5) penalty += runLen - 2;
+                        runLen = 1;
+                    }
+                }
+                if (runLen >= 5) penalty += runLen - 2;
+            }
+            for (var c = 0; c < size; c++) {
+                var runLen = 1;
+                for (var r = 1; r < size; r++) {
+                    if (m.matrix[r][c] === m.matrix[r - 1][c]) {
+                        runLen++;
+                    } else {
+                        if (runLen >= 5) penalty += runLen - 2;
+                        runLen = 1;
+                    }
+                }
+                if (runLen >= 5) penalty += runLen - 2;
+            }
+
+            // Rule 2: 2x2 blocks
+            for (var r = 0; r < size - 1; r++) {
+                for (var c = 0; c < size - 1; c++) {
+                    var v = m.matrix[r][c];
+                    if (v === m.matrix[r][c + 1] && v === m.matrix[r + 1][c] && v === m.matrix[r + 1][c + 1]) {
+                        penalty += 3;
+                    }
+                }
+            }
+
+            // Rule 3: finder-like patterns
+            var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0];
+            var pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+            for (var r = 0; r < size; r++) {
+                for (var c = 0; c <= size - 11; c++) {
+                    var match1 = true, match2 = true;
+                    for (var k = 0; k < 11; k++) {
+                        if (m.matrix[r][c + k] !== pat1[k]) match1 = false;
+                        if (m.matrix[r][c + k] !== pat2[k]) match2 = false;
+                    }
+                    if (match1 || match2) penalty += 40;
+                }
+            }
+            for (var c = 0; c < size; c++) {
+                for (var r = 0; r <= size - 11; r++) {
+                    var match1 = true, match2 = true;
+                    for (var k = 0; k < 11; k++) {
+                        if (m.matrix[r + k][c] !== pat1[k]) match1 = false;
+                        if (m.matrix[r + k][c] !== pat2[k]) match2 = false;
+                    }
+                    if (match1 || match2) penalty += 40;
+                }
+            }
+
+            // Rule 4: balance
+            var dark = 0;
+            for (var r = 0; r < size; r++) {
+                for (var c = 0; c < size; c++) {
+                    if (m.matrix[r][c]) dark++;
+                }
+            }
+            var pct = (dark * 100) / (size * size);
+            var prev5 = Math.floor(pct / 5) * 5;
+            var next5 = prev5 + 5;
+            penalty += Math.min(Math.abs(prev5 - 50) / 5, Math.abs(next5 - 50) / 5) * 10;
+
+            return penalty;
+        }
+
+        function copyMatrix(m) {
+            var nm = { size: m.size, matrix: [], reserved: m.reserved };
+            for (var r = 0; r < m.size; r++) {
+                nm.matrix.push(m.matrix[r].slice());
+            }
+            return nm;
+        }
+
+        function generateQR(text) {
+            if (!text || text.length === 0) return null;
+
+            // Encode to UTF-8 bytes to measure real length
+            var utf8Bytes = [];
+            for (var i = 0; i < text.length; i++) {
+                var c = text.charCodeAt(i);
+                if (c < 128) {
+                    utf8Bytes.push(c);
+                } else if (c < 2048) {
+                    utf8Bytes.push(0xC0 | (c >> 6), 0x80 | (c & 0x3F));
+                } else {
+                    utf8Bytes.push(0xE0 | (c >> 12), 0x80 | ((c >> 6) & 0x3F), 0x80 | (c & 0x3F));
+                }
+            }
+
+            var version = getVersion(utf8Bytes.length);
+            if (version === -1) return null;
+
+            var codewords = encodeData(text, version);
+            var finalData = interleaveBlocks(codewords, version);
+
+            var m = createMatrix(version);
+            placePatterns(m, version);
+            placeData(m, finalData);
+
+            // Try all 8 masks, pick best
+            var bestMask = 0;
+            var bestPenalty = Infinity;
+            for (var mask = 0; mask < 8; mask++) {
+                var testM = copyMatrix(m);
+                applyMask(testM, mask);
+                placeFormatInfo(testM, mask);
+                var p = calcPenalty(testM);
+                if (p < bestPenalty) {
+                    bestPenalty = p;
+                    bestMask = mask;
+                }
+            }
+
+            applyMask(m, bestMask);
+            placeFormatInfo(m, bestMask);
+
+            return m;
+        }
+
+        /* ===================================================================
+         * UI Logic
+         * =================================================================== */
+
+        var inputType = document.getElementById('input-type');
+        var fieldsUrl = document.getElementById('fields-url');
+        var fieldsText = document.getElementById('fields-text');
+        var fieldsWifi = document.getElementById('fields-wifi');
+        var fieldsEmail = document.getElementById('fields-email');
+        var fieldsPhone = document.getElementById('fields-phone');
+        var generateBtn = document.getElementById('generate-btn');
+        var downloadBtn = document.getElementById('download-btn');
+        var canvas = document.getElementById('qr-canvas');
+        var placeholder = document.getElementById('qr-placeholder');
+        var sizeSelect = document.getElementById('qr-size');
+        var fgColor = document.getElementById('qr-fg');
+        var bgColor = document.getElementById('qr-bg');
+
+        var allFields = { url: fieldsUrl, text: fieldsText, wifi: fieldsWifi, email: fieldsEmail, phone: fieldsPhone };
+
+        inputType.addEventListener('change', function() {
+            var val = inputType.value;
+            for (var key in allFields) {
+                allFields[key].style.display = (key === val) ? '' : 'none';
+            }
+        });
+
+        function getInputText() {
+            var type = inputType.value;
+            if (type === 'url') return document.getElementById('qr-url').value.trim();
+            if (type === 'text') return document.getElementById('qr-text').value;
+            if (type === 'wifi') {
+                var ssid = document.getElementById('wifi-ssid').value;
+                var pass = document.getElementById('wifi-pass').value;
+                var enc = document.getElementById('wifi-enc').value;
+                return 'WIFI:T:' + enc + ';S:' + ssid + ';P:' + pass + ';;';
+            }
+            if (type === 'email') return 'mailto:' + document.getElementById('qr-email').value.trim();
+            if (type === 'phone') return 'tel:' + document.getElementById('qr-phone').value.trim();
+            return '';
+        }
+
+        function renderQR(m, size, fg, bg) {
+            var moduleSize = Math.floor(size / (m.size + 8)); // quiet zone of 4 modules each side
+            var totalPx = moduleSize * (m.size + 8);
+            canvas.width = totalPx;
+            canvas.height = totalPx;
+            var ctx = canvas.getContext('2d');
+            ctx.fillStyle = bg;
+            ctx.fillRect(0, 0, totalPx, totalPx);
+
+            ctx.fillStyle = fg;
+            var offset = moduleSize * 4; // quiet zone
+            for (var r = 0; r < m.size; r++) {
+                for (var c = 0; c < m.size; c++) {
+                    if (m.matrix[r][c]) {
+                        ctx.fillRect(offset + c * moduleSize, offset + r * moduleSize, moduleSize, moduleSize);
+                    }
+                }
+            }
+        }
+
+        generateBtn.addEventListener('click', function() {
+            var text = getInputText();
+            if (!text || text === 'https://' || text === 'mailto:' || text === 'tel:') {
+                alert('Please enter content for your QR code.');
+                return;
+            }
+
+            var m = generateQR(text);
+            if (!m) {
+                alert('The input is too long for QR code generation. Please shorten your text (max ~216 characters).');
+                return;
+            }
+
+            var size = parseInt(sizeSelect.value);
+            var fg = fgColor.value;
+            var bg = bgColor.value;
+
+            renderQR(m, size, fg, bg);
+            canvas.style.display = 'block';
+            placeholder.style.display = 'none';
+            downloadBtn.style.display = 'inline-flex';
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            var link = document.createElement('a');
+            link.download = 'qrcode.png';
+            link.href = canvas.toDataURL('image/png');
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

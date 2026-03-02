@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot Mockup Generator Free - Create Device Mockups Online | ToolsNest</title>
+    <meta name="description" content="Generate professional device mockups for screenshots online for free. Place your screenshot in phone, laptop, and tablet frames. Download as PNG instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/screenshot-mockup-generator/">
+
+    <meta property="og:title" content="Screenshot Mockup Generator Free - Create Device Mockups Online | ToolsNest">
+    <meta property="og:description" content="Generate professional device mockups for screenshots online for free. Place your screenshot in phone, laptop, and tablet frames. Download as PNG instantly.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/screenshot-mockup-generator/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Screenshot Mockup Generator Free - Create Device Mockups Online | ToolsNest">
+    <meta name="twitter:description" content="Generate professional device mockups for screenshots online for free. Place your screenshot in phone, laptop, and tablet frames. Download as PNG instantly.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Screenshot Mockup Generator"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Screenshot Mockup Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Screenshot Mockup Generator</h1>
+                <p class="text-center mb-3">Place your screenshot into realistic device frames and download a professional mockup as PNG. Everything runs in your browser.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Drag &amp; Drop Your Screenshot Here</h3>
+                        <p class="text-muted mb-2">or</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Screenshot</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div style="display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; align-items: flex-end;">
+                            <div class="form-group" style="flex: 1; min-width: 160px; margin-bottom: 0;">
+                                <label for="device-select">Device Frame</label>
+                                <select id="device-select" class="form-input">
+                                    <option value="iphone">iPhone (375 &times; 812)</option>
+                                    <option value="macbook">MacBook (1440 &times; 900)</option>
+                                    <option value="ipad">iPad (1024 &times; 1366)</option>
+                                    <option value="android">Android Phone (360 &times; 780)</option>
+                                    <option value="browser">Browser Window</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="min-width: 120px; margin-bottom: 0;">
+                                <label for="bg-color">Background Color</label>
+                                <input type="color" id="bg-color" class="form-input" value="#f0f4f8" style="height: 42px; padding: 4px; cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <div id="preview-container" style="text-align: center; margin-bottom: 1.5rem; overflow: auto;">
+                            <canvas id="mockup-canvas" style="max-width: 100%; border-radius: var(--radius-sm); border: 1px solid var(--border);"></canvas>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <button id="download-btn" class="btn btn-accent">Download as PNG</button>
+                            <button id="reset-btn" class="btn btn-primary" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Upload New Screenshot</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Screenshot" or drag and drop a JPG, PNG, or WebP image into the workspace above.</li>
+                        <li>Choose a device frame from the dropdown: iPhone, MacBook, iPad, Android Phone, or Browser Window.</li>
+                        <li>Pick a background color to surround the device mockup using the color picker.</li>
+                        <li>Preview your mockup in real time on the canvas.</li>
+                        <li>Click "Download as PNG" to save the final mockup image to your device.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What size are the generated mockup images?</h3>
+                        <p>The output size depends on the device frame you choose. For example, the iPhone mockup produces an image approximately 495 &times; 980 pixels (including the device border), while the MacBook mockup is approximately 1560 &times; 1040 pixels. The background area adds extra padding around the device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my screenshots uploaded to a server?</h3>
+                        <p>No. All processing happens entirely in your browser using the HTML5 Canvas API. Your screenshots never leave your device and are never sent to any server. Your privacy is fully protected.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported for upload?</h3>
+                        <p>You can upload screenshots in JPEG, PNG, or WebP format. The tool automatically scales your screenshot to fit the chosen device frame while preserving clarity.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Which device frames are available?</h3>
+                        <p>The tool currently offers five device frames: iPhone (375 &times; 812 portrait), MacBook (1440 &times; 900 landscape), iPad (1024 &times; 1366 portrait), Android Phone (360 &times; 780 portrait), and a generic Browser Window. Each frame is drawn programmatically with realistic details.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use these mockups for commercial purposes?</h3>
+                        <p>Yes. The device frames are generic, programmatically generated shapes and are not trademarked assets. You are free to use the mockup images you create for portfolios, presentations, app store listings, social media, and any commercial projects.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/youtube-thumbnail-maker" class="related-link">YouTube Thumbnail Maker</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Image Compressor</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var deviceSelect = document.getElementById('device-select');
+        var bgColorInput = document.getElementById('bg-color');
+        var canvas = document.getElementById('mockup-canvas');
+        var ctx = canvas.getContext('2d');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        var currentImage = null;
+
+        var devices = {
+            iphone: {
+                name: 'iPhone',
+                screenW: 375,
+                screenH: 812,
+                bezelTop: 80,
+                bezelBottom: 40,
+                bezelSide: 18,
+                radius: 50,
+                hasNotch: true,
+                hasHomeBar: true
+            },
+            macbook: {
+                name: 'MacBook',
+                screenW: 1440,
+                screenH: 900,
+                bezelTop: 40,
+                bezelBottom: 60,
+                bezelSide: 24,
+                radius: 16,
+                hasNotch: false,
+                hasHomeBar: false,
+                hasWebcam: true,
+                hasBase: true
+            },
+            ipad: {
+                name: 'iPad',
+                screenW: 1024,
+                screenH: 1366,
+                bezelTop: 60,
+                bezelBottom: 60,
+                bezelSide: 30,
+                radius: 36,
+                hasNotch: false,
+                hasHomeBar: true,
+                hasFrontCamera: true
+            },
+            android: {
+                name: 'Android Phone',
+                screenW: 360,
+                screenH: 780,
+                bezelTop: 50,
+                bezelBottom: 30,
+                bezelSide: 12,
+                radius: 40,
+                hasNotch: false,
+                hasHomeBar: true,
+                hasPunchHole: true
+            },
+            browser: {
+                name: 'Browser Window',
+                screenW: 1280,
+                screenH: 800,
+                bezelTop: 52,
+                bezelBottom: 4,
+                bezelSide: 4,
+                radius: 12,
+                hasNotch: false,
+                hasHomeBar: false,
+                hasTitleBar: true
+            }
+        };
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.arcTo(x + w, y, x + w, y + r, r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.arcTo(x + w, y + h, x + w - r, y + h, r);
+            ctx.lineTo(x + r, y + h);
+            ctx.arcTo(x, y + h, x, y + h - r, r);
+            ctx.lineTo(x, y + r);
+            ctx.arcTo(x, y, x + r, y, r);
+            ctx.closePath();
+        }
+
+        function renderMockup() {
+            if (!currentImage) return;
+
+            var deviceKey = deviceSelect.value;
+            var dev = devices[deviceKey];
+            var bgColor = bgColorInput.value;
+
+            var scale = 1;
+            if (dev.screenW > 800) scale = 0.6;
+
+            var sW = Math.round(dev.screenW * scale);
+            var sH = Math.round(dev.screenH * scale);
+            var bTop = Math.round(dev.bezelTop * scale);
+            var bBot = Math.round(dev.bezelBottom * scale);
+            var bSide = Math.round(dev.bezelSide * scale);
+            var rad = Math.round(dev.radius * scale);
+
+            var deviceW = sW + bSide * 2;
+            var deviceH = sH + bTop + bBot;
+
+            var padding = Math.round(60 * scale);
+            var totalW = deviceW + padding * 2;
+            var totalH = deviceH + padding * 2;
+
+            if (dev.hasBase) {
+                totalH += Math.round(30 * scale);
+            }
+
+            canvas.width = totalW;
+            canvas.height = totalH;
+
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, totalW, totalH);
+
+            var dx = padding;
+            var dy = padding;
+
+            ctx.fillStyle = '#1a1a2e';
+            ctx.strokeStyle = '#2d2d44';
+            ctx.lineWidth = 2;
+            roundRect(ctx, dx, dy, deviceW, deviceH, rad);
+            ctx.fill();
+            ctx.stroke();
+
+            var screenX = dx + bSide;
+            var screenY = dy + bTop;
+            var screenRad = Math.max(rad - bSide, 4);
+
+            ctx.save();
+            roundRect(ctx, screenX, screenY, sW, sH, screenRad > 8 ? 8 : screenRad);
+            ctx.clip();
+
+            var imgAspect = currentImage.width / currentImage.height;
+            var screenAspect = sW / sH;
+            var drawW, drawH, drawX, drawY;
+
+            if (imgAspect > screenAspect) {
+                drawH = sH;
+                drawW = sH * imgAspect;
+                drawX = screenX + (sW - drawW) / 2;
+                drawY = screenY;
+            } else {
+                drawW = sW;
+                drawH = sW / imgAspect;
+                drawX = screenX;
+                drawY = screenY + (sH - drawH) / 2;
+            }
+
+            ctx.drawImage(currentImage, drawX, drawY, drawW, drawH);
+            ctx.restore();
+
+            ctx.strokeStyle = '#2d2d44';
+            ctx.lineWidth = 1;
+            roundRect(ctx, screenX, screenY, sW, sH, screenRad > 8 ? 8 : screenRad);
+            ctx.stroke();
+
+            if (dev.hasNotch) {
+                var notchW = Math.round(150 * scale);
+                var notchH = Math.round(30 * scale);
+                var notchX = dx + deviceW / 2 - notchW / 2;
+                var notchY = dy;
+                var notchR = Math.round(14 * scale);
+                ctx.fillStyle = '#1a1a2e';
+                roundRect(ctx, notchX, notchY, notchW, notchH, notchR);
+                ctx.fill();
+
+                var camR = Math.round(6 * scale);
+                ctx.fillStyle = '#0d0d1a';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2 + Math.round(30 * scale), dy + notchH / 2, camR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#1a3a5c';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2 + Math.round(30 * scale), dy + notchH / 2, camR * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (dev.hasHomeBar) {
+                var barW = Math.round(130 * scale);
+                var barH = Math.round(5 * scale);
+                var barY = dy + deviceH - bBot / 2 - barH / 2;
+                ctx.fillStyle = '#555';
+                roundRect(ctx, dx + deviceW / 2 - barW / 2, barY, barW, barH, barH / 2);
+                ctx.fill();
+            }
+
+            if (dev.hasWebcam) {
+                var wcR = Math.round(4 * scale);
+                ctx.fillStyle = '#0d0d1a';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2, dy + bTop / 2, wcR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#1a3a5c';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2, dy + bTop / 2, wcR * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (dev.hasBase) {
+                var baseH = Math.round(16 * scale);
+                var baseW = deviceW + Math.round(60 * scale);
+                var baseX = dx - Math.round(30 * scale);
+                var baseY = dy + deviceH;
+
+                ctx.fillStyle = '#2d2d44';
+                ctx.beginPath();
+                ctx.moveTo(dx + Math.round(20 * scale), baseY);
+                ctx.lineTo(dx + deviceW - Math.round(20 * scale), baseY);
+                ctx.lineTo(baseX + baseW, baseY + baseH);
+                ctx.lineTo(baseX, baseY + baseH);
+                ctx.closePath();
+                ctx.fill();
+
+                ctx.fillStyle = '#3a3a55';
+                roundRect(ctx, baseX, baseY + baseH, baseW, Math.round(6 * scale), Math.round(3 * scale));
+                ctx.fill();
+            }
+
+            if (dev.hasFrontCamera) {
+                var fcR = Math.round(5 * scale);
+                ctx.fillStyle = '#0d0d1a';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2, dy + bTop / 2, fcR, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = '#1a3a5c';
+                ctx.beginPath();
+                ctx.arc(dx + deviceW / 2, dy + bTop / 2, fcR * 0.5, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (dev.hasPunchHole) {
+                var phR = Math.round(5 * scale);
+                var phX = dx + deviceW / 2;
+                var phY = dy + bTop / 2;
+                ctx.fillStyle = '#0d0d1a';
+                ctx.beginPath();
+                ctx.arc(phX, phY, phR, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            if (dev.hasTitleBar) {
+                var tbH = bTop;
+                var tbY = dy;
+                ctx.fillStyle = '#2d2d44';
+                roundRect(ctx, dx, tbY, deviceW, tbH, rad);
+                ctx.fill();
+                ctx.fillStyle = '#1a1a2e';
+                ctx.fillRect(dx, tbY + rad, deviceW, tbH - rad);
+
+                var dotR = Math.round(6 * scale);
+                var dotY = tbY + tbH / 2;
+                var dotStartX = dx + Math.round(18 * scale);
+                var dotColors = ['#ff5f57', '#ffbd2e', '#28c840'];
+                for (var i = 0; i < 3; i++) {
+                    ctx.fillStyle = dotColors[i];
+                    ctx.beginPath();
+                    ctx.arc(dotStartX + i * (dotR * 2 + Math.round(6 * scale)), dotY, dotR, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+
+                var addrBarW = Math.round(deviceW * 0.5);
+                var addrBarH = Math.round(22 * scale);
+                var addrBarX = dx + deviceW / 2 - addrBarW / 2;
+                var addrBarY = dotY - addrBarH / 2;
+                ctx.fillStyle = '#1a1a2e';
+                roundRect(ctx, addrBarX, addrBarY, addrBarW, addrBarH, addrBarH / 2);
+                ctx.fill();
+
+                ctx.fillStyle = '#555';
+                ctx.font = Math.round(10 * scale) + 'px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText('https://example.com', dx + deviceW / 2, dotY);
+            }
+        }
+
+        function loadImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+                    renderMockup();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadImage(fileInput.files[0]);
+            }
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0] && files[0].type.match(/^image\/(jpeg|png|webp)$/)) {
+                loadImage(files[0]);
+            }
+        });
+
+        deviceSelect.addEventListener('change', function() {
+            renderMockup();
+        });
+
+        bgColorInput.addEventListener('input', function() {
+            renderMockup();
+        });
+
+        downloadBtn.addEventListener('click', function() {
+            if (!currentImage) return;
+            canvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'mockup-' + deviceSelect.value + '.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        });
+
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = 'block';
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

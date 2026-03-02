@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Profile Picture Resizer Free - Resize DP to 320x320 | ToolsNest</title>
+    <meta name="description" content="Resize your Instagram profile picture to the perfect 320x320 size online for free. Crop, adjust, and download your DP instantly. No signup required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/instagram-dp-resizer/">
+
+    <meta property="og:title" content="Instagram Profile Picture Resizer Free - Resize DP to 320x320 | ToolsNest">
+    <meta property="og:description" content="Resize your Instagram profile picture to the perfect 320x320 size online for free. Crop, adjust, and download your DP instantly. No signup required.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/instagram-dp-resizer/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Instagram Profile Picture Resizer Free - Resize DP to 320x320 | ToolsNest">
+    <meta name="twitter:description" content="Resize your Instagram profile picture to the perfect 320x320 size online for free. Crop, adjust, and download your DP instantly. No signup required.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Instagram DP Resizer"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Instagram DP Resizer
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Instagram Profile Picture Resizer</h1>
+                <p class="text-center mb-3">Resize and crop your photo to the perfect Instagram profile picture size. Everything runs in your browser.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <div id="upload-section">
+                        <h3 class="mb-2">Upload Your Photo</h3>
+                        <p class="text-muted mb-2">Drag & drop an image here, or click below to browse. Supports JPG, PNG, and WebP.</p>
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <label for="file-input" class="btn btn-primary">Select Image</label>
+                    </div>
+
+                    <div id="editor-section" style="display: none;">
+                        <div style="margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Adjust Crop Area</p>
+                            <div id="source-container" style="position: relative; display: flex; justify-content: center; align-items: center; max-width: 100%; overflow: hidden; border-radius: var(--radius-sm); border: 1px solid var(--border); background: repeating-conic-gradient(#d0d0d0 0% 25%, #f0f0f0 0% 50%) 50% / 16px 16px;">
+                                <canvas id="crop-canvas" style="display: block; max-width: 100%; max-height: 400px; cursor: move;"></canvas>
+                            </div>
+                            <p class="text-muted" style="margin-top: 0.5rem; font-size: 0.85rem;">Use the zoom slider to adjust the visible area. Drag the image to reposition.</p>
+                        </div>
+
+                        <div class="form-group" style="margin-bottom: 1.5rem;">
+                            <label style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Zoom</label>
+                            <input type="range" id="zoom-slider" min="100" max="300" value="100" style="width: 100%; cursor: pointer;">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label>Output Size</label>
+                                <select id="size-select" class="form-input">
+                                    <option value="320" selected>320 x 320 px (Instagram Standard)</option>
+                                    <option value="110">110 x 110 px (Display Size)</option>
+                                    <option value="custom">Custom Size</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;" id="custom-size-group" hidden>
+                                <label>Custom Size (px)</label>
+                                <input type="number" id="custom-size-input" class="form-input" min="16" max="2048" value="320" placeholder="e.g. 500">
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-bottom: 1.5rem;">
+                            <p style="font-weight: 600; margin-bottom: 0.75rem; color: var(--text-main);">Circular Preview</p>
+                            <div style="display: inline-block; background: repeating-conic-gradient(#d0d0d0 0% 25%, #f0f0f0 0% 50%) 50% / 16px 16px; padding: 1rem; border-radius: var(--radius-sm);">
+                                <canvas id="preview-canvas" width="160" height="160" style="border-radius: 50%; display: block;"></canvas>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1rem;">
+                            <button id="download-btn" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.1rem;">Download Instagram DP</button>
+                            <button id="reset-btn" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.1rem;">Upload New Image</button>
+                        </div>
+                    </div>
+                </div>
+
+                <canvas id="output-canvas" style="display: none;"></canvas>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP photo into the upload area.</li>
+                        <li>The tool automatically center-crops your image to a square. Use the zoom slider to adjust the crop area.</li>
+                        <li>Drag the image to reposition what is visible inside the crop frame.</li>
+                        <li>Select your desired output size: 320x320 (Instagram standard), 110x110 (display size), or enter a custom dimension.</li>
+                        <li>Check the circular preview to see how your DP will look on Instagram.</li>
+                        <li>Click "Download Instagram DP" to save your perfectly sized profile picture as a PNG file.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the correct size for an Instagram profile picture?</h3>
+                        <p>Instagram profile pictures are stored at 320x320 pixels. However, they are displayed at 110x110 pixels on mobile and 150x150 pixels on desktop. Uploading at 320x320 ensures the highest quality across all devices.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my photos uploaded to a server?</h3>
+                        <p>No. All image processing happens entirely in your browser using the HTML5 Canvas API. Your photos never leave your device and are never sent to any server, ensuring complete privacy.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats are supported?</h3>
+                        <p>You can upload images in JPEG, PNG, and WebP formats. The output is always saved as a high-quality PNG file, which preserves sharpness and is ideal for profile pictures.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why does Instagram crop my profile picture into a circle?</h3>
+                        <p>Instagram displays all profile pictures in a circular frame. While the actual uploaded image is a square, only the area inside the circle is visible. This tool shows you a circular preview so you can position your face or subject perfectly within the visible area.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this tool on my phone?</h3>
+                        <p>Yes. This tool is fully responsive and works on mobile browsers. You can upload photos directly from your camera roll, adjust the crop, and download the resized DP right on your phone.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/profile-picture-maker" class="related-link">Profile Picture Maker</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        /* ---- DOM References ---- */
+        var dropZone = document.getElementById('drop-zone');
+        var fileInput = document.getElementById('file-input');
+        var uploadSection = document.getElementById('upload-section');
+        var editorSection = document.getElementById('editor-section');
+        var cropCanvas = document.getElementById('crop-canvas');
+        var cropCtx = cropCanvas.getContext('2d');
+        var previewCanvas = document.getElementById('preview-canvas');
+        var previewCtx = previewCanvas.getContext('2d');
+        var outputCanvas = document.getElementById('output-canvas');
+        var zoomSlider = document.getElementById('zoom-slider');
+        var sizeSelect = document.getElementById('size-select');
+        var customSizeGroup = document.getElementById('custom-size-group');
+        var customSizeInput = document.getElementById('custom-size-input');
+        var downloadBtn = document.getElementById('download-btn');
+        var resetBtn = document.getElementById('reset-btn');
+
+        /* ---- State ---- */
+        var currentImage = null;
+        var imgNatW = 0;
+        var imgNatH = 0;
+        var zoom = 1;
+        var offsetX = 0;
+        var offsetY = 0;
+        var isDragging = false;
+        var dragStartX = 0;
+        var dragStartY = 0;
+        var dragOffsetX = 0;
+        var dragOffsetY = 0;
+        var CANVAS_SIZE = 360;
+
+        /* ---- Drag & Drop ---- */
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = 'var(--primary)';
+        });
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = '';
+        });
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.style.borderColor = '';
+            var files = e.dataTransfer.files;
+            if (files && files.length > 0 && files[0].type.match(/^image\/(jpeg|png|webp)$/)) {
+                loadImage(files[0]);
+            }
+        });
+
+        /* ---- File Input ---- */
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                loadImage(fileInput.files[0]);
+            }
+        });
+
+        /* ---- Load Image ---- */
+        function loadImage(file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    currentImage = img;
+                    imgNatW = img.naturalWidth;
+                    imgNatH = img.naturalHeight;
+
+                    /* Reset state */
+                    zoom = 1;
+                    zoomSlider.value = 100;
+                    offsetX = 0;
+                    offsetY = 0;
+
+                    uploadSection.style.display = 'none';
+                    editorSection.style.display = 'block';
+
+                    drawCropCanvas();
+                    drawPreview();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        /* ---- Compute Crop Region (in natural image coords) ---- */
+        function getCropRegion() {
+            var minDim = Math.min(imgNatW, imgNatH);
+            var cropSize = minDim / zoom;
+
+            /* Center of the image plus user offset, scaled to natural coords */
+            var centerX = imgNatW / 2 - offsetX * (minDim / CANVAS_SIZE);
+            var centerY = imgNatH / 2 - offsetY * (minDim / CANVAS_SIZE);
+
+            var sx = centerX - cropSize / 2;
+            var sy = centerY - cropSize / 2;
+
+            /* Clamp to image bounds */
+            if (sx < 0) sx = 0;
+            if (sy < 0) sy = 0;
+            if (sx + cropSize > imgNatW) sx = imgNatW - cropSize;
+            if (sy + cropSize > imgNatH) sy = imgNatH - cropSize;
+
+            return { sx: sx, sy: sy, size: cropSize };
+        }
+
+        /* ---- Draw Crop Canvas (square view with circular overlay) ---- */
+        function drawCropCanvas() {
+            if (!currentImage) return;
+
+            cropCanvas.width = CANVAS_SIZE;
+            cropCanvas.height = CANVAS_SIZE;
+
+            var region = getCropRegion();
+
+            cropCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+            cropCtx.imageSmoothingEnabled = true;
+            cropCtx.imageSmoothingQuality = 'high';
+
+            /* Draw the square crop */
+            cropCtx.drawImage(currentImage, region.sx, region.sy, region.size, region.size, 0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+            /* Dark overlay outside circle */
+            cropCtx.save();
+            cropCtx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+            cropCtx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+            cropCtx.globalCompositeOperation = 'destination-out';
+            cropCtx.beginPath();
+            cropCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2, CANVAS_SIZE / 2 - 2, 0, Math.PI * 2);
+            cropCtx.fill();
+            cropCtx.restore();
+
+            /* Circle border */
+            cropCtx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+            cropCtx.lineWidth = 2;
+            cropCtx.beginPath();
+            cropCtx.arc(CANVAS_SIZE / 2, CANVAS_SIZE / 2, CANVAS_SIZE / 2 - 2, 0, Math.PI * 2);
+            cropCtx.stroke();
+        }
+
+        /* ---- Draw Circular Preview ---- */
+        function drawPreview() {
+            if (!currentImage) return;
+
+            var size = 160;
+            previewCanvas.width = size;
+            previewCanvas.height = size;
+
+            var region = getCropRegion();
+
+            previewCtx.clearRect(0, 0, size, size);
+            previewCtx.save();
+            previewCtx.beginPath();
+            previewCtx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+            previewCtx.clip();
+            previewCtx.imageSmoothingEnabled = true;
+            previewCtx.imageSmoothingQuality = 'high';
+            previewCtx.drawImage(currentImage, region.sx, region.sy, region.size, region.size, 0, 0, size, size);
+            previewCtx.restore();
+        }
+
+        /* ---- Zoom Slider ---- */
+        zoomSlider.addEventListener('input', function() {
+            zoom = parseInt(zoomSlider.value) / 100;
+            clampOffset();
+            drawCropCanvas();
+            drawPreview();
+        });
+
+        /* ---- Clamp offset so crop stays within image bounds ---- */
+        function clampOffset() {
+            if (!currentImage) return;
+            var minDim = Math.min(imgNatW, imgNatH);
+            var cropSize = minDim / zoom;
+            var maxShiftNat = (Math.min(imgNatW, imgNatH) - cropSize) / 2;
+            /* Also account for non-square images */
+            var maxShiftX = (imgNatW - cropSize) / 2;
+            var maxShiftY = (imgNatH - cropSize) / 2;
+            var scaleFactor = minDim / CANVAS_SIZE;
+
+            var maxOX = maxShiftX / scaleFactor;
+            var maxOY = maxShiftY / scaleFactor;
+
+            if (offsetX > maxOX) offsetX = maxOX;
+            if (offsetX < -maxOX) offsetX = -maxOX;
+            if (offsetY > maxOY) offsetY = maxOY;
+            if (offsetY < -maxOY) offsetY = -maxOY;
+        }
+
+        /* ---- Mouse Drag ---- */
+        cropCanvas.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragOffsetX = offsetX;
+            dragOffsetY = offsetY;
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            offsetX = dragOffsetX + (e.clientX - dragStartX);
+            offsetY = dragOffsetY + (e.clientY - dragStartY);
+            clampOffset();
+            drawCropCanvas();
+            drawPreview();
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        /* ---- Touch Drag ---- */
+        cropCanvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            var touch = e.touches[0];
+            isDragging = true;
+            dragStartX = touch.clientX;
+            dragStartY = touch.clientY;
+            dragOffsetX = offsetX;
+            dragOffsetY = offsetY;
+        }, { passive: false });
+
+        document.addEventListener('touchmove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            var touch = e.touches[0];
+            offsetX = dragOffsetX + (touch.clientX - dragStartX);
+            offsetY = dragOffsetY + (touch.clientY - dragStartY);
+            clampOffset();
+            drawCropCanvas();
+            drawPreview();
+        }, { passive: false });
+
+        document.addEventListener('touchend', function() {
+            isDragging = false;
+        });
+
+        /* ---- Size Select ---- */
+        sizeSelect.addEventListener('change', function() {
+            if (sizeSelect.value === 'custom') {
+                customSizeGroup.hidden = false;
+            } else {
+                customSizeGroup.hidden = true;
+            }
+        });
+
+        /* ---- Get Output Size ---- */
+        function getOutputSize() {
+            if (sizeSelect.value === 'custom') {
+                var val = parseInt(customSizeInput.value);
+                if (!val || val < 16) return 320;
+                if (val > 2048) return 2048;
+                return val;
+            }
+            return parseInt(sizeSelect.value);
+        }
+
+        /* ---- Download ---- */
+        downloadBtn.addEventListener('click', function() {
+            if (!currentImage) return;
+
+            var size = getOutputSize();
+            outputCanvas.width = size;
+            outputCanvas.height = size;
+            var ctx = outputCanvas.getContext('2d');
+
+            var region = getCropRegion();
+
+            ctx.clearRect(0, 0, size, size);
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(currentImage, region.sx, region.sy, region.size, region.size, 0, 0, size, size);
+
+            outputCanvas.toBlob(function(blob) {
+                var url = URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = 'instagram-dp-' + size + 'x' + size + '.png';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 'image/png');
+        });
+
+        /* ---- Reset ---- */
+        resetBtn.addEventListener('click', function() {
+            currentImage = null;
+            fileInput.value = '';
+            editorSection.style.display = 'none';
+            uploadSection.style.display = '';
+            zoomSlider.value = 100;
+            zoom = 1;
+            offsetX = 0;
+            offsetY = 0;
+            sizeSelect.value = '320';
+            customSizeGroup.hidden = true;
+        });
+
+        /* ---- Resize Handling ---- */
+        window.addEventListener('resize', function() {
+            if (currentImage) {
+                drawCropCanvas();
+                drawPreview();
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

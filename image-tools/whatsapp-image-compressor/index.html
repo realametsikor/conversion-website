@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Image Compressor Free - Reduce Photo Size for WhatsApp | ToolsNest</title>
+    <meta name="description" content="Compress images for WhatsApp online for free. Reduce photo file size under 16MB while keeping quality. Works in your browser, no upload needed.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/whatsapp-image-compressor/">
+
+    <meta property="og:title" content="WhatsApp Image Compressor Free - Reduce Photo Size for WhatsApp | ToolsNest">
+    <meta property="og:description" content="Compress images for WhatsApp online for free. Reduce photo file size under 16MB while keeping quality. Works in your browser, no upload needed.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/whatsapp-image-compressor/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="WhatsApp Image Compressor Free - Reduce Photo Size for WhatsApp | ToolsNest">
+    <meta name="twitter:description" content="Compress images for WhatsApp online for free. Reduce photo file size under 16MB while keeping quality. Works in your browser, no upload needed.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "WhatsApp Image Compressor"
+        }
+      ]
+    }
+    </script>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; WhatsApp Image Compressor
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">WhatsApp Image Compressor</h1>
+                <p class="text-center mb-3">Compress photos to fit WhatsApp's 16MB file size limit. Fast, free, and 100% private — your images never leave your device.</p>
+
+                <div class="tool-workspace" id="drop-zone">
+                    <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
+                    <p class="text-muted mb-2">or</p>
+                    <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                    <label for="file-input" class="btn btn-primary">Select Image</label>
+
+                    <div id="controls-area" style="display: none; margin-top: 2rem; width: 100%;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <label for="quality-slider" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Quality: <span id="quality-value">0.5</span></label>
+                                <input type="range" id="quality-slider" min="0.1" max="1.0" step="0.05" value="0.5" style="width: 100%;">
+                            </div>
+                            <div>
+                                <label for="max-dimension" style="font-weight: 600; margin-bottom: 0.5rem; display: block;">Max Dimension (px)</label>
+                                <select id="max-dimension" class="btn" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border); border-radius: 0.375rem; background: var(--bg-card); color: var(--text-main);">
+                                    <option value="0">No resize</option>
+                                    <option value="1920" selected>1920</option>
+                                    <option value="1280">1280</option>
+                                    <option value="1024">1024</option>
+                                    <option value="800">800</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <canvas id="compress-canvas" style="display: none;"></canvas>
+
+                        <div id="preview-wrapper" style="text-align: center; margin-bottom: 1.5rem;">
+                            <img id="preview-img" style="max-width: 100%; max-height: 300px; border-radius: 0.5rem; display: none;" alt="Compressed preview">
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Original Size</p>
+                                <strong id="original-size" style="font-size: 1.5rem; color: var(--text-main);">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1">Compressed Size</p>
+                                <strong id="compressed-size" style="font-size: 1.5rem; color: var(--accent);">--</strong>
+                            </div>
+                        </div>
+
+                        <p id="savings-text" class="text-center mt-2" style="font-weight: 600; font-size: 1.1rem;"></p>
+                        <p id="whatsapp-status" class="text-center mt-1" style="font-weight: 600; font-size: 1rem;"></p>
+
+                        <div class="text-center mt-3">
+                            <a id="download-btn" class="btn btn-accent" style="display: none;" download="compressed-image.jpg">Download Compressed Image</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP photo into the workspace above.</li>
+                        <li>Adjust the quality slider and maximum dimension to control the compression level.</li>
+                        <li>The tool instantly compresses your image and shows the original vs. compressed file size.</li>
+                        <li>Check the WhatsApp status indicator to confirm the file is under 16MB.</li>
+                        <li>Click "Download Compressed Image" to save the optimized photo, ready to share on WhatsApp.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is WhatsApp's image file size limit?</h3>
+                        <p>WhatsApp allows you to send images up to 16MB in size. Photos larger than this limit will either fail to send or be heavily compressed by WhatsApp itself, which can drastically reduce quality. This tool helps you compress images to stay under that limit while preserving as much quality as possible.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will compressing my photo reduce its quality?</h3>
+                        <p>Some quality loss is inherent in compression, but you have full control over the trade-off. The quality slider lets you choose between smaller file sizes (lower quality) and sharper images (higher quality). A setting of 0.5 to 0.7 usually gives excellent results for WhatsApp sharing.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are my images uploaded to any server?</h3>
+                        <p>No. This tool processes your images entirely within your browser using the HTML5 Canvas API. Your photos never leave your device and are never uploaded or stored on any server. It is 100% private and works offline once the page has loaded.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What image formats can I compress?</h3>
+                        <p>You can upload JPEG, PNG, and WebP images. The tool compresses and exports the result as a JPEG file, which offers the best balance of quality and file size for sharing on WhatsApp and other messaging platforms.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does the Max Dimension option do?</h3>
+                        <p>The Max Dimension setting scales down your image if its width or height exceeds the selected pixel value, while maintaining the original aspect ratio. Reducing the dimensions is one of the most effective ways to shrink file size. For WhatsApp, 1920px is usually more than sufficient.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+                <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/instagram-dp-resizer" class="related-link">Instagram DP Resizer</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var WHATSAPP_LIMIT = 16 * 1024 * 1024;
+
+        var fileInput = document.getElementById('file-input');
+        var dropZone = document.getElementById('drop-zone');
+        var controlsArea = document.getElementById('controls-area');
+        var canvas = document.getElementById('compress-canvas');
+        var previewImg = document.getElementById('preview-img');
+        var originalSizeEl = document.getElementById('original-size');
+        var compressedSizeEl = document.getElementById('compressed-size');
+        var savingsText = document.getElementById('savings-text');
+        var whatsappStatus = document.getElementById('whatsapp-status');
+        var downloadBtn = document.getElementById('download-btn');
+        var qualitySlider = document.getElementById('quality-slider');
+        var qualityValue = document.getElementById('quality-value');
+        var maxDimension = document.getElementById('max-dimension');
+
+        var currentFile = null;
+
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / 1048576).toFixed(2) + ' MB';
+        }
+
+        function compressImage(file) {
+            var originalSize = file.size;
+            var quality = parseFloat(qualitySlider.value);
+            var maxDim = parseInt(maxDimension.value, 10);
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    var w = img.width;
+                    var h = img.height;
+
+                    if (maxDim > 0 && (w > maxDim || h > maxDim)) {
+                        if (w >= h) {
+                            h = Math.round(h * (maxDim / w));
+                            w = maxDim;
+                        } else {
+                            w = Math.round(w * (maxDim / h));
+                            h = maxDim;
+                        }
+                    }
+
+                    var ctx = canvas.getContext('2d');
+                    canvas.width = w;
+                    canvas.height = h;
+                    ctx.drawImage(img, 0, 0, w, h);
+
+                    canvas.toBlob(function(blob) {
+                        if (!blob) return;
+                        var compressedSize = blob.size;
+                        var savings = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+
+                        originalSizeEl.textContent = formatBytes(originalSize);
+                        compressedSizeEl.textContent = formatBytes(compressedSize);
+
+                        if (parseFloat(savings) > 0) {
+                            savingsText.textContent = 'Reduced by ' + savings + '% (' + formatBytes(originalSize - compressedSize) + ' saved)';
+                            savingsText.style.color = 'var(--accent)';
+                        } else {
+                            savingsText.textContent = 'Image is already well optimized. Try lowering quality or max dimension.';
+                            savingsText.style.color = 'var(--text-muted)';
+                        }
+
+                        if (compressedSize <= WHATSAPP_LIMIT) {
+                            whatsappStatus.textContent = '\u2705 Ready for WhatsApp — under 16MB';
+                            whatsappStatus.style.color = '#16a34a';
+                        } else {
+                            whatsappStatus.textContent = '\u26A0\uFE0F Still over 16MB — try lowering quality or max dimension';
+                            whatsappStatus.style.color = '#dc2626';
+                        }
+
+                        var url = URL.createObjectURL(blob);
+
+                        previewImg.src = url;
+                        previewImg.style.display = 'block';
+
+                        downloadBtn.href = url;
+                        var baseName = file.name.replace(/\.[^.]+$/, '');
+                        downloadBtn.download = 'compressed-' + baseName + '.jpg';
+                        downloadBtn.style.display = 'inline-flex';
+                        controlsArea.style.display = 'block';
+                    }, 'image/jpeg', quality);
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        qualitySlider.addEventListener('input', function() {
+            qualityValue.textContent = parseFloat(qualitySlider.value).toFixed(2);
+            if (currentFile) {
+                compressImage(currentFile);
+            }
+        });
+
+        maxDimension.addEventListener('change', function() {
+            if (currentFile) {
+                compressImage(currentFile);
+            }
+        });
+
+        function handleFile(file) {
+            if (file && file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                currentFile = file;
+                compressImage(file);
+            }
+        }
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                handleFile(fileInput.files[0]);
+            }
+        });
+
+        dropZone.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary)';
+            dropZone.style.background = '#f0f7ff';
+        });
+
+        dropZone.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+        });
+
+        dropZone.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropZone.style.borderColor = '';
+            dropZone.style.background = '';
+            var files = e.dataTransfer.files;
+            if (files && files[0]) {
+                fileInput.files = files;
+                handleFile(files[0]);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
