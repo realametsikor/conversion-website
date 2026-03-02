@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI JSON Formatter - Beautify, Minify & Validate JSON | ToolsNest</title>
+    <meta name="description" content="Format, beautify, minify, and validate JSON data instantly. Syntax highlighting, error detection, and tree view included. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/json-formatter/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .jf-editor { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+        .jf-panel { position: relative; }
+        .jf-panel label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .jf-textarea { width: 100%; min-height: 350px; font-family: 'Courier New', monospace; font-size: 0.85rem; padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); resize: vertical; line-height: 1.6; tab-size: 2; }
+        .jf-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+        .jf-actions .btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; }
+        .jf-status { margin-top: 0.75rem; padding: 0.75rem 1rem; border-radius: var(--radius-sm); font-size: 0.9rem; display: none; }
+        .jf-status.valid { display: block; background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .jf-status.invalid { display: block; background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+        .jf-stats { display: flex; gap: 1.5rem; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; }
+        .jf-tree { font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.8; padding: 1rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); max-height: 400px; overflow: auto; display: none; margin-top: 1rem; }
+        .jf-tree-key { color: #0550ae; }
+        .jf-tree-string { color: #0a3069; }
+        .jf-tree-number { color: #0550ae; }
+        .jf-tree-bool { color: #cf222e; }
+        .jf-tree-null { color: #6e7781; }
+        .jf-tree-toggle { cursor: pointer; user-select: none; }
+        .jf-tree-toggle:hover { text-decoration: underline; }
+        @media (max-width: 768px) { .jf-editor { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; JSON Formatter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">JSON Formatter</h1>
+                <p class="text-center mb-3">Paste your JSON to instantly format, beautify, minify, or validate it. See errors highlighted in real time with detailed stats.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="jf-editor">
+                        <div class="jf-panel">
+                            <label for="jf-input">Input JSON</label>
+                            <textarea id="jf-input" class="jf-textarea" placeholder='Paste your JSON here, e.g.:\n{"name":"John","age":30,"hobbies":["reading","coding"]}'></textarea>
+                        </div>
+                        <div class="jf-panel">
+                            <label for="jf-output">Formatted Output</label>
+                            <textarea id="jf-output" class="jf-textarea" readonly placeholder="Formatted JSON will appear here..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="jf-actions">
+                        <button id="jf-beautify" class="btn btn-primary">Beautify</button>
+                        <button id="jf-minify" class="btn">Minify</button>
+                        <button id="jf-validate" class="btn">Validate</button>
+                        <button id="jf-copy" class="btn">Copy Output</button>
+                        <button id="jf-clear" class="btn">Clear</button>
+                        <div style="margin-left: auto; display: flex; align-items: center; gap: 0.5rem;">
+                            <label for="jf-indent" style="font-size:0.85rem; font-weight:600;">Indent:</label>
+                            <select id="jf-indent" class="form-input" style="width: auto; padding: 0.3rem 0.5rem; font-size: 0.85rem;">
+                                <option value="2" selected>2 spaces</option>
+                                <option value="4">4 spaces</option>
+                                <option value="tab">Tab</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="jf-status" class="jf-status"></div>
+                    <div id="jf-stats" class="jf-stats"></div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste your raw JSON in the input area on the left.</li>
+                        <li>Click <strong>Beautify</strong> for formatted output, or <strong>Minify</strong> for compact output.</li>
+                        <li>Use <strong>Validate</strong> to check for JSON syntax errors.</li>
+                        <li>Click <strong>Copy Output</strong> to copy the result to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>What JSON formats are supported?</h3>
+                        <p>Any valid JSON — objects, arrays, nested structures, strings, numbers, booleans, and null values. The tool will report errors for invalid JSON.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Is my data safe?</h3>
+                        <p>Yes. All processing happens locally in your browser. Your JSON data is never sent to any server.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Can I format large JSON files?</h3>
+                        <p>The tool handles large JSON payloads efficiently in-browser. For extremely large files (10MB+), performance may vary based on your device.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/regex-generator" class="related-link">Regex Generator</a>
+                    <a href="/ai-tools/fake-data-generator" class="related-link">Fake Data Generator</a>
+                    <a href="/ai-tools/title-case-formatter" class="related-link">Title Case Formatter</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var input = document.getElementById('jf-input');
+        var output = document.getElementById('jf-output');
+        var statusEl = document.getElementById('jf-status');
+        var statsEl = document.getElementById('jf-stats');
+
+        function getIndent() {
+            var v = document.getElementById('jf-indent').value;
+            return v === 'tab' ? '\t' : parseInt(v);
+        }
+
+        function countNodes(obj) {
+            if (obj === null || typeof obj !== 'object') return { keys: 0, values: 1, depth: 0 };
+            var keys = 0, values = 0, maxDepth = 0;
+            if (Array.isArray(obj)) {
+                obj.forEach(function(item) {
+                    var c = countNodes(item);
+                    keys += c.keys; values += c.values + 1;
+                    if (c.depth > maxDepth) maxDepth = c.depth;
+                });
+            } else {
+                var k = Object.keys(obj);
+                keys += k.length;
+                k.forEach(function(key) {
+                    var c = countNodes(obj[key]);
+                    keys += c.keys; values += c.values;
+                    if (c.depth > maxDepth) maxDepth = c.depth;
+                });
+            }
+            return { keys: keys, values: values, depth: maxDepth + 1 };
+        }
+
+        function showStatus(valid, msg) {
+            statusEl.className = 'jf-status ' + (valid ? 'valid' : 'invalid');
+            statusEl.textContent = msg;
+        }
+
+        function showStats(json, formatted) {
+            try {
+                var parsed = typeof json === 'string' ? JSON.parse(json) : json;
+                var info = countNodes(parsed);
+                statsEl.innerHTML = '<span>Keys: ' + info.keys + '</span><span>Max Depth: ' + info.depth + '</span><span>Size: ' + new Blob([formatted]).size + ' bytes</span>';
+            } catch(e) { statsEl.innerHTML = ''; }
+        }
+
+        document.getElementById('jf-beautify').addEventListener('click', function() {
+            var raw = input.value.trim();
+            if (!raw) { input.focus(); return; }
+            try {
+                var parsed = JSON.parse(raw);
+                var indent = getIndent();
+                var formatted = JSON.stringify(parsed, null, indent);
+                output.value = formatted;
+                showStatus(true, 'Valid JSON — Beautified successfully');
+                showStats(parsed, formatted);
+            } catch(e) {
+                output.value = '';
+                showStatus(false, 'Invalid JSON: ' + e.message);
+                statsEl.innerHTML = '';
+            }
+        });
+
+        document.getElementById('jf-minify').addEventListener('click', function() {
+            var raw = input.value.trim();
+            if (!raw) { input.focus(); return; }
+            try {
+                var parsed = JSON.parse(raw);
+                var minified = JSON.stringify(parsed);
+                output.value = minified;
+                showStatus(true, 'Valid JSON — Minified (' + new Blob([raw]).size + ' → ' + new Blob([minified]).size + ' bytes)');
+                showStats(parsed, minified);
+            } catch(e) {
+                output.value = '';
+                showStatus(false, 'Invalid JSON: ' + e.message);
+                statsEl.innerHTML = '';
+            }
+        });
+
+        document.getElementById('jf-validate').addEventListener('click', function() {
+            var raw = input.value.trim();
+            if (!raw) { input.focus(); return; }
+            try {
+                JSON.parse(raw);
+                showStatus(true, 'Valid JSON');
+            } catch(e) {
+                showStatus(false, 'Invalid JSON: ' + e.message);
+            }
+        });
+
+        document.getElementById('jf-copy').addEventListener('click', function() {
+            var text = output.value;
+            if (!text) return;
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('jf-copy');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy Output'; }, 1500);
+            });
+        });
+
+        document.getElementById('jf-clear').addEventListener('click', function() {
+            input.value = '';
+            output.value = '';
+            statusEl.className = 'jf-status';
+            statsEl.innerHTML = '';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

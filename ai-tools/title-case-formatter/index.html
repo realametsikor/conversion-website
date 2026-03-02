@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Title Case Formatter - Convert Text to Title Case | ToolsNest</title>
+    <meta name="description" content="Convert any text to title case, sentence case, UPPER CASE, lower case, and more. Follows AP, APA, and Chicago style rules. Free, no signup.">
+    <link rel="canonical" href="https://convertion-website.netlify.app/ai-tools/title-case-formatter/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .tc-case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.75rem; margin-bottom: 1.5rem; }
+        .tc-case-btn { padding: 0.6rem 0.75rem; border: 2px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; text-align: center; font-size: 0.85rem; transition: all 0.2s; }
+        .tc-case-btn:hover { border-color: var(--primary); }
+        .tc-case-btn.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .tc-output-box { position: relative; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem; min-height: 100px; margin-top: 1rem; white-space: pre-wrap; word-wrap: break-word; line-height: 1.7; font-size: 1rem; }
+        .tc-stats { display: flex; gap: 1.5rem; margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-muted); flex-wrap: wrap; }
+        @media (max-width: 600px) { .tc-case-grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Title Case Formatter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Title Case Formatter</h1>
+                <p class="text-center mb-3">Convert any text to title case, sentence case, UPPER CASE, lower case, and more. Follows proper English style rules for articles, prepositions, and conjunctions.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="tc-input">Enter Your Text</label>
+                        <textarea id="tc-input" class="form-input" rows="5" placeholder="Paste or type your text here, e.g., 'the quick brown fox jumps over the lazy dog'"></textarea>
+                    </div>
+
+                    <label style="display:block; margin-bottom: 0.5rem; font-weight: 600;">Format Style</label>
+                    <div class="tc-case-grid">
+                        <button class="tc-case-btn active" data-case="title">Title Case</button>
+                        <button class="tc-case-btn" data-case="sentence">Sentence Case</button>
+                        <button class="tc-case-btn" data-case="upper">UPPER CASE</button>
+                        <button class="tc-case-btn" data-case="lower">lower case</button>
+                        <button class="tc-case-btn" data-case="capitalize">Capitalize Each</button>
+                        <button class="tc-case-btn" data-case="toggle">tOGGLE cASE</button>
+                    </div>
+
+                    <button id="tc-convert-btn" class="btn btn-primary" style="width: 100%; padding: 0.85rem;">Convert Text</button>
+
+                    <div id="tc-output-section" style="display:none;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1.5rem;">
+                            <h3 style="margin:0;">Result</h3>
+                            <button id="tc-copy-btn" class="btn" style="font-size:0.85rem; padding:0.4rem 0.8rem;">Copy</button>
+                        </div>
+                        <div id="tc-output" class="tc-output-box"></div>
+                        <div id="tc-stats" class="tc-stats"></div>
+                    </div>
+                </div>
+
+                <section class="mb-4" style="margin-top: 2rem;">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type the text you want to convert.</li>
+                        <li>Select the desired format style (Title Case, Sentence Case, etc.).</li>
+                        <li>Click <strong>Convert Text</strong> to see the result.</li>
+                        <li>Click <strong>Copy</strong> to copy the formatted text to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item mb-2">
+                        <h3>What is title case?</h3>
+                        <p>Title case capitalizes the first letter of major words while keeping minor words (like "the", "and", "of") lowercase, unless they start the title. This follows standard English style guides.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Which style guide does this follow?</h3>
+                        <p>The title case conversion follows common rules shared by AP, APA, and Chicago styles — capitalizing words of 4+ letters and keeping short articles, prepositions, and conjunctions lowercase.</p>
+                    </div>
+                    <div class="faq-item mb-2">
+                        <h3>Is there a character limit?</h3>
+                        <p>There is no hard limit. The tool processes text entirely in your browser, so it works with any length of text.</p>
+                    </div>
+                </section>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/headline-rewriter" class="related-link">Headline Rewriter</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var selectedCase = 'title';
+        var caseBtns = document.querySelectorAll('.tc-case-btn');
+        caseBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                caseBtns.forEach(function(b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+                selectedCase = btn.getAttribute('data-case');
+            });
+        });
+
+        var minorWords = ['a','an','the','and','but','or','nor','for','yet','so','at','by','in','of','on','to','up','as','is','if','it','vs','via','per'];
+
+        function toTitleCase(text) {
+            return text.replace(/\w\S*/g, function(word, index) {
+                if (index === 0) return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+                if (minorWords.indexOf(word.toLowerCase()) !== -1 && word.length < 4) return word.toLowerCase();
+                return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+            }).replace(/(^|[.!?]\s+)(\w)/g, function(m, p, c) { return p + c.toUpperCase(); });
+        }
+
+        function toSentenceCase(text) {
+            return text.toLowerCase().replace(/(^|[.!?]\s+)(\w)/g, function(m, p, c) { return p + c.toUpperCase(); });
+        }
+
+        function toToggleCase(text) {
+            return text.split('').map(function(c) {
+                return c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase();
+            }).join('');
+        }
+
+        function capitalizeEach(text) {
+            return text.replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+        }
+
+        function convertText(text, mode) {
+            switch(mode) {
+                case 'title': return toTitleCase(text);
+                case 'sentence': return toSentenceCase(text);
+                case 'upper': return text.toUpperCase();
+                case 'lower': return text.toLowerCase();
+                case 'capitalize': return capitalizeEach(text);
+                case 'toggle': return toToggleCase(text);
+                default: return text;
+            }
+        }
+
+        document.getElementById('tc-convert-btn').addEventListener('click', function() {
+            var input = document.getElementById('tc-input').value;
+            if (!input.trim()) return;
+            var result = convertText(input, selectedCase);
+            document.getElementById('tc-output').textContent = result;
+            var words = input.trim().split(/\s+/).filter(Boolean).length;
+            var chars = input.length;
+            document.getElementById('tc-stats').innerHTML = '<span>Words: ' + words + '</span><span>Characters: ' + chars + '</span>';
+            document.getElementById('tc-output-section').style.display = 'block';
+        });
+
+        document.getElementById('tc-copy-btn').addEventListener('click', function() {
+            var text = document.getElementById('tc-output').textContent;
+            navigator.clipboard.writeText(text).then(function() {
+                var btn = document.getElementById('tc-copy-btn');
+                btn.textContent = 'Copied!';
+                setTimeout(function() { btn.textContent = 'Copy'; }, 1500);
+            });
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
