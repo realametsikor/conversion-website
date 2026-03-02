@@ -41,17 +41,11 @@
       ]
     }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563EB">
 </head>
-<body data-social-bar>
-    <script src="/components/header.js"></script>
-
-    <main>
-        <section class="section">
-            <div class="container">
-                <div class="breadcrumb">
-                    <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; PDF to Excel
                 </div>
 
                 <div class="tool-layout">
@@ -143,6 +137,8 @@
 
     <script>
     (function() {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         var fileInput = document.getElementById('file-input');
         var uploadArea = document.getElementById('upload-area');
         var processingArea = document.getElementById('processing-area');
@@ -155,8 +151,8 @@
         var resetBtn = document.getElementById('reset-btn');
         var workspace = document.getElementById('tool-workspace');
         var selectedFile = null;
+        var xlsxBlob = null;
 
-        /* Drag and drop */
         workspace.addEventListener('dragover', function(e) {
             e.preventDefault();
             workspace.style.borderColor = 'var(--primary)';
@@ -196,41 +192,81 @@
             fileInfo.innerHTML = '<strong>' + file.name + '</strong> (' + sizeMB + ' MB)';
             uploadArea.style.display = 'none';
             processingArea.style.display = 'block';
-            simulateProcessing();
+            convertPdfToExcel();
         }
 
-        function simulateProcessing() {
-            var progress = 0;
-            var interval = setInterval(function() {
-                progress += Math.random() * 8 + 2;
-                if (progress >= 100) {
-                    progress = 100;
-                    clearInterval(interval);
-                    setTimeout(showResult, 400);
+        function updateProgress(value) {
+            progressBar.style.width = value + '%';
+            progressText.textContent = Math.round(value) + '%';
+        }
+
+        async function convertPdfToExcel() {
+            try {
+                var arrayBuffer = await selectedFile.arrayBuffer();
+                var pdf = await pdfjsLib.getDocument({ data: new Uint8Array(arrayBuffer) }).promise;
+                var numPages = pdf.numPages;
+                var workbook = XLSX.utils.book_new();
+
+                for (var i = 1; i <= numPages; i++) {
+                    updateProgress((i / numPages) * 80);
+                    var page = await pdf.getPage(i);
+                    var textContent = await page.getTextContent();
+
+                    var rows = [];
+                    var currentRow = [];
+                    var lastY = null;
+
+                    for (var j = 0; j < textContent.items.length; j++) {
+                        var item = textContent.items[j];
+                        var y = Math.round(item.transform[5]);
+                        if (lastY !== null && Math.abs(y - lastY) > 5) {
+                            if (currentRow.length > 0) rows.push(currentRow);
+                            currentRow = [];
+                        }
+                        var text = item.str.trim();
+                        if (text) {
+                            var parts = text.split(/\t+/);
+                            for (var k = 0; k < parts.length; k++) {
+                                if (parts[k].trim()) currentRow.push(parts[k].trim());
+                            }
+                        }
+                        lastY = y;
+                    }
+                    if (currentRow.length > 0) rows.push(currentRow);
+
+                    if (rows.length === 0) {
+                        rows.push(['(No text content on this page)']);
+                    }
+
+                    var ws = XLSX.utils.aoa_to_sheet(rows);
+                    var sheetName = 'Page ' + i;
+                    XLSX.utils.book_append_sheet(workbook, ws, sheetName);
                 }
-                progressBar.style.width = progress + '%';
-                progressText.textContent = Math.round(progress) + '%';
-            }, 150);
-        }
 
-        function showResult() {
-            processingArea.style.display = 'none';
-            resultArea.style.display = 'block';
-            var newName = selectedFile.name.replace(/\.pdf$/i, '.xlsx');
-            resultInfo.textContent = newName + ' is ready for download.';
+                updateProgress(90);
+
+                var xlsxData = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+                xlsxBlob = new Blob([xlsxData], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+                updateProgress(100);
+                setTimeout(function() {
+                    processingArea.style.display = 'none';
+                    resultArea.style.display = 'block';
+                    var newName = selectedFile.name.replace(/\.pdf$/i, '.xlsx');
+                    resultInfo.textContent = newName + ' is ready for download (' + numPages + ' sheets created).';
+                }, 300);
+            } catch (err) {
+                alert('Error converting PDF: ' + err.message);
+                processingArea.style.display = 'none';
+                uploadArea.style.display = 'block';
+                updateProgress(0);
+            }
         }
 
         downloadBtn.addEventListener('click', function() {
+            if (!xlsxBlob) return;
             var newName = selectedFile.name.replace(/\.pdf$/i, '.xlsx');
-            var content = 'This is a placeholder Excel document.\n\n';
-            content += 'Original file: ' + selectedFile.name + '\n';
-            content += 'Original size: ' + (selectedFile.size / 1024).toFixed(1) + ' KB\n\n';
-            content += 'Note: Actual PDF-to-Excel conversion requires server-side processing.\n';
-            content += 'In a production environment, this file would contain the extracted tables and data from your PDF.\n';
-            content += '\nConverted with ToolsNest PDF to Excel Converter.';
-
-            var blob = new Blob([content], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-            var url = URL.createObjectURL(blob);
+            var url = URL.createObjectURL(xlsxBlob);
             var a = document.createElement('a');
             a.href = url;
             a.download = newName;
@@ -242,6 +278,7 @@
 
         resetBtn.addEventListener('click', function() {
             selectedFile = null;
+            xlsxBlob = null;
             fileInput.value = '';
             progressBar.style.width = '0%';
             progressText.textContent = '0%';
