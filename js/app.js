@@ -231,8 +231,7 @@
     /* ── Dark Mode ────────────────────────────────────────────────── */
     function initDarkMode() {
         var stored = localStorage.getItem('tn_dark');
-        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        var isDark = stored === 'true' || (stored === null && prefersDark);
+        var isDark = stored === 'true';
         if (isDark) document.documentElement.classList.add('dark');
 
         var btn = document.createElement('button');
