@@ -334,8 +334,45 @@ p { color: var(--text-muted); }
 .related-link:hover { background: var(--bg-color); color: var(--primary); }
 
 /* =========================================
-   10. AD CONTAINERS (live ads)
+   10. AD PLACEHOLDERS & AD CONTAINERS (live ads)
    ========================================= */
+
+/* Original ad placeholder styling */
+.ad-placeholder {
+    background: var(--bg-color);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.ad-banner-top {
+    width: 100%;
+    height: 90px;
+    margin: 1rem 0;
+}
+.ad-between-sections {
+    width: 100%;
+    height: 90px;
+    margin: 2rem 0;
+}
+.ad-sidebar-placeholder {
+    width: 100%;
+    min-height: 600px;
+}
+.ad-inline {
+    width: 100%;
+    height: 250px;
+    margin: 2rem 0;
+}
+
+/* Legacy ad containers */
+.desktop-ad { display: flex; justify-content: center; width: 100%; overflow: hidden; margin: 2rem 0; min-height: 90px; }
+.mobile-ad { display: none; width: 100%; min-height: 250px; }
 
 /* Generic ad wrapper — centres content, adds breathing room */
 .ad-container {
@@ -350,7 +387,7 @@ p { color: var(--text-muted); }
     min-height: 80px;
 }
 
-/* Sidebar 160×600 sticky ad */
+/* Sidebar 160x600 sticky ad */
 .ad-sidebar-slot {
     width: 160px;
     min-height: 600px;
@@ -359,6 +396,16 @@ p { color: var(--text-muted); }
 .sidebar-ad {
     position: sticky;
     top: 80px;
+}
+
+/* When ad loads, remove placeholder visual styling */
+.ad-placeholder.ad-loaded {
+    background: transparent;
+    border: none;
+    color: transparent;
+    font-size: 0;
+    text-transform: none;
+    letter-spacing: normal;
 }
 
 /* Ensure sidebar ad wrapper doesn't break tool layout */
@@ -486,4 +533,9 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 
     /* Ads: reduce margin on mobile */
     .ad-container { margin: 20px 0; }
+
+    /* Ad swaps */
+    .desktop-ad { display: none !important; }
+    .mobile-ad { display: flex !important; justify-content: center; margin: 1.5rem 0; overflow: hidden; }
+    .ad-banner-top, .ad-between-sections { height: 250px; }
 }
