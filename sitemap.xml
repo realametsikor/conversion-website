@@ -96,6 +96,51 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://www.usetoolnest.com/ai-tools/plagiarism-checker</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/ai-tools/paraphrasing-tool</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/ai-tools/grammar-checker</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/ai-tools/text-to-speech</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/ai-tools/speech-to-text</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/student-tools/citation-generator</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/student-tools/study-timer</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/student-tools/flashcard-maker</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://www.usetoolnest.com/student-tools/read-time-estimator</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://www.usetoolnest.com/about</loc>
     <priority>0.5</priority>
     <changefreq>monthly</changefreq>

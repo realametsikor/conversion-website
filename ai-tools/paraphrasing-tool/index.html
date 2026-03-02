@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paraphrasing Tool - Rewrite Text Instantly Free | ToolsNest</title>
+    <meta name="description" content="Paraphrase and rewrite any text instantly using client-side synonym replacement, sentence restructuring, and voice toggling. Free, private, no API calls.">
+    <link rel="canonical" href="https://www.usetoolnest.com/ai-tools/paraphrasing-tool/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Paraphrasing Tool
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Paraphrasing Tool</h1>
+                <p class="text-center mb-3">Rewrite any text instantly with multiple paraphrasing modes. Uses client-side synonym replacement, sentence restructuring, and voice toggling -- no API calls, fully private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="input-text">Paste Your Text Below</label>
+                        <textarea id="input-text" class="form-input" rows="10" placeholder="Paste or type your text here. The tool will paraphrase it sentence by sentence using synonym replacement, restructuring, and voice changes." style="min-height: 200px;"></textarea>
+                        <p id="input-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mode-select">Paraphrasing Mode</label>
+                        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem;">
+                            <button class="btn btn-outline mode-btn active" data-mode="standard">Standard</button>
+                            <button class="btn btn-outline mode-btn" data-mode="fluency">Fluency</button>
+                            <button class="btn btn-outline mode-btn" data-mode="formal">Formal</button>
+                            <button class="btn btn-outline mode-btn" data-mode="simple">Simple</button>
+                            <button class="btn btn-outline mode-btn" data-mode="creative">Creative</button>
+                        </div>
+                    </div>
+
+                    <button id="paraphrase-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Paraphrase</button>
+
+                    <div id="paraphrase-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Paraphrased Text</h3>
+                            <div id="paraphrase-text" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary);"></div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; flex-wrap: wrap; gap: 0.5rem;">
+                                <p id="output-word-count" class="text-muted" style="font-size: 0.85rem; margin: 0;">0 words</p>
+                                <p id="changes-info" class="text-muted" style="font-size: 0.85rem; margin: 0;"></p>
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Result</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area above.</li>
+                        <li>Select a paraphrasing mode: Standard for balanced rewrites, Fluency for smoother reading, Formal for professional tone, Simple for easier language, or Creative for more varied output.</li>
+                        <li>Click the "Paraphrase" button to generate your rewritten text.</li>
+                        <li>Review the paraphrased output, which shows how many changes were made and word count comparison.</li>
+                        <li>Click "Copy Result" to copy the paraphrased text to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this paraphrasing tool work?</h3>
+                        <p>This tool processes your text sentence by sentence using multiple client-side techniques: synonym replacement from a built-in dictionary, sentence restructuring by swapping clause order, passive/active voice toggling, and word order adjustments. All processing happens in your browser.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool use AI or API calls?</h3>
+                        <p>No external API calls are made. The paraphrasing engine runs entirely in your browser using client-side JavaScript with a built-in synonym dictionary. Your text is never sent to any server, so your content stays completely private.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What are the different paraphrasing modes?</h3>
+                        <p>Standard mode provides a balanced rewrite. Fluency mode focuses on making text read more smoothly. Formal mode elevates the tone for professional writing. Simple mode replaces complex words with easier alternatives. Creative mode applies the most aggressive changes for a distinctly different output.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Will the paraphrased text keep the original meaning?</h3>
+                        <p>The tool aims to preserve the original meaning while changing the wording. Since it uses rule-based synonym replacement and restructuring rather than deep language understanding, we recommend reviewing the output to ensure accuracy, especially for technical or specialized content.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What kind of text works best?</h3>
+                        <p>This tool works best with standard English prose such as essays, articles, reports, and general writing. It handles informational and expository text well. Very short phrases, highly technical jargon, or poetry may produce less effective results.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                    <a href="/ai-tools/plagiarism-checker" class="related-link">Plagiarism Checker</a>
+                    <a href="/all-tools" class="related-link">All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputText = document.getElementById('input-text');
+        var inputWordCount = document.getElementById('input-word-count');
+        var paraphraseBtn = document.getElementById('paraphrase-btn');
+        var paraphraseOutput = document.getElementById('paraphrase-output');
+        var paraphraseText = document.getElementById('paraphrase-text');
+        var outputWordCount = document.getElementById('output-word-count');
+        var changesInfo = document.getElementById('changes-info');
+        var copyBtn = document.getElementById('copy-btn');
+        var modeBtns = document.querySelectorAll('.mode-btn');
+        var currentMode = 'standard';
+
+        /* Mode selection */
+        for (var m = 0; m < modeBtns.length; m++) {
+            modeBtns[m].addEventListener('click', function() {
+                for (var n = 0; n < modeBtns.length; n++) {
+                    modeBtns[n].classList.remove('active');
+                }
+                this.classList.add('active');
+                currentMode = this.getAttribute('data-mode');
+            });
+        }
+
+        /* Synonym dictionary: word -> array of synonyms */
+        var synonyms = {
+            /* Common adjectives */
+            'good': ['great', 'fine', 'excellent', 'solid', 'positive', 'favorable'],
+            'great': ['excellent', 'remarkable', 'outstanding', 'wonderful', 'superb'],
+            'bad': ['poor', 'terrible', 'awful', 'dreadful', 'unpleasant'],
+            'big': ['large', 'huge', 'enormous', 'substantial', 'considerable'],
+            'small': ['tiny', 'little', 'minor', 'modest', 'compact'],
+            'important': ['significant', 'crucial', 'essential', 'vital', 'critical'],
+            'significant': ['notable', 'considerable', 'meaningful', 'substantial', 'important'],
+            'different': ['distinct', 'varied', 'diverse', 'dissimilar', 'unlike'],
+            'new': ['novel', 'fresh', 'recent', 'modern', 'latest'],
+            'old': ['aged', 'ancient', 'former', 'previous', 'dated'],
+            'long': ['extended', 'lengthy', 'prolonged', 'extensive', 'enduring'],
+            'hard': ['difficult', 'challenging', 'tough', 'demanding', 'arduous'],
+            'easy': ['simple', 'straightforward', 'effortless', 'uncomplicated'],
+            'fast': ['quick', 'rapid', 'swift', 'speedy', 'prompt'],
+            'slow': ['gradual', 'unhurried', 'leisurely', 'sluggish'],
+            'happy': ['pleased', 'delighted', 'content', 'joyful', 'cheerful'],
+            'sad': ['unhappy', 'sorrowful', 'melancholy', 'gloomy', 'dejected'],
+            'beautiful': ['attractive', 'lovely', 'stunning', 'gorgeous', 'elegant'],
+            'strong': ['powerful', 'robust', 'sturdy', 'mighty', 'forceful'],
+            'weak': ['feeble', 'frail', 'fragile', 'delicate', 'flimsy'],
+            'clear': ['obvious', 'apparent', 'evident', 'transparent', 'plain'],
+            'simple': ['basic', 'straightforward', 'uncomplicated', 'elementary'],
+            'complex': ['complicated', 'intricate', 'elaborate', 'sophisticated'],
+            'right': ['correct', 'accurate', 'proper', 'appropriate', 'suitable'],
+            'wrong': ['incorrect', 'inaccurate', 'erroneous', 'mistaken', 'flawed'],
+            'true': ['accurate', 'correct', 'genuine', 'authentic', 'valid'],
+            'real': ['genuine', 'authentic', 'actual', 'true', 'legitimate'],
+            'possible': ['feasible', 'achievable', 'attainable', 'viable', 'potential'],
+            'certain': ['definite', 'sure', 'confident', 'assured', 'particular'],
+            'entire': ['whole', 'complete', 'full', 'total', 'comprehensive'],
+            'specific': ['particular', 'precise', 'exact', 'definite', 'explicit'],
+            'major': ['principal', 'chief', 'primary', 'leading', 'key'],
+            'main': ['primary', 'principal', 'chief', 'central', 'key'],
+            'common': ['frequent', 'widespread', 'prevalent', 'typical', 'usual'],
+            'popular': ['well-liked', 'favored', 'widespread', 'prevalent'],
+            'difficult': ['challenging', 'hard', 'demanding', 'tough', 'arduous'],
+            'effective': ['efficient', 'successful', 'productive', 'potent'],
+            'various': ['diverse', 'assorted', 'numerous', 'several', 'multiple'],
+            'similar': ['comparable', 'alike', 'analogous', 'equivalent', 'akin'],
+            'useful': ['helpful', 'beneficial', 'valuable', 'practical', 'handy'],
+            'huge': ['enormous', 'massive', 'immense', 'vast', 'colossal'],
+            'tiny': ['minuscule', 'minute', 'diminutive', 'small', 'petite'],
+            'rich': ['wealthy', 'affluent', 'prosperous', 'well-off'],
+            'poor': ['impoverished', 'destitute', 'underprivileged', 'needy'],
+            'bright': ['brilliant', 'radiant', 'luminous', 'vivid', 'intelligent'],
+            'dark': ['dim', 'shadowy', 'murky', 'gloomy', 'dusky'],
+            'calm': ['serene', 'tranquil', 'peaceful', 'composed', 'placid'],
+            'angry': ['furious', 'irate', 'enraged', 'irritated', 'livid'],
+            'afraid': ['scared', 'frightened', 'terrified', 'fearful', 'anxious'],
+            'brave': ['courageous', 'bold', 'fearless', 'valiant', 'daring'],
+            'clever': ['intelligent', 'smart', 'brilliant', 'ingenious', 'astute'],
+            'quiet': ['silent', 'hushed', 'still', 'peaceful', 'subdued'],
+            'loud': ['noisy', 'boisterous', 'thunderous', 'deafening', 'blaring'],
+            'strange': ['unusual', 'odd', 'peculiar', 'curious', 'bizarre'],
+            'normal': ['typical', 'usual', 'ordinary', 'standard', 'regular'],
+            'ancient': ['old', 'antique', 'archaic', 'age-old', 'historic'],
+            'modern': ['contemporary', 'current', 'present-day', 'up-to-date'],
+            'expensive': ['costly', 'pricey', 'high-priced', 'premium'],
+            'cheap': ['inexpensive', 'affordable', 'economical', 'budget'],
+            'dangerous': ['hazardous', 'risky', 'perilous', 'unsafe', 'threatening'],
+            'safe': ['secure', 'protected', 'sheltered', 'harmless'],
+            'healthy': ['fit', 'well', 'robust', 'vigorous', 'thriving'],
+            'sick': ['ill', 'unwell', 'ailing', 'diseased', 'afflicted'],
+            'empty': ['vacant', 'bare', 'hollow', 'void', 'unoccupied'],
+            'full': ['complete', 'filled', 'packed', 'loaded', 'brimming'],
+            'wide': ['broad', 'expansive', 'extensive', 'spacious', 'vast'],
+            'narrow': ['thin', 'slim', 'slender', 'restricted', 'tight'],
+
+            /* Common verbs */
+            'show': ['demonstrate', 'display', 'reveal', 'indicate', 'illustrate'],
+            'help': ['assist', 'aid', 'support', 'facilitate', 'enable'],
+            'start': ['begin', 'commence', 'initiate', 'launch', 'embark'],
+            'begin': ['start', 'commence', 'initiate', 'launch', 'undertake'],
+            'stop': ['cease', 'halt', 'discontinue', 'terminate', 'end'],
+            'end': ['finish', 'conclude', 'complete', 'terminate', 'wrap up'],
+            'make': ['create', 'produce', 'construct', 'build', 'generate'],
+            'get': ['obtain', 'acquire', 'receive', 'gain', 'secure'],
+            'give': ['provide', 'offer', 'supply', 'deliver', 'present'],
+            'use': ['utilize', 'employ', 'apply', 'operate', 'leverage'],
+            'keep': ['maintain', 'retain', 'preserve', 'hold', 'sustain'],
+            'change': ['alter', 'modify', 'transform', 'adjust', 'revise'],
+            'move': ['shift', 'transfer', 'relocate', 'advance', 'proceed'],
+            'need': ['require', 'demand', 'necessitate', 'call for'],
+            'try': ['attempt', 'endeavor', 'strive', 'aim', 'seek'],
+            'think': ['believe', 'consider', 'reflect', 'ponder', 'contemplate'],
+            'know': ['understand', 'recognize', 'realize', 'comprehend', 'grasp'],
+            'want': ['desire', 'wish', 'crave', 'seek', 'long for'],
+            'find': ['discover', 'locate', 'uncover', 'detect', 'identify'],
+            'tell': ['inform', 'notify', 'advise', 'communicate', 'relay'],
+            'ask': ['inquire', 'question', 'request', 'query', 'seek'],
+            'work': ['function', 'operate', 'labor', 'perform', 'toil'],
+            'seem': ['appear', 'look', 'sound', 'come across as'],
+            'leave': ['depart', 'exit', 'abandon', 'vacate', 'withdraw'],
+            'call': ['contact', 'phone', 'name', 'summon', 'designate'],
+            'grow': ['expand', 'increase', 'develop', 'enlarge', 'flourish'],
+            'run': ['operate', 'manage', 'sprint', 'execute', 'administer'],
+            'raise': ['elevate', 'lift', 'increase', 'boost', 'heighten'],
+            'reduce': ['decrease', 'diminish', 'lower', 'lessen', 'cut'],
+            'increase': ['boost', 'enhance', 'raise', 'expand', 'amplify'],
+            'decrease': ['reduce', 'diminish', 'lower', 'decline', 'lessen'],
+            'build': ['construct', 'create', 'develop', 'establish', 'assemble'],
+            'create': ['produce', 'generate', 'develop', 'design', 'establish'],
+            'develop': ['advance', 'progress', 'evolve', 'cultivate', 'expand'],
+            'provide': ['supply', 'offer', 'furnish', 'deliver', 'present'],
+            'offer': ['present', 'propose', 'extend', 'suggest', 'provide'],
+            'include': ['contain', 'encompass', 'incorporate', 'comprise', 'cover'],
+            'allow': ['permit', 'enable', 'authorize', 'let', 'grant'],
+            'continue': ['proceed', 'persist', 'carry on', 'maintain', 'resume'],
+            'improve': ['enhance', 'upgrade', 'refine', 'better', 'advance'],
+            'support': ['back', 'endorse', 'sustain', 'uphold', 'champion'],
+            'achieve': ['accomplish', 'attain', 'reach', 'realize', 'fulfill'],
+            'consider': ['contemplate', 'examine', 'evaluate', 'ponder', 'weigh'],
+            'suggest': ['propose', 'recommend', 'advise', 'imply', 'indicate'],
+            'require': ['demand', 'need', 'necessitate', 'call for', 'mandate'],
+            'establish': ['found', 'set up', 'institute', 'create', 'form'],
+            'maintain': ['preserve', 'sustain', 'uphold', 'keep', 'retain'],
+            'obtain': ['acquire', 'gain', 'secure', 'procure', 'attain'],
+            'prevent': ['avert', 'avoid', 'stop', 'block', 'hinder'],
+            'ensure': ['guarantee', 'confirm', 'secure', 'verify', 'certify'],
+            'determine': ['establish', 'ascertain', 'identify', 'resolve', 'decide'],
+            'explain': ['clarify', 'describe', 'illustrate', 'elaborate', 'elucidate'],
+            'manage': ['handle', 'oversee', 'administer', 'direct', 'supervise'],
+            'produce': ['generate', 'create', 'manufacture', 'yield', 'make'],
+            'reveal': ['disclose', 'expose', 'uncover', 'show', 'divulge'],
+            'destroy': ['demolish', 'ruin', 'wreck', 'annihilate', 'devastate'],
+
+            /* Common nouns */
+            'idea': ['concept', 'notion', 'thought', 'plan', 'proposal'],
+            'problem': ['issue', 'challenge', 'difficulty', 'obstacle', 'complication'],
+            'issue': ['matter', 'concern', 'problem', 'topic', 'question'],
+            'result': ['outcome', 'consequence', 'effect', 'finding', 'conclusion'],
+            'reason': ['cause', 'motive', 'basis', 'justification', 'rationale'],
+            'method': ['approach', 'technique', 'procedure', 'system', 'strategy'],
+            'area': ['region', 'zone', 'domain', 'field', 'sector'],
+            'part': ['portion', 'segment', 'section', 'component', 'piece'],
+            'group': ['team', 'collection', 'assembly', 'cluster', 'set'],
+            'place': ['location', 'site', 'spot', 'position', 'venue'],
+            'way': ['manner', 'method', 'approach', 'means', 'style'],
+            'type': ['kind', 'sort', 'category', 'variety', 'class'],
+            'number': ['quantity', 'amount', 'figure', 'count', 'total'],
+            'level': ['degree', 'extent', 'tier', 'stage', 'grade'],
+            'goal': ['objective', 'aim', 'target', 'purpose', 'ambition'],
+            'task': ['assignment', 'duty', 'job', 'chore', 'undertaking'],
+            'advantage': ['benefit', 'edge', 'merit', 'asset', 'gain'],
+            'feature': ['characteristic', 'attribute', 'trait', 'quality', 'aspect'],
+            'effect': ['impact', 'influence', 'result', 'consequence', 'outcome'],
+            'example': ['instance', 'illustration', 'case', 'sample', 'model'],
+            'fact': ['reality', 'truth', 'detail', 'datum', 'certainty'],
+            'point': ['aspect', 'detail', 'matter', 'argument', 'topic'],
+            'answer': ['response', 'reply', 'solution', 'resolution'],
+            'job': ['position', 'occupation', 'role', 'career', 'employment'],
+            'chance': ['opportunity', 'possibility', 'prospect', 'likelihood'],
+            'choice': ['option', 'selection', 'alternative', 'preference'],
+            'view': ['perspective', 'opinion', 'outlook', 'stance', 'position'],
+            'situation': ['circumstance', 'condition', 'scenario', 'state'],
+            'process': ['procedure', 'method', 'operation', 'system', 'mechanism'],
+            'power': ['strength', 'authority', 'influence', 'force', 'capacity'],
+            'ability': ['capability', 'capacity', 'skill', 'competence', 'talent'],
+
+            /* Common adverbs */
+            'very': ['extremely', 'highly', 'remarkably', 'exceptionally', 'incredibly'],
+            'really': ['truly', 'genuinely', 'actually', 'certainly', 'indeed'],
+            'quickly': ['rapidly', 'swiftly', 'promptly', 'speedily', 'hastily'],
+            'slowly': ['gradually', 'steadily', 'leisurely', 'unhurriedly'],
+            'often': ['frequently', 'regularly', 'commonly', 'repeatedly'],
+            'always': ['constantly', 'perpetually', 'invariably', 'continually'],
+            'never': ['not ever', 'at no time', 'under no circumstances'],
+            'usually': ['typically', 'generally', 'normally', 'ordinarily', 'commonly'],
+            'sometimes': ['occasionally', 'periodically', 'now and then', 'at times'],
+            'also': ['additionally', 'furthermore', 'moreover', 'likewise', 'too'],
+            'however': ['nevertheless', 'nonetheless', 'yet', 'still', 'though'],
+            'therefore': ['consequently', 'thus', 'hence', 'accordingly', 'as a result'],
+            'especially': ['particularly', 'notably', 'specifically', 'chiefly'],
+            'probably': ['likely', 'presumably', 'possibly', 'perhaps'],
+            'immediately': ['instantly', 'promptly', 'right away', 'at once'],
+            'recently': ['lately', 'not long ago', 'just now', 'of late'],
+            'finally': ['ultimately', 'lastly', 'eventually', 'in the end'],
+            'nearly': ['almost', 'practically', 'virtually', 'approximately'],
+            'completely': ['entirely', 'totally', 'fully', 'wholly', 'thoroughly'],
+            'actually': ['in fact', 'truly', 'really', 'indeed', 'genuinely'],
+            'basically': ['fundamentally', 'essentially', 'primarily', 'mainly'],
+            'certainly': ['definitely', 'surely', 'undoubtedly', 'assuredly'],
+
+            /* Linking / transition words */
+            'although': ['though', 'even though', 'while', 'whereas', 'despite the fact that'],
+            'because': ['since', 'as', 'due to the fact that', 'given that'],
+            'but': ['however', 'yet', 'nevertheless', 'nonetheless', 'though'],
+            'and': ['as well as', 'along with', 'in addition to', 'plus'],
+            'so': ['therefore', 'thus', 'consequently', 'hence', 'accordingly'],
+            'about': ['regarding', 'concerning', 'relating to', 'with respect to'],
+            'many': ['numerous', 'several', 'a great number of', 'multiple', 'countless'],
+            'few': ['a small number of', 'not many', 'a handful of', 'scarce'],
+            'enough': ['sufficient', 'adequate', 'ample', 'plenty of']
+        };
+
+        /* Formal synonyms overlay (used in formal mode) */
+        var formalSynonyms = {
+            'get': ['obtain', 'acquire', 'procure'],
+            'big': ['substantial', 'considerable', 'significant'],
+            'small': ['minimal', 'negligible', 'modest'],
+            'good': ['commendable', 'exemplary', 'satisfactory'],
+            'bad': ['unsatisfactory', 'inadequate', 'substandard'],
+            'show': ['demonstrate', 'illustrate', 'exhibit'],
+            'help': ['facilitate', 'assist', 'support'],
+            'use': ['utilize', 'employ', 'leverage'],
+            'give': ['provide', 'furnish', 'confer'],
+            'start': ['commence', 'initiate', 'inaugurate'],
+            'end': ['conclude', 'terminate', 'finalize'],
+            'need': ['require', 'necessitate', 'demand'],
+            'think': ['consider', 'deliberate', 'contemplate'],
+            'want': ['desire', 'seek', 'aspire'],
+            'try': ['endeavor', 'attempt', 'strive'],
+            'ask': ['inquire', 'request', 'solicit'],
+            'tell': ['inform', 'advise', 'communicate'],
+            'make': ['construct', 'fabricate', 'produce'],
+            'find': ['ascertain', 'determine', 'identify'],
+            'keep': ['retain', 'maintain', 'preserve'],
+            'lot': ['considerable amount', 'substantial quantity', 'abundance'],
+            'lots': ['numerous instances', 'a great deal', 'a multitude'],
+            'kind': ['category', 'classification', 'variety'],
+            'thing': ['matter', 'element', 'aspect'],
+            'stuff': ['material', 'substance', 'content'],
+            'pretty': ['considerably', 'reasonably', 'fairly'],
+            'really': ['indeed', 'genuinely', 'substantially'],
+            'very': ['exceedingly', 'remarkably', 'considerably'],
+            'maybe': ['perhaps', 'possibly', 'conceivably'],
+            'about': ['approximately', 'regarding', 'concerning']
+        };
+
+        /* Simple synonyms overlay (used in simple mode) */
+        var simpleSynonyms = {
+            'utilize': ['use'],
+            'demonstrate': ['show'],
+            'facilitate': ['help'],
+            'commence': ['start', 'begin'],
+            'terminate': ['end', 'stop'],
+            'obtain': ['get'],
+            'acquire': ['get'],
+            'sufficient': ['enough'],
+            'approximately': ['about', 'around'],
+            'subsequently': ['then', 'after'],
+            'nevertheless': ['still', 'but'],
+            'furthermore': ['also'],
+            'consequently': ['so'],
+            'significant': ['big', 'important'],
+            'considerable': ['large', 'big'],
+            'establish': ['set up', 'start'],
+            'require': ['need'],
+            'accomplish': ['do', 'finish'],
+            'endeavor': ['try'],
+            'ascertain': ['find out'],
+            'comprehend': ['understand'],
+            'elaborate': ['explain'],
+            'numerous': ['many'],
+            'sufficient': ['enough'],
+            'additional': ['more', 'extra'],
+            'immediately': ['right away', 'now'],
+            'primary': ['main', 'first'],
+            'essential': ['needed', 'key'],
+            'fundamental': ['basic', 'key'],
+            'regarding': ['about'],
+            'frequently': ['often'],
+            'substantial': ['big', 'large'],
+            'implement': ['do', 'carry out'],
+            'constitute': ['make up', 'form'],
+            'indicate': ['show', 'point to'],
+            'preliminary': ['early', 'first'],
+            'component': ['part', 'piece'],
+            'construct': ['build', 'make'],
+            'diminish': ['reduce', 'lower'],
+            'enhance': ['improve', 'boost'],
+            'participate': ['join', 'take part'],
+            'communicate': ['talk', 'share'],
+            'accumulate': ['gather', 'collect'],
+            'allocate': ['give', 'assign'],
+            'anticipate': ['expect'],
+            'apparatus': ['tool', 'device'],
+            'appropriate': ['right', 'fitting'],
+            'beneficial': ['helpful', 'good'],
+            'circumstances': ['conditions', 'situation'],
+            'collaborate': ['work together'],
+            'demonstrate': ['show', 'prove'],
+            'eliminate': ['remove', 'get rid of'],
+            'incorporate': ['include', 'add']
+        };
+
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        /* Update live word count */
+        inputText.addEventListener('input', function() {
+            inputWordCount.textContent = countWords(inputText.value) + ' words';
+        });
+
+        /* Split text into sentences */
+        function splitSentences(text) {
+            var raw = text.replace(/\n+/g, ' ').replace(/\s+/g, ' ').trim();
+            var sentences = [];
+            var regex = /[^.!?]*[.!?]+[\s]*/g;
+            var match;
+
+            while ((match = regex.exec(raw)) !== null) {
+                var s = match[0].trim();
+                if (s.length > 2) {
+                    sentences.push(s);
+                }
+            }
+
+            /* If no sentences matched (e.g. no punctuation), treat whole text as one */
+            if (sentences.length === 0 && raw.length > 0) {
+                sentences = raw.split(/[.!?\n]+/).filter(function(s) {
+                    return s.trim().length > 2;
+                }).map(function(s) {
+                    return s.trim() + '.';
+                });
+            }
+
+            if (sentences.length === 0 && raw.length > 0) {
+                sentences.push(raw);
+            }
+
+            return sentences;
+        }
+
+        /* Check if word is capitalized */
+        function isCapitalized(word) {
+            return word.length > 0 && word[0] === word[0].toUpperCase() && word[0] !== word[0].toLowerCase();
+        }
+
+        /* Match case of replacement to original */
+        function matchCase(original, replacement) {
+            if (!original || !replacement) return replacement;
+            if (original === original.toUpperCase() && original.length > 1) {
+                return replacement.toUpperCase();
+            }
+            if (isCapitalized(original)) {
+                return replacement.charAt(0).toUpperCase() + replacement.slice(1);
+            }
+            return replacement.toLowerCase();
+        }
+
+        /* Get synonym for a word based on mode */
+        function getSynonym(word, mode) {
+            var lower = word.toLowerCase();
+            var dict;
+
+            if (mode === 'formal') {
+                dict = formalSynonyms[lower] || synonyms[lower];
+            } else if (mode === 'simple') {
+                dict = simpleSynonyms[lower] || synonyms[lower];
+            } else {
+                dict = synonyms[lower];
+            }
+
+            if (!dict || dict.length === 0) return null;
+
+            /* Pick a synonym - use a deterministic but varied approach */
+            var index;
+            if (mode === 'creative') {
+                /* Creative: pick more random synonyms */
+                index = Math.floor(Math.random() * dict.length);
+            } else if (mode === 'formal') {
+                /* Formal: prefer first synonym (most formal in our lists) */
+                index = 0;
+            } else if (mode === 'simple') {
+                /* Simple: prefer first synonym (simplest in our lists) */
+                index = 0;
+            } else {
+                /* Standard/Fluency: deterministic based on word hash */
+                var hash = 0;
+                for (var i = 0; i < lower.length; i++) {
+                    hash = ((hash << 5) - hash) + lower.charCodeAt(i);
+                    hash = hash & hash;
+                }
+                index = Math.abs(hash) % dict.length;
+            }
+
+            var syn = dict[index];
+            /* Avoid replacing with the same word */
+            if (syn.toLowerCase() === lower) {
+                syn = dict[(index + 1) % dict.length];
+                if (syn.toLowerCase() === lower) return null;
+            }
+            return matchCase(word, syn);
+        }
+
+        /* Attempt to restructure a sentence by swapping clauses */
+        function restructureSentence(sentence) {
+            /* Pattern: "Because X, Y." -> "Y because X." */
+            var becauseMatch = sentence.match(/^(Because|Since|Although|While|When|If|Unless)\s+(.+?),\s+(.+?)([.!?])$/i);
+            if (becauseMatch) {
+                var conjunction = becauseMatch[1].toLowerCase();
+                var clause1 = becauseMatch[2].trim();
+                var clause2 = becauseMatch[3].trim();
+                var punct = becauseMatch[4];
+                /* Capitalize clause2, lowercase clause1 start */
+                var newSentence = clause2.charAt(0).toUpperCase() + clause2.slice(1) + ' ' + conjunction + ' ' + clause1.charAt(0).toLowerCase() + clause1.slice(1) + punct;
+                return { text: newSentence, changed: true };
+            }
+
+            /* Pattern: "X because Y." -> "Because Y, X." (reverse) */
+            var reverseMatch = sentence.match(/^(.+?)\s+(because|since|although|while|when|if|unless)\s+(.+?)([.!?])$/i);
+            if (reverseMatch) {
+                var mainClause = reverseMatch[1].trim();
+                var conj = reverseMatch[2];
+                var subClause = reverseMatch[3].trim();
+                var pnct = reverseMatch[4];
+                var rebuilt = conj.charAt(0).toUpperCase() + conj.slice(1) + ' ' + subClause + ', ' + mainClause.charAt(0).toLowerCase() + mainClause.slice(1) + pnct;
+                return { text: rebuilt, changed: true };
+            }
+
+            return { text: sentence, changed: false };
+        }
+
+        /* Attempt passive/active voice toggling */
+        function toggleVoice(sentence) {
+            /* Detect simple passive: "X was/were [verb]ed by Y." */
+            var passiveMatch = sentence.match(/^(.+?)\s+(was|were)\s+(\w+ed)\s+by\s+(.+?)([.!?])$/i);
+            if (passiveMatch) {
+                var subject = passiveMatch[1].trim();
+                var verb = passiveMatch[3];
+                var agent = passiveMatch[4].trim();
+                var p = passiveMatch[5];
+                /* Convert to active: "Y [verb]ed X." */
+                /* Simple conversion: remove "ed" to approximate base, then re-add "ed" */
+                var activeVerb = verb; /* keep past tense */
+                var activeSentence = agent.charAt(0).toUpperCase() + agent.slice(1) + ' ' + activeVerb + ' ' + subject.charAt(0).toLowerCase() + subject.slice(1) + p;
+                return { text: activeSentence, changed: true };
+            }
+
+            /* Detect simple active for conversion to passive: "Subject verbed Object." */
+            /* Only for simple SVO patterns with past tense "ed" verbs */
+            var activeMatch = sentence.match(/^([A-Z][a-z]+(?:\s+[a-z]+)?)\s+(\w+ed)\s+(?:the\s+|a\s+|an\s+)?(.+?)([.!?])$/);
+            if (activeMatch) {
+                var activeSubject = activeMatch[1].trim();
+                var activeVerb2 = activeMatch[2];
+                var object = activeMatch[3].trim();
+                var p2 = activeMatch[4];
+                /* Convert to passive: "Object was [verb]ed by Subject." */
+                var wasWere = 'was';
+                var passiveSentence = object.charAt(0).toUpperCase() + object.slice(1) + ' ' + wasWere + ' ' + activeVerb2 + ' by ' + activeSubject.charAt(0).toLowerCase() + activeSubject.slice(1) + p2;
+                return { text: passiveSentence, changed: true };
+            }
+
+            return { text: sentence, changed: false };
+        }
+
+        /* Paraphrase a single sentence */
+        function paraphraseSentence(sentence, mode) {
+            var changes = 0;
+            var result = sentence;
+
+            /* Step 1: Try sentence restructuring (clause swapping) */
+            if (mode === 'standard' || mode === 'creative' || mode === 'fluency') {
+                var restructured = restructureSentence(result);
+                if (restructured.changed) {
+                    result = restructured.text;
+                    changes++;
+                }
+            }
+
+            /* Step 2: Try voice toggling */
+            if (mode === 'standard' || mode === 'creative' || mode === 'formal') {
+                var toggled = toggleVoice(result);
+                if (toggled.changed) {
+                    result = toggled.text;
+                    changes++;
+                }
+            }
+
+            /* Step 3: Synonym replacement */
+            /* Determine replacement aggressiveness based on mode */
+            var replacementRate;
+            switch (mode) {
+                case 'creative': replacementRate = 0.7; break;
+                case 'formal': replacementRate = 0.6; break;
+                case 'fluency': replacementRate = 0.4; break;
+                case 'simple': replacementRate = 0.6; break;
+                default: replacementRate = 0.5; break; /* standard */
+            }
+
+            /* Tokenize while preserving punctuation and spacing */
+            var tokens = result.match(/[\w'-]+|[^\w\s]+|\s+/g) || [];
+            var wordIndex = 0;
+
+            for (var i = 0; i < tokens.length; i++) {
+                var token = tokens[i];
+                /* Skip whitespace and punctuation tokens */
+                if (/^\s+$/.test(token) || /^[^\w]+$/.test(token)) continue;
+
+                /* Determine if we should replace this word */
+                var shouldReplace;
+                if (mode === 'creative') {
+                    shouldReplace = Math.random() < replacementRate;
+                } else {
+                    /* Deterministic: use word position + word hash */
+                    var h = 0;
+                    for (var c = 0; c < token.length; c++) {
+                        h = ((h << 5) - h) + token.charCodeAt(c);
+                        h = h & h;
+                    }
+                    shouldReplace = (Math.abs(h + wordIndex) % 100) < (replacementRate * 100);
+                }
+
+                if (shouldReplace) {
+                    var syn = getSynonym(token, mode);
+                    if (syn && syn.toLowerCase() !== token.toLowerCase()) {
+                        tokens[i] = syn;
+                        changes++;
+                    }
+                }
+
+                wordIndex++;
+            }
+
+            result = tokens.join('');
+
+            /* Step 4: Minor fluency adjustments */
+            if (mode === 'fluency') {
+                /* Clean up any double spaces */
+                result = result.replace(/\s{2,}/g, ' ').trim();
+            }
+
+            return { text: result, changes: changes };
+        }
+
+        /* Main paraphrase function */
+        function paraphrase(text, mode) {
+            var sentences = splitSentences(text);
+            var totalChanges = 0;
+            var paraphrased = [];
+
+            for (var i = 0; i < sentences.length; i++) {
+                var result = paraphraseSentence(sentences[i], mode);
+                paraphrased.push(result.text);
+                totalChanges += result.changes;
+            }
+
+            return {
+                text: paraphrased.join(' '),
+                changes: totalChanges
+            };
+        }
+
+        /* Escape HTML */
+        function escapeHTML(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        }
+
+        paraphraseBtn.addEventListener('click', function() {
+            var text = inputText.value.trim();
+
+            if (!text) {
+                paraphraseOutput.style.display = 'block';
+                paraphraseText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter some text to paraphrase.</p>';
+                outputWordCount.textContent = '';
+                changesInfo.textContent = '';
+                return;
+            }
+
+            var originalWords = countWords(text);
+
+            if (originalWords < 3) {
+                paraphraseOutput.style.display = 'block';
+                paraphraseText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter more text. At least a full sentence is recommended for best results.</p>';
+                outputWordCount.textContent = '';
+                changesInfo.textContent = '';
+                return;
+            }
+
+            var result = paraphrase(text, currentMode);
+            var paraphrasedWords = countWords(result.text);
+
+            paraphraseOutput.style.display = 'block';
+            paraphraseText.innerHTML = '<p style="margin: 0; color: var(--text-main); line-height: 1.8;">' + escapeHTML(result.text) + '</p>';
+            outputWordCount.textContent = paraphrasedWords + ' words (paraphrased) | Original: ' + originalWords + ' words';
+            changesInfo.textContent = result.changes + ' change' + (result.changes !== 1 ? 's' : '') + ' made (' + currentMode + ' mode)';
+        });
+
+        copyBtn.addEventListener('click', function() {
+            var text = paraphraseText.textContent || paraphraseText.innerText;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Result'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Result'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grammar Checker - Fix Grammar and Spelling Errors Free | ToolsNest</title>
+    <meta name="description" content="Check your text for grammar, spelling, and style errors instantly. Rule-based checker with color-coded suggestions. Free, private, and works entirely in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/ai-tools/grammar-checker/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Grammar Checker
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Grammar Checker</h1>
+                <p class="text-center mb-3">Paste your text and instantly find grammar, spelling, and style errors. Uses rule-based pattern matching powered by client-side JavaScript -- no API calls, fully private.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="input-text">Paste Your Text Below</label>
+                        <textarea id="input-text" class="form-input" rows="10" placeholder="Paste or type your text here to check for grammar, spelling, and style issues." style="min-height: 200px;"></textarea>
+                        <p id="input-word-count" class="text-muted mt-1" style="font-size: 0.85rem;">0 words</p>
+                    </div>
+
+                    <button id="check-btn" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Check Grammar</button>
+
+                    <div id="results-output" style="display: none; margin-top: 1.5rem;">
+                        <div style="border-top: 2px solid var(--border); padding-top: 1.5rem;">
+                            <h3 class="mb-2" style="color: var(--text-main);">Results</h3>
+
+                            <div id="issue-summary" style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;"></div>
+
+                            <div id="highlighted-text" style="background: var(--bg-color); padding: 1.25rem; border-radius: var(--radius-sm); line-height: 1.8; border-left: 4px solid var(--primary); white-space: pre-wrap; font-size: 0.95rem;"></div>
+
+                            <div id="issues-list" style="margin-top: 1.5rem;"></div>
+
+                            <div style="display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap;">
+                                <button id="fix-all-btn" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fix All</button>
+                                <button id="copy-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Copy Corrected Text</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Paste or type your text into the input area above.</li>
+                        <li>Click the "Check Grammar" button to scan for errors.</li>
+                        <li>Review the color-coded results: spelling errors in red, grammar issues in orange, and style suggestions in blue.</li>
+                        <li>Click "Fix All" to automatically apply all suggested corrections, or address issues individually.</li>
+                        <li>Click "Copy Corrected Text" to copy the fixed text to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does this grammar checker work?</h3>
+                        <p>This tool uses rule-based pattern matching to identify common grammar, spelling, and style issues. It checks for misspellings, double words, subject-verb disagreements, missing capitalization, and more using a built-in dictionary and grammar rules.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this tool use AI or API calls?</h3>
+                        <p>No external API calls are made. All checks run entirely in your browser using client-side JavaScript. Your text is never sent to any server, so your content stays completely private.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What types of errors does it detect?</h3>
+                        <p>It detects common misspellings, repeated words, subject-verb agreement issues, missing capitalization after periods, double spaces, commonly confused words (their/there/they're, your/you're, its/it's), and basic style issues like sentence fragments.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is it as accurate as professional grammar checkers?</h3>
+                        <p>This tool catches many common errors effectively, but it uses rule-based detection rather than machine learning. For critical documents, consider using it alongside professional proofreading. It works best as a quick first-pass check.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What does "Fix All" do?</h3>
+                        <p>The "Fix All" button applies every suggested correction to your text at once. The corrected text replaces your original input so you can review the changes and make any further edits.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                    <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                    <a href="/ai-tools/plagiarism-checker" class="related-link">Plagiarism Checker</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script>
+    (function() {
+        var inputText = document.getElementById('input-text');
+        var inputWordCount = document.getElementById('input-word-count');
+        var checkBtn = document.getElementById('check-btn');
+        var resultsOutput = document.getElementById('results-output');
+        var issueSummary = document.getElementById('issue-summary');
+        var highlightedText = document.getElementById('highlighted-text');
+        var issuesList = document.getElementById('issues-list');
+        var fixAllBtn = document.getElementById('fix-all-btn');
+        var copyBtn = document.getElementById('copy-btn');
+
+        var correctedText = '';
+
+        /* =============================================
+           MISSPELLING DICTIONARY (100+ entries)
+           ============================================= */
+        var misspellings = {
+            'teh': 'the',
+            'recieve': 'receive',
+            'recieves': 'receives',
+            'recieved': 'received',
+            'recieving': 'receiving',
+            'definately': 'definitely',
+            'definatly': 'definitely',
+            'definitly': 'definitely',
+            'defintely': 'definitely',
+            'occured': 'occurred',
+            'occuring': 'occurring',
+            'occurence': 'occurrence',
+            'occurances': 'occurrences',
+            'seperate': 'separate',
+            'seperately': 'separately',
+            'seperation': 'separation',
+            'accomodate': 'accommodate',
+            'acommodate': 'accommodate',
+            'accomodation': 'accommodation',
+            'acheive': 'achieve',
+            'acheived': 'achieved',
+            'acheiving': 'achieving',
+            'achivement': 'achievement',
+            'acquaintence': 'acquaintance',
+            'adress': 'address',
+            'agressive': 'aggressive',
+            'agressively': 'aggressively',
+            'allegience': 'allegiance',
+            'amature': 'amateur',
+            'apparant': 'apparent',
+            'apparantly': 'apparently',
+            'arguement': 'argument',
+            'arguements': 'arguments',
+            'assasinate': 'assassinate',
+            'basicly': 'basically',
+            'begining': 'beginning',
+            'beleive': 'believe',
+            'beleived': 'believed',
+            'beleiving': 'believing',
+            'belive': 'believe',
+            'buisness': 'business',
+            'bussiness': 'business',
+            'calender': 'calendar',
+            'camoflage': 'camouflage',
+            'carribean': 'Caribbean',
+            'catagory': 'category',
+            'catagories': 'categories',
+            'cemetary': 'cemetery',
+            'changable': 'changeable',
+            'cheif': 'chief',
+            'collegue': 'colleague',
+            'collegues': 'colleagues',
+            'comming': 'coming',
+            'commited': 'committed',
+            'commiting': 'committing',
+            'commitee': 'committee',
+            'comparitive': 'comparative',
+            'concensus': 'consensus',
+            'consciencious': 'conscientious',
+            'concious': 'conscious',
+            'conciously': 'consciously',
+            'convienient': 'convenient',
+            'convienience': 'convenience',
+            'copywrite': 'copyright',
+            'correspondance': 'correspondence',
+            'critisism': 'criticism',
+            'critisise': 'criticise',
+            'decieve': 'deceive',
+            'desireable': 'desirable',
+            'develope': 'develop',
+            'dilemna': 'dilemma',
+            'disappoint': 'disappoint',
+            'disapoint': 'disappoint',
+            'dissapear': 'disappear',
+            'dissappoint': 'disappoint',
+            'dissapointed': 'disappointed',
+            'embarass': 'embarrass',
+            'embarassed': 'embarrassed',
+            'enviroment': 'environment',
+            'enviromental': 'environmental',
+            'equiptment': 'equipment',
+            'exagerate': 'exaggerate',
+            'exagerrate': 'exaggerate',
+            'excercise': 'exercise',
+            'existance': 'existence',
+            'familar': 'familiar',
+            'finaly': 'finally',
+            'florescent': 'fluorescent',
+            'foriegn': 'foreign',
+            'fourty': 'forty',
+            'freind': 'friend',
+            'futher': 'further',
+            'goverment': 'government',
+            'gaurd': 'guard',
+            'guage': 'gauge',
+            'garantee': 'guarantee',
+            'happend': 'happened',
+            'harrass': 'harass',
+            'harrassment': 'harassment',
+            'heighth': 'height',
+            'heirarchy': 'hierarchy',
+            'humourous': 'humorous',
+            'hygene': 'hygiene',
+            'ignorence': 'ignorance',
+            'imaginery': 'imaginary',
+            'imediately': 'immediately',
+            'immediatly': 'immediately',
+            'independant': 'independent',
+            'independance': 'independence',
+            'innoculate': 'inoculate',
+            'intelligance': 'intelligence',
+            'intresting': 'interesting',
+            'irresistable': 'irresistible',
+            'jeapordize': 'jeopardize',
+            'jewellry': 'jewellery',
+            'judgement': 'judgment',
+            'knowlege': 'knowledge',
+            'knowlegeable': 'knowledgeable',
+            'lenght': 'length',
+            'liason': 'liaison',
+            'libary': 'library',
+            'lightening': 'lightning',
+            'maintenence': 'maintenance',
+            'managment': 'management',
+            'millenium': 'millennium',
+            'millenia': 'millennia',
+            'minature': 'miniature',
+            'mischevious': 'mischievous',
+            'mispell': 'misspell',
+            'mispelled': 'misspelled',
+            'momento': 'memento',
+            'morgage': 'mortgage',
+            'naturaly': 'naturally',
+            'neccessary': 'necessary',
+            'necessery': 'necessary',
+            'nieghbor': 'neighbor',
+            'neighbour': 'neighbor',
+            'noticable': 'noticeable',
+            'occasionaly': 'occasionally',
+            'occassion': 'occasion',
+            'occassionally': 'occasionally',
+            'oftern': 'often',
+            'opertunity': 'opportunity',
+            'oppurtunity': 'opportunity',
+            'orignal': 'original',
+            'outragous': 'outrageous',
+            'parliment': 'parliament',
+            'pasttime': 'pastime',
+            'percieve': 'perceive',
+            'perseverence': 'perseverance',
+            'personel': 'personnel',
+            'plagerism': 'plagiarism',
+            'posession': 'possession',
+            'posses': 'possess',
+            'potatos': 'potatoes',
+            'tomatos': 'tomatoes',
+            'preceed': 'precede',
+            'privelege': 'privilege',
+            'priviledge': 'privilege',
+            'proffesional': 'professional',
+            'profesional': 'professional',
+            'pronounciation': 'pronunciation',
+            'publically': 'publicly',
+            'realy': 'really',
+            'refered': 'referred',
+            'referance': 'reference',
+            'relevent': 'relevant',
+            'religous': 'religious',
+            'remeber': 'remember',
+            'rember': 'remember',
+            'repitition': 'repetition',
+            'resistence': 'resistance',
+            'restarant': 'restaurant',
+            'rythm': 'rhythm',
+            'shedule': 'schedule',
+            'seize': 'seize',
+            'sentance': 'sentence',
+            'sieze': 'seize',
+            'similer': 'similar',
+            'sincerly': 'sincerely',
+            'speach': 'speech',
+            'strenght': 'strength',
+            'succesful': 'successful',
+            'successfull': 'successful',
+            'supercede': 'supersede',
+            'surprize': 'surprise',
+            'tatoo': 'tattoo',
+            'technicaly': 'technically',
+            'temperture': 'temperature',
+            'tendancy': 'tendency',
+            'therefor': 'therefore',
+            'thier': 'their',
+            'tommorow': 'tomorrow',
+            'tommorrow': 'tomorrow',
+            'tounge': 'tongue',
+            'truely': 'truly',
+            'tyrany': 'tyranny',
+            'underate': 'underrate',
+            'unfortunatly': 'unfortunately',
+            'untill': 'until',
+            'unusuall': 'unusual',
+            'usally': 'usually',
+            'vaccuum': 'vacuum',
+            'vegatable': 'vegetable',
+            'vehical': 'vehicle',
+            'visable': 'visible',
+            'wether': 'whether',
+            'wich': 'which',
+            'wierd': 'weird',
+            'writting': 'writing',
+            'writeing': 'writing'
+        };
+
+        /* =============================================
+           SUBJECT-VERB AGREEMENT RULES
+           ============================================= */
+        var subjectVerbRules = [
+            { pattern: /\bhe don't\b/gi, replacement: 'he doesn\'t', desc: '"he don\'t" should be "he doesn\'t"' },
+            { pattern: /\bshe don't\b/gi, replacement: 'she doesn\'t', desc: '"she don\'t" should be "she doesn\'t"' },
+            { pattern: /\bit don't\b/gi, replacement: 'it doesn\'t', desc: '"it don\'t" should be "it doesn\'t"' },
+            { pattern: /\bthey was\b/gi, replacement: 'they were', desc: '"they was" should be "they were"' },
+            { pattern: /\bwe was\b/gi, replacement: 'we were', desc: '"we was" should be "we were"' },
+            { pattern: /\byou was\b/gi, replacement: 'you were', desc: '"you was" should be "you were"' },
+            { pattern: /\bhe were\b/gi, replacement: 'he was', desc: '"he were" should be "he was"' },
+            { pattern: /\bshe were\b/gi, replacement: 'she was', desc: '"she were" should be "she was"' },
+            { pattern: /\bit were\b/gi, replacement: 'it was', desc: '"it were" should be "it was"' },
+            { pattern: /\bi is\b/gi, replacement: 'I am', desc: '"I is" should be "I am"' },
+            { pattern: /\bi has been\b/gi, replacement: 'I have been', desc: '"I has been" should be "I have been"' },
+            { pattern: /\bhe have\b/gi, replacement: 'he has', desc: '"he have" should be "he has"' },
+            { pattern: /\bshe have\b/gi, replacement: 'she has', desc: '"she have" should be "she has"' },
+            { pattern: /\bit have\b/gi, replacement: 'it has', desc: '"it have" should be "it has"' },
+            { pattern: /\bthey is\b/gi, replacement: 'they are', desc: '"they is" should be "they are"' },
+            { pattern: /\bwe is\b/gi, replacement: 'we are', desc: '"we is" should be "we are"' },
+            { pattern: /\byou is\b/gi, replacement: 'you are', desc: '"you is" should be "you are"' },
+            { pattern: /\bhe go\b(?!\w)/gi, replacement: 'he goes', desc: '"he go" should be "he goes"' },
+            { pattern: /\bshe go\b(?!\w)/gi, replacement: 'she goes', desc: '"she go" should be "she goes"' },
+            { pattern: /\bit go\b(?!\w)/gi, replacement: 'it goes', desc: '"it goes" should be "it goes"' },
+            { pattern: /\bhe do\b(?!\w)/gi, replacement: 'he does', desc: '"he do" should be "he does"' },
+            { pattern: /\bshe do\b(?!\w)/gi, replacement: 'she does', desc: '"she do" should be "she does"' }
+        ];
+
+        /* =============================================
+           CONFUSED WORDS RULES
+           ============================================= */
+        var confusedWordsRules = [
+            { pattern: /\byour\s+(?:a|an)\b/gi, suggestion: 'you\'re a/an', desc: '"your" before "a/an" might need to be "you\'re" (you are)' },
+            { pattern: /\byour\s+(?:going|coming|doing|being|getting|making|running|having|looking|trying|working)\b/gi, suggestion: 'you\'re + verb', desc: '"your" before a verb should likely be "you\'re" (you are)' },
+            { pattern: /\byour\s+(?:welcome)\b/gi, suggestion: 'you\'re welcome', desc: '"your welcome" should be "you\'re welcome"' },
+            { pattern: /\byour\s+(?:right|wrong|correct|sure|ready|able)\b/gi, suggestion: 'you\'re + adjective', desc: '"your" before an adjective may need to be "you\'re" (you are)' },
+            { pattern: /\bits\s+(?:a|an|the|been|not|very|also|just|going|important|possible|necessary|clear|obvious)\b/gi, suggestion: 'it\'s', desc: '"its" may need to be "it\'s" (it is) in this context' },
+            { pattern: /\bthere\s+(?:going|coming|doing|getting|making|running|having|looking|trying|working)\b/gi, suggestion: 'they\'re + verb', desc: '"there" before a verb should likely be "they\'re" (they are)' },
+            { pattern: /\bthere\s+(?:car|house|dog|cat|book|phone|name|idea|plan|opinion)s?\b/gi, suggestion: 'their + noun', desc: '"there" before a noun should likely be "their" (possessive)' },
+            { pattern: /\bshould of\b/gi, suggestion: 'should have', desc: '"should of" should be "should have"' },
+            { pattern: /\bcould of\b/gi, suggestion: 'could have', desc: '"could of" should be "could have"' },
+            { pattern: /\bwould of\b/gi, suggestion: 'would have', desc: '"would of" should be "would have"' },
+            { pattern: /\bmight of\b/gi, suggestion: 'might have', desc: '"might of" should be "might have"' },
+            { pattern: /\bmust of\b/gi, suggestion: 'must have', desc: '"must of" should be "must have"' },
+            { pattern: /\balot\b/gi, suggestion: 'a lot', desc: '"alot" should be "a lot" (two words)' },
+            { pattern: /\binfact\b/gi, suggestion: 'in fact', desc: '"infact" should be "in fact" (two words)' },
+            { pattern: /\beverytime\b/gi, suggestion: 'every time', desc: '"everytime" should be "every time" (two words)' },
+            { pattern: /\bnoone\b/gi, suggestion: 'no one', desc: '"noone" should be "no one" (two words)' },
+            { pattern: /\bawhile\b/gi, suggestion: 'a while', desc: '"awhile" as a noun phrase should be "a while"' },
+            { pattern: /\bthen\s+(?:expected|anticipated|usual|normal|average|before)\b/gi, suggestion: 'than', desc: '"then" in a comparison should be "than"' },
+            { pattern: /\bmore\s+then\b/gi, suggestion: 'more than', desc: '"more then" should be "more than"' },
+            { pattern: /\bless\s+then\b/gi, suggestion: 'less than', desc: '"less then" should be "less than"' },
+            { pattern: /\bbetter\s+then\b/gi, suggestion: 'better than', desc: '"better then" should be "better than"' },
+            { pattern: /\bworse\s+then\b/gi, suggestion: 'worse than', desc: '"worse then" should be "worse than"' },
+            { pattern: /\brather\s+then\b/gi, suggestion: 'rather than', desc: '"rather then" should be "rather than"' },
+            { pattern: /\bother\s+then\b/gi, suggestion: 'other than', desc: '"other then" should be "other than"' },
+            { pattern: /\beffect\s+(?:on|upon)\s+(?:me|you|him|her|us|them)\b/gi, suggestion: 'affect', desc: 'The verb form is typically "affect" (to influence), not "effect"' },
+            { pattern: /\bthe\s+affect\b/gi, suggestion: 'the effect', desc: 'The noun form is typically "effect" (a result), not "affect"' },
+            { pattern: /\ban\s+affect\b/gi, suggestion: 'an effect', desc: 'The noun form is typically "effect" (a result), not "affect"' },
+            { pattern: /\blose\s+(?:cannon|fit|end)\b/gi, suggestion: 'loose', desc: '"lose" (to misplace) vs "loose" (not tight) -- did you mean "loose"?' },
+            { pattern: /\bloose\s+(?:weight|hope|faith|interest|track|sight|control|touch|patience|sleep|time|money)\b/gi, suggestion: 'lose', desc: '"loose" (not tight) vs "lose" (to misplace) -- did you mean "lose"?' },
+            { pattern: /\bpeak\s+(?:my|your|his|her|our|their)\s+(?:interest|curiosity)\b/gi, suggestion: 'pique', desc: '"peak" should be "pique" when meaning to stimulate interest' },
+            { pattern: /\bpeace\s+of\s+mind\b/gi, suggestion: 'peace of mind', desc: '' },
+            { pattern: /\bpiece\s+of\s+mind\b/gi, suggestion: 'peace of mind', desc: '"piece of mind" should be "peace of mind"' }
+        ];
+
+        /* =============================================
+           UTILITY FUNCTIONS
+           ============================================= */
+        function countWords(text) {
+            var trimmed = text.trim();
+            if (!trimmed) return 0;
+            return trimmed.split(/\s+/).length;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        /* Update live word count */
+        inputText.addEventListener('input', function() {
+            inputWordCount.textContent = countWords(inputText.value) + ' words';
+        });
+
+        /* =============================================
+           GRAMMAR CHECK ENGINE
+           ============================================= */
+        function checkGrammar(text) {
+            var issues = [];
+
+            /* --- 1. Double words --- */
+            var doubleWordRegex = /\b(\w+)\s+\1\b/gi;
+            var match;
+            while ((match = doubleWordRegex.exec(text)) !== null) {
+                var word = match[1].toLowerCase();
+                /* Skip intentional double words */
+                if (['that', 'had', 'do', 'so', 'very', 'really'].indexOf(word) === -1) {
+                    issues.push({
+                        type: 'grammar',
+                        start: match.index,
+                        end: match.index + match[0].length,
+                        found: match[0],
+                        suggestion: match[1],
+                        message: 'Repeated word: "' + match[1] + '" appears twice in a row'
+                    });
+                }
+            }
+
+            /* --- 2. Common misspellings --- */
+            var wordRegex = /\b[a-zA-Z]+\b/g;
+            while ((match = wordRegex.exec(text)) !== null) {
+                var lower = match[0].toLowerCase();
+                if (misspellings[lower]) {
+                    var corrected = misspellings[lower];
+                    /* Preserve original capitalization */
+                    if (match[0][0] === match[0][0].toUpperCase()) {
+                        corrected = corrected.charAt(0).toUpperCase() + corrected.slice(1);
+                    }
+                    issues.push({
+                        type: 'spelling',
+                        start: match.index,
+                        end: match.index + match[0].length,
+                        found: match[0],
+                        suggestion: corrected,
+                        message: '"' + match[0] + '" is commonly misspelled. Did you mean "' + corrected + '"?'
+                    });
+                }
+            }
+
+            /* --- 3. Subject-verb agreement --- */
+            for (var i = 0; i < subjectVerbRules.length; i++) {
+                var rule = subjectVerbRules[i];
+                var svRegex = new RegExp(rule.pattern.source, rule.pattern.flags);
+                while ((match = svRegex.exec(text)) !== null) {
+                    issues.push({
+                        type: 'grammar',
+                        start: match.index,
+                        end: match.index + match[0].length,
+                        found: match[0],
+                        suggestion: rule.replacement,
+                        message: rule.desc
+                    });
+                }
+            }
+
+            /* --- 4. Missing capitalization after periods --- */
+            var capRegex = /[.!?]\s+([a-z])/g;
+            while ((match = capRegex.exec(text)) !== null) {
+                /* Skip common abbreviations */
+                var beforePeriod = text.substring(Math.max(0, match.index - 5), match.index + 1);
+                if (/(?:mr|mrs|ms|dr|sr|jr|vs|etc|inc|ltd|dept|govt|approx|avg|est)\./i.test(beforePeriod)) {
+                    continue;
+                }
+                issues.push({
+                    type: 'grammar',
+                    start: match.index + match[0].length - 1,
+                    end: match.index + match[0].length,
+                    found: match[1],
+                    suggestion: match[1].toUpperCase(),
+                    message: 'Sentence should start with a capital letter after "' + text[match.index] + '"'
+                });
+            }
+
+            /* --- 5. Double spaces --- */
+            var doubleSpaceRegex = /[^\s]( {2,})[^\s]/g;
+            while ((match = doubleSpaceRegex.exec(text)) !== null) {
+                issues.push({
+                    type: 'style',
+                    start: match.index + 1,
+                    end: match.index + 1 + match[1].length,
+                    found: match[1],
+                    suggestion: ' ',
+                    message: 'Multiple consecutive spaces found. Use a single space.'
+                });
+            }
+
+            /* --- 6. Confused words --- */
+            for (var c = 0; c < confusedWordsRules.length; c++) {
+                var cRule = confusedWordsRules[c];
+                if (!cRule.desc) continue; /* skip empty descriptions */
+                var cRegex = new RegExp(cRule.pattern.source, cRule.pattern.flags);
+                while ((match = cRegex.exec(text)) !== null) {
+                    issues.push({
+                        type: 'grammar',
+                        start: match.index,
+                        end: match.index + match[0].length,
+                        found: match[0],
+                        suggestion: cRule.suggestion,
+                        message: cRule.desc
+                    });
+                }
+            }
+
+            /* --- 7. Missing commas before conjunctions in compound sentences --- */
+            var conjunctionRegex = /[a-z]{2,}\s+(and|but|or|so|yet)\s+[a-z]/gi;
+            while ((match = conjunctionRegex.exec(text)) !== null) {
+                var contextBefore = text.substring(Math.max(0, match.index - 40), match.index + match[0].length);
+                /* Only flag if it looks like a compound sentence (has subject+verb pattern before conjunction) */
+                if (/(?:i|you|he|she|it|we|they|there)\s+(?:\w+\s+){0,5}$/i.test(text.substring(Math.max(0, match.index - 30), match.index)) &&
+                    text[match.index + match[0].length - 1] !== ',') {
+                    var charBeforeConj = text[match.index + match[0].indexOf(match[1]) - 1];
+                    if (charBeforeConj !== ',') {
+                        issues.push({
+                            type: 'style',
+                            start: match.index + match[0].indexOf(match[1]) - 1,
+                            end: match.index + match[0].indexOf(match[1]),
+                            found: charBeforeConj,
+                            suggestion: charBeforeConj + ',',
+                            message: 'Consider adding a comma before "' + match[1] + '" in this compound sentence'
+                        });
+                    }
+                }
+            }
+
+            /* --- 8. Sentence fragments (very short sentences without common verbs) --- */
+            var sentences = text.split(/(?<=[.!?])\s+/);
+            var commonVerbs = ['is','are','was','were','be','been','being','have','has','had',
+                'do','does','did','will','would','shall','should','may','might','must',
+                'can','could','go','goes','went','gone','come','came','get','got',
+                'make','made','take','took','see','saw','know','knew','think','thought',
+                'want','wanted','give','gave','use','used','find','found','tell','told',
+                'say','said','work','worked','call','called','try','tried','ask','asked',
+                'need','needed','feel','felt','become','became','leave','left','put',
+                'mean','meant','keep','kept','let','begin','began','seem','seemed',
+                'help','helped','show','showed','hear','heard','play','played','run',
+                'ran','move','moved','live','lived','believe','believed','happen',
+                'happened','write','wrote','provide','provided','sit','sat','stand',
+                'stood','lose','lost','pay','paid','meet','met','include','included',
+                'continue','continued','set','learn','learned','change','changed',
+                'lead','led','understand','understood','watch','watched','follow',
+                'followed','stop','stopped','create','created','speak','spoke',
+                'read','allow','allowed','add','added','spend','spent','grow','grew',
+                'open','opened','walk','walked','win','won','offer','offered',
+                'remember','remembered','love','loved','consider','considered',
+                'appear','appeared','buy','bought','wait','waited','serve','served',
+                'die','died','send','sent','expect','expected','build','built',
+                'stay','stayed','fall','fell','cut','reach','reached','kill','killed',
+                'remain','remained','suggest','suggested','raise','raised','pass',
+                'passed','sell','sold','require','required','report','reported',
+                'decide','decided','pull','pulled','develop','developed','looks','looked',
+                'exists','existed','contains','contained','seems','runs','makes','takes',
+                'gives','tells','says','calls','tries','asks','needs','feels','helps',
+                'shows','hears','plays','moves','lives','believes','happens','writes',
+                'provides','sits','stands','loses','pays','meets','includes','continues',
+                'sets','learns','changes','leads','understands','watches','follows',
+                'stops','creates','speaks','reads','allows','adds','spends','grows',
+                'opens','walks','wins','offers','remembers','loves','considers','appears',
+                'buys','waits','serves','dies','sends','expects','builds','stays','falls',
+                'cuts','reaches','kills','remains','suggests','raises','passes','sells',
+                'requires','reports','decides','pulls','develops'];
+
+            var runningIndex = 0;
+            for (var s = 0; s < sentences.length; s++) {
+                var sentence = sentences[s].trim();
+                var sentenceStart = text.indexOf(sentence, runningIndex);
+                if (sentenceStart === -1) sentenceStart = runningIndex;
+                runningIndex = sentenceStart + sentence.length;
+
+                var sentenceWords = sentence.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/).filter(function(w) { return w.length > 0; });
+                if (sentenceWords.length >= 2 && sentenceWords.length <= 3 && /[.!?]$/.test(sentence)) {
+                    var hasVerb = false;
+                    for (var v = 0; v < sentenceWords.length; v++) {
+                        if (commonVerbs.indexOf(sentenceWords[v].toLowerCase()) !== -1) {
+                            hasVerb = true;
+                            break;
+                        }
+                    }
+                    if (!hasVerb) {
+                        issues.push({
+                            type: 'style',
+                            start: sentenceStart,
+                            end: sentenceStart + sentence.length,
+                            found: sentence,
+                            suggestion: sentence,
+                            message: 'Possible sentence fragment: "' + sentence + '" -- this may be incomplete. Consider expanding it.'
+                        });
+                    }
+                }
+            }
+
+            /* Sort issues by position in text */
+            issues.sort(function(a, b) { return a.start - b.start; });
+
+            /* Remove overlapping issues (keep the first found) */
+            var filtered = [];
+            var lastEnd = -1;
+            for (var f = 0; f < issues.length; f++) {
+                if (issues[f].start >= lastEnd) {
+                    filtered.push(issues[f]);
+                    lastEnd = issues[f].end;
+                }
+            }
+
+            return filtered;
+        }
+
+        /* =============================================
+           BUILD CORRECTED TEXT
+           ============================================= */
+        function buildCorrectedText(text, issues) {
+            var result = '';
+            var lastIndex = 0;
+
+            for (var i = 0; i < issues.length; i++) {
+                var issue = issues[i];
+                result += text.substring(lastIndex, issue.start);
+                result += issue.suggestion;
+                lastIndex = issue.end;
+            }
+            result += text.substring(lastIndex);
+            return result;
+        }
+
+        /* =============================================
+           BUILD HIGHLIGHTED TEXT
+           ============================================= */
+        function buildHighlightedHtml(text, issues) {
+            var result = '';
+            var lastIndex = 0;
+
+            var typeColors = {
+                spelling: '#fee2e2',
+                grammar: '#ffedd5',
+                style: '#dbeafe'
+            };
+            var typeBorders = {
+                spelling: '#ef4444',
+                grammar: '#f97316',
+                style: '#3b82f6'
+            };
+
+            for (var i = 0; i < issues.length; i++) {
+                var issue = issues[i];
+                result += escapeHtml(text.substring(lastIndex, issue.start));
+                result += '<span style="background: ' + typeColors[issue.type] + '; border-bottom: 2px solid ' + typeBorders[issue.type] + '; padding: 0 2px; border-radius: 2px; cursor: help;" title="' + escapeHtml(issue.message) + '">' + escapeHtml(text.substring(issue.start, issue.end)) + '</span>';
+                lastIndex = issue.end;
+            }
+            result += escapeHtml(text.substring(lastIndex));
+            return result;
+        }
+
+        /* =============================================
+           BUILD ISSUE CARDS
+           ============================================= */
+        function buildIssueCards(issues) {
+            var typeLabels = {
+                spelling: 'Spelling',
+                grammar: 'Grammar',
+                style: 'Style'
+            };
+            var typeColors = {
+                spelling: '#ef4444',
+                grammar: '#f97316',
+                style: '#3b82f6'
+            };
+            var typeBgColors = {
+                spelling: '#fef2f2',
+                grammar: '#fff7ed',
+                style: '#eff6ff'
+            };
+
+            var html = '';
+            for (var i = 0; i < issues.length; i++) {
+                var issue = issues[i];
+                html += '<div style="background: ' + typeBgColors[issue.type] + '; border: 1px solid ' + typeColors[issue.type] + '33; border-left: 4px solid ' + typeColors[issue.type] + '; border-radius: var(--radius-sm); padding: 0.75rem 1rem; margin-bottom: 0.5rem;">';
+                html += '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">';
+                html += '<span style="font-size: 0.75rem; font-weight: 600; color: ' + typeColors[issue.type] + '; text-transform: uppercase; letter-spacing: 0.05em;">' + typeLabels[issue.type] + '</span>';
+                html += '<span style="font-size: 0.75rem; color: var(--text-muted);">#' + (i + 1) + '</span>';
+                html += '</div>';
+                html += '<p style="font-size: 0.9rem; color: var(--text-main); margin: 0 0 0.25rem 0;">' + escapeHtml(issue.message) + '</p>';
+                if (issue.found !== issue.suggestion) {
+                    html += '<p style="font-size: 0.8rem; color: var(--text-muted); margin: 0;">';
+                    html += '<span style="text-decoration: line-through; color: ' + typeColors[issue.type] + ';">' + escapeHtml(issue.found) + '</span>';
+                    html += ' &rarr; <span style="font-weight: 600; color: var(--text-main);">' + escapeHtml(issue.suggestion) + '</span>';
+                    html += '</p>';
+                }
+                html += '</div>';
+            }
+            return html;
+        }
+
+        /* =============================================
+           BUILD SUMMARY BADGES
+           ============================================= */
+        function buildSummaryBadges(issues) {
+            var counts = { spelling: 0, grammar: 0, style: 0 };
+            for (var i = 0; i < issues.length; i++) {
+                counts[issues[i].type]++;
+            }
+
+            var typeColors = {
+                spelling: '#ef4444',
+                grammar: '#f97316',
+                style: '#3b82f6'
+            };
+            var typeBgColors = {
+                spelling: '#fef2f2',
+                grammar: '#fff7ed',
+                style: '#eff6ff'
+            };
+            var typeLabels = {
+                spelling: 'Spelling',
+                grammar: 'Grammar',
+                style: 'Style'
+            };
+
+            var total = issues.length;
+            var html = '<div style="background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.5rem 1rem; font-weight: 600; font-size: 0.9rem;">' + total + ' issue' + (total !== 1 ? 's' : '') + ' found</div>';
+
+            var types = ['spelling', 'grammar', 'style'];
+            for (var t = 0; t < types.length; t++) {
+                var type = types[t];
+                if (counts[type] > 0) {
+                    html += '<div style="background: ' + typeBgColors[type] + '; border: 1px solid ' + typeColors[type] + '33; border-radius: var(--radius-sm); padding: 0.5rem 1rem; font-size: 0.85rem; color: ' + typeColors[type] + '; font-weight: 600;">' + counts[type] + ' ' + typeLabels[type] + '</div>';
+                }
+            }
+
+            return html;
+        }
+
+        /* =============================================
+           MAIN CHECK HANDLER
+           ============================================= */
+        var currentIssues = [];
+
+        checkBtn.addEventListener('click', function() {
+            var text = inputText.value.trim();
+
+            if (!text) {
+                resultsOutput.style.display = 'block';
+                issueSummary.innerHTML = '';
+                highlightedText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter some text to check.</p>';
+                issuesList.innerHTML = '';
+                return;
+            }
+
+            if (countWords(text) < 2) {
+                resultsOutput.style.display = 'block';
+                issueSummary.innerHTML = '';
+                highlightedText.innerHTML = '<p style="color: #ef4444; margin: 0;">Please enter more text for a meaningful grammar check.</p>';
+                issuesList.innerHTML = '';
+                return;
+            }
+
+            currentIssues = checkGrammar(text);
+            correctedText = buildCorrectedText(text, currentIssues);
+
+            resultsOutput.style.display = 'block';
+
+            if (currentIssues.length === 0) {
+                issueSummary.innerHTML = '<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 0.5rem 1rem; font-weight: 600; font-size: 0.9rem; color: #16a34a;">No issues found</div>';
+                highlightedText.innerHTML = escapeHtml(text);
+                issuesList.innerHTML = '<p style="color: #16a34a; font-size: 0.9rem; margin: 0;">Your text looks good! No grammar, spelling, or style issues were detected.</p>';
+                return;
+            }
+
+            issueSummary.innerHTML = buildSummaryBadges(currentIssues);
+            highlightedText.innerHTML = buildHighlightedHtml(text, currentIssues);
+            issuesList.innerHTML = buildIssueCards(currentIssues);
+        });
+
+        /* =============================================
+           FIX ALL HANDLER
+           ============================================= */
+        fixAllBtn.addEventListener('click', function() {
+            if (!correctedText || currentIssues.length === 0) return;
+
+            inputText.value = correctedText;
+            inputWordCount.textContent = countWords(correctedText) + ' words';
+
+            /* Re-check to show clean state */
+            currentIssues = checkGrammar(correctedText);
+            correctedText = buildCorrectedText(correctedText, currentIssues);
+
+            if (currentIssues.length === 0) {
+                issueSummary.innerHTML = '<div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 0.5rem 1rem; font-weight: 600; font-size: 0.9rem; color: #16a34a;">All issues fixed!</div>';
+                highlightedText.innerHTML = escapeHtml(inputText.value);
+                issuesList.innerHTML = '<p style="color: #16a34a; font-size: 0.9rem; margin: 0;">All corrections have been applied. Your text is now clean.</p>';
+            } else {
+                issueSummary.innerHTML = buildSummaryBadges(currentIssues);
+                highlightedText.innerHTML = buildHighlightedHtml(inputText.value, currentIssues);
+                issuesList.innerHTML = buildIssueCards(currentIssues);
+            }
+        });
+
+        /* =============================================
+           COPY CORRECTED TEXT HANDLER
+           ============================================= */
+        copyBtn.addEventListener('click', function() {
+            var textToCopy = correctedText || inputText.value;
+            if (!textToCopy.trim()) return;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(textToCopy).then(function() {
+                    copyBtn.textContent = 'Copied!';
+                    setTimeout(function() { copyBtn.textContent = 'Copy Corrected Text'; }, 2000);
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = textToCopy;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(function() { copyBtn.textContent = 'Copy Corrected Text'; }, 2000);
+            }
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
