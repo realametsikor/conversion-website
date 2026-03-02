@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Background Remover - Remove Image Background Online Free | ToolsNest</title>
+    <meta name="description" content="Remove image backgrounds automatically with AI. Upload any photo and get a transparent PNG in seconds. 100% free, no signup, runs entirely in your browser.">
+    <link rel="canonical" href="https://www.usetoolnest.com/image-tools/background-remover/">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .bg-remover-upload {
+            padding: 3rem 2rem;
+            border: 2px dashed var(--border);
+            border-radius: var(--radius-sm);
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .bg-remover-upload:hover,
+        .bg-remover-upload.drag-over {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.04);
+        }
+        .bg-remover-upload .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .progress-container {
+            margin: 2rem auto;
+            max-width: 480px;
+            text-align: center;
+        }
+        .progress-bar-track {
+            width: 100%;
+            height: 12px;
+            background: var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 6px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        .progress-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+        .result-container {
+            text-align: center;
+        }
+        .result-preview {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+            margin: 1rem 0;
+        }
+        .result-preview img {
+            max-width: 100%;
+            max-height: 500px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            display: block;
+        }
+        .result-preview.checkerboard {
+            background-image:
+                linear-gradient(45deg, #e0e0e0 25%, transparent 25%),
+                linear-gradient(-45deg, #e0e0e0 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, #e0e0e0 75%),
+                linear-gradient(-45deg, transparent 75%, #e0e0e0 75%);
+            background-size: 16px 16px;
+            background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+            border-radius: var(--radius-sm);
+        }
+        .result-preview.bg-white { background: #ffffff; border-radius: var(--radius-sm); }
+        .result-preview.bg-black { background: #000000; border-radius: var(--radius-sm); }
+        .result-preview.bg-custom { border-radius: var(--radius-sm); }
+        .bg-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        .bg-option {
+            padding: 0.4rem 0.9rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .bg-option:hover { border-color: var(--primary); }
+        .bg-option.active { border-color: var(--primary); background: var(--primary); color: #fff; }
+        .bg-option-white { background: #ffffff !important; }
+        .bg-option-white.active { border-color: var(--primary); outline: 2px solid var(--primary); background: #ffffff !important; color: #333 !important; }
+        .bg-option-black { background: #333 !important; color: #fff !important; }
+        .bg-option-black.active { border-color: var(--primary); outline: 2px solid var(--primary); }
+        .action-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        .comparison-toggle {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .comparison-toggle button {
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-color);
+            color: var(--text-main);
+            cursor: pointer;
+        }
+        .comparison-toggle button.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .spinner {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid var(--border);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 0.5rem;
+            vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Background Remover
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">AI Background Remover</h1>
+                <p class="text-center mb-3">Remove image backgrounds automatically with AI. Upload any photo and get a clean transparent PNG in seconds. No manual selection needed — works with portraits, products, animals, and more. 100% free and private.</p>
+
+                <div class="tool-workspace">
+                    <!-- Upload Section -->
+                    <div id="upload-section">
+                        <div class="bg-remover-upload" id="drop-zone">
+                            <span class="upload-icon">&#128444;</span>
+                            <h3 class="mb-2">Upload Your Image</h3>
+                            <p class="text-muted mb-2">Drag &amp; drop an image here, or click to browse</p>
+                            <p class="text-muted" style="font-size: 0.85rem;">Supports JPG, PNG, and WebP &bull; Max 20 MB</p>
+                            <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                            <label for="file-input" class="btn btn-primary" style="margin-top: 1rem;">Select Image</label>
+                        </div>
+                    </div>
+
+                    <!-- Processing Section -->
+                    <div id="processing-section" style="display: none;">
+                        <div class="progress-container">
+                            <h3 class="mb-2">Removing Background...</h3>
+                            <p class="text-muted mb-2">The AI model runs entirely in your browser. First use may take longer as the model loads.</p>
+                            <div class="progress-bar-track">
+                                <div class="progress-bar-fill" id="progress-fill"></div>
+                            </div>
+                            <p class="progress-text" id="progress-text">Initializing...</p>
+                        </div>
+                    </div>
+
+                    <!-- Result Section -->
+                    <div id="result-section" style="display: none;">
+                        <div class="result-container">
+                            <div class="comparison-toggle">
+                                <button id="view-result" class="active">Result</button>
+                                <button id="view-original">Original</button>
+                            </div>
+
+                            <div class="result-preview checkerboard" id="preview-wrapper">
+                                <img id="result-image" alt="Background removed result">
+                                <img id="original-image" alt="Original image" style="display: none;">
+                            </div>
+
+                            <div class="bg-options">
+                                <label style="font-weight: 600;">Background:</label>
+                                <button class="bg-option active" data-bg="transparent">Transparent</button>
+                                <button class="bg-option bg-option-white" data-bg="white">White</button>
+                                <button class="bg-option bg-option-black" data-bg="black">Black</button>
+                                <input type="color" id="custom-color" value="#00ff00" title="Custom background color" style="width: 36px; height: 32px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer;">
+                            </div>
+
+                            <div class="action-buttons">
+                                <button id="download-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.05rem;">Download PNG</button>
+                                <button id="new-image-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Upload New Image</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP photo.</li>
+                        <li>Wait a few seconds while the AI model automatically detects the subject and removes the background.</li>
+                        <li>Preview the result. Toggle between "Result" and "Original" to compare.</li>
+                        <li>Choose a replacement background: transparent (default), white, black, or any custom color.</li>
+                        <li>Click "Download PNG" to save the final image.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Does this tool upload my images to a server?</h3>
+                        <p>No. The AI model runs entirely in your browser using WebAssembly. Your images are never uploaded to any server — all processing happens locally on your device.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How does the AI background removal work?</h3>
+                        <p>The tool uses a neural network (machine learning model) that has been trained to distinguish foreground subjects from backgrounds. It automatically identifies people, animals, products, and objects, then removes the background in one step — no manual clicking or color selection required.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why does the first use take longer?</h3>
+                        <p>On first use, the AI model files (~40 MB) are downloaded to your browser and cached. Subsequent uses are much faster because the model loads from your browser's cache.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What types of images work best?</h3>
+                        <p>The AI works well with portraits, headshots, product photos, animals, and objects with clear subjects. It handles complex backgrounds, hair details, and semi-transparent areas better than manual color-based tools.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What format is the downloaded image?</h3>
+                        <p>The result is saved as a PNG file which supports full transparency. If you choose a transparent background, the removed areas will be fully transparent in the downloaded file.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Is there a file size limit?</h3>
+                        <p>The tool works best with images up to 20 MB. Very large images may take longer to process depending on your device's capabilities. For the fastest results, images under 5 MP (e.g., 2500 x 2000 pixels) are recommended.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for commercial purposes?</h3>
+                        <p>Yes. The tool is free for both personal and commercial use. Since all processing happens in your browser, there are no usage limits or watermarks.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/image-tools/blur-background" class="related-link">Blur Background</a>
+                    <a href="/image-tools/image-compressor" class="related-link">Compress Image</a>
+                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
+                    <a href="/image-tools/profile-picture-maker" class="related-link">Profile Picture Maker</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+
+    <script type="module">
+    import { removeBackground } from 'https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.5.6/+esm';
+
+    var fileInput = document.getElementById('file-input');
+    var dropZone = document.getElementById('drop-zone');
+    var uploadSection = document.getElementById('upload-section');
+    var processingSection = document.getElementById('processing-section');
+    var resultSection = document.getElementById('result-section');
+    var progressFill = document.getElementById('progress-fill');
+    var progressText = document.getElementById('progress-text');
+    var resultImage = document.getElementById('result-image');
+    var originalImage = document.getElementById('original-image');
+    var previewWrapper = document.getElementById('preview-wrapper');
+    var downloadBtn = document.getElementById('download-btn');
+    var newImageBtn = document.getElementById('new-image-btn');
+    var viewResultBtn = document.getElementById('view-result');
+    var viewOriginalBtn = document.getElementById('view-original');
+    var customColorInput = document.getElementById('custom-color');
+    var bgOptionBtns = document.querySelectorAll('.bg-option');
+
+    var resultBlob = null;
+    var originalFile = null;
+    var currentBg = 'transparent';
+    var customBgColor = '#00ff00';
+
+    // File upload handling
+    dropZone.addEventListener('click', function(e) {
+        if (e.target === fileInput || e.target.closest('label[for="file-input"]')) return;
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files && fileInput.files[0]) processFile(fileInput.files[0]);
+    });
+
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+    });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            var file = e.dataTransfer.files[0];
+            if (file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                processFile(file);
+            }
+        }
+    });
+
+    async function processFile(file) {
+        if (file.size > 20 * 1024 * 1024) {
+            alert('File is too large. Please use an image under 20 MB.');
+            return;
+        }
+
+        originalFile = file;
+        uploadSection.style.display = 'none';
+        processingSection.style.display = 'block';
+        resultSection.style.display = 'none';
+        progressFill.style.width = '0%';
+        progressText.textContent = 'Loading AI model...';
+
+        try {
+            resultBlob = await removeBackground(file, {
+                progress: function(key, current, total) {
+                    if (total > 0) {
+                        var pct = Math.round((current / total) * 100);
+                        progressFill.style.width = pct + '%';
+                        if (key === 'compute:inference') {
+                            progressText.textContent = 'Processing image... ' + pct + '%';
+                        } else {
+                            progressText.textContent = 'Loading AI model... ' + pct + '%';
+                        }
+                    }
+                }
+            });
+
+            showResult();
+        } catch (err) {
+            console.error('Background removal failed:', err);
+            progressText.textContent = 'Error: ' + (err.message || 'Processing failed. Please try a different image.');
+            progressFill.style.width = '0%';
+            setTimeout(function() { resetToUpload(); }, 3000);
+        }
+    }
+
+    function showResult() {
+        processingSection.style.display = 'none';
+        resultSection.style.display = 'block';
+
+        var resultUrl = URL.createObjectURL(resultBlob);
+        resultImage.src = resultUrl;
+
+        var origUrl = URL.createObjectURL(originalFile);
+        originalImage.src = origUrl;
+
+        // Show result view by default
+        resultImage.style.display = 'block';
+        originalImage.style.display = 'none';
+        viewResultBtn.classList.add('active');
+        viewOriginalBtn.classList.remove('active');
+
+        currentBg = 'transparent';
+        applyBackground('transparent');
+        bgOptionBtns.forEach(function(btn) {
+            btn.classList.toggle('active', btn.getAttribute('data-bg') === 'transparent');
+        });
+    }
+
+    // Comparison toggle
+    viewResultBtn.addEventListener('click', function() {
+        resultImage.style.display = 'block';
+        originalImage.style.display = 'none';
+        viewResultBtn.classList.add('active');
+        viewOriginalBtn.classList.remove('active');
+        applyBackground(currentBg);
+    });
+
+    viewOriginalBtn.addEventListener('click', function() {
+        resultImage.style.display = 'none';
+        originalImage.style.display = 'block';
+        viewOriginalBtn.classList.add('active');
+        viewResultBtn.classList.remove('active');
+        previewWrapper.className = 'result-preview';
+        previewWrapper.style.background = '';
+    });
+
+    // Background options
+    bgOptionBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var bg = btn.getAttribute('data-bg');
+            currentBg = bg;
+            bgOptionBtns.forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            applyBackground(bg);
+        });
+    });
+
+    customColorInput.addEventListener('input', function() {
+        customBgColor = customColorInput.value;
+        currentBg = 'custom';
+        bgOptionBtns.forEach(function(b) { b.classList.remove('active'); });
+        applyBackground('custom');
+    });
+
+    function applyBackground(bg) {
+        previewWrapper.className = 'result-preview';
+        previewWrapper.style.background = '';
+        if (bg === 'transparent') {
+            previewWrapper.classList.add('checkerboard');
+        } else if (bg === 'white') {
+            previewWrapper.classList.add('bg-white');
+        } else if (bg === 'black') {
+            previewWrapper.classList.add('bg-black');
+        } else if (bg === 'custom') {
+            previewWrapper.style.background = customBgColor;
+        }
+    }
+
+    // Download
+    downloadBtn.addEventListener('click', function() {
+        if (!resultBlob) return;
+
+        if (currentBg === 'transparent') {
+            downloadBlob(resultBlob, 'background-removed.png');
+        } else {
+            // Composite the result onto a colored background
+            var img = new Image();
+            img.onload = function() {
+                var canvas = document.createElement('canvas');
+                canvas.width = img.naturalWidth;
+                canvas.height = img.naturalHeight;
+                var ctx = canvas.getContext('2d');
+
+                if (currentBg === 'white') ctx.fillStyle = '#ffffff';
+                else if (currentBg === 'black') ctx.fillStyle = '#000000';
+                else ctx.fillStyle = customBgColor;
+
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0);
+
+                canvas.toBlob(function(blob) {
+                    downloadBlob(blob, 'background-removed.png');
+                }, 'image/png');
+            };
+            img.src = URL.createObjectURL(resultBlob);
+        }
+    });
+
+    function downloadBlob(blob, filename) {
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+    // Reset
+    newImageBtn.addEventListener('click', function() { resetToUpload(); });
+
+    function resetToUpload() {
+        resultBlob = null;
+        originalFile = null;
+        fileInput.value = '';
+        uploadSection.style.display = 'block';
+        processingSection.style.display = 'none';
+        resultSection.style.display = 'none';
+    }
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
