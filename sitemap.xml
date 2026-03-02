@@ -120,4 +120,29 @@
     <priority>0.6</priority>
     <changefreq>weekly</changefreq>
   </url>
+  <url>
+    <loc>https://convertion-website.netlify.app/blog/convert-pdf-to-word-free</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://convertion-website.netlify.app/blog/calculate-gpa-online</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://convertion-website.netlify.app/blog/resize-images-online</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://convertion-website.netlify.app/blog/convert-mp4-to-mp3-free</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://convertion-website.netlify.app/blog/merge-pdf-files-online</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
