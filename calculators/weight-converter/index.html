@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weight Converter - Convert Between All Weight Units | ToolsNest</title>
+    <meta name="description" content="Instantly convert between milligrams, grams, kilograms, metric tons, ounces, pounds, stones, and US tons. Free weight and mass unit converter.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/weight-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Weight Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Weight Converter</h1>
+                <p class="text-center mb-3">Convert between milligrams, grams, kilograms, metric tons, ounces, pounds, stones, and US tons.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="weight-form">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="weight-value">Value</label>
+                                <input type="number" id="weight-value" class="form-input" placeholder="e.g., 150" step="any" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="weight-unit">Unit</label>
+                                <select id="weight-unit" class="form-input">
+                                    <option value="mg">Milligrams (mg)</option>
+                                    <option value="g">Grams (g)</option>
+                                    <option value="kg" selected>Kilograms (kg)</option>
+                                    <option value="mt">Metric Tons (t)</option>
+                                    <option value="oz">Ounces (oz)</option>
+                                    <option value="lb">Pounds (lb)</option>
+                                    <option value="st">Stones (st)</option>
+                                    <option value="ton">US Tons (ton)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Convert</button>
+                    </form>
+
+                    <div id="weight-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Conversion Results</h3>
+                        <div id="weight-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter the weight or mass value you want to convert in the "Value" field.</li>
+                        <li>Select the unit of your input value from the dropdown menu (e.g., kilograms, pounds, ounces).</li>
+                        <li>Click "Convert" or simply change the input -- results update automatically as you type.</li>
+                        <li>View conversions to all other supported units displayed in the results grid below.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between a metric ton and a US ton?</h3>
+                        <p>A metric ton (also called a tonne) equals 1,000 kilograms or approximately 2,204.6 pounds. A US ton (also called a short ton) equals 2,000 pounds or approximately 907.2 kilograms. The metric ton is about 10% heavier than the US ton. There is also a long ton (imperial ton) of 2,240 pounds used in the UK, which this converter does not include.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How many pounds are in a stone?</h3>
+                        <p>One stone equals exactly 14 pounds, or approximately 6.35 kilograms. The stone is commonly used in the United Kingdom and Ireland for expressing body weight. For example, a person weighing 154 pounds would be described as weighing 11 stone.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are the conversions exact?</h3>
+                        <p>The conversions use internationally recognized exact or standard values. For example, 1 pound = exactly 453.59237 grams, and 1 ounce = exactly 28.349523125 grams. Results are displayed to a high number of significant digits for precision, but very small rounding differences may occur at extreme values.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I convert very large or very small values?</h3>
+                        <p>Yes. The converter handles any numeric value, from fractions of a milligram to millions of tons. For very large or very small results, the numbers are displayed in a readable format. Simply enter any positive or negative number to see the conversion.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/height-converter" class="related-link">Height Converter</a>
+                    <a href="/calculators/speed-converter" class="related-link">Speed Converter</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('weight-form');
+        var resultsDiv = document.getElementById('weight-results');
+        var weightGrid = document.getElementById('weight-grid');
+        var valueInput = document.getElementById('weight-value');
+        var unitSelect = document.getElementById('weight-unit');
+
+        // All conversion factors to grams (base unit)
+        var toGrams = {
+            mg: 0.001,
+            g: 1,
+            kg: 1000,
+            mt: 1000000,
+            oz: 28.349523125,
+            lb: 453.59237,
+            st: 6350.29318,
+            ton: 907184.74
+        };
+
+        var unitNames = {
+            mg: 'Milligrams',
+            g: 'Grams',
+            kg: 'Kilograms',
+            mt: 'Metric Tons',
+            oz: 'Ounces',
+            lb: 'Pounds',
+            st: 'Stones',
+            ton: 'US Tons'
+        };
+
+        var unitSymbols = {
+            mg: 'mg',
+            g: 'g',
+            kg: 'kg',
+            mt: 't',
+            oz: 'oz',
+            lb: 'lb',
+            st: 'st',
+            ton: 'ton'
+        };
+
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            var abs = Math.abs(num);
+            if (abs >= 1000000) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
+            } else if (abs >= 1) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 6 });
+            } else if (abs >= 0.000001) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 10 });
+            } else {
+                return num.toExponential(4);
+            }
+        }
+
+        function calculate() {
+            var value = parseFloat(valueInput.value);
+            var unit = unitSelect.value;
+
+            if (isNaN(value)) {
+                resultsDiv.style.display = 'none';
+                return;
+            }
+
+            // Convert to grams first
+            var grams = value * toGrams[unit];
+
+            var html = '';
+            var units = ['mg', 'g', 'kg', 'mt', 'oz', 'lb', 'st', 'ton'];
+
+            for (var i = 0; i < units.length; i++) {
+                var u = units[i];
+                if (u === unit) continue;
+
+                var converted = grams / toGrams[u];
+                var isHighlight = (u === 'kg' || u === 'lb') && unit !== 'kg' && unit !== 'lb';
+
+                html += '<div class="card" style="text-align: center;' + (isHighlight ? ' border-color: var(--primary);' : '') + '">' +
+                    '<p class="text-muted mb-1" style="font-size: 0.85rem;">' + unitNames[u] + '</p>' +
+                    '<strong style="font-size: 1.2rem; color: var(--text-main); display: block; word-break: break-all;">' + formatNumber(converted) + '</strong>' +
+                    '<span class="text-muted" style="font-size: 0.8rem;">' + unitSymbols[u] + '</span>' +
+                '</div>';
+            }
+
+            weightGrid.innerHTML = html;
+            resultsDiv.style.display = 'block';
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculate();
+        });
+
+        valueInput.addEventListener('input', calculate);
+        unitSelect.addEventListener('change', calculate);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

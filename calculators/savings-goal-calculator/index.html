@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savings Goal Calculator - Plan Your Financial Target | ToolsNest</title>
+    <meta name="description" content="Calculate how long it will take to reach your savings goal with monthly contributions and compound interest. Plan your finances and track your progress.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/savings-goal-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Savings Goal Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Savings Goal Calculator</h1>
+                <p class="text-center mb-3">Find out how long it will take to reach your savings goal with regular monthly contributions and compound interest.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="savings-form">
+                        <div class="form-group">
+                            <label for="savings-goal">Savings Goal ($)</label>
+                            <input type="number" id="savings-goal" class="form-input" placeholder="e.g., 50000" min="1" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="current-savings">Current Savings ($)</label>
+                            <input type="number" id="current-savings" class="form-input" placeholder="e.g., 5000" min="0" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="monthly-contribution">Monthly Contribution ($)</label>
+                            <input type="number" id="monthly-contribution" class="form-input" placeholder="e.g., 500" min="1" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="annual-rate">Annual Interest Rate (%)</label>
+                            <input type="number" id="annual-rate" class="form-input" placeholder="e.g., 5" min="0" step="0.01" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Time to Goal</button>
+                    </form>
+
+                    <div id="savings-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Savings Plan Summary</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Time to Goal</p>
+                                <strong id="result-time" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Contributions</p>
+                                <strong id="result-contributions" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Interest Earned</p>
+                                <strong id="result-interest" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+
+                        <div id="goal-warning" style="display: none; margin-top: 1rem; padding: 1rem; background: #fff3cd; border-radius: var(--radius-sm); color: #856404; font-size: 0.9rem;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your target savings goal amount in dollars (e.g., $50,000 for a down payment).</li>
+                        <li>Enter how much you currently have saved toward this goal.</li>
+                        <li>Enter the amount you plan to contribute each month.</li>
+                        <li>Enter the expected annual interest rate on your savings, then click "Calculate Time to Goal" to see when you will reach your target.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How does compound interest affect my savings timeline?</h3>
+                        <p>Compound interest means you earn interest on both your principal and previously earned interest. Over time, this creates a snowball effect that accelerates your savings growth. Even a modest interest rate can significantly shorten the time to reach your goal, especially over longer periods.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What interest rate should I use?</h3>
+                        <p>Use the annual percentage yield (APY) offered by your savings account or investment. High-yield savings accounts typically offer 3-5% APY, certificates of deposit (CDs) may offer 4-5%, and diversified investment portfolios have historically averaged 7-10% annually, though with more risk.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this calculator account for taxes on interest?</h3>
+                        <p>No. Interest earned in taxable accounts is subject to income tax. The actual time to reach your goal may be slightly longer if taxes reduce your effective interest rate. Consider using tax-advantaged accounts like IRAs or 401(k)s when possible.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if my current savings already exceed the goal?</h3>
+                        <p>If your current savings are already equal to or greater than your goal, the calculator will let you know that you have already reached your savings target. Congratulations!</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/calculators/break-even-calculator" class="related-link">Break-Even Calculator</a>
+                    <a href="/calculators/markup-calculator" class="related-link">Markup Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        document.getElementById('savings-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var goal = parseFloat(document.getElementById('savings-goal').value);
+            var current = parseFloat(document.getElementById('current-savings').value);
+            var monthly = parseFloat(document.getElementById('monthly-contribution').value);
+            var annualRate = parseFloat(document.getElementById('annual-rate').value);
+
+            if (isNaN(goal) || isNaN(current) || isNaN(monthly) || isNaN(annualRate) || goal <= 0 || current < 0 || monthly <= 0 || annualRate < 0) {
+                return;
+            }
+
+            var warningDiv = document.getElementById('goal-warning');
+            warningDiv.style.display = 'none';
+
+            if (current >= goal) {
+                document.getElementById('result-time').textContent = '0 months';
+                document.getElementById('result-contributions').textContent = formatCurrency(0);
+                document.getElementById('result-interest').textContent = formatCurrency(0);
+                document.getElementById('result-summary').textContent = ' You have already reached your savings goal! Your current savings of ' + formatCurrency(current) + ' meet or exceed your goal of ' + formatCurrency(goal) + '.';
+                warningDiv.textContent = 'Congratulations! You have already reached your savings target.';
+                warningDiv.style.display = 'block';
+                warningDiv.style.background = '#d4edda';
+                warningDiv.style.color = '#155724';
+                document.getElementById('savings-results').style.display = 'block';
+                return;
+            }
+
+            var monthlyRate = annualRate / 100 / 12;
+            var balance = current;
+            var totalContributions = 0;
+            var months = 0;
+            var maxMonths = 1200;
+
+            while (balance < goal && months < maxMonths) {
+                balance += balance * monthlyRate;
+                balance += monthly;
+                totalContributions += monthly;
+                months++;
+            }
+
+            if (months >= maxMonths) {
+                warningDiv.textContent = 'At the current contribution rate and interest rate, it would take over 100 years to reach your goal. Consider increasing your monthly contribution or exploring higher-yield investments.';
+                warningDiv.style.display = 'block';
+                warningDiv.style.background = '#fff3cd';
+                warningDiv.style.color = '#856404';
+            }
+
+            var totalInterest = balance - current - totalContributions;
+            if (totalInterest < 0) totalInterest = 0;
+
+            var years = Math.floor(months / 12);
+            var remainingMonths = months % 12;
+            var timeStr = '';
+            if (years > 0) {
+                timeStr += years + ' year' + (years !== 1 ? 's' : '');
+                if (remainingMonths > 0) {
+                    timeStr += ', ' + remainingMonths + ' month' + (remainingMonths !== 1 ? 's' : '');
+                }
+            } else {
+                timeStr = remainingMonths + ' month' + (remainingMonths !== 1 ? 's' : '');
+            }
+
+            document.getElementById('result-time').textContent = timeStr;
+            document.getElementById('result-contributions').textContent = formatCurrency(totalContributions);
+            document.getElementById('result-interest').textContent = formatCurrency(totalInterest);
+            document.getElementById('result-summary').textContent = ' Starting with ' + formatCurrency(current) + ' and contributing ' + formatCurrency(monthly) + '/month at ' + annualRate + '% annual interest, you will reach your ' + formatCurrency(goal) + ' goal in approximately ' + timeStr + '. You will contribute a total of ' + formatCurrency(totalContributions) + ' and earn ' + formatCurrency(totalInterest) + ' in interest.';
+
+            document.getElementById('savings-results').style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

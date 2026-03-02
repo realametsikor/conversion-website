@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator - Generate Random Numbers Instantly | ToolsNest</title>
+    <meta name="description" content="Generate random numbers with customizable range, quantity, and precision. Support for integers and decimals, with or without duplicates. Copy results instantly.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/random-number-generator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Random Number Generator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Random Number Generator</h1>
+                <p class="text-center mb-3">Generate random numbers within a custom range with options for quantity, duplicates, and decimal precision.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="rng-form">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="rng-min">Minimum Value</label>
+                                <input type="number" id="rng-min" class="form-input" placeholder="e.g., 1" step="any" value="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="rng-max">Maximum Value</label>
+                                <input type="number" id="rng-max" class="form-input" placeholder="e.g., 100" step="any" value="100" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rng-quantity">Quantity (how many numbers)</label>
+                            <input type="number" id="rng-quantity" class="form-input" placeholder="e.g., 10" min="1" max="1000" step="1" value="10" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rng-type">Number Type</label>
+                            <select id="rng-type" class="form-input">
+                                <option value="integer">Integers Only</option>
+                                <option value="decimal">Allow Decimals</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group" id="decimal-places-group" style="display: none;">
+                            <label for="rng-decimals">Decimal Places</label>
+                            <input type="number" id="rng-decimals" class="form-input" value="2" min="1" max="10" step="1">
+                        </div>
+
+                        <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="rng-duplicates" checked style="width: auto; margin: 0;">
+                            <label for="rng-duplicates" style="margin: 0; cursor: pointer;">Allow Duplicate Numbers</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Generate Numbers</button>
+                    </form>
+
+                    <div id="rng-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h3 style="color: var(--text-main); margin: 0;">Generated Numbers</h3>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button type="button" id="btn-regenerate" class="btn btn-outline" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Generate Again</button>
+                                <button type="button" id="btn-copy" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.5rem 1rem;">Copy All</button>
+                            </div>
+                        </div>
+
+                        <div id="rng-output" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 0.5rem;">
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="rng-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+
+                        <div id="copy-toast" style="display: none; position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: var(--radius-sm); font-size: 0.9rem; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            Copied to clipboard!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Set the minimum and maximum values to define the range for your random numbers.</li>
+                        <li>Enter the quantity of random numbers you want to generate (up to 1,000).</li>
+                        <li>Choose whether you want integers only or decimals, and optionally uncheck "Allow Duplicates" for unique numbers only.</li>
+                        <li>Click "Generate Numbers" to see the results. Use "Generate Again" for a new set or "Copy All" to copy the numbers to your clipboard.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>Are the numbers truly random?</h3>
+                        <p>This tool uses the browser's built-in Math.random() function, which generates pseudorandom numbers. While these numbers are suitable for most everyday purposes such as games, drawings, and simulations, they should not be used for cryptographic or security-sensitive applications. For cryptographic randomness, a dedicated secure random number generator should be used.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What happens if I uncheck "Allow Duplicates" with a small range?</h3>
+                        <p>If you request more unique numbers than the range allows (for example, 20 unique integers between 1 and 10), the tool will generate as many unique numbers as possible within the range and display a notice. For integers, the maximum unique count equals (max - min + 1).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the maximum number of values I can generate?</h3>
+                        <p>You can generate up to 1,000 numbers in a single batch. This limit ensures the tool remains responsive in your browser. If you need more, you can generate multiple batches and copy the results.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I generate negative random numbers?</h3>
+                        <p>Yes. Simply set the minimum value to a negative number. For example, setting the minimum to -50 and maximum to 50 will generate random numbers in that range, including negative values, zero, and positive values.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/percentage-calculator" class="related-link">Percentage Calculator</a>
+                    <a href="/calculators/discount-calculator" class="related-link">Discount Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('rng-form');
+        var typeSelect = document.getElementById('rng-type');
+        var decimalGroup = document.getElementById('decimal-places-group');
+        var resultsDiv = document.getElementById('rng-results');
+        var outputDiv = document.getElementById('rng-output');
+        var summarySpan = document.getElementById('rng-summary');
+        var btnRegenerate = document.getElementById('btn-regenerate');
+        var btnCopy = document.getElementById('btn-copy');
+        var copyToast = document.getElementById('copy-toast');
+
+        var lastNumbers = [];
+
+        typeSelect.addEventListener('change', function() {
+            decimalGroup.style.display = typeSelect.value === 'decimal' ? '' : 'none';
+        });
+
+        function generateNumbers() {
+            var min = parseFloat(document.getElementById('rng-min').value);
+            var max = parseFloat(document.getElementById('rng-max').value);
+            var quantity = parseInt(document.getElementById('rng-quantity').value);
+            var isInteger = typeSelect.value === 'integer';
+            var decimalPlaces = parseInt(document.getElementById('rng-decimals').value) || 2;
+            var allowDuplicates = document.getElementById('rng-duplicates').checked;
+
+            if (isNaN(min) || isNaN(max) || isNaN(quantity)) return;
+
+            if (min > max) {
+                var temp = min;
+                min = max;
+                max = temp;
+                document.getElementById('rng-min').value = min;
+                document.getElementById('rng-max').value = max;
+            }
+
+            if (quantity < 1) quantity = 1;
+            if (quantity > 1000) quantity = 1000;
+
+            var numbers = [];
+            var maxUnique = isInteger ? (max - min + 1) : Infinity;
+            var actualQuantity = quantity;
+            var wasLimited = false;
+
+            if (!allowDuplicates && quantity > maxUnique) {
+                actualQuantity = maxUnique;
+                wasLimited = true;
+            }
+
+            if (!allowDuplicates && isInteger && actualQuantity === maxUnique && maxUnique <= 1000) {
+                // Fisher-Yates shuffle approach for efficiency
+                var pool = [];
+                for (var i = min; i <= max; i++) {
+                    pool.push(i);
+                }
+                for (var j = pool.length - 1; j > 0; j--) {
+                    var k = Math.floor(Math.random() * (j + 1));
+                    var tmp = pool[j];
+                    pool[j] = pool[k];
+                    pool[k] = tmp;
+                }
+                numbers = pool.slice(0, actualQuantity);
+            } else {
+                var seen = {};
+                var attempts = 0;
+                var maxAttempts = actualQuantity * 100;
+
+                while (numbers.length < actualQuantity && attempts < maxAttempts) {
+                    var num;
+                    if (isInteger) {
+                        num = Math.floor(Math.random() * (max - min + 1)) + min;
+                    } else {
+                        num = Math.random() * (max - min) + min;
+                        num = parseFloat(num.toFixed(decimalPlaces));
+                    }
+
+                    if (allowDuplicates) {
+                        numbers.push(num);
+                    } else {
+                        var key = num.toString();
+                        if (!seen[key]) {
+                            seen[key] = true;
+                            numbers.push(num);
+                        }
+                    }
+                    attempts++;
+                }
+            }
+
+            lastNumbers = numbers;
+
+            // Render output
+            outputDiv.innerHTML = '';
+            for (var n = 0; n < numbers.length; n++) {
+                var cell = document.createElement('div');
+                cell.className = 'card';
+                cell.style.textAlign = 'center';
+                cell.style.padding = '0.6rem 0.4rem';
+                cell.style.fontSize = '1rem';
+                cell.style.fontWeight = '600';
+                cell.style.fontVariantNumeric = 'tabular-nums';
+                cell.textContent = isInteger ? numbers[n] : numbers[n].toFixed(decimalPlaces);
+                outputDiv.appendChild(cell);
+            }
+
+            // Summary
+            var sortedNums = numbers.slice().sort(function(a, b) { return a - b; });
+            var sum = numbers.reduce(function(a, b) { return a + b; }, 0);
+            var avg = sum / numbers.length;
+
+            var summaryText = ' Generated ' + numbers.length + ' ' + (isInteger ? 'integer' : 'decimal') + (numbers.length !== 1 ? 's' : '') + ' between ' + min + ' and ' + max + '.';
+            summaryText += ' Min: ' + sortedNums[0] + ', Max: ' + sortedNums[sortedNums.length - 1] + ', Average: ' + avg.toFixed(2) + '.';
+            if (wasLimited) {
+                summaryText += ' Note: Only ' + actualQuantity + ' unique values are possible in this range.';
+            }
+            summarySpan.textContent = summaryText;
+
+            resultsDiv.style.display = 'block';
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            generateNumbers();
+        });
+
+        btnRegenerate.addEventListener('click', function() {
+            generateNumbers();
+        });
+
+        btnCopy.addEventListener('click', function() {
+            if (lastNumbers.length === 0) return;
+
+            var isInteger = typeSelect.value === 'integer';
+            var decimalPlaces = parseInt(document.getElementById('rng-decimals').value) || 2;
+            var text = lastNumbers.map(function(n) {
+                return isInteger ? n.toString() : n.toFixed(decimalPlaces);
+            }).join(', ');
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(function() {
+                    showToast();
+                });
+            } else {
+                var textarea = document.createElement('textarea');
+                textarea.value = text;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = '0';
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    // Silent fail
+                }
+                document.body.removeChild(textarea);
+            }
+        });
+
+        function showToast() {
+            copyToast.style.display = 'block';
+            setTimeout(function() {
+                copyToast.style.display = 'none';
+            }, 2000);
+        }
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

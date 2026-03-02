@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Height Converter - Convert Between All Height Units | ToolsNest</title>
+    <meta name="description" content="Instantly convert between millimeters, centimeters, meters, inches, feet, and feet+inches. Free height and length unit converter with combo input support.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/height-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Height Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Height Converter</h1>
+                <p class="text-center mb-3">Convert between millimeters, centimeters, meters, inches, feet, and feet+inches combinations.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="height-form">
+                        <div class="form-group">
+                            <label for="height-unit">Convert From</label>
+                            <select id="height-unit" class="form-input">
+                                <option value="mm">Millimeters (mm)</option>
+                                <option value="cm" selected>Centimeters (cm)</option>
+                                <option value="m">Meters (m)</option>
+                                <option value="in">Inches (in)</option>
+                                <option value="ft">Feet (ft)</option>
+                                <option value="ftin">Feet + Inches</option>
+                            </select>
+                        </div>
+
+                        <div id="single-input">
+                            <div class="form-group">
+                                <label for="height-value" id="value-label">Value (cm)</label>
+                                <input type="number" id="height-value" class="form-input" placeholder="e.g., 175" step="any">
+                            </div>
+                        </div>
+
+                        <div id="ftin-input" style="display: none;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="ft-value">Feet</label>
+                                    <input type="number" id="ft-value" class="form-input" placeholder="e.g., 5" min="0" step="1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="in-value">Inches</label>
+                                    <input type="number" id="in-value" class="form-input" placeholder="e.g., 10" min="0" max="11.99" step="any">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Convert</button>
+                    </form>
+
+                    <div id="height-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Conversion Results</h3>
+
+                        <div id="ftin-highlight" style="display: none; margin-bottom: 1rem;">
+                            <div class="card" style="text-align: center; border-color: var(--primary);">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Feet + Inches</p>
+                                <strong id="result-ftin" style="font-size: 1.8rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div id="height-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select the unit you are converting from using the "Convert From" dropdown. Choose "Feet + Inches" for a combined input (e.g., 5 ft 10 in).</li>
+                        <li>Enter the value. For "Feet + Inches" mode, enter the feet and inches in separate fields.</li>
+                        <li>Click "Convert" or simply type -- results update automatically as you enter values.</li>
+                        <li>View your height converted to all other units in the results grid, including a highlighted feet+inches display.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How do I convert centimeters to feet and inches?</h3>
+                        <p>Divide the centimeter value by 2.54 to get total inches, then divide the total inches by 12 to get feet with the remainder as inches. For example, 175 cm = 68.9 inches = 5 feet 8.9 inches. This converter does this calculation automatically and displays the result in the feet+inches format.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the feet+inches input mode?</h3>
+                        <p>The feet+inches mode lets you enter a height using the common American format of separate feet and inches values. For example, instead of entering 70 inches, you can enter 5 feet and 10 inches. This is how height is typically expressed in everyday conversation in the United States.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How tall is the average person?</h3>
+                        <p>The global average height is approximately 171 cm (5 ft 7 in) for adult males and 159 cm (5 ft 3 in) for adult females. However, averages vary significantly by country. For example, the average male height in the Netherlands is about 183 cm (6 ft 0 in), while in Guatemala it is about 164 cm (5 ft 5 in).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Are the conversion factors exact?</h3>
+                        <p>Yes, the key conversion factors are internationally defined: 1 inch = exactly 25.4 millimeters, 1 foot = exactly 12 inches = 304.8 millimeters, and 1 meter = exactly 100 centimeters = 1,000 millimeters. All conversions in this tool use these exact definitions.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/weight-converter" class="related-link">Weight Converter</a>
+                    <a href="/calculators/speed-converter" class="related-link">Speed Converter</a>
+                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('height-form');
+        var resultsDiv = document.getElementById('height-results');
+        var heightGrid = document.getElementById('height-grid');
+        var unitSelect = document.getElementById('height-unit');
+        var singleInput = document.getElementById('single-input');
+        var ftinInput = document.getElementById('ftin-input');
+        var valueInput = document.getElementById('height-value');
+        var valueLabel = document.getElementById('value-label');
+        var ftInput = document.getElementById('ft-value');
+        var inInput = document.getElementById('in-value');
+        var ftinHighlight = document.getElementById('ftin-highlight');
+        var resultFtin = document.getElementById('result-ftin');
+
+        // Conversion factors to millimeters (base unit)
+        var toMm = {
+            mm: 1,
+            cm: 10,
+            m: 1000,
+            'in': 25.4,
+            ft: 304.8
+        };
+
+        var unitNames = {
+            mm: 'Millimeters',
+            cm: 'Centimeters',
+            m: 'Meters',
+            'in': 'Inches',
+            ft: 'Feet'
+        };
+
+        var unitSymbols = {
+            mm: 'mm',
+            cm: 'cm',
+            m: 'm',
+            'in': 'in',
+            ft: 'ft'
+        };
+
+        var unitLabels = {
+            mm: 'Value (mm)',
+            cm: 'Value (cm)',
+            m: 'Value (m)',
+            'in': 'Value (inches)',
+            ft: 'Value (feet)'
+        };
+
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            var abs = Math.abs(num);
+            if (abs >= 1000) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 2 });
+            } else if (abs >= 1) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 4 });
+            } else if (abs >= 0.001) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 6 });
+            } else {
+                return num.toExponential(4);
+            }
+        }
+
+        function updateInputMode() {
+            var unit = unitSelect.value;
+            if (unit === 'ftin') {
+                singleInput.style.display = 'none';
+                ftinInput.style.display = 'block';
+            } else {
+                singleInput.style.display = 'block';
+                ftinInput.style.display = 'none';
+                valueLabel.textContent = unitLabels[unit] || 'Value';
+            }
+        }
+
+        function getMmValue() {
+            var unit = unitSelect.value;
+            if (unit === 'ftin') {
+                var feet = parseFloat(ftInput.value) || 0;
+                var inches = parseFloat(inInput.value) || 0;
+                if (feet === 0 && inches === 0 && ftInput.value === '' && inInput.value === '') return NaN;
+                var totalInches = feet * 12 + inches;
+                return totalInches * 25.4;
+            } else {
+                var value = parseFloat(valueInput.value);
+                if (isNaN(value)) return NaN;
+                return value * toMm[unit];
+            }
+        }
+
+        function calculate() {
+            var mm = getMmValue();
+
+            if (isNaN(mm)) {
+                resultsDiv.style.display = 'none';
+                return;
+            }
+
+            var unit = unitSelect.value;
+            var units = ['mm', 'cm', 'm', 'in', 'ft'];
+            var html = '';
+
+            // Feet+inches calculation
+            var totalInches = mm / 25.4;
+            var wholeFeet = Math.floor(totalInches / 12);
+            var remainInches = totalInches - (wholeFeet * 12);
+
+            // Show feet+inches highlight if not already in ftin mode
+            if (unit !== 'ftin') {
+                ftinHighlight.style.display = 'block';
+                resultFtin.textContent = wholeFeet + ' ft ' + remainInches.toFixed(1) + ' in';
+            } else {
+                ftinHighlight.style.display = 'none';
+            }
+
+            for (var i = 0; i < units.length; i++) {
+                var u = units[i];
+                // Skip the source unit (unless it's ftin, which is not in the list)
+                if (u === unit) continue;
+
+                var converted = mm / toMm[u];
+
+                html += '<div class="card" style="text-align: center;">' +
+                    '<p class="text-muted mb-1" style="font-size: 0.85rem;">' + unitNames[u] + '</p>' +
+                    '<strong style="font-size: 1.2rem; color: var(--text-main); display: block; word-break: break-all;">' + formatNumber(converted) + '</strong>' +
+                    '<span class="text-muted" style="font-size: 0.8rem;">' + unitSymbols[u] + '</span>' +
+                '</div>';
+            }
+
+            heightGrid.innerHTML = html;
+            resultsDiv.style.display = 'block';
+        }
+
+        unitSelect.addEventListener('change', function() {
+            updateInputMode();
+            calculate();
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            calculate();
+        });
+
+        valueInput.addEventListener('input', calculate);
+        ftInput.addEventListener('input', calculate);
+        inInput.addEventListener('input', calculate);
+
+        updateInputMode();
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

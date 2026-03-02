@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break-Even Calculator - Find Your Break-Even Point | ToolsNest</title>
+    <meta name="description" content="Calculate your break-even point in units and revenue. Determine how many units you need to sell to cover fixed and variable costs.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/break-even-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Break-Even Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Break-Even Calculator</h1>
+                <p class="text-center mb-3">Determine how many units you need to sell to cover all your costs and start making a profit.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="breakeven-form">
+                        <div class="form-group">
+                            <label for="fixed-costs">Total Fixed Costs ($)</label>
+                            <input type="number" id="fixed-costs" class="form-input" placeholder="e.g., 10000" min="0" step="any" required>
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">Rent, salaries, insurance, and other costs that don't change with output.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="variable-cost">Variable Cost per Unit ($)</label>
+                            <input type="number" id="variable-cost" class="form-input" placeholder="e.g., 25" min="0" step="any" required>
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">Materials, labor, shipping, and other costs per unit produced.</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="selling-price">Selling Price per Unit ($)</label>
+                            <input type="number" id="selling-price" class="form-input" placeholder="e.g., 75" min="0.01" step="any" required>
+                            <small class="text-muted" style="display: block; margin-top: 0.25rem;">The price at which you sell each unit to customers.</small>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Break-Even Point</button>
+                    </form>
+
+                    <div id="breakeven-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Break-Even Analysis</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Break-Even Point</p>
+                                <strong id="result-units" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Break-Even Revenue</p>
+                                <strong id="result-revenue" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Contribution Margin</p>
+                                <strong id="result-margin" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Contribution Margin Ratio</p>
+                                <strong id="result-ratio" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+
+                        <div id="breakeven-warning" style="display: none; margin-top: 1rem; padding: 1rem; border-radius: var(--radius-sm); font-size: 0.9rem;"></div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter your total fixed costs -- these are expenses that remain constant regardless of how many units you produce (e.g., rent, salaries, insurance).</li>
+                        <li>Enter the variable cost per unit -- the cost to produce or acquire each additional unit (e.g., materials, packaging, shipping).</li>
+                        <li>Enter the selling price per unit -- the price your customers pay for each unit.</li>
+                        <li>Click "Calculate Break-Even Point" to see how many units you need to sell and the revenue required to cover all costs.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the break-even point?</h3>
+                        <p>The break-even point is the number of units you need to sell so that your total revenue exactly equals your total costs (fixed costs + variable costs). At this point, you have zero profit and zero loss. Every unit sold beyond this point generates profit.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the contribution margin?</h3>
+                        <p>The contribution margin is the selling price per unit minus the variable cost per unit. It represents how much each unit "contributes" toward covering fixed costs and eventually generating profit. A higher contribution margin means you reach break-even faster.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is the contribution margin ratio?</h3>
+                        <p>The contribution margin ratio is the contribution margin expressed as a percentage of the selling price. For example, if a product sells for $100 with a variable cost of $40, the contribution margin ratio is 60%. It shows what percentage of each sales dollar goes toward covering fixed costs and profit.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if my variable cost is higher than the selling price?</h3>
+                        <p>If the variable cost per unit exceeds the selling price, you lose money on every unit sold. In this case, break-even is impossible, and you need to either raise your selling price or reduce your variable costs before the business can become profitable.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/markup-calculator" class="related-link">Markup Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/calculators/savings-goal-calculator" class="related-link">Savings Goal Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function formatNumber(num) {
+            return num.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        document.getElementById('breakeven-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var fixedCosts = parseFloat(document.getElementById('fixed-costs').value);
+            var variableCost = parseFloat(document.getElementById('variable-cost').value);
+            var sellingPrice = parseFloat(document.getElementById('selling-price').value);
+
+            if (isNaN(fixedCosts) || isNaN(variableCost) || isNaN(sellingPrice) || fixedCosts < 0 || variableCost < 0 || sellingPrice <= 0) {
+                return;
+            }
+
+            var warningDiv = document.getElementById('breakeven-warning');
+            warningDiv.style.display = 'none';
+
+            var contributionMargin = sellingPrice - variableCost;
+            var contributionMarginRatio = (contributionMargin / sellingPrice) * 100;
+
+            if (contributionMargin <= 0) {
+                document.getElementById('result-units').textContent = 'N/A';
+                document.getElementById('result-revenue').textContent = 'N/A';
+                document.getElementById('result-margin').textContent = formatCurrency(contributionMargin);
+                document.getElementById('result-ratio').textContent = contributionMarginRatio.toFixed(2) + '%';
+                document.getElementById('result-summary').textContent = ' Break-even is not achievable because the selling price (' + formatCurrency(sellingPrice) + ') does not exceed the variable cost per unit (' + formatCurrency(variableCost) + '). You need to increase the selling price or reduce variable costs.';
+
+                warningDiv.textContent = 'Warning: Your variable cost per unit meets or exceeds your selling price. You will lose money on every unit sold. Consider adjusting your pricing or cost structure.';
+                warningDiv.style.display = 'block';
+                warningDiv.style.background = '#f8d7da';
+                warningDiv.style.color = '#721c24';
+
+                document.getElementById('breakeven-results').style.display = 'block';
+                return;
+            }
+
+            var breakEvenUnits = fixedCosts / contributionMargin;
+            var breakEvenUnitsRounded = Math.ceil(breakEvenUnits);
+            var breakEvenRevenue = breakEvenUnitsRounded * sellingPrice;
+
+            document.getElementById('result-units').textContent = formatNumber(breakEvenUnitsRounded) + ' units';
+            document.getElementById('result-revenue').textContent = formatCurrency(breakEvenRevenue);
+            document.getElementById('result-margin').textContent = formatCurrency(contributionMargin) + '/unit';
+            document.getElementById('result-ratio').textContent = contributionMarginRatio.toFixed(2) + '%';
+
+            document.getElementById('result-summary').textContent = ' With ' + formatCurrency(fixedCosts) + ' in fixed costs, a variable cost of ' + formatCurrency(variableCost) + ' per unit, and a selling price of ' + formatCurrency(sellingPrice) + ' per unit, you need to sell ' + formatNumber(breakEvenUnitsRounded) + ' units to break even. Each unit contributes ' + formatCurrency(contributionMargin) + ' toward covering fixed costs (' + contributionMarginRatio.toFixed(2) + '% of the selling price).';
+
+            if (fixedCosts === 0) {
+                warningDiv.textContent = 'With zero fixed costs, you break even from the very first unit sold, as long as the selling price covers the variable cost.';
+                warningDiv.style.display = 'block';
+                warningDiv.style.background = '#d4edda';
+                warningDiv.style.color = '#155724';
+            }
+
+            document.getElementById('breakeven-results').style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

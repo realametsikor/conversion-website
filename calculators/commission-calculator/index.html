@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commission Calculator - Sales Commission & Earnings | ToolsNest</title>
+    <meta name="description" content="Calculate sales commission, total earnings, and tiered commission structures. Supports flat rate and multi-tier commission schedules with optional base salary.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/commission-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Commission Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Commission Calculator</h1>
+                <p class="text-center mb-3">Calculate sales commission with flat or tiered rates, plus optional base salary.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="commission-form">
+                        <div class="form-group">
+                            <label for="sale-amount">Total Sale Amount ($)</label>
+                            <input type="number" id="sale-amount" class="form-input" placeholder="e.g., 50000" min="0" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="base-salary">Base Salary ($) <span class="text-muted" style="font-size: 0.85rem;">(optional)</span></label>
+                            <input type="number" id="base-salary" class="form-input" placeholder="e.g., 3000" min="0" step="any">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Commission Type</label>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                <button type="button" id="type-flat" class="btn btn-primary" style="flex: 1; padding: 0.75rem;">Flat Rate</button>
+                                <button type="button" id="type-tiered" class="btn btn-outline" style="flex: 1; padding: 0.75rem;">Tiered Rates</button>
+                            </div>
+                        </div>
+
+                        <div id="flat-section">
+                            <div class="form-group">
+                                <label for="flat-rate">Commission Rate (%)</label>
+                                <input type="number" id="flat-rate" class="form-input" placeholder="e.g., 10" min="0" step="any">
+                            </div>
+                        </div>
+
+                        <div id="tiered-section" style="display: none;">
+                            <label style="display: block; margin-bottom: 0.75rem; font-weight: 600;">Commission Tiers</label>
+                            <div id="tiers-container">
+                                <div class="tier-row" style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem; align-items: end;">
+                                    <div>
+                                        <label style="font-size: 0.8rem; color: var(--text-muted);">Up To ($)</label>
+                                        <input type="number" class="form-input tier-limit" placeholder="e.g., 10000" min="0" step="any">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 0.8rem; color: var(--text-muted);">Rate (%)</label>
+                                        <input type="number" class="form-input tier-rate" placeholder="e.g., 5" min="0" step="any">
+                                    </div>
+                                    <div style="min-width: 40px;"></div>
+                                </div>
+                            </div>
+                            <button type="button" id="add-tier" class="btn btn-outline" style="margin-top: 0.5rem; font-size: 0.9rem; padding: 0.5rem 1rem;">+ Add Tier</button>
+                            <p class="text-muted" style="font-size: 0.8rem; margin-top: 0.5rem;">Leave the last tier's "Up To" field empty for unlimited (everything above the previous tier).</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem; margin-top: 1rem;">Calculate Commission</button>
+                    </form>
+
+                    <div id="commission-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Earnings Summary</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Commission Earned</p>
+                                <strong id="result-commission" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Base Salary</p>
+                                <strong id="result-base" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Earnings</p>
+                                <strong id="result-total" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div id="tier-breakdown" style="display: none; margin-top: 1.5rem;">
+                            <h4 style="margin-bottom: 0.75rem;">Tier Breakdown</h4>
+                            <div id="tier-breakdown-list"></div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Effective Rate:</strong>
+                                <span id="result-effective" class="text-muted"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter the total sale amount in dollars that the commission will be calculated on.</li>
+                        <li>Optionally enter a base salary to include in the total earnings calculation.</li>
+                        <li>Choose "Flat Rate" for a single commission percentage, or "Tiered Rates" to define multiple commission brackets (e.g., 5% on the first $10,000, 8% on the next $20,000, etc.).</li>
+                        <li>Click "Calculate Commission" to see the commission earned, base salary, total earnings, and effective commission rate.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is tiered commission?</h3>
+                        <p>Tiered commission applies different rates to different portions of a sale amount. For example, a salesperson might earn 5% on the first $10,000 in sales and 8% on everything above that. This rewards higher sales volumes with progressively better rates, similar to how tax brackets work.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is the effective commission rate calculated?</h3>
+                        <p>The effective rate is the total commission earned divided by the total sale amount, expressed as a percentage. With tiered rates, this blended rate will fall between your lowest and highest tier rates. It gives you a single number to understand your overall commission performance.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Can I use this for real estate or insurance commissions?</h3>
+                        <p>Yes. This calculator works for any commission-based compensation including real estate, insurance, retail sales, affiliate marketing, and financial services. Simply enter the sale price and your commission rate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What if my last tier has no upper limit?</h3>
+                        <p>Leave the "Up To" field empty for the last tier. The calculator will apply that tier's rate to all remaining sale amounts above the previous tier's limit. This is the standard way to handle open-ended commission structures.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/vat-tax-calculator" class="related-link">VAT/Tax Calculator</a>
+                    <a href="/calculators/discount-calculator" class="related-link">Discount Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('commission-form');
+        var resultsDiv = document.getElementById('commission-results');
+        var typeFlat = document.getElementById('type-flat');
+        var typeTiered = document.getElementById('type-tiered');
+        var flatSection = document.getElementById('flat-section');
+        var tieredSection = document.getElementById('tiered-section');
+        var tiersContainer = document.getElementById('tiers-container');
+        var addTierBtn = document.getElementById('add-tier');
+        var resultCommission = document.getElementById('result-commission');
+        var resultBase = document.getElementById('result-base');
+        var resultTotal = document.getElementById('result-total');
+        var resultEffective = document.getElementById('result-effective');
+        var tierBreakdown = document.getElementById('tier-breakdown');
+        var tierBreakdownList = document.getElementById('tier-breakdown-list');
+
+        var commissionType = 'flat';
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function setType(type) {
+            commissionType = type;
+            if (type === 'flat') {
+                typeFlat.className = 'btn btn-primary';
+                typeTiered.className = 'btn btn-outline';
+                flatSection.style.display = 'block';
+                tieredSection.style.display = 'none';
+            } else {
+                typeFlat.className = 'btn btn-outline';
+                typeTiered.className = 'btn btn-primary';
+                flatSection.style.display = 'none';
+                tieredSection.style.display = 'block';
+            }
+        }
+
+        typeFlat.addEventListener('click', function() { setType('flat'); });
+        typeTiered.addEventListener('click', function() { setType('tiered'); });
+
+        function createTierRow() {
+            var row = document.createElement('div');
+            row.className = 'tier-row';
+            row.style.cssText = 'display: grid; grid-template-columns: 1fr 1fr auto; gap: 0.5rem; margin-bottom: 0.5rem; align-items: end;';
+            row.innerHTML =
+                '<div>' +
+                    '<label style="font-size: 0.8rem; color: var(--text-muted);">Up To ($)</label>' +
+                    '<input type="number" class="form-input tier-limit" placeholder="No limit" min="0" step="any">' +
+                '</div>' +
+                '<div>' +
+                    '<label style="font-size: 0.8rem; color: var(--text-muted);">Rate (%)</label>' +
+                    '<input type="number" class="form-input tier-rate" placeholder="e.g., 8" min="0" step="any">' +
+                '</div>' +
+                '<button type="button" class="btn btn-outline remove-tier" style="padding: 0.5rem 0.75rem; color: #e74c3c; border-color: #e74c3c;">X</button>';
+            return row;
+        }
+
+        addTierBtn.addEventListener('click', function() {
+            tiersContainer.appendChild(createTierRow());
+        });
+
+        tiersContainer.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-tier')) {
+                var rows = tiersContainer.querySelectorAll('.tier-row');
+                if (rows.length > 1) {
+                    e.target.closest('.tier-row').remove();
+                }
+            }
+        });
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var saleAmount = parseFloat(document.getElementById('sale-amount').value);
+            var baseSalary = parseFloat(document.getElementById('base-salary').value) || 0;
+
+            if (isNaN(saleAmount) || saleAmount < 0) return;
+
+            var commission = 0;
+            var breakdownHtml = '';
+
+            if (commissionType === 'flat') {
+                var flatRate = parseFloat(document.getElementById('flat-rate').value);
+                if (isNaN(flatRate) || flatRate < 0) return;
+                commission = saleAmount * (flatRate / 100);
+                tierBreakdown.style.display = 'none';
+            } else {
+                var rows = tiersContainer.querySelectorAll('.tier-row');
+                var tiers = [];
+                for (var i = 0; i < rows.length; i++) {
+                    var limitInput = rows[i].querySelector('.tier-limit');
+                    var rateInput = rows[i].querySelector('.tier-rate');
+                    var limit = limitInput.value === '' ? Infinity : parseFloat(limitInput.value);
+                    var rate = parseFloat(rateInput.value);
+                    if (isNaN(rate)) continue;
+                    tiers.push({ limit: limit, rate: rate });
+                }
+
+                if (tiers.length === 0) return;
+
+                tiers.sort(function(a, b) { return a.limit - b.limit; });
+
+                var remaining = saleAmount;
+                var prevLimit = 0;
+                breakdownHtml = '<div style="border: 1px solid var(--border); border-radius: var(--radius-sm); overflow: hidden;">';
+
+                for (var j = 0; j < tiers.length; j++) {
+                    var tierCeiling = tiers[j].limit;
+                    var tierRate = tiers[j].rate;
+                    var tierRange = tierCeiling === Infinity ? Infinity : tierCeiling - prevLimit;
+                    var taxable = Math.min(remaining, tierRange);
+
+                    if (taxable <= 0) break;
+
+                    var tierCommission = taxable * (tierRate / 100);
+                    commission += tierCommission;
+
+                    var rangeLabel = tierCeiling === Infinity
+                        ? formatCurrency(prevLimit) + '+'
+                        : formatCurrency(prevLimit) + ' - ' + formatCurrency(tierCeiling);
+
+                    breakdownHtml += '<div style="display: flex; justify-content: space-between; padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); font-size: 0.9rem;">' +
+                        '<span>' + rangeLabel + ' @ ' + tierRate + '%</span>' +
+                        '<strong>' + formatCurrency(tierCommission) + '</strong>' +
+                    '</div>';
+
+                    remaining -= taxable;
+                    prevLimit = tierCeiling;
+
+                    if (remaining <= 0) break;
+                }
+
+                breakdownHtml += '</div>';
+                tierBreakdownList.innerHTML = breakdownHtml;
+                tierBreakdown.style.display = 'block';
+            }
+
+            var totalEarnings = baseSalary + commission;
+            var effectiveRate = saleAmount > 0 ? (commission / saleAmount * 100) : 0;
+
+            resultCommission.textContent = formatCurrency(commission);
+            resultBase.textContent = formatCurrency(baseSalary);
+            resultTotal.textContent = formatCurrency(totalEarnings);
+            resultEffective.textContent = ' ' + effectiveRate.toFixed(2) + '% of ' + formatCurrency(saleAmount) + ' in sales.';
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

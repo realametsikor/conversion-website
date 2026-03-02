@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAT/Tax Calculator - Add or Remove Tax From Any Price | ToolsNest</title>
+    <meta name="description" content="Free VAT and sales tax calculator. Instantly add tax to a net price or extract/remove tax from a gross price. Works with any tax rate worldwide.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/vat-tax-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; VAT/Tax Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">VAT/Tax Calculator</h1>
+                <p class="text-center mb-3">Add VAT/tax to a price or extract VAT/tax from a gross price. Works with any tax rate.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="vat-form">
+                        <div class="form-group">
+                            <label>Calculation Mode</label>
+                            <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                                <button type="button" id="mode-add" class="btn btn-primary" style="flex: 1; padding: 0.75rem;">Add Tax to Price</button>
+                                <button type="button" id="mode-remove" class="btn btn-outline" style="flex: 1; padding: 0.75rem;">Remove Tax from Price</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vat-amount" id="amount-label">Net Price (before tax)</label>
+                            <input type="number" id="vat-amount" class="form-input" placeholder="e.g., 100.00" min="0" step="any" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="vat-rate">Tax Rate (%)</label>
+                            <input type="number" id="vat-rate" class="form-input" placeholder="e.g., 20" min="0" step="any" required>
+                            <div style="margin-top: 0.5rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="5" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">5%</button>
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="7" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">7%</button>
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="10" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">10%</button>
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="15" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">15%</button>
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="20" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">20%</button>
+                                <button type="button" class="btn btn-outline quick-rate" data-rate="25" style="padding: 0.3rem 0.75rem; font-size: 0.85rem;">25%</button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
+                    </form>
+
+                    <div id="vat-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Tax Breakdown</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Net Price</p>
+                                <strong id="result-net" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Tax Amount</p>
+                                <strong id="result-tax" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Gross Price</p>
+                                <strong id="result-gross" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
+                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
+                                <strong>Summary:</strong>
+                                <span id="result-summary" class="text-muted"></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select a calculation mode: "Add Tax to Price" if you have the net price, or "Remove Tax from Price" if you have the gross (tax-inclusive) price.</li>
+                        <li>Enter the price amount in the input field.</li>
+                        <li>Enter the tax rate as a percentage, or click one of the quick-select rate buttons for common rates.</li>
+                        <li>Click "Calculate" to see the net price, tax amount, and gross price breakdown.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between adding and removing VAT?</h3>
+                        <p>Adding VAT means you start with the net (before-tax) price and calculate the gross (after-tax) price. Removing VAT means you start with the gross price and work backward to find the original net price and the tax component. The formulas differ: adding uses Net x Rate, while removing uses Gross / (1 + Rate).</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does this work for sales tax too?</h3>
+                        <p>Yes. VAT and sales tax are calculated the same way mathematically. Simply enter your local sales tax rate. This calculator works for any percentage-based tax applied to a price, including GST, HST, and state/provincial sales taxes.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What tax rate should I use?</h3>
+                        <p>The rate depends on your location and the type of goods or services. For example, the UK standard VAT is 20%, EU countries range from 17% to 27%, and US sales tax varies by state (typically 4% to 10%). Check your local tax authority for the correct rate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How is the tax amount calculated when removing tax?</h3>
+                        <p>When removing tax from a gross price, the net price is calculated as Gross / (1 + Rate/100), and the tax amount is the difference: Gross - Net. For example, removing 20% VAT from $120 gives a net price of $100 and a tax amount of $20.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/discount-calculator" class="related-link">Discount Calculator</a>
+                    <a href="/calculators/commission-calculator" class="related-link">Commission Calculator</a>
+                    <a href="/calculators/loan-calculator" class="related-link">Loan Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var form = document.getElementById('vat-form');
+        var resultsDiv = document.getElementById('vat-results');
+        var modeAdd = document.getElementById('mode-add');
+        var modeRemove = document.getElementById('mode-remove');
+        var amountLabel = document.getElementById('amount-label');
+        var amountInput = document.getElementById('vat-amount');
+        var rateInput = document.getElementById('vat-rate');
+        var resultNet = document.getElementById('result-net');
+        var resultTax = document.getElementById('result-tax');
+        var resultGross = document.getElementById('result-gross');
+        var resultSummary = document.getElementById('result-summary');
+
+        var mode = 'add';
+
+        function formatCurrency(amount) {
+            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        function setMode(newMode) {
+            mode = newMode;
+            if (mode === 'add') {
+                modeAdd.className = 'btn btn-primary';
+                modeRemove.className = 'btn btn-outline';
+                amountLabel.textContent = 'Net Price (before tax)';
+                amountInput.placeholder = 'e.g., 100.00';
+            } else {
+                modeAdd.className = 'btn btn-outline';
+                modeRemove.className = 'btn btn-primary';
+                amountLabel.textContent = 'Gross Price (including tax)';
+                amountInput.placeholder = 'e.g., 120.00';
+            }
+        }
+
+        modeAdd.addEventListener('click', function() { setMode('add'); });
+        modeRemove.addEventListener('click', function() { setMode('remove'); });
+
+        var quickRates = document.querySelectorAll('.quick-rate');
+        for (var i = 0; i < quickRates.length; i++) {
+            quickRates[i].addEventListener('click', function() {
+                rateInput.value = this.getAttribute('data-rate');
+            });
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var amount = parseFloat(amountInput.value);
+            var rate = parseFloat(rateInput.value);
+
+            if (isNaN(amount) || isNaN(rate) || amount < 0 || rate < 0) {
+                return;
+            }
+
+            var netPrice, taxAmount, grossPrice;
+
+            if (mode === 'add') {
+                netPrice = amount;
+                taxAmount = netPrice * (rate / 100);
+                grossPrice = netPrice + taxAmount;
+            } else {
+                grossPrice = amount;
+                netPrice = grossPrice / (1 + rate / 100);
+                taxAmount = grossPrice - netPrice;
+            }
+
+            resultNet.textContent = formatCurrency(netPrice);
+            resultTax.textContent = formatCurrency(taxAmount);
+            resultGross.textContent = formatCurrency(grossPrice);
+
+            if (mode === 'add') {
+                resultSummary.textContent = ' A net price of ' + formatCurrency(netPrice) + ' with a ' + rate + '% tax rate results in ' + formatCurrency(taxAmount) + ' tax, for a total of ' + formatCurrency(grossPrice) + '.';
+            } else {
+                resultSummary.textContent = ' A gross price of ' + formatCurrency(grossPrice) + ' includes ' + formatCurrency(taxAmount) + ' in tax (' + rate + '%), leaving a net price of ' + formatCurrency(netPrice) + '.';
+            }
+
+            resultsDiv.style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

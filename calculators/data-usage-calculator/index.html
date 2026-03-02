@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Usage Calculator - Estimate Monthly Internet Data | ToolsNest</title>
+    <meta name="description" content="Estimate your monthly internet data usage based on streaming, browsing, gaming, and other online activities. Plan your data needs accurately.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/data-usage-calculator/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Data Usage Calculator
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Data Usage Calculator</h1>
+                <p class="text-center mb-3">Estimate how much internet data you use daily, weekly, and monthly based on your online activities.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <form id="data-form">
+                        <div class="form-group">
+                            <label for="activity-type">Activity Type</label>
+                            <select id="activity-type" class="form-input" required>
+                                <option value="">-- Select an activity --</option>
+                                <option value="streaming-sd">Video Streaming (SD - 480p)</option>
+                                <option value="streaming-hd">Video Streaming (HD - 1080p)</option>
+                                <option value="streaming-4k">Video Streaming (4K Ultra HD)</option>
+                                <option value="music">Music Streaming</option>
+                                <option value="browsing">Web Browsing</option>
+                                <option value="social-media">Social Media (scrolling/posting)</option>
+                                <option value="video-calls">Video Calls (Zoom, Teams, etc.)</option>
+                                <option value="gaming">Online Gaming</option>
+                                <option value="email">Email (with attachments)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="hours-per-day">Hours per Day</label>
+                            <input type="number" id="hours-per-day" class="form-input" placeholder="e.g., 3" min="0.1" max="24" step="0.1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="days-per-month">Days per Month</label>
+                            <input type="number" id="days-per-month" class="form-input" placeholder="e.g., 30" min="1" max="31" step="1" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate Data Usage</button>
+                    </form>
+
+                    <div id="data-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Estimated Data Usage</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Daily Usage</p>
+                                <strong id="result-daily" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Weekly Usage</p>
+                                <strong id="result-weekly" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Monthly Usage</p>
+                                <strong id="result-monthly" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
+                            </div>
+                        </div>
+
+                        <div style="margin-top: 1.5rem;">
+                            <h4 class="mb-1" style="color: var(--text-main);">Usage Breakdown</h4>
+                            <div style="overflow-x: auto;">
+                                <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+                                    <thead>
+                                        <tr style="border-bottom: 2px solid var(--border);">
+                                            <th style="text-align: left; padding: 0.75rem 0.5rem; color: var(--text-muted);">Detail</th>
+                                            <th style="text-align: right; padding: 0.75rem 0.5rem; color: var(--text-muted);">Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="breakdown-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Select the type of online activity from the dropdown menu (e.g., video streaming, gaming, browsing).</li>
+                        <li>Enter how many hours per day you typically spend on that activity.</li>
+                        <li>Enter how many days per month you perform the activity (up to 31 days).</li>
+                        <li>Click "Calculate Data Usage" to see your estimated daily, weekly, and monthly data consumption with a detailed breakdown.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>How accurate are these data usage estimates?</h3>
+                        <p>These estimates are based on average data consumption rates published by major streaming services and internet providers. Actual usage can vary depending on the specific platform, content quality settings, compression, and other factors. Use these figures as a planning guideline.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Why does 4K streaming use so much more data than HD?</h3>
+                        <p>4K (Ultra HD) video has four times the pixel count of 1080p HD, which means significantly more data is needed to transmit each frame. A typical 4K stream uses about 7 GB per hour compared to roughly 3 GB per hour for HD and 0.7 GB per hour for SD.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>Does online gaming use a lot of data?</h3>
+                        <p>Online gaming typically uses less data than most people expect, averaging around 40-150 MB per hour for most games. However, game downloads and updates can be very large (often 20-100+ GB). This calculator estimates ongoing gameplay data usage only, not downloads.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How can I reduce my data usage?</h3>
+                        <p>Lower video streaming quality, disable auto-play, use Wi-Fi whenever possible, limit background app refresh, download content for offline use, and compress images before uploading. Most streaming apps allow you to set a preferred quality to help manage data usage.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/fuel-cost-calculator" class="related-link">Fuel Cost Calculator</a>
+                    <a href="/calculators/savings-goal-calculator" class="related-link">Savings Goal Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var dataRates = {
+            'streaming-sd':  { name: 'Video Streaming (SD)', mbPerHour: 700 },
+            'streaming-hd':  { name: 'Video Streaming (HD)', mbPerHour: 3000 },
+            'streaming-4k':  { name: 'Video Streaming (4K)', mbPerHour: 7000 },
+            'music':         { name: 'Music Streaming', mbPerHour: 150 },
+            'browsing':      { name: 'Web Browsing', mbPerHour: 60 },
+            'social-media':  { name: 'Social Media', mbPerHour: 300 },
+            'video-calls':   { name: 'Video Calls', mbPerHour: 1500 },
+            'gaming':        { name: 'Online Gaming', mbPerHour: 80 },
+            'email':         { name: 'Email', mbPerHour: 20 }
+        };
+
+        function formatData(mb) {
+            if (mb >= 1000) {
+                return (mb / 1000).toFixed(2) + ' GB';
+            }
+            return mb.toFixed(1) + ' MB';
+        }
+
+        document.getElementById('data-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var activityKey = document.getElementById('activity-type').value;
+            var hoursPerDay = parseFloat(document.getElementById('hours-per-day').value);
+            var daysPerMonth = parseInt(document.getElementById('days-per-month').value, 10);
+
+            if (!activityKey || isNaN(hoursPerDay) || isNaN(daysPerMonth) || hoursPerDay <= 0 || daysPerMonth <= 0) {
+                return;
+            }
+
+            var activity = dataRates[activityKey];
+            var dailyMB = activity.mbPerHour * hoursPerDay;
+            var weeklyMB = dailyMB * 7;
+            var monthlyMB = dailyMB * daysPerMonth;
+
+            document.getElementById('result-daily').textContent = formatData(dailyMB);
+            document.getElementById('result-weekly').textContent = formatData(weeklyMB);
+            document.getElementById('result-monthly').textContent = formatData(monthlyMB);
+
+            var tbody = document.getElementById('breakdown-table');
+            var rows = [
+                ['Activity', activity.name],
+                ['Data Rate', formatData(activity.mbPerHour) + '/hour'],
+                ['Hours per Day', hoursPerDay + ' hrs'],
+                ['Days per Month', daysPerMonth + ' days'],
+                ['Daily Usage', formatData(dailyMB)],
+                ['Weekly Usage (7 days)', formatData(weeklyMB)],
+                ['Monthly Usage (' + daysPerMonth + ' days)', formatData(monthlyMB)],
+                ['Yearly Estimate', formatData(monthlyMB * 12)]
+            ];
+
+            tbody.innerHTML = '';
+            for (var i = 0; i < rows.length; i++) {
+                var tr = document.createElement('tr');
+                tr.style.borderBottom = '1px solid var(--border)';
+                var td1 = document.createElement('td');
+                td1.style.padding = '0.75rem 0.5rem';
+                td1.textContent = rows[i][0];
+                var td2 = document.createElement('td');
+                td2.style.padding = '0.75rem 0.5rem';
+                td2.style.textAlign = 'right';
+                td2.style.fontWeight = '600';
+                td2.textContent = rows[i][1];
+                tr.appendChild(td1);
+                tr.appendChild(td2);
+                tbody.appendChild(tr);
+            }
+
+            document.getElementById('data-results').style.display = 'block';
+        });
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>

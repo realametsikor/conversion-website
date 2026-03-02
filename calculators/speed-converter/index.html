@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speed Converter - Convert Between Speed Units Instantly | ToolsNest</title>
+    <meta name="description" content="Convert speed between m/s, km/h, mph, knots, ft/s, and Mach instantly. Free online speed unit converter with real-time results.">
+    <link rel="canonical" href="https://www.usetoolnest.com/calculators/speed-converter/">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+    <main class="container">
+        <nav class="breadcrumb mt-3">
+            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Speed Converter
+        </nav>
+
+        <div class="tool-layout">
+            <div>
+                <h1 class="text-center mb-2">Speed Converter</h1>
+                <p class="text-center mb-3">Convert between meters per second, kilometers per hour, miles per hour, knots, feet per second, and Mach number instantly.</p>
+
+                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
+                    <div class="form-group">
+                        <label for="speed-value">Speed Value</label>
+                        <input type="number" id="speed-value" class="form-input" placeholder="Enter a speed value" min="0" step="any">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="speed-unit">Convert From</label>
+                        <select id="speed-unit" class="form-input">
+                            <option value="ms">Meters per second (m/s)</option>
+                            <option value="kmh">Kilometers per hour (km/h)</option>
+                            <option value="mph" selected>Miles per hour (mph)</option>
+                            <option value="knots">Knots (kn)</option>
+                            <option value="fts">Feet per second (ft/s)</option>
+                            <option value="mach">Mach</option>
+                        </select>
+                    </div>
+
+                    <div id="speed-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
+                        <h3 class="text-center mb-3" style="color: var(--text-main);">Conversion Results</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Meters per second</p>
+                                <strong id="result-ms" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">m/s</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Kilometers per hour</p>
+                                <strong id="result-kmh" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">km/h</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Miles per hour</p>
+                                <strong id="result-mph" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">mph</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Knots</p>
+                                <strong id="result-knots" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">kn</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Feet per second</p>
+                                <strong id="result-fts" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">ft/s</span>
+                            </div>
+                            <div class="card" style="text-align: center;">
+                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Mach Number</p>
+                                <strong id="result-mach" style="font-size: 1.3rem; color: var(--primary); display: block;">--</strong>
+                                <span class="text-muted" style="font-size: 0.8rem;">Mach</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">How to Use</h2>
+                    <ol style="margin-left: 1.5rem; line-height: 2;">
+                        <li>Enter the speed value you want to convert in the input field.</li>
+                        <li>Select the unit you are converting from using the dropdown menu.</li>
+                        <li>View the converted values across all supported units instantly in the results grid below.</li>
+                        <li>Change the value or unit at any time and the results will update automatically.</li>
+                    </ol>
+                </section>
+
+                <section class="mb-4">
+                    <h2 class="mb-2">Frequently Asked Questions</h2>
+                    <div class="faq-item">
+                        <h3>What is the difference between km/h and mph?</h3>
+                        <p>Kilometers per hour (km/h) is the metric unit of speed used in most countries, while miles per hour (mph) is used primarily in the United States and the United Kingdom. One mile equals approximately 1.60934 kilometers, so 1 mph equals about 1.609 km/h.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What is Mach speed?</h3>
+                        <p>Mach is a ratio of the speed of an object to the speed of sound in the surrounding medium. Mach 1 equals the speed of sound, approximately 343 m/s (1,235 km/h or 767 mph) at sea level and 20 degrees Celsius. Mach 2 is twice the speed of sound.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>What are knots used for?</h3>
+                        <p>Knots are the standard unit of speed in aviation and maritime navigation. One knot equals one nautical mile per hour, which is approximately 1.852 km/h or 1.151 mph. Nautical miles are based on the Earth's circumference, making knots practical for navigation.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3>How accurate are these conversions?</h3>
+                        <p>The conversions are mathematically precise using standard conversion factors. The Mach conversion assumes standard atmospheric conditions at sea level (speed of sound at approximately 343 m/s). Actual Mach numbers can vary with altitude and temperature.</p>
+                    </div>
+                </section>
+
+                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            </div>
+
+            <aside>
+                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+                <div class="related-tools">
+                    <h3>Related Tools</h3>
+                    <a href="/calculators/weight-converter" class="related-link">Weight Converter</a>
+                    <a href="/calculators/height-converter" class="related-link">Height Converter</a>
+                    <a href="/calculators/fuel-cost-calculator" class="related-link">Fuel Cost Calculator</a>
+                    <a href="/all-tools" class="related-link">See All Tools</a>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="/components/footer.js"></script>
+    <script>
+    (function() {
+        var valueInput = document.getElementById('speed-value');
+        var unitSelect = document.getElementById('speed-unit');
+        var resultsDiv = document.getElementById('speed-results');
+
+        // Conversion factors to m/s (base unit)
+        var toMs = {
+            ms: 1,
+            kmh: 1 / 3.6,
+            mph: 0.44704,
+            knots: 0.514444,
+            fts: 0.3048,
+            mach: 343
+        };
+
+        // Conversion factors from m/s
+        var fromMs = {
+            ms: 1,
+            kmh: 3.6,
+            mph: 2.23694,
+            knots: 1.94384,
+            fts: 3.28084,
+            mach: 1 / 343
+        };
+
+        function formatNumber(num) {
+            if (num === 0) return '0';
+            if (Math.abs(num) >= 1000) {
+                return num.toLocaleString('en-US', { maximumFractionDigits: 4 });
+            }
+            if (Math.abs(num) < 0.001) {
+                return num.toExponential(4);
+            }
+            return parseFloat(num.toPrecision(8)).toString();
+        }
+
+        function convert() {
+            var value = parseFloat(valueInput.value);
+            if (isNaN(value) || value < 0) {
+                resultsDiv.style.display = 'none';
+                return;
+            }
+
+            var unit = unitSelect.value;
+            var ms = value * toMs[unit];
+
+            document.getElementById('result-ms').textContent = formatNumber(ms * fromMs.ms);
+            document.getElementById('result-kmh').textContent = formatNumber(ms * fromMs.kmh);
+            document.getElementById('result-mph').textContent = formatNumber(ms * fromMs.mph);
+            document.getElementById('result-knots').textContent = formatNumber(ms * fromMs.knots);
+            document.getElementById('result-fts').textContent = formatNumber(ms * fromMs.fts);
+            document.getElementById('result-mach').textContent = formatNumber(ms * fromMs.mach);
+
+            resultsDiv.style.display = 'block';
+        }
+
+        valueInput.addEventListener('input', convert);
+        unitSelect.addEventListener('change', convert);
+    })();
+    </script>
+    <script async src="/components/ads.js"></script>
+</body>
+</html>
