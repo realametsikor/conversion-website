@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "canvas": "^2.11.2"
+  },
+  "dependencies": {
+    "googleapis": "^144.0.0"
   }
 }
