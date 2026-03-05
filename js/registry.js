@@ -36,7 +36,7 @@ BLOG FIELDS:
 
 var REGISTRY = (function () {
 
-```
+
 /* ── TOOLS ─────────────────────────────────────────────── */
 var TOOLS = [
 
@@ -213,6 +213,5 @@ return {
         }).join('');
     }
 };
-```
 
 })();
