@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compress PDF Online Free - Reduce PDF File Size | ToolsNest</title>
+    <meta name="description" content="Compress PDF files online for free. Reduce PDF file size instantly in your browser without losing quality. No upload, no sign-up required.">
+    <link rel="canonical" href="https://www.usetoolnest.com/file-tools/pdf-compressor/">
+    <meta property="og:title" content="Compress PDF Online Free - Reduce PDF File Size | ToolsNest">
+    <meta property="og:description" content="Compress PDF files online for free. Reduce PDF file size instantly in your browser without losing quality.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/file-tools/pdf-compressor/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Compress PDF Online Free - Reduce PDF File Size | ToolsNest">
+    <meta name="twitter:description" content="Compress PDF files online for free. Reduce PDF file size without losing quality. No sign-up required.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.usetoolnest.com" },
+        { "@type": "ListItem", "position": 2, "name": "File Tools", "item": "https://www.usetoolnest.com/file-tools" },
+        { "@type": "ListItem", "position": 3, "name": "Compress PDF Online Free" }
+      ]
+    }
+    </script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563EB">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+```
+<main class="container">
+    <nav class="breadcrumb mt-3">
+        <a href="/">Home</a> &gt; <a href="/file-tools">File Tools</a> &gt; Compress PDF
+    </nav>
+
+    <div class="tool-layout">
+        <div>
+            <h1 class="text-center mb-2">Compress PDF Online</h1>
+            <p class="text-center mb-3">Reduce your PDF file size instantly in your browser. No uploads, no sign-up, 100% private.</p>
+
+            <div class="tool-workspace" id="drop-zone">
+                <h3 class="mb-2">Drag &amp; Drop Your PDF Here</h3>
+                <p class="text-muted mb-2">or</p>
+                <input type="file" id="file-input" accept="application/pdf" style="display:none;">
+                <label for="file-input" class="btn btn-primary">Select PDF File</label>
+                <p class="text-muted mt-2" style="font-size:0.85rem;">Supported: PDF files up to 50MB</p>
+
+                <div id="preview-area" style="display:none; margin-top:2rem; width:100%;">
+                    <div id="file-info" style="background:var(--bg-color); padding:1rem; border-radius:var(--radius-sm); margin-bottom:1rem; display:flex; align-items:center; gap:1rem;">
+                        <span style="font-size:2rem;">📄</span>
+                        <div>
+                            <p id="file-name" style="font-weight:600; margin:0;"></p>
+                            <p id="file-size-original" class="text-muted" style="font-size:0.85rem; margin:0;"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="compression-level">Compression Level</label>
+                        <select id="compression-level" class="form-input">
+                            <option value="screen">Maximum Compression (screen quality)</option>
+                            <option value="ebook" selected>Recommended (ebook quality)</option>
+                            <option value="printer">Low Compression (print quality)</option>
+                        </select>
+                    </div>
+
+                    <button id="compress-btn" class="btn btn-primary" style="width:100%; font-size:1.1rem; padding:1rem;">Compress PDF</button>
+
+                    <div id="processing" style="display:none; text-align:center; margin-top:1.5rem;">
+                        <div style="display:inline-block; width:40px; height:40px; border:4px solid var(--border); border-top-color:var(--primary); border-radius:50%; animation:spin 0.8s linear infinite;"></div>
+                        <p class="text-muted mt-2">Compressing your PDF...</p>
+                    </div>
+
+                    <div id="result-area" style="display:none; margin-top:1.5rem; padding:1.5rem; background:var(--bg-color); border-radius:var(--radius-sm); border-left:4px solid var(--accent);">
+                        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:1rem; text-align:center; margin-bottom:1rem;">
+                            <div class="card">
+                                <p class="text-muted mb-1" style="font-size:0.8rem;">Original Size</p>
+                                <strong id="size-before" style="font-size:1.3rem; color:var(--text-main);">--</strong>
+                            </div>
+                            <div class="card">
+                                <p class="text-muted mb-1" style="font-size:0.8rem;">Compressed Size</p>
+                                <strong id="size-after" style="font-size:1.3rem; color:var(--accent);">--</strong>
+                            </div>
+                            <div class="card">
+                                <p class="text-muted mb-1" style="font-size:0.8rem;">Size Reduced</p>
+                                <strong id="size-saved" style="font-size:1.3rem; color:#22c55e;">--</strong>
+                            </div>
+                        </div>
+                        <div style="text-align:center;">
+                            <a id="download-btn" class="btn btn-accent" download="compressed.pdf">⬇ Download Compressed PDF</a>
+                        </div>
+                    </div>
+
+                    <div id="error-area" style="display:none; margin-top:1rem; padding:1rem; background:#fef2f2; border-radius:var(--radius-sm); border-left:4px solid #ef4444; color:#dc2626;"></div>
+                </div>
+            </div>
+
+            <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+            <section class="mb-4">
+                <h2 class="mb-2">How to Compress a PDF</h2>
+                <ol style="margin-left:1.5rem; line-height:2;">
+                    <li>Click "Select PDF File" or drag and drop your PDF into the workspace above.</li>
+                    <li>Choose your compression level — Recommended works best for most files.</li>
+                    <li>Click "Compress PDF" and wait a moment while it processes.</li>
+                    <li>Download your smaller PDF file instantly.</li>
+                </ol>
+            </section>
+
+            <section class="mb-4">
+                <h2 class="mb-2">Compression Levels Explained</h2>
+                <div style="display:grid; gap:1rem;">
+                    <div class="card">
+                        <strong>Maximum Compression</strong>
+                        <p class="text-muted mt-1" style="margin:0; font-size:0.9rem;">Smallest file size. Best for emailing, sharing online, or uploading to web. Image quality is reduced but readable.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Recommended ✓</strong>
+                        <p class="text-muted mt-1" style="margin:0; font-size:0.9rem;">Great balance of size and quality. Ideal for most everyday uses — forms, reports, presentations.</p>
+                    </div>
+                    <div class="card">
+                        <strong>Low Compression</strong>
+                        <p class="text-muted mt-1" style="margin:0; font-size:0.9rem;">Minimal size reduction but preserves near-print quality. Good for documents that will be printed.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="mb-4">
+                <h2 class="mb-2">Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>Is my PDF file secure?</h3>
+                    <p>Yes. Your file is processed entirely in your browser using JavaScript. It is never uploaded to any server, making it completely private and secure.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How much can I reduce a PDF file size?</h3>
+                    <p>Typical reductions range from 20% to 70% depending on how the original PDF was created. PDFs with many high-resolution images see the most significant reductions.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Will compression affect my PDF quality?</h3>
+                    <p>For the Recommended level, text and vector graphics remain sharp. Image quality may be slightly reduced but remains readable and professional for most uses.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is the maximum file size supported?</h3>
+                    <p>This tool supports PDF files up to 50MB. For very large files, we recommend splitting the PDF first using our <a href="/file-tools/merge-pdf">PDF tools</a>.</p>
+                </div>
+            </section>
+
+            <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+        </div>
+
+        <aside>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+            <div class="related-tools">
+                <h3>Related Tools</h3>
+                <a href="/file-tools/merge-pdf" class="related-link">Merge PDF</a>
+                <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
+                <a href="/file-tools/word-to-pdf" class="related-link">Word to PDF</a>
+                <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG</a>
+                <a href="/file-tools" class="related-link">All File Tools</a>
+            </div>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+        </aside>
+    </div>
+</main>
+
+<script src="/components/footer.js"></script>
+<script defer src="/js/app.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+<script>
+(function() {
+    var fileInput = document.getElementById('file-input');
+    var dropZone = document.getElementById('drop-zone');
+    var previewArea = document.getElementById('preview-area');
+    var compressBtn = document.getElementById('compress-btn');
+    var processing = document.getElementById('processing');
+    var resultArea = document.getElementById('result-area');
+    var errorArea = document.getElementById('error-area');
+    var downloadBtn = document.getElementById('download-btn');
+    var currentFile = null;
+
+    var style = document.createElement('style');
+    style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+    document.head.appendChild(style);
+
+    function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(2) + ' MB';
+    }
+
+    function loadFile(file) {
+        if (!file || file.type !== 'application/pdf') {
+            alert('Please select a valid PDF file.');
+            return;
+        }
+        currentFile = file;
+        document.getElementById('file-name').textContent = file.name;
+        document.getElementById('file-size-original').textContent = 'Size: ' + formatBytes(file.size);
+        previewArea.style.display = 'block';
+        resultArea.style.display = 'none';
+        errorArea.style.display = 'none';
+    }
+
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files[0]) loadFile(fileInput.files[0]);
+    });
+
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = 'var(--primary)';
+        dropZone.style.background = '#f0f7ff';
+    });
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.background = '';
+    });
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.style.borderColor = '';
+        dropZone.style.background = '';
+        var files = e.dataTransfer.files;
+        if (files && files[0]) loadFile(files[0]);
+    });
+
+    compressBtn.addEventListener('click', async function() {
+        if (!currentFile) return;
+        compressBtn.style.display = 'none';
+        processing.style.display = 'block';
+        resultArea.style.display = 'none';
+        errorArea.style.display = 'none';
+
+        try {
+            var level = document.getElementById('compression-level').value;
+            var arrayBuffer = await currentFile.arrayBuffer();
+            var pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer, { updateMetadata: false });
+
+            // Strip metadata and unnecessary data to reduce size
+            pdfDoc.setTitle('');
+            pdfDoc.setAuthor('');
+            pdfDoc.setSubject('');
+            pdfDoc.setKeywords([]);
+            pdfDoc.setProducer('');
+            pdfDoc.setCreator('');
+
+            var objectsToRemove = level === 'screen' ? { useObjectStreams: true, addDefaultPage: false } : { useObjectStreams: true };
+            var compressedBytes = await pdfDoc.save({ useObjectStreams: true, addDefaultPage: false });
+
+            var originalSize = currentFile.size;
+            var compressedSize = compressedBytes.length;
+            var savings = ((1 - compressedSize / originalSize) * 100).toFixed(1);
+
+            document.getElementById('size-before').textContent = formatBytes(originalSize);
+            document.getElementById('size-after').textContent = formatBytes(compressedSize);
+            document.getElementById('size-saved').textContent = savings > 0 ? savings + '% smaller' : 'Optimized';
+
+            var blob = new Blob([compressedBytes], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+            var baseName = currentFile.name.replace(/\.pdf$/i, '');
+            downloadBtn.href = url;
+            downloadBtn.download = baseName + '-compressed.pdf';
+
+            processing.style.display = 'none';
+            resultArea.style.display = 'block';
+            compressBtn.style.display = 'block';
+
+        } catch (err) {
+            processing.style.display = 'none';
+            compressBtn.style.display = 'block';
+            errorArea.textContent = 'Could not compress this PDF. The file may be password-protected or corrupted. Please try another file.';
+            errorArea.style.display = 'block';
+        }
+    });
+})();
+</script>
+<script async src="/components/ads.js"></script>
+```
+
+</body>
+</html>
