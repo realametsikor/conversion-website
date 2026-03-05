@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Free Online Word & Character Count Tool | ToolsNest</title>
+    <meta name="description" content="Count words, characters, sentences, and paragraphs instantly. Free online word counter with reading time estimate. No sign-up needed.">
+    <link rel="canonical" href="https://www.usetoolnest.com/ai-tools/word-counter/">
+    <meta property="og:title" content="Word Counter - Free Online Word & Character Count Tool | ToolsNest">
+    <meta property="og:description" content="Count words, characters, sentences, and paragraphs instantly. Free online word counter with reading time estimate.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/ai-tools/word-counter/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Word Counter - Free Online Word & Character Count Tool | ToolsNest">
+    <meta name="twitter:description" content="Count words, characters, sentences, and paragraphs instantly. Free, accurate, and private.">
+    <link rel="stylesheet" href="/css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.usetoolnest.com" },
+        { "@type": "ListItem", "position": 2, "name": "AI Tools", "item": "https://www.usetoolnest.com/ai-tools" },
+        { "@type": "ListItem", "position": 3, "name": "Word Counter" }
+      ]
+    }
+    </script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#2563EB">
+</head>
+<body data-social-bar>
+    <script src="/components/header.js"></script>
+
+```
+<main class="container">
+    <nav class="breadcrumb mt-3">
+        <a href="/">Home</a> &gt; <a href="/ai-tools">AI Tools</a> &gt; Word Counter
+    </nav>
+
+    <div class="tool-layout">
+        <div>
+            <h1 class="text-center mb-2">Word Counter</h1>
+            <p class="text-center mb-3">Count words, characters, sentences, and paragraphs instantly. See reading time and keyword density too.</p>
+
+            <div class="tool-workspace" style="text-align:left; padding:2rem;">
+                <div class="form-group">
+                    <label for="input-text">Type or Paste Your Text</label>
+                    <textarea id="input-text" class="form-input" rows="10" placeholder="Start typing or paste your text here..." style="min-height:220px; font-size:1rem; line-height:1.7;"></textarea>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-top:0.5rem;">
+                    <button onclick="clearText()" class="btn btn-outline" style="padding:0.5rem 1.2rem; font-size:0.9rem;">Clear</button>
+                    <button onclick="copyText()" class="btn btn-outline" style="padding:0.5rem 1.2rem; font-size:0.9rem;">Copy Text</button>
+                </div>
+
+                <!-- Live Stats Grid -->
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem;">
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-words" style="font-size:2.2rem; font-weight:700; color:var(--primary); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Words</div>
+                    </div>
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-chars" style="font-size:2.2rem; font-weight:700; color:var(--primary); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Characters</div>
+                    </div>
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-chars-no-space" style="font-size:2.2rem; font-weight:700; color:var(--primary); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Chars (no spaces)</div>
+                    </div>
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-sentences" style="font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Sentences</div>
+                    </div>
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-paragraphs" style="font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Paragraphs</div>
+                    </div>
+                    <div class="card" style="text-align:center; padding:1rem;">
+                        <div id="stat-read-time" style="font-size:2.2rem; font-weight:700; color:var(--accent); line-height:1;">0</div>
+                        <div style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">Min Read Time</div>
+                    </div>
+                </div>
+
+                <!-- Writing targets -->
+                <div style="margin-top:1.5rem; padding:1.25rem; background:var(--bg-color); border-radius:var(--radius-sm);">
+                    <h3 style="font-size:0.95rem; margin-bottom:0.75rem; color:var(--text-main);">Common Writing Targets</h3>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; font-size:0.85rem;">
+                        <div id="target-tweet" style="padding:0.5rem 0.75rem; border-radius:4px; background:#fff; border:1px solid var(--border);">🐦 Tweet: <span id="tweet-status">0 / 280</span></div>
+                        <div id="target-meta" style="padding:0.5rem 0.75rem; border-radius:4px; background:#fff; border:1px solid var(--border);">🔍 Meta desc: <span id="meta-status">0 / 160 chars</span></div>
+                        <div style="padding:0.5rem 0.75rem; border-radius:4px; background:#fff; border:1px solid var(--border);">📝 Blog post: <span id="blog-status" class="text-muted">0 / 1500 words</span></div>
+                        <div style="padding:0.5rem 0.75rem; border-radius:4px; background:#fff; border:1px solid var(--border);">📄 Essay: <span id="essay-status" class="text-muted">0 / 500 words</span></div>
+                    </div>
+                </div>
+
+                <!-- Top Keywords -->
+                <div id="keyword-section" style="display:none; margin-top:1.5rem;">
+                    <h3 style="font-size:0.95rem; margin-bottom:0.75rem; color:var(--text-main);">Top Keywords</h3>
+                    <div id="keyword-list" style="display:flex; flex-wrap:wrap; gap:0.5rem;"></div>
+                </div>
+            </div>
+
+            <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+
+            <section class="mb-4">
+                <h2 class="mb-2">How to Use</h2>
+                <ol style="margin-left:1.5rem; line-height:2;">
+                    <li>Type or paste your text into the box above.</li>
+                    <li>All stats update live as you type — no button needed.</li>
+                    <li>Check your word count, character count, reading time, and more instantly.</li>
+                    <li>Use the writing targets panel to see how close you are to common limits.</li>
+                </ol>
+            </section>
+
+            <section class="mb-4">
+                <h2 class="mb-2">Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>How is reading time calculated?</h3>
+                    <p>Reading time is estimated based on an average adult reading speed of 200 words per minute. Results are rounded up to the nearest minute.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Does this count characters with or without spaces?</h3>
+                    <p>Both! This tool shows total characters (with spaces) and characters without spaces separately so you can use whichever count you need.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is my text stored or shared?</h3>
+                    <p>No. All processing happens entirely in your browser. Your text is never sent to any server.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What is the character limit for a Twitter/X post?</h3>
+                    <p>Standard tweets are limited to 280 characters. The writing targets panel above tracks this for you in real time.</p>
+                </div>
+            </section>
+
+            <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+        </div>
+
+        <aside>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
+            <div class="related-tools">
+                <h3>Related Tools</h3>
+                <a href="/ai-tools/text-summarizer" class="related-link">Text Summarizer</a>
+                <a href="/ai-tools/grammar-checker" class="related-link">Grammar Checker</a>
+                <a href="/ai-tools/paraphrasing-tool" class="related-link">Paraphrasing Tool</a>
+                <a href="/ai-tools" class="related-link">All AI Tools</a>
+            </div>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+        </aside>
+    </div>
+</main>
+
+<script src="/components/footer.js"></script>
+<script defer src="/js/app.js"></script>
+<script>
+(function() {
+    var textarea = document.getElementById('input-text');
+    var stopWords = new Set(['the','a','an','and','or','but','in','on','at','to','for','of','with','by','from','is','was','are','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','shall','can','need','dare','ought','used','it','its','this','that','these','those','i','me','my','we','our','you','your','he','his','she','her','they','their','them','what','which','who','whom','not','no','nor','so','yet','both','either','neither','as','if','then','than','because','while','although','though','since','until','unless','after','before','when','where','how']);
+
+    function analyze() {
+        var text = textarea.value;
+        var words = text.trim() === '' ? [] : text.trim().split(/\s+/).filter(function(w) { return w.length > 0; });
+        var wordCount = words.length;
+        var charCount = text.length;
+        var charNoSpace = text.replace(/\s/g, '').length;
+        var sentences = text.trim() === '' ? 0 : (text.match(/[^.!?]*[.!?]+/g) || []).length || (text.trim() ? 1 : 0);
+        var paragraphs = text.trim() === '' ? 0 : text.split(/\n\s*\n/).filter(function(p) { return p.trim().length > 0; }).length || (text.trim() ? 1 : 0);
+        var readTime = Math.ceil(wordCount / 200);
+
+        document.getElementById('stat-words').textContent = wordCount.toLocaleString();
+        document.getElementById('stat-chars').textContent = charCount.toLocaleString();
+        document.getElementById('stat-chars-no-space').textContent = charNoSpace.toLocaleString();
+        document.getElementById('stat-sentences').textContent = sentences.toLocaleString();
+        document.getElementById('stat-paragraphs').textContent = paragraphs.toLocaleString();
+        document.getElementById('stat-read-time').textContent = readTime;
+
+        // Writing targets
+        document.getElementById('tweet-status').textContent = charCount + ' / 280';
+        document.getElementById('meta-status').textContent = charCount + ' / 160 chars';
+        document.getElementById('blog-status').textContent = wordCount + ' / 1500 words';
+        document.getElementById('essay-status').textContent = wordCount + ' / 500 words';
+
+        // Keywords
+        if (wordCount > 5) {
+            var freq = {};
+            words.forEach(function(w) {
+                var clean = w.toLowerCase().replace(/[^a-z]/g, '');
+                if (clean.length > 3 && !stopWords.has(clean)) {
+                    freq[clean] = (freq[clean] || 0) + 1;
+                }
+            });
+            var sorted = Object.entries(freq).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 8);
+            var list = document.getElementById('keyword-list');
+            list.innerHTML = sorted.map(function(entry) {
+                return '<span style="background:var(--bg-color); border:1px solid var(--border); padding:4px 10px; border-radius:100px; font-size:0.82rem; color:var(--text-main);">' + entry[0] + ' <strong style="color:var(--primary);">' + entry[1] + '</strong></span>';
+            }).join('');
+            document.getElementById('keyword-section').style.display = sorted.length ? 'block' : 'none';
+        } else {
+            document.getElementById('keyword-section').style.display = 'none';
+        }
+    }
+
+    textarea.addEventListener('input', analyze);
+
+    window.clearText = function() {
+        textarea.value = '';
+        analyze();
+    };
+
+    window.copyText = function() {
+        if (textarea.value) {
+            navigator.clipboard.writeText(textarea.value);
+        }
+    };
+
+    analyze();
+})();
+</script>
+<script async src="/components/ads.js"></script>
+```
+
+</body>
+</html>
