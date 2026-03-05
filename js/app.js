@@ -2,7 +2,6 @@
 (function () {
 ‘use strict’;
 
-```
 /* ── Tool registry sourced from registry.js ─────────────────── */
 /* To add a new tool, edit /js/registry.js — not this file       */
 var TOOLS = (window.REGISTRY && window.REGISTRY.tools) ? window.REGISTRY.tools : [
@@ -356,6 +355,5 @@ if (document.readyState === 'loading') {
 
 /* Export for external use */
 window.ToolsNest = { TOOLS: TOOLS, trackEvent: trackEvent, toggleFavorite: toggleFavorite };
-```
 
 })();
