@@ -4,32 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Online Tools - Convert, Compress, Calculate | ToolsNest</title>
-    <meta name="description" content="Free online tools for file conversion, image compression, calculators, and AI text tools. Fast, secure, no signup required.">
-    <meta name="google-site-verification" content="7-gWaGexCMpqgweIsJqApj1bNp_tkalmJUBxGLDp6hw" />
+    <title>Free Online Tools — Convert, Compress, Calculate | ToolsNest</title>
+    <meta name="description" content="100+ free online tools for file conversion, PDF compression, image editing, calculators, and AI writing. No signup. No software. Instant results.">
+    <meta name="google-site-verification" content="7-gWaGexCMpqgweIsJqApj1bNp_tkalmJUBxGLDp6hw">
     <link rel="canonical" href="https://www.usetoolnest.com/">
 
-<meta property="og:title" content="Free Online Tools - Convert, Compress, Calculate | ToolsNest">
-<meta property="og:description" content="Free online tools for file conversion, image compression, calculators, and AI text tools. Fast, secure, no signup required.">
+<meta property="og:title" content="Free Online Tools — Convert, Compress, Calculate | ToolsNest">
+<meta property="og:description" content="100+ free online tools for file conversion, PDF, image editing, calculators, and AI writing. No signup required.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.usetoolnest.com/">
 <meta property="og:site_name" content="ToolsNest">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Free Online Tools - Convert, Compress, Calculate | ToolsNest">
-<meta name="twitter:description" content="Free online tools for file conversion, image compression, calculators, and AI text tools. Fast, secure, no signup required.">
+<meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Online Tools — Convert, Compress, Calculate | ToolsNest">
+<meta name="twitter:description" content="100+ free online tools. No signup. No software. Instant results.">
+
 <link rel="preload" href="/css/style.css" as="style">
 <link rel="stylesheet" href="/css/style.css">
 <link rel="manifest" href="/manifest.json">
 <link rel="icon" type="image/svg+xml" href="/icons/icon.svg">
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="theme-color" content="#2563EB">
+
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "ToolsNest",
   "url": "https://www.usetoolnest.com",
-  "description": "Free online tools for file conversion, image compression, calculators, and AI text tools. Fast, secure, no signup required.",
+  "description": "100+ free online tools for file conversion, PDF compression, image editing, calculators, and AI writing. No signup required.",
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://www.usetoolnest.com/all-tools?q={search_term_string}",
@@ -43,164 +46,288 @@
   "@type": "Organization",
   "name": "ToolsNest",
   "url": "https://www.usetoolnest.com",
-  "description": "Free online tools for file conversion, image compression, calculators, and AI text tools."
+  "logo": "https://www.usetoolnest.com/icons/icon-512.png",
+  "description": "Free online tools for file conversion, image editing, calculators, and AI writing."
 }
 </script>
+<style>
+  /* Homepage-specific enhancements */
+  .hero {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563EB 50%, #0ea5e9 100%);
+    padding: 4rem 0 3.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero h1 {
+    color: white;
+    font-size: 3.25rem;
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .hero > .container > p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+  .hero-search {
+    max-width: 580px;
+    margin: 0 auto;
+    display: flex;
+    gap: 0;
+    background: white;
+    border-radius: 50px;
+    padding: 6px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  }
+  .hero-search input {
+    flex: 1;
+    padding: 0.75rem 1.25rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-family: inherit;
+    outline: none;
+    background: transparent;
+    color: #111827;
+  }
+  .hero-search .btn {
+    border-radius: 50px;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+  .hero-stat {
+    color: rgba(255,255,255,0.9);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .hero-stat strong {
+    color: white;
+    font-size: 1rem;
+  }
+  .trust-bar {
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+    padding: 0.75rem 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  .trust-bar span { display: flex; align-items: center; gap: 0.35rem; }
+  .cat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+  .cat-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: all 0.2s;
+    color: var(--text-main);
+    display: block;
+  }
+  .cat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--primary); color: var(--primary); }
+  .cat-card .cat-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+  .cat-card h3 { font-size: 0.95rem; color: inherit; }
+  .cat-card p { font-size: 0.78rem; margin-top: 0.25rem; color: var(--text-muted); }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.1rem; }
+    .hero-search { flex-direction: row; }
+    .hero-stats { gap: 1.25rem; }
+    .cat-grid { grid-template-columns: repeat(3, 1fr); }
+    .trust-bar { gap: 1rem; padding: 0.75rem 1rem; }
+  }
+  @media (max-width: 480px) {
+    .cat-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero h1 { font-size: 1.8rem; }
+    .hero-search { border-radius: 12px; padding: 4px; flex-direction: column; }
+    .hero-search input, .hero-search .btn { border-radius: 8px; }
+  }
+</style>
 
 </head>
 <body data-social-bar>
     <script src="/components/header.js"></script>
 
 <main>
-    <!-- 1. Hero with Search -->
-    <section class="hero section">
-        <div class="container">
-            <h1>All-in-One Free Online Tools</h1>
-            <p>Convert, compress, calculate, and create — fast and free.</p>
+    <!-- 1. Hero -->
+    <section class="hero">
+        <div class="container" style="position:relative; z-index:1;">
+            <h1>Free Online Tools for Everything</h1>
+            <p>Convert files, compress images, calculate anything, and write with AI — all free, all instant.</p>
             <div class="hero-search">
-                <input type="text" placeholder="What do you want to do? e.g. compress PDF...">
+                <input type="text" placeholder="Search 100+ tools... e.g. compress PDF, BMI calculator">
                 <button class="btn btn-primary">Search</button>
             </div>
+            <div class="hero-stats">
+                <div class="hero-stat">⚡ <strong>100+</strong> Free Tools</div>
+                <div class="hero-stat">🔒 <strong>Private</strong> — No uploads to servers</div>
+                <div class="hero-stat">✅ <strong>No signup</strong> required</div>
+            </div>
         </div>
     </section>
 
-    <!-- Ad: Responsive Banner after Hero (high viewability) -->
-    <div class="container">
-        <div class="ad-placeholder ad-responsive ad-native">Ad Banner</div>
+    <!-- Trust bar -->
+    <div class="trust-bar">
+        <span>⚡ Instant results</span>
+        <span>🔒 Files stay on your device</span>
+        <span>🆓 Free forever, no paywalls</span>
+        <span>📱 Works on mobile &amp; desktop</span>
     </div>
 
-    <!-- 2. Categories Grid (5) -->
-    <section class="section" style="padding-top: 0;">
+    <!-- Ad Banner -->
+    <div class="container">
+        <div class="ad-placeholder ad-responsive ad-native" style="margin-top:1.5rem;">Ad Banner</div>
+    </div>
+
+    <!-- 2. Categories -->
+    <section class="section" style="padding-top:2rem; padding-bottom:2rem;">
         <div class="container">
-            <div class="grid-5">
-                <a href="/file-tools" class="card category-card">
-                    <div class="card-icon" style="margin: 0 auto 1rem;">&#128196;</div>
+            <div class="section-title">
+                <h2>Browse by Category</h2>
+                <p>Pick a category or search above to find any tool instantly.</p>
+            </div>
+            <div class="cat-grid">
+                <a href="/file-tools" class="cat-card">
+                    <span class="cat-icon">📄</span>
                     <h3>File Tools</h3>
+                    <p>PDF, Convert, Compress</p>
                 </a>
-                <a href="/image-tools" class="card category-card">
-                    <div class="card-icon" style="margin: 0 auto 1rem;">&#128247;</div>
+                <a href="/image-tools" class="cat-card">
+                    <span class="cat-icon">🖼️</span>
                     <h3>Image Tools</h3>
+                    <p>Resize, Compress, OCR</p>
                 </a>
-                <a href="/student-tools" class="card category-card">
-                    <div class="card-icon" style="margin: 0 auto 1rem;">&#127891;</div>
-                    <h3>Student Tools</h3>
-                </a>
-                <a href="/calculators" class="card category-card">
-                    <div class="card-icon" style="margin: 0 auto 1rem;">&#129518;</div>
+                <a href="/calculators" class="cat-card">
+                    <span class="cat-icon">🧮</span>
                     <h3>Calculators</h3>
+                    <p>BMI, Loan, GPA, Tax</p>
                 </a>
-                <a href="/ai-tools" class="card category-card">
-                    <div class="card-icon" style="margin: 0 auto 1rem;">&#129302;</div>
+                <a href="/ai-tools" class="cat-card">
+                    <span class="cat-icon">🤖</span>
                     <h3>AI Tools</h3>
+                    <p>Write, Summarize, Generate</p>
+                </a>
+                <a href="/student-tools" class="cat-card">
+                    <span class="cat-icon">🎓</span>
+                    <h3>Student Tools</h3>
+                    <p>Citations, Flashcards, Timer</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 3. Popular Tools Grid -->
+    <!-- 3. Popular Tools -->
     <section class="section section-alt">
         <div class="container">
             <div class="section-title">
-                <h2>Popular Tools</h2>
-                <p>The tools people use most, ready in seconds.</p>
+                <h2>Most Popular Tools</h2>
+                <p>The tools people use most — ready in seconds.</p>
             </div>
-            <div class="grid-4" id="popular-tools-grid">
+            <div class="grid-4">
                 <a href="/file-tools/pdf-to-word" class="card tool-card">
-                    <div class="card-icon">&#128196;</div>
-                    <div>
-                        <h3>PDF to Word</h3>
-                        <p>Convert PDF files to editable Word documents.</p>
-                    </div>
+                    <div class="card-icon">📄</div>
+                    <div><h3>PDF to Word</h3><p>Convert PDF files to editable Word documents.</p></div>
                 </a>
                 <a href="/image-tools/image-compressor" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>Compress Image</h3>
-                        <p>Reduce image file size without losing quality.</p>
-                    </div>
+                    <div class="card-icon">🖼️</div>
+                    <div><h3>Compress Image</h3><p>Reduce image file size without losing quality.</p></div>
+                </a>
+                <a href="/calculators/bmi-calculator" class="card tool-card">
+                    <div class="card-icon">⚖️</div>
+                    <div><h3>BMI Calculator</h3><p>Calculate your Body Mass Index instantly.</p></div>
+                </a>
+                <a href="/ai-tools/cover-letter-generator" class="card tool-card">
+                    <div class="card-icon">📝</div>
+                    <div><h3>Cover Letter Generator</h3><p>Generate a professional cover letter with AI.</p></div>
+                </a>
+                <div class="ad-placeholder ad-in-feed ad-native">Sponsored</div>
+                <a href="/file-tools/pdf-compressor" class="card tool-card">
+                    <div class="card-icon">📄</div>
+                    <div><h3>PDF Compressor</h3><p>Compress PDF files instantly. No upload needed.</p></div>
+                </a>
+                <a href="/image-tools/image-to-text" class="card tool-card">
+                    <div class="card-icon">🔤</div>
+                    <div><h3>Image to Text (OCR)</h3><p>Extract text from any image or screenshot.</p></div>
+                </a>
+                <a href="/ai-tools/word-counter" class="card tool-card">
+                    <div class="card-icon">🔢</div>
+                    <div><h3>Word Counter</h3><p>Count words, characters, and reading time live.</p></div>
                 </a>
                 <a href="/calculators/loan-calculator" class="card tool-card">
-                    <div class="card-icon">&#129518;</div>
-                    <div>
-                        <h3>Loan Calculator</h3>
-                        <p>Estimate monthly payments and total interest.</p>
-                    </div>
-                </a>
-                <a href="/file-tools/jpg-to-png" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>JPG to PNG</h3>
-                        <p>Convert JPG images to PNG format instantly.</p>
-                    </div>
-                </a>
-                <!-- In-feed ad: blends naturally within the tools grid -->
-                <div class="ad-placeholder ad-in-feed ad-native">Sponsored</div>
-                <a href="/calculators/gpa-calculator" class="card tool-card">
-                    <div class="card-icon">&#127891;</div>
-                    <div>
-                        <h3>GPA Calculator</h3>
-                        <p>Calculate your GPA quickly and accurately.</p>
-                    </div>
-                </a>
-                <a href="/ai-tools/text-summarizer" class="card tool-card">
-                    <div class="card-icon">&#129302;</div>
-                    <div>
-                        <h3>Text Summarizer</h3>
-                        <p>Summarize long text into key points with AI.</p>
-                    </div>
-                </a>
-                <a href="/file-tools/word-to-pdf" class="card tool-card">
-                    <div class="card-icon">&#128196;</div>
-                    <div>
-                        <h3>Word to PDF</h3>
-                        <p>Convert Word documents to PDF format.</p>
-                    </div>
+                    <div class="card-icon">💰</div>
+                    <div><h3>Loan Calculator</h3><p>Estimate monthly payments and total interest.</p></div>
                 </a>
                 <a href="/file-tools/merge-pdf" class="card tool-card">
-                    <div class="card-icon">&#128196;</div>
-                    <div>
-                        <h3>Merge PDF</h3>
-                        <p>Combine multiple PDFs into a single file.</p>
-                    </div>
+                    <div class="card-icon">📄</div>
+                    <div><h3>Merge PDF</h3><p>Combine multiple PDFs into a single file.</p></div>
+                </a>
+                <a href="/image-tools/qr-code-generator" class="card tool-card">
+                    <div class="card-icon">📱</div>
+                    <div><h3>QR Code Generator</h3><p>Create QR codes for URLs, Wi-Fi, and more.</p></div>
+                </a>
+                <a href="/calculators/gpa-calculator" class="card tool-card">
+                    <div class="card-icon">🎓</div>
+                    <div><h3>GPA Calculator</h3><p>Calculate your GPA quickly and accurately.</p></div>
                 </a>
             </div>
             <div class="text-center mt-4">
-                <a href="/all-tools" class="btn btn-outline">View All Tools</a>
+                <a href="/all-tools" class="btn btn-outline">View All 100+ Tools →</a>
             </div>
         </div>
     </section>
 
-    <!-- Ad: Between Sections -->
+    <!-- Ad Between Sections -->
     <div class="container">
-        <div class="ad-placeholder ad-between-sections ad-native">Ad Between Sections</div>
+        <div class="ad-placeholder ad-between-sections ad-native">Ad</div>
     </div>
 
     <!-- 4. Benefits -->
     <section class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Why Use ToolsNest?</h2>
+                <h2>Why People Choose ToolsNest</h2>
             </div>
             <div class="grid-4">
                 <div class="card benefit-card">
-                    <div class="benefit-icon">&#9889;</div>
-                    <h3>Fast Processing</h3>
-                    <p>Files process instantly in your browser. No waiting in queues.</p>
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Instant Results</h3>
+                    <p>Everything runs in your browser. No waiting, no queues, no server delays.</p>
                 </div>
                 <div class="card benefit-card">
-                    <div class="benefit-icon">&#128274;</div>
-                    <h3>Secure &amp; Private</h3>
-                    <p>Files stay on your device. Nothing uploaded to servers.</p>
+                    <div class="benefit-icon">🔒</div>
+                    <h3>100% Private</h3>
+                    <p>Your files never leave your device. Nothing is uploaded to any server.</p>
                 </div>
                 <div class="card benefit-card">
-                    <div class="benefit-icon">&#127381;</div>
+                    <div class="benefit-icon">🆓</div>
                     <h3>Free Forever</h3>
-                    <p>No subscriptions, no paywalls. Every tool is completely free.</p>
+                    <p>No subscriptions, no paywalls, no hidden fees. Every tool is completely free.</p>
                 </div>
                 <div class="card benefit-card">
-                    <div class="benefit-icon">&#128640;</div>
-                    <h3>No Signup</h3>
-                    <p>Jump straight to any tool. No email or account needed.</p>
+                    <div class="benefit-icon">🚀</div>
+                    <h3>No Signup Needed</h3>
+                    <p>Jump straight into any tool. No email address or account required.</p>
                 </div>
             </div>
         </div>
@@ -211,108 +338,58 @@
         <div class="container">
             <div class="section-title">
                 <h2>How It Works</h2>
-                <p>Three simple steps to get things done.</p>
+                <p>Three steps to get things done.</p>
             </div>
             <div class="steps-grid">
                 <div class="step-item">
                     <div class="step-number">1</div>
                     <h3>Choose a Tool</h3>
-                    <p>Browse categories or search for the tool you need.</p>
+                    <p>Browse by category or search to find exactly what you need.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">2</div>
                     <h3>Upload or Enter Data</h3>
-                    <p>Drop your file or fill in the form. Everything runs in your browser.</p>
+                    <p>Drop your file or fill in the form. Everything runs privately in your browser.</p>
                 </div>
                 <div class="step-item">
                     <div class="step-number">3</div>
-                    <h3>Download Results</h3>
-                    <p>Get your converted file or result instantly. No delays.</p>
+                    <h3>Get Results Instantly</h3>
+                    <p>Download your file or copy your result. Done in seconds.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 6. New Tools -->
-    <section class="section">
-        <div class="container">
-            <div class="section-title">
-                <h2>Recently Added</h2>
-                <p>Fresh tools just added to the platform.</p>
-            </div>
-            <div class="grid-3">
-                <a href="/image-tools/qr-code-generator" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>QR Code Generator</h3>
-                        <p>Create custom QR codes for URLs, text, Wi-Fi, and more.</p>
-                    </div>
-                </a>
-                <a href="/image-tools/youtube-thumbnail-maker" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>YouTube Thumbnail Maker</h3>
-                        <p>Design eye-catching thumbnails at 1280x720 for your videos.</p>
-                    </div>
-                </a>
-                <a href="/image-tools/signature-generator" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>Signature Generator</h3>
-                        <p>Draw a digital signature and download as transparent PNG.</p>
-                    </div>
-                </a>
-                <a href="/image-tools/collage-maker" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>Photo Collage Maker</h3>
-                        <p>Combine multiple photos into beautiful grid collages.</p>
-                    </div>
-                </a>
-                <a href="/image-tools/screenshot-mockup-generator" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>Screenshot Mockup Generator</h3>
-                        <p>Place screenshots inside phone, laptop, and tablet frames.</p>
-                    </div>
-                </a>
-                <a href="/image-tools/favicon-generator" class="card tool-card">
-                    <div class="card-icon">&#128247;</div>
-                    <div>
-                        <h3>Favicon Generator</h3>
-                        <p>Convert any image into a properly sized website favicon.</p>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Ad: Responsive (between Recently Added and Blog) -->
+    <!-- Ad -->
     <div class="container">
         <div class="ad-placeholder ad-responsive ad-native">Ad</div>
     </div>
 
-    <!-- 7. Blog Preview -->
+    <!-- 6. Blog -->
     <section class="section section-alt">
         <div class="container">
             <div class="section-title">
                 <h2>From the Blog</h2>
-                <p>Tips, guides, and updates.</p>
+                <p>Tips, guides, and how-tos for getting more done.</p>
             </div>
             <div class="grid-3" id="homepage-blog-grid"></div>
+            <div class="text-center mt-4">
+                <a href="/blog" class="btn btn-outline">View All Articles →</a>
+            </div>
         </div>
     </section>
 </main>
 
-<!-- Recently Used slot (populated by app.js) -->
 <div class="recently-used-slot"></div>
 
 <script src="/components/footer.js"></script>
 <script src="/js/registry.js"></script>
 <script src="/js/main.js"></script>
-<script defer src="/js/app.js"></script>
+<script src="/js/app.js"></script>
 <script>
-    REGISTRY.renderBlogs('homepage-blog-grid', REGISTRY.getFeaturedBlogs());
+    if (window.REGISTRY) {
+        REGISTRY.renderBlogs('homepage-blog-grid', REGISTRY.getFeaturedBlogs());
+    }
 </script>
 <script async src="/components/ads.js"></script>
 
