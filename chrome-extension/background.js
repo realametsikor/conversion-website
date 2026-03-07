@@ -1,4 +1,4 @@
-const BASE = "https://usetoolnest.com";
+const BASE = "https://www.usetoolnest.com";
 
 // ── Context menu setup ─────────────────────────────────────────────
 chrome.runtime.onInstalled.addListener(() => {
