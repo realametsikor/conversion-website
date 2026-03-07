@@ -10,7 +10,7 @@ const fs = require('fs');
 const path = require('path');
 
 const OUTPUT_DIR = path.join(__dirname, '..', 'assets', 'pins');
-const SITE_URL = 'usetoolnest.com';
+const SITE_URL = 'www.usetoolnest.com';
 
 // Brand colors
 const COLORS = {

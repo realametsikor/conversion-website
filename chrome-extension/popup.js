@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const BASE = "https://usetoolnest.com";
+  const BASE = "https://www.usetoolnest.com";
 
   // ── Tool database ──────────────────────────────────────────────────
   const TOOLS = [
