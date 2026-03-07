@@ -1,11 +1,13 @@
 User-agent: *
 Allow: /
 Disallow: /sw.js
+Disallow: /pages/
 
 Sitemap: https://www.usetoolnest.com/sitemap.xml
 
 User-agent: Googlebot
 Allow: /
+Disallow: /pages/
 
 User-agent: Bingbot
 Allow: /
