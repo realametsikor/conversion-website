@@ -343,8 +343,13 @@ html.dark .header {
 .tool-layout {
     display: grid;
     grid-template-columns: 3fr 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
     margin-top: 1rem;
+    animation: toolFadeIn 0.4s ease-out;
+}
+@keyframes toolFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 .tool-layout > div > h1 {
     background: linear-gradient(135deg, var(--primary) 0%, #7c3aed 100%);
@@ -352,6 +357,7 @@ html.dark .header {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     letter-spacing: -0.02em;
+    font-size: 2.25rem;
 }
 .tool-layout > div > h1 + p {
     font-size: 1.05rem;
@@ -364,12 +370,16 @@ html.dark .header {
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 3rem 2rem;
+    padding: 2.5rem 2rem;
     text-align: center;
     min-height: 250px;
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 4px 24px -4px rgba(0,0,0,0.08);
     position: relative;
     overflow: hidden;
+    transition: box-shadow 0.3s;
+}
+.tool-workspace:hover {
+    box-shadow: 0 8px 32px -4px rgba(0,0,0,0.12);
 }
 .tool-workspace::before {
     content: "";
@@ -380,6 +390,11 @@ html.dark .header {
     height: 4px;
     background: linear-gradient(90deg, var(--primary) 0%, #7c3aed 50%, var(--accent) 100%);
     border-radius: var(--radius) var(--radius) 0 0;
+}
+.tool-workspace h3 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-main);
 }
 .tool-sidebar {
     position: sticky;
@@ -395,17 +410,19 @@ html.dark .header {
     align-items: center;
     flex-wrap: wrap;
     gap: 0.4rem;
-    padding: 0.6rem 1rem;
+    padding: 0.5rem 1rem;
     background: var(--card-bg);
     border: 1px solid var(--border);
     border-radius: 99px;
     width: fit-content;
+    box-shadow: var(--shadow-sm);
 }
 .breadcrumb a {
     color: var(--text-muted);
-    padding: 0.15rem 0.5rem;
+    padding: 0.2rem 0.6rem;
     border-radius: 99px;
     transition: background 0.2s, color 0.2s;
+    font-weight: 500;
 }
 .breadcrumb a:hover { color: var(--primary); background: var(--primary-light); }
 
@@ -413,39 +430,78 @@ html.dark .header {
 .faq-item {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius);
     padding: 1.25rem 1.5rem;
     margin-bottom: 0.75rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    position: relative;
+}
+.faq-item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--primary), #7c3aed);
+    border-radius: var(--radius) 0 0 var(--radius);
+    opacity: 0;
+    transition: opacity 0.25s;
 }
 .faq-item:hover {
     border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.06);
+    box-shadow: 0 4px 16px -4px rgba(37,99,235,0.1);
+    transform: translateX(4px);
 }
-.faq-item h3 { font-size: 1rem; margin-bottom: 0.5rem; }
-.faq-item p { font-size: 0.9rem; margin: 0; }
+.faq-item:hover::before {
+    opacity: 1;
+}
+.faq-item h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.faq-item h3::before {
+    content: "?";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+.faq-item p { font-size: 0.9rem; margin: 0; line-height: 1.7; padding-left: 2.1rem; }
 
 /* Related tools */
 .related-tools { margin-top: 2rem; }
 .related-tools h3 {
     margin-bottom: 1rem;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     color: var(--text-muted);
+    font-weight: 700;
 }
 .related-link {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 1rem;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     margin-bottom: 0.5rem;
     color: var(--text-main);
-    font-size: 0.9rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    transition: all 0.2s;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--card-bg);
 }
 .related-link::before {
     content: "\2192";
@@ -460,6 +516,7 @@ html.dark .header {
     color: var(--primary);
     border-color: var(--primary);
     transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(37,99,235,0.1);
 }
 .related-link:hover::before {
     opacity: 1;
@@ -781,7 +838,9 @@ textarea.form-input { min-height: 120px; resize: vertical; }
 .tool-layout section h2 {
     position: relative;
     padding-bottom: 0.75rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    letter-spacing: -0.01em;
 }
 .tool-layout section h2::after {
     content: "";
@@ -806,38 +865,45 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     display: flex;
     align-items: flex-start;
     gap: 1rem;
-    padding: 0.85rem 0;
+    padding: 1rem 0;
     border-bottom: 1px solid var(--border);
     line-height: 1.7;
     color: var(--text-muted);
     font-size: 0.95rem;
+    transition: padding-left 0.2s;
+}
+.tool-layout section ol li:hover {
+    padding-left: 0.5rem;
 }
 .tool-layout section ol li:last-child { border-bottom: none; }
 .tool-layout section ol li::before {
     content: counter(step-counter);
     flex-shrink: 0;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
-    background: var(--primary-light);
-    color: var(--primary);
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    color: white;
     font-weight: 700;
     font-size: 0.85rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 0.1rem;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.2);
 }
 
 /* Tool page result cards (inside tool-workspace) */
 .tool-workspace .card {
     border: 1px solid var(--border);
     box-shadow: none;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    border-radius: var(--radius);
 }
 .tool-workspace .card:hover {
     transform: none;
     box-shadow: var(--shadow-sm);
+    border-color: rgba(37,99,235,0.2);
 }
 
 /* Tool page sidebar polish */
@@ -847,15 +913,77 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     border-radius: var(--radius);
     padding: 1.5rem;
     height: fit-content;
+    box-shadow: var(--shadow-sm);
 }
 
 /* Trust badges / privacy note in tool pages */
 .tool-layout .tool-workspace h3 {
     color: var(--text-main);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
 }
 .tool-layout .tool-workspace > .text-muted {
     font-size: 0.9rem;
+}
+
+/* Tables within tool pages */
+.tool-layout table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.95rem;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+.tool-layout table thead tr {
+    background: linear-gradient(135deg, var(--primary), #7c3aed);
+    color: white;
+}
+.tool-layout table th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+.tool-layout table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+.tool-layout table tbody tr {
+    transition: background 0.15s;
+}
+.tool-layout table tbody tr:hover {
+    background: var(--primary-light);
+}
+.tool-layout table tbody tr:last-child td {
+    border-bottom: none;
+}
+.tool-layout table tbody tr:nth-child(even) {
+    background: var(--bg-color);
+}
+.tool-layout table tbody tr:nth-child(even):hover {
+    background: var(--primary-light);
+}
+
+/* Tool page section wrapper */
+.tool-layout section {
+    padding: 1.5rem 0;
+}
+
+/* Form enhancements for tool pages */
+.tool-workspace .form-input {
+    border-radius: var(--radius-sm);
+    transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+.tool-workspace .form-input:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.1), 0 0 0 3px rgba(37,99,235,0.08);
+}
+.tool-workspace .btn {
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tool-workspace .btn:active {
+    transform: translateY(1px);
 }
 
 /* =========================================
@@ -913,8 +1041,13 @@ textarea.form-input { min-height: 120px; resize: vertical; }
     .footer-grid { grid-template-columns: 1fr; }
     .hero-search { flex-direction: column; }
     .tool-workspace { padding: 2rem 1rem; }
+    .tool-layout > div > h1 { font-size: 1.75rem; }
     .tool-layout section ol li { font-size: 0.9rem; gap: 0.75rem; }
     .tool-layout section ol li::before { width: 28px; height: 28px; font-size: 0.8rem; }
+    .tool-layout section ol li:hover { padding-left: 0; }
+    .faq-item h3::before { display: none; }
+    .faq-item p { padding-left: 0; }
+    .faq-item:hover { transform: none; }
     .ad-container { margin: 20px 0; }
     .desktop-ad { display: none !important; }
     .mobile-ad { display: flex !important; justify-content: center; margin: 1.5rem 0; overflow: hidden; }
