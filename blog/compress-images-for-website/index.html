@@ -17,6 +17,7 @@
     <meta name="twitter:title" content="How to Compress Images for Your Website — A Complete Guide | ToolsNest Blog">
     <meta name="twitter:description" content="Learn how to optimize and compress images for faster website load times. Covers image formats, compression tools, and best practices for web performance.">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/blog-enhanced.css">
     <style>
         .blog-post { max-width: 800px; margin: 0 auto; }
         .blog-post h1 { font-size: 2.25rem; margin-bottom: 0.75rem; }
@@ -54,6 +55,29 @@
           "position": 3,
           "name": "How to Compress Images for Your Website — A Complete Guide Blog"
         }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "How to Compress Images for Your Website — A Complete Guide | ToolsNest Blog",
+      "description": "Learn how to optimize and compress images for faster website load times. Covers image formats, compression tools, and best practices for web performance.",
+      "author": { "@type": "Organization", "name": "ToolsNest" },
+      "publisher": { "@type": "Organization", "name": "ToolsNest", "url": "https://www.usetoolnest.com" },
+      "datePublished": "2026-03-02",
+      "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.usetoolnest.com/blog/compress-images-for-website" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "How small should web images be?", "acceptedAnswer": { "@type": "Answer", "text": "As a general rule, aim for under 200 KB for hero images and under 100 KB for content images. Thumbnails should be under 30 KB. These targets ensure fast loading even on mobile connections." } },
+        { "@type": "Question", "name": "Does image compression hurt SEO?", "acceptedAnswer": { "@type": "Answer", "text": "No — the opposite. Compressed images load faster, which improves page speed, user experience, and Core Web Vitals — all factors Google uses for ranking. Just make sure the compressed images still look good to human visitors." } },
+        { "@type": "Question", "name": "Should I use WebP for all images?", "acceptedAnswer": { "@type": "Answer", "text": "WebP is an excellent choice for most web images. It offers better compression than JPEG and PNG while supporting transparency. All modern browsers support it. Consider providing JPEG/PNG fallbacks only if you need to support very old browsers." } }
       ]
     }
     </script>
@@ -166,15 +190,20 @@
                     </ul>
 
                     <h2>Frequently Asked Questions</h2>
-
-                    <h3>How small should web images be?</h3>
-                    <p>As a general rule, aim for under 200 KB for hero images and under 100 KB for content images. Thumbnails should be under 30 KB. These targets ensure fast loading even on mobile connections.</p>
-
-                    <h3>Does image compression hurt SEO?</h3>
-                    <p>No — the opposite. Compressed images load faster, which improves page speed, user experience, and Core Web Vitals — all factors Google uses for ranking. Just make sure the compressed images still look good to human visitors.</p>
-
-                    <h3>Should I use WebP for all images?</h3>
-                    <p>WebP is an excellent choice for most web images. It offers better compression than JPEG and PNG while supporting transparency. All modern browsers support it. Consider providing JPEG/PNG fallbacks only if you need to support very old browsers.</p>
+<div class="blog-faq">
+  <div class="blog-faq-item">
+    <button class="blog-faq-q">How small should web images be?<span class="chevron">▾</span></button>
+    <div class="blog-faq-a">As a general rule, aim for under 200 KB for hero images and under 100 KB for content images. Thumbnails should be under 30 KB. These targets ensure fast loading even on mobile connections.</div>
+  </div>
+  <div class="blog-faq-item">
+    <button class="blog-faq-q">Does image compression hurt SEO?<span class="chevron">▾</span></button>
+    <div class="blog-faq-a">No — the opposite. Compressed images load faster, which improves page speed, user experience, and Core Web Vitals — all factors Google uses for ranking. Just make sure the compressed images still look good to human visitors.</div>
+  </div>
+  <div class="blog-faq-item">
+    <button class="blog-faq-q">Should I use WebP for all images?<span class="chevron">▾</span></button>
+    <div class="blog-faq-a">WebP is an excellent choice for most web images. It offers better compression than JPEG and PNG while supporting transparency. All modern browsers support it. Consider providing JPEG/PNG fallbacks only if you need to support very old browsers.</div>
+  </div>
+</div>
 
                     <h2>Conclusion</h2>
 
@@ -192,6 +221,7 @@
     </main>
 
     <script src="/components/footer.js"></script>
+    <script src="/js/blog-faq.js"></script>
     <script defer src="/js/app.js"></script>
     <script src="/js/main.js"></script>
     <script async src="/components/ads.js"></script>
