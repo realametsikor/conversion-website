@@ -1,211 +1,739 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="robots" content="index, follow">
-    <title>Loan Calculator - Monthly Payment & Interest Calculator | ToolsNest</title>
-    <meta name="description" content="Calculate monthly loan payments, total interest, and total cost instantly. Works for mortgages, auto loans, personal loans, and student loans.">
+    <title>Loan Calculator - Monthly Payment & Interest Calculator Free | ToolsNest</title>
+    <meta name="description" content="Calculate monthly loan payments, total interest, and total cost instantly. Works for mortgages, auto loans, personal loans, and student loans. Free, accurate, private.">
     <link rel="canonical" href="https://www.usetoolnest.com/calculators/loan-calculator/">
 
-    <meta property="og:title" content="Loan Calculator - Monthly Payment & Interest Calculator | ToolsNest">
-    <meta property="og:description" content="Calculate monthly loan payments, total interest, and total cost instantly. Works for mortgages, auto loans, personal loans, and student loans.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.usetoolnest.com/calculators/loan-calculator/">
-    <meta property="og:site_name" content="ToolsNest">
-    <meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Loan Calculator - Monthly Payment & Interest Calculator | ToolsNest">
-    <meta name="twitter:description" content="Calculate monthly loan payments, total interest, and total cost instantly. Works for mortgages, auto loans, personal loans, and student loans.">
-    <link rel="stylesheet" href="/css/style.css">
-    <script type="application/ld+json">
+<meta property="og:title" content="Loan Calculator - Monthly Payment & Interest Free | ToolsNest">
+<meta property="og:description" content="Estimate monthly payments, total interest and total cost for any loan. Works for mortgages, auto, personal, and student loans. Free and private.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.usetoolnest.com/calculators/loan-calculator/">
+<meta property="og:site_name" content="ToolsNest">
+<meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Loan Calculator Free | ToolsNest">
+<meta name="twitter:description" content="Calculate monthly loan payments and total interest instantly. Free, accurate, private.">
+
+<link rel="stylesheet" href="/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.usetoolnest.com" },
+    { "@type": "ListItem", "position": 2, "name": "Calculators", "item": "https://www.usetoolnest.com/calculators" },
+    { "@type": "ListItem", "position": 3, "name": "Loan Calculator" }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Loan Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free online loan calculator. Estimate monthly payments, total interest, and total cost for mortgages, auto loans, personal loans, and student loans.",
+  "url": "https://www.usetoolnest.com/calculators/loan-calculator"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
     {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://www.usetoolnest.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Calculators",
-          "item": "https://www.usetoolnest.com/calculators"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Loan Calculator - Monthly Payment & Interest Calculator"
-        }
-      ]
+      "@type": "Question",
+      "name": "What formula does this loan calculator use?",
+      "acceptedAnswer": { "@type": "Answer", "text": "This calculator uses the standard amortisation formula: M = P[r(1+r)^n] / [(1+r)^n - 1], where M is the monthly payment, P is the principal loan amount, r is the monthly interest rate, and n is the total number of monthly payments." }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this include taxes and insurance?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. This calculator computes principal and interest only. Your actual monthly payment may be higher when property taxes, homeowner's insurance, and PMI are included for mortgage loans." }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this for different types of loans?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. This calculator works for mortgages, auto loans, personal loans, student loans, and any other fixed-rate amortising loan where payments are equal each month." }
+    },
+    {
+      "@type": "Question",
+      "name": "How does interest rate affect my monthly payment?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Even small differences in interest rate have a big impact. On a $200,000 30-year mortgage, the difference between 5% and 7% interest adds over $250 to your monthly payment and tens of thousands of dollars in total interest paid." }
+    },
+    {
+      "@type": "Question",
+      "name": "Is my financial data private?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes. All calculations happen entirely in your browser. No data is sent to any server. Your loan amounts, income details, and financial figures never leave your device." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is amortisation?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Amortisation is the process of paying off a loan through regular equal payments over time. Each payment covers both interest and a portion of the principal. Early payments are mostly interest; later payments are mostly principal." }
     }
-    </script>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#2563EB">
+  ]
+}
+</script>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#2563EB">
+
+<style>
+    :root {
+        --accent: #7c3aed;
+        --accent-light: #ede9fe;
+        --accent-dark: #4c1d95;
+        --green: #16a34a;
+        --green-light: #dcfce7;
+        --amber: #d97706;
+        --amber-light: #fef3c7;
+        --red: #dc2626;
+        --red-light: #fee2e2;
+        --blue: #2563eb;
+        --blue-light: #eff6ff;
+        --ink: #1a1a2e;
+        --muted: #5a5a72;
+        --body: #374151;
+        --border: #e2e8f0;
+        --surface: #f8fafc;
+        --white: #ffffff;
+    }
+
+    .lc-section { margin: 3rem 0; }
+    .lc-section h2 {
+        font-size: clamp(1.25rem, 2.5vw, 1.6rem);
+        font-weight: 700; color: var(--ink);
+        margin-bottom: 1rem; padding-bottom: 0.5rem;
+        border-bottom: 3px solid var(--accent-light);
+    }
+    .lc-section p { font-size: 1rem; line-height: 1.85; color: var(--body); margin-bottom: 1rem; }
+
+    /* Stats */
+    .lc-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem; margin: 1.5rem 0 2rem;
+    }
+    .lc-stat {
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.1rem 1rem; text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .lc-stat-number { font-size: 1.8rem; font-weight: 800; color: var(--accent); line-height: 1; margin-bottom: 0.3rem; }
+    .lc-stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; line-height: 1.3; }
+
+    /* Callouts */
+    .lc-callout {
+        background: var(--accent-light); border-left: 4px solid var(--accent);
+        border-radius: 8px; padding: 1rem 1.25rem; margin: 1.25rem 0;
+        font-size: 0.95rem; color: var(--accent-dark); line-height: 1.7;
+    }
+    .lc-callout strong { font-weight: 600; }
+    .lc-callout-amber {
+        background: var(--amber-light); border-left: 4px solid var(--amber);
+        border-radius: 8px; padding: 1rem 1.25rem; margin: 1.25rem 0;
+        font-size: 0.95rem; color: #78350f; line-height: 1.7;
+    }
+    .lc-callout-green {
+        background: var(--green-light); border-left: 4px solid var(--green);
+        border-radius: 8px; padding: 1rem 1.25rem; margin: 1.25rem 0;
+        font-size: 0.95rem; color: #14532d; line-height: 1.7;
+    }
+
+    /* Steps */
+    .lc-steps { margin: 1.25rem 0; }
+    .lc-step {
+        display: flex; gap: 1rem; align-items: flex-start;
+        padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .lc-step:last-child { border-bottom: none; }
+    .lc-step-num {
+        width: 36px; height: 36px; border-radius: 50%;
+        background: var(--accent); color: var(--white);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.9rem; font-weight: 800; flex-shrink: 0;
+    }
+    .lc-step-content h3 { font-size: 0.97rem; font-weight: 700; color: var(--ink); margin-bottom: 0.3rem; }
+    .lc-step-content p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.55; }
+
+    /* Loan type cards */
+    .lc-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1rem; margin: 1.25rem 0;
+    }
+    .lc-card {
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.2rem;
+        transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+        position: relative; overflow: hidden;
+    }
+    .lc-card::before {
+        content: ''; position: absolute;
+        top: 0; left: 0; right: 0; height: 3px;
+        background: var(--accent); opacity: 0; transition: opacity 0.2s;
+    }
+    .lc-card:hover { box-shadow: 0 6px 20px rgba(124,58,237,0.1); transform: translateY(-3px); border-color: #c4b5fd; }
+    .lc-card:hover::before { opacity: 1; }
+    .lc-card-icon { font-size: 1.6rem; margin-bottom: 0.5rem; }
+    .lc-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--ink); }
+    .lc-card p { font-size: 0.84rem; color: var(--muted); line-height: 1.55; margin: 0 0 0.5rem; }
+    .lc-card-rate { font-size: 0.78rem; font-weight: 600; color: var(--accent); }
+
+    /* Formula box */
+    .lc-formula {
+        background: var(--ink); color: var(--white);
+        border-radius: 12px; padding: 1.5rem; margin: 1.25rem 0;
+    }
+    .lc-formula-title {
+        font-size: 0.78rem; text-transform: uppercase;
+        letter-spacing: 0.05em; color: #94a3b8;
+        margin-bottom: 0.75rem; font-weight: 600;
+    }
+    .lc-formula-eq { font-size: 1rem; color: #c4b5fd; font-family: monospace; margin-bottom: 0.5rem; line-height: 1.6; }
+    .lc-formula-note { font-size: 0.8rem; color: #94a3b8; margin-top: 0.75rem; line-height: 1.6; }
+
+    /* Comparison table */
+    .lc-table-wrap { overflow-x: auto; margin: 1.25rem 0; border-radius: 10px; border: 1px solid var(--border); }
+    .lc-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    .lc-table thead tr { background: var(--ink); color: var(--white); }
+    .lc-table th { padding: 0.8rem 1rem; text-align: left; font-weight: 600; }
+    .lc-table td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); line-height: 1.6; vertical-align: top; }
+    .lc-table tr:nth-child(even) td { background: var(--surface); }
+    .lc-table tr:last-child td { border-bottom: none; }
+    .badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.73rem; font-weight: 600; }
+    .badge-green { background: var(--green-light); color: var(--green); }
+    .badge-amber { background: var(--amber-light); color: var(--amber); }
+    .badge-red   { background: var(--red-light); color: var(--red); }
+    .badge-purple { background: var(--accent-light); color: var(--accent); }
+
+    /* Tips */
+    .lc-tips { list-style: none; padding: 0; margin: 1rem 0; }
+    .lc-tips li {
+        display: flex; gap: 0.75rem; align-items: flex-start;
+        padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+        font-size: 0.95rem; line-height: 1.65; color: var(--body);
+    }
+    .lc-tips li:last-child { border-bottom: none; }
+    .lc-tip-icon {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: var(--green); color: var(--white);
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.75rem; font-weight: 700; flex-shrink: 0; margin-top: 1px;
+    }
+
+    /* Blog links */
+    .lc-blog-link {
+        display: flex; align-items: center; gap: 1rem;
+        background: var(--white); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1rem 1.25rem;
+        text-decoration: none; color: var(--ink);
+        transition: box-shadow 0.2s, border-color 0.2s; margin: 0.6rem 0;
+    }
+    .lc-blog-link:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.08); border-color: #c4b5fd; }
+    .lc-blog-link-icon { font-size: 1.5rem; flex-shrink: 0; }
+    .lc-blog-link-text h4 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .lc-blog-link-text p { font-size: 0.82rem; color: var(--muted); margin: 0; }
+    .lc-blog-link-arrow { margin-left: auto; color: var(--accent); font-size: 1.1rem; flex-shrink: 0; }
+
+    /* FAQ */
+    .lc-faq { margin: 1rem 0; }
+    .lc-faq details { border: 1px solid var(--border); border-radius: 10px; margin-bottom: 0.6rem; overflow: hidden; }
+    .lc-faq details[open] { border-color: var(--accent); }
+    .lc-faq summary {
+        padding: 1rem 1.2rem; font-weight: 600; font-size: 0.96rem;
+        cursor: pointer; list-style: none;
+        display: flex; justify-content: space-between; align-items: center;
+        background: var(--white); color: var(--ink); user-select: none;
+    }
+    .lc-faq details[open] summary { background: var(--accent-light); }
+    .lc-faq summary::-webkit-details-marker { display: none; }
+    .lc-faq summary::after { content: "+"; font-size: 1.3rem; color: var(--accent); transition: transform 0.2s; flex-shrink: 0; margin-left: 0.5rem; }
+    .lc-faq details[open] summary::after { transform: rotate(45deg); }
+    .lc-faq .faq-body { padding: 0.75rem 1.2rem 1rem; font-size: 0.93rem; line-height: 1.8; color: var(--body); background: var(--white); }
+    .lc-faq .faq-body a { color: var(--blue); text-decoration: underline; }
+
+    /* CTA */
+    .lc-cta {
+        background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
+        border-radius: 14px; padding: 2rem 1.5rem;
+        text-align: center; margin: 2rem 0; color: var(--white);
+    }
+    .lc-cta h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .lc-cta p { font-size: 0.92rem; opacity: 0.9; margin-bottom: 1.25rem; }
+    .lc-cta a {
+        display: inline-block; background: var(--white); color: var(--accent);
+        padding: 0.7rem 1.75rem; border-radius: 8px;
+        font-weight: 700; font-size: 0.95rem; text-decoration: none;
+        transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .lc-cta a:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+
+    /* Related pills */
+    .lc-related { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1rem 0; }
+    .lc-related a {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.5rem 1rem; background: var(--surface);
+        border: 1px solid var(--border); border-radius: 999px;
+        font-size: 0.875rem; font-weight: 500; color: var(--ink);
+        text-decoration: none; transition: all 0.15s;
+    }
+    .lc-related a:hover { background: var(--accent-light); border-color: var(--accent); color: var(--accent); }
+
+    /* Disclaimer */
+    .lc-disclaimer {
+        background: var(--surface); border: 1px solid var(--border);
+        border-radius: 8px; padding: 1rem 1.25rem;
+        font-size: 0.84rem; color: var(--muted); line-height: 1.65; margin: 1.5rem 0;
+    }
+    .lc-disclaimer strong { color: var(--ink); }
+</style>
+
 </head>
+
 <body data-social-bar>
-<noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
-    <script src="/components/header.js"></script>
+<noscript>
+    <nav aria-label="Site navigation">
+        <ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap">
+            <li><a href="/">Home</a></li>
+            <li><a href="/file-tools">File Tools</a></li>
+            <li><a href="/image-tools">Image Tools</a></li>
+            <li><a href="/calculators">Calculators</a></li>
+            <li><a href="/ai-tools">AI Tools</a></li>
+            <li><a href="/student-tools">Student Tools</a></li>
+            <li><a href="/all-tools">All Tools</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+    </nav>
+</noscript>
 
-    <main class="container">
-        <nav class="breadcrumb mt-3">
-            <a href="/">Home</a> &gt; <a href="/calculators">Calculators</a> &gt; Loan Calculator
-        </nav>
+<script src="/components/header.js"></script>
 
-        <div class="tool-layout">
-            <div>
-                <h1 class="text-center mb-2">Loan Calculator</h1>
-                <p class="text-center mb-3">Estimate your monthly payments, total interest, and total cost for any loan.</p>
+<main>
+    <section class="section">
+        <div class="container">
 
-                <div class="tool-workspace" style="text-align: left; padding: 2rem;">
-                    <form id="loan-form">
-                        <div class="form-group">
-                            <label for="loan-amount">Loan Amount ($)</label>
-                            <input type="number" id="loan-amount" class="form-input" placeholder="e.g., 250000" min="1" step="any" required>
+            <!-- Breadcrumb -->
+            <nav aria-label="Breadcrumb" style="font-size:0.85rem;color:#5a5a72;margin-bottom:1rem;">
+                <a href="/" style="color:#2563eb;text-decoration:none;">Home</a> &rsaquo;
+                <a href="/calculators" style="color:#2563eb;text-decoration:none;">Calculators</a> &rsaquo;
+                Loan Calculator
+            </nav>
+
+            <div class="ad-placeholder ad-banner-top ad-native">Ad Banner</div>
+
+            <!-- HERO -->
+            <h1 style="font-size:clamp(1.7rem,4vw,2.3rem);font-weight:800;color:#1a1a2e;margin:1rem 0 0.5rem;line-height:1.2;">
+                Loan Calculator — Monthly Payment &amp; Interest
+            </h1>
+            <p style="font-size:1.05rem;color:#374151;margin-bottom:1.25rem;line-height:1.75;max-width:680px;">
+                Estimate your monthly payments, total interest, and total loan cost
+                instantly. Works for mortgages, auto loans, personal loans, and student
+                loans. Free, accurate, and completely private.
+            </p>
+
+            <!-- Stats -->
+            <div class="lc-stats">
+                <div class="lc-stat">
+                    <div class="lc-stat-number">4</div>
+                    <div class="lc-stat-label">Loan types supported</div>
+                </div>
+                <div class="lc-stat">
+                    <div class="lc-stat-number">AMZ</div>
+                    <div class="lc-stat-label">Standard amortisation formula</div>
+                </div>
+                <div class="lc-stat">
+                    <div class="lc-stat-number">0</div>
+                    <div class="lc-stat-label">Data sent to servers</div>
+                </div>
+                <div class="lc-stat">
+                    <div class="lc-stat-number">Free</div>
+                    <div class="lc-stat-label">No account needed</div>
+                </div>
+            </div>
+
+            <!-- ══ TOOL WIDGET — replace with your actual widget ══ -->
+            <div id="tool-widget" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:14px;padding:2rem;margin-bottom:2rem;">
+                <div style="display:grid;gap:1rem;margin-bottom:1.25rem;">
+                    <div>
+                        <label style="display:block;font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Loan Amount ($)</label>
+                        <input type="number" placeholder="e.g. 200000" style="width:100%;padding:0.65rem 0.9rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.95rem;">
+                    </div>
+                    <div>
+                        <label style="display:block;font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Annual Interest Rate (%)</label>
+                        <input type="number" placeholder="e.g. 6.5" step="0.1" style="width:100%;padding:0.65rem 0.9rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.95rem;">
+                    </div>
+                    <div>
+                        <label style="display:block;font-weight:600;font-size:0.9rem;margin-bottom:0.4rem;">Loan Term (Years)</label>
+                        <input type="number" placeholder="e.g. 30" style="width:100%;padding:0.65rem 0.9rem;border:1px solid #cbd5e1;border-radius:8px;font-size:0.95rem;">
+                    </div>
+                </div>
+                <button style="background:#7c3aed;color:#fff;padding:0.75rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;width:100%;">
+                    Calculate
+                </button>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1.25rem;">
+                    <div style="text-align:center;padding:1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;">
+                        <div style="font-size:0.75rem;color:#5a5a72;margin-bottom:0.3rem;">Monthly Payment</div>
+                        <div style="font-size:1.4rem;font-weight:800;color:#7c3aed;">--</div>
+                    </div>
+                    <div style="text-align:center;padding:1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;">
+                        <div style="font-size:0.75rem;color:#5a5a72;margin-bottom:0.3rem;">Total Interest</div>
+                        <div style="font-size:1.4rem;font-weight:800;color:#dc2626;">--</div>
+                    </div>
+                    <div style="text-align:center;padding:1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;">
+                        <div style="font-size:0.75rem;color:#5a5a72;margin-bottom:0.3rem;">Total Payment</div>
+                        <div style="font-size:1.4rem;font-weight:800;color:#1a1a2e;">--</div>
+                    </div>
+                </div>
+            </div>
+            <!-- ══ END TOOL WIDGET ══ -->
+
+            <!-- How to use -->
+            <div class="lc-section">
+                <h2>⚡ How to Use This Loan Calculator</h2>
+                <div class="lc-steps">
+                    <div class="lc-step">
+                        <div class="lc-step-num">1</div>
+                        <div class="lc-step-content">
+                            <h3>Enter the loan amount</h3>
+                            <p>Type the total amount you plan to borrow. For mortgages this is the purchase price minus your down payment.</p>
                         </div>
-
-                        <div class="form-group">
-                            <label for="interest-rate">Annual Interest Rate (%)</label>
-                            <input type="number" id="interest-rate" class="form-input" placeholder="e.g., 6.5" min="0.01" step="0.01" required>
+                    </div>
+                    <div class="lc-step">
+                        <div class="lc-step-num">2</div>
+                        <div class="lc-step-content">
+                            <h3>Enter the annual interest rate</h3>
+                            <p>Enter the interest rate as a percentage — for example, type 6.5 for a 6.5% rate. Check your loan offer letter for this figure.</p>
                         </div>
-
-                        <div class="form-group">
-                            <label for="loan-term">Loan Term (Years)</label>
-                            <input type="number" id="loan-term" class="form-input" placeholder="e.g., 30" min="1" step="1" required>
+                    </div>
+                    <div class="lc-step">
+                        <div class="lc-step-num">3</div>
+                        <div class="lc-step-content">
+                            <h3>Enter the loan term in years</h3>
+                            <p>Enter how many years you have to repay the loan. Common terms are 15 or 30 years for mortgages, 3–7 years for auto loans.</p>
                         </div>
-
-                        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">Calculate</button>
-                    </form>
-
-                    <div id="loan-results" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 2px solid var(--border);">
-                        <h3 class="text-center mb-3" style="color: var(--text-main);">Loan Summary</h3>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-                            <div class="card" style="text-align: center;">
-                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Monthly Payment</p>
-                                <strong id="result-monthly" style="font-size: 1.5rem; color: var(--primary); display: block;">--</strong>
-                            </div>
-                            <div class="card" style="text-align: center;">
-                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Interest</p>
-                                <strong id="result-interest" style="font-size: 1.5rem; color: var(--accent); display: block;">--</strong>
-                            </div>
-                            <div class="card" style="text-align: center;">
-                                <p class="text-muted mb-1" style="font-size: 0.85rem;">Total Payment</p>
-                                <strong id="result-total" style="font-size: 1.5rem; color: var(--text-main); display: block;">--</strong>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 1.5rem; background: var(--bg-color); padding: 1rem; border-radius: var(--radius-sm);">
-                            <p style="margin: 0; font-size: 0.9rem; color: var(--text-main);">
-                                <strong>Breakdown:</strong>
-                                <span id="result-summary" class="text-muted"></span>
-                            </p>
+                    </div>
+                    <div class="lc-step">
+                        <div class="lc-step-num">4</div>
+                        <div class="lc-step-content">
+                            <h3>Click Calculate</h3>
+                            <p>Your monthly payment, total interest paid, and total repayment cost appear instantly. Adjust the inputs to compare different scenarios.</p>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
 
-                <section class="mb-4">
-                    <h2 class="mb-2">How to Use</h2>
-                    <ol style="margin-left: 1.5rem; line-height: 2;">
-                        <li>Enter the total loan amount you plan to borrow in dollars.</li>
-                        <li>Enter the annual interest rate as a percentage (e.g., 6.5 for 6.5%).</li>
-                        <li>Enter the loan term in years (e.g., 30 for a 30-year mortgage).</li>
-                        <li>Click "Calculate" to see your estimated monthly payment, total interest, and total payment.</li>
-                    </ol>
-                </section>
+            <!-- What is a loan calculator -->
+            <div class="lc-section">
+                <h2>💰 What Is a Loan Calculator?</h2>
+                <p>A loan calculator uses the standard amortisation formula to estimate how much you will pay each month on a fixed-rate loan, how much of that goes to interest, and what the loan will cost you in total over its lifetime.</p>
+                <p>Understanding these numbers before taking out a loan is one of the most important financial decisions you can make. A $200,000 loan at 5% interest over 30 years costs $186,511 in interest alone — nearly as much again as the original loan. Knowing this upfront lets you compare lenders, negotiate better terms, and decide whether to take a shorter loan term.</p>
 
-                <section class="mb-4">
-                    <h2 class="mb-2">Frequently Asked Questions</h2>
-                    <div class="faq-item">
-                        <h3>What formula does this calculator use?</h3>
-                        <p>This calculator uses the standard amortization formula: M = P[r(1+r)^n] / [(1+r)^n - 1], where M is the monthly payment, P is the principal, r is the monthly interest rate, and n is the total number of payments.</p>
+                <div class="lc-formula">
+                    <div class="lc-formula-title">Standard Amortisation Formula</div>
+                    <div class="lc-formula-eq">M = P × [r(1+r)^n] ÷ [(1+r)^n - 1]</div>
+                    <div class="lc-formula-note">
+                        M = Monthly payment &nbsp;|&nbsp; P = Principal loan amount<br>
+                        r = Monthly interest rate (annual rate ÷ 12)<br>
+                        n = Total number of monthly payments (years × 12)<br><br>
+                        Example: $200,000 loan at 6% for 30 years → r = 0.005, n = 360 → M = $1,199/month
                     </div>
-                    <div class="faq-item">
-                        <h3>Does this include taxes and insurance?</h3>
-                        <p>No. This calculator computes principal and interest only. Your actual monthly payment may be higher when property taxes, homeowner's insurance, and PMI are included.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Can I use this for different types of loans?</h3>
-                        <p>Yes. This calculator works for mortgages, auto loans, personal loans, student loans, and any other fixed-rate amortizing loan.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>What if my interest rate is 0%?</h3>
-                        <p>If the interest rate is 0%, the calculator will simply divide the loan amount by the total number of months to determine the monthly payment, with zero total interest.</p>
-                    </div>
-                </section>
-
-                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
-            
-                        <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div></div>
-
-            <aside>
-                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
-                <div class="related-tools">
-                    <h3>Related Tools</h3>
-                    <a href="/calculators/gpa-calculator" class="related-link">GPA Calculator</a>
-                    <a href="/student-tools" class="related-link">Student Tools</a>
-                    <a href="/all-tools" class="related-link">See All Tools</a>
                 </div>
-                        <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
-                    </aside>
+
+                <div class="lc-callout">
+                    <strong>Privacy note:</strong> All calculations happen entirely in your browser. Your loan amounts, interest rates, and financial figures are never sent to any server or stored anywhere.
+                </div>
+            </div>
+
+            <!-- Loan types -->
+            <div class="lc-section">
+                <h2>🏦 Loan Types This Calculator Supports</h2>
+                <div class="lc-cards">
+                    <div class="lc-card">
+                        <div class="lc-card-icon">🏠</div>
+                        <h3>Mortgage Loans</h3>
+                        <p>Calculate payments on home purchase or refinance loans. Compare 15-year vs 30-year terms to see the total interest difference.</p>
+                        <div class="lc-card-rate">Typical rate: 6–8% (2024–2026)</div>
+                    </div>
+                    <div class="lc-card">
+                        <div class="lc-card-icon">🚗</div>
+                        <h3>Auto Loans</h3>
+                        <p>Estimate monthly car payments before visiting a dealership. Know your budget before negotiations begin.</p>
+                        <div class="lc-card-rate">Typical rate: 5–12%</div>
+                    </div>
+                    <div class="lc-card">
+                        <div class="lc-card-icon">👤</div>
+                        <h3>Personal Loans</h3>
+                        <p>Calculate repayments for debt consolidation, home improvements, medical bills, or any unsecured personal loan.</p>
+                        <div class="lc-card-rate">Typical rate: 8–36%</div>
+                    </div>
+                    <div class="lc-card">
+                        <div class="lc-card-icon">🎓</div>
+                        <h3>Student Loans</h3>
+                        <p>Estimate monthly repayments on education loans. See how extending your term reduces monthly payments but increases total interest.</p>
+                        <div class="lc-card-rate">Typical rate: 4–8%</div>
+                    </div>
+                    <div class="lc-card">
+                        <div class="lc-card-icon">🏢</div>
+                        <h3>Business Loans</h3>
+                        <p>Plan cash flow around business financing. Calculate whether a loan will generate enough return to justify the interest cost.</p>
+                        <div class="lc-card-rate">Typical rate: 6–30%</div>
+                    </div>
+                    <div class="lc-card">
+                        <div class="lc-card-icon">🔧</div>
+                        <h3>Home Improvement Loans</h3>
+                        <p>Budget for renovation projects financed through personal loans or HELOCs with predictable monthly payments.</p>
+                        <div class="lc-card-rate">Typical rate: 7–15%</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rate impact table -->
+            <div class="lc-section">
+                <h2>📊 How Interest Rate Affects Your Loan — Real Numbers</h2>
+                <p>Even a 1% difference in interest rate has a dramatic effect on total cost. This table shows the real impact on a $200,000 loan over 30 years:</p>
+                <div class="lc-table-wrap">
+                    <table class="lc-table">
+                        <thead>
+                            <tr>
+                                <th>Interest Rate</th>
+                                <th>Monthly Payment</th>
+                                <th>Total Interest Paid</th>
+                                <th>Total Cost</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>4%</strong></td>
+                                <td>$955</td>
+                                <td>$143,739</td>
+                                <td><span class="badge badge-green">$343,739</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>5%</strong></td>
+                                <td>$1,074</td>
+                                <td>$186,511</td>
+                                <td><span class="badge badge-green">$386,511</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>6%</strong></td>
+                                <td>$1,199</td>
+                                <td>$231,676</td>
+                                <td><span class="badge badge-amber">$431,676</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>7%</strong></td>
+                                <td>$1,331</td>
+                                <td>$279,018</td>
+                                <td><span class="badge badge-amber">$479,018</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>8%</strong></td>
+                                <td>$1,468</td>
+                                <td>$328,310</td>
+                                <td><span class="badge badge-red">$528,310</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>10%</strong></td>
+                                <td>$1,755</td>
+                                <td>$431,730</td>
+                                <td><span class="badge badge-red">$631,730</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="lc-callout-amber">
+                    <strong>Key insight:</strong> Going from 4% to 8% on a $200,000 mortgage more than doubles the total interest paid — from $144K to $328K. This is why securing the lowest possible interest rate before signing is so critical.
+                </div>
+            </div>
+
+            <div class="ad-placeholder ad-between-sections ad-native">Advertisement</div>
+
+            <!-- Loan term comparison -->
+            <div class="lc-section">
+                <h2>⏱️ Shorter vs Longer Loan Terms — Which Is Better?</h2>
+                <div class="lc-table-wrap">
+                    <table class="lc-table">
+                        <thead>
+                            <tr>
+                                <th>Loan Term</th>
+                                <th>Monthly Payment</th>
+                                <th>Total Interest</th>
+                                <th>Best For</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>10 years</strong></td>
+                                <td>Higher</td>
+                                <td><span class="badge badge-green">Lowest</span></td>
+                                <td>Pay off debt fast, minimise interest</td>
+                            </tr>
+                            <tr>
+                                <td><strong>15 years</strong></td>
+                                <td>Moderate</td>
+                                <td><span class="badge badge-green">Low</span></td>
+                                <td>Balance between payment and interest savings</td>
+                            </tr>
+                            <tr>
+                                <td><strong>20 years</strong></td>
+                                <td>Lower</td>
+                                <td><span class="badge badge-amber">Moderate</span></td>
+                                <td>Lower monthly commitment with some savings</td>
+                            </tr>
+                            <tr>
+                                <td><strong>30 years</strong></td>
+                                <td>Lowest</td>
+                                <td><span class="badge badge-red">Highest</span></td>
+                                <td>Maximum monthly affordability, most flexibility</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="lc-callout-green">
+                    <strong>💡 Strategy:</strong> If you can afford a 15-year mortgage payment, the interest savings over a 30-year term are typically $100,000–$200,000 on a standard home loan. Use this calculator to see the exact difference for your loan amount.
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="lc-section">
+                <h2>✅ Tips for Managing Your Loan Effectively</h2>
+                <ul class="lc-tips">
+                    <li>
+                        <div class="lc-tip-icon">1</div>
+                        <div><strong>Shop for the lowest interest rate before committing.</strong> Even 0.5% difference in rate can save thousands over the life of a loan. Get quotes from at least 3 lenders and compare the APR, not just the interest rate.</div>
+                    </li>
+                    <li>
+                        <div class="lc-tip-icon">2</div>
+                        <div><strong>Make extra payments when possible.</strong> Any amount paid above your minimum monthly payment goes directly to reducing your principal — dramatically cutting total interest and shortening your loan term.</div>
+                    </li>
+                    <li>
+                        <div class="lc-tip-icon">3</div>
+                        <div><strong>Understand APR vs interest rate.</strong> The Annual Percentage Rate (APR) includes fees and other costs, making it the true cost of borrowing. Always compare APR — not just the headline interest rate — when evaluating loan offers.</div>
+                    </li>
+                    <li>
+                        <div class="lc-tip-icon">4</div>
+                        <div><strong>Consider a larger down payment.</strong> For mortgages and auto loans, a larger down payment reduces your principal, which directly lowers both your monthly payment and total interest paid.</div>
+                    </li>
+                    <li>
+                        <div class="lc-tip-icon">5</div>
+                        <div><strong>Improve your credit score before applying.</strong> Borrowers with higher credit scores qualify for significantly lower interest rates. Even a 50-point improvement can save thousands over the life of a large loan.</div>
+                    </li>
+                    <li>
+                        <div class="lc-tip-icon">6</div>
+                        <div><strong>Use this calculator to stress-test your budget.</strong> Calculate what your monthly payment would be if rates rise by 1–2%. If the higher payment would strain your budget, consider a smaller loan or longer term as a buffer.</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- CTA -->
+            <div class="lc-cta">
+                <h3>Calculate Your Loan Payments Now</h3>
+                <p>Free, instant, accurate. Your financial data never leaves your device.</p>
+                <a href="#tool-widget">Calculate Now ↑</a>
+            </div>
+
+            <!-- Blog links -->
+            <div class="lc-section">
+                <h2>📖 Learn More</h2>
+                <a href="/blog/student-loan-calculator-guide" class="lc-blog-link">
+                    <div class="lc-blog-link-icon">🎓</div>
+                    <div class="lc-blog-link-text">
+                        <h4>How to Calculate Student Loan Payments</h4>
+                        <p>Understand interest rates, repayment plans, and strategies to pay off student loans faster.</p>
+                    </div>
+                    <div class="lc-blog-link-arrow">→</div>
+                </a>
+                <a href="/blog/retirement-savings-calculator-guide" class="lc-blog-link">
+                    <div class="lc-blog-link-icon">🏦</div>
+                    <div class="lc-blog-link-text">
+                        <h4>How to Calculate Your Retirement Savings Goal</h4>
+                        <p>Use compound interest and savings calculators to plan your financial future.</p>
+                    </div>
+                    <div class="lc-blog-link-arrow">→</div>
+                </a>
+            </div>
+
+            <!-- FAQ -->
+            <div class="lc-section">
+                <h2>❓ Frequently Asked Questions</h2>
+                <div class="lc-faq">
+                    <details>
+                        <summary>What formula does this loan calculator use?</summary>
+                        <div class="faq-body">This calculator uses the standard amortisation formula: M = P × [r(1+r)^n] ÷ [(1+r)^n - 1], where M is the monthly payment, P is the principal loan amount, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments (years multiplied by 12). This is the same formula used by banks and financial institutions worldwide.</div>
+                    </details>
+                    <details>
+                        <summary>Does this include taxes and insurance?</summary>
+                        <div class="faq-body">No. This calculator computes principal and interest only. For mortgage loans, your actual monthly payment will be higher when property taxes, homeowner's insurance, and private mortgage insurance (PMI) are included. Contact your lender for a full payment breakdown including these costs.</div>
+                    </details>
+                    <details>
+                        <summary>Can I use this for different types of loans?</summary>
+                        <div class="faq-body">Yes. This calculator works for any fixed-rate amortising loan — including mortgages, auto loans, personal loans, student loans, and business loans. It assumes equal monthly payments and a fixed interest rate for the entire loan term. It does not account for variable-rate loans where the rate changes over time.</div>
+                    </details>
+                    <details>
+                        <summary>What is amortisation?</summary>
+                        <div class="faq-body">Amortisation is the process of paying off a loan through regular equal monthly payments over time. Each payment covers both the interest owed for that month and a portion of the principal balance. In the early months, most of your payment goes to interest. As the principal decreases, more of each payment goes to the principal — until the loan is paid off.</div>
+                    </details>
+                    <details>
+                        <summary>How does interest rate affect my monthly payment?</summary>
+                        <div class="faq-body">Even small differences in interest rate have a large impact on total cost. On a $200,000 30-year mortgage, the difference between 5% and 7% interest adds about $257 to the monthly payment — and over $92,000 in total interest paid over the life of the loan. Always shop for the lowest rate possible.</div>
+                    </details>
+                    <details>
+                        <summary>Should I choose a 15-year or 30-year mortgage?</summary>
+                        <div class="faq-body">A 15-year mortgage has higher monthly payments but saves significantly on total interest — often $100,000 or more on a standard loan. A 30-year mortgage has lower monthly payments, giving you more monthly cash flow flexibility. Use this calculator to compare both options with your specific loan amount and rate to make the right decision for your budget.</div>
+                    </details>
+                    <details>
+                        <summary>Is my financial data private?</summary>
+                        <div class="faq-body">Yes — completely. All calculations happen entirely in your browser using JavaScript. Your loan amounts, income details, and financial figures are never sent to any server or stored anywhere. When you close the tab, the data is gone.</div>
+                    </details>
+                    <details>
+                        <summary>What if my interest rate is 0%?</summary>
+                        <div class="faq-body">If the interest rate is 0%, the calculator divides the loan amount by the total number of months to calculate the monthly payment, with zero total interest charged. This applies to some promotional financing offers on vehicles and electronics.</div>
+                    </details>
+                </div>
+            </div>
+
+            <!-- Financial disclaimer -->
+            <div class="lc-disclaimer">
+                <strong>Financial Disclaimer:</strong> The loan calculator on ToolsNest is provided for informational and educational purposes only. Results are estimates based on the inputs provided and the standard amortisation formula. They do not constitute financial advice. Actual loan terms, payments, and costs will vary based on your credit score, lender policies, fees, taxes, insurance, and other factors. Always consult a qualified financial advisor or lender before making borrowing decisions.
+            </div>
+
+            <!-- Related tools -->
+            <div class="lc-section">
+                <h2>🔧 Related Calculators</h2>
+                <div class="lc-related">
+                    <a href="/calculators/bmi-calculator">⚖️ BMI Calculator</a>
+                    <a href="/calculators/gpa-calculator">🎓 GPA Calculator</a>
+                    <a href="/calculators/percentage-calculator">% Percentage Calculator</a>
+                    <a href="/calculators/retirement-savings-calculator">🏦 Retirement Calculator</a>
+                    <a href="/calculators">🧮 All Calculators</a>
+                </div>
+            </div>
+
+            <div class="ad-placeholder ad-responsive ad-native" style="margin-top:2rem;">Ad</div>
+
         </div>
-    </main>
+    </section>
+</main>
 
-    <script src="/components/footer.js"></script>
-    <script defer src="/js/app.js"></script>
+<script src="/components/footer.js"></script>
+<script defer src="/js/app.js"></script>
+<script src="/js/main.js"></script>
+<script async src="/components/ads.js"></script>
 
-    <script>
-    (function() {
-        var form = document.getElementById('loan-form');
-        var resultsDiv = document.getElementById('loan-results');
-        var resultMonthly = document.getElementById('result-monthly');
-        var resultInterest = document.getElementById('result-interest');
-        var resultTotal = document.getElementById('result-total');
-        var resultSummary = document.getElementById('result-summary');
-
-        function formatCurrency(amount) {
-            return '$' + amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
-
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            var principal = parseFloat(document.getElementById('loan-amount').value);
-            var annualRate = parseFloat(document.getElementById('interest-rate').value);
-            var years = parseFloat(document.getElementById('loan-term').value);
-
-            if (isNaN(principal) || isNaN(annualRate) || isNaN(years) || principal <= 0 || annualRate < 0 || years <= 0) {
-                return;
-            }
-
-            var totalMonths = years * 12;
-            var monthlyPayment, totalPayment, totalInterest;
-
-            if (annualRate === 0) {
-                monthlyPayment = principal / totalMonths;
-                totalPayment = principal;
-                totalInterest = 0;
-            } else {
-                var monthlyRate = annualRate / 100 / 12;
-                var compoundFactor = Math.pow(1 + monthlyRate, totalMonths);
-                monthlyPayment = principal * (monthlyRate * compoundFactor) / (compoundFactor - 1);
-                totalPayment = monthlyPayment * totalMonths;
-                totalInterest = totalPayment - principal;
-            }
-
-            resultMonthly.textContent = formatCurrency(monthlyPayment);
-            resultInterest.textContent = formatCurrency(totalInterest);
-            resultTotal.textContent = formatCurrency(totalPayment);
-            resultSummary.textContent = ' You will pay ' + formatCurrency(monthlyPayment) + '/month for ' + years + ' year' + (years !== 1 ? 's' : '') + ' (' + totalMonths + ' payments). Of the ' + formatCurrency(totalPayment) + ' total, ' + formatCurrency(totalInterest) + ' is interest.';
-
-            resultsDiv.style.display = 'block';
-        });
-    })();
-    </script>
-    <script async src="/components/ads.js"></script>
 </body>
 </html>
