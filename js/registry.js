@@ -36,6 +36,7 @@
         { name: 'File Checksum Generator', path: '/file-tools/file-checksum-generator', cat: 'File Tools', icon: '&#128274;', desc: 'Generate MD5, SHA-1, SHA-256 checksums for any file.' },
         { name: 'Subtitle Editor', path: '/file-tools/subtitle-editor', cat: 'File Tools', icon: '&#128221;', desc: 'Create and edit .srt subtitle files.' },
         { name: 'JPG to PNG', path: '/file-tools/jpg-to-png', cat: 'File Tools', icon: '&#128247;', desc: 'Convert JPG images to PNG format.' },
+        { name: 'PDF Compressor', path: '/file-tools/pdf-compressor', cat: 'File Tools', icon: '&#128196;', desc: 'Compress PDF files instantly. No upload needed.' },
 
         /* ── Image Tools ────────────────────────────────────── */
         { name: 'Image Compressor', path: '/image-tools/image-compressor', cat: 'Image Tools', icon: '&#128247;', desc: 'Reduce image file size without losing quality.' },
@@ -69,6 +70,7 @@
         { name: 'GIF Compressor', path: '/image-tools/gif-compressor', cat: 'Image Tools', icon: '&#127910;', desc: 'Reduce GIF file size by scaling and reducing colors.' },
         { name: 'WhatsApp Image Compressor', path: '/image-tools/whatsapp-image-compressor', cat: 'Image Tools', icon: '&#128172;', desc: 'Compress images for WhatsApp sharing.' },
         { name: 'Whiteboard Sketch Converter', path: '/image-tools/whiteboard-sketch-converter', cat: 'Image Tools', icon: '&#128221;', desc: 'Clean up whiteboard photos instantly.' },
+        { name: 'Image to Text', path: '/image-tools/image-to-text', cat: 'Image Tools', icon: '&#128292;', desc: 'Extract text from any image or screenshot.' },
 
         /* ── Calculators ────────────────────────────────────── */
         { name: 'GPA Calculator', path: '/calculators/gpa-calculator', cat: 'Calculators', icon: '&#129518;', desc: 'Calculate your college or high school GPA.' },
@@ -93,6 +95,7 @@
         { name: 'Grade Calculator', path: '/calculators/grade-calculator', cat: 'Calculators', icon: '&#127891;', desc: 'Calculate your weighted or unweighted course grade.' },
         { name: 'GPA to Percentage Converter', path: '/calculators/gpa-to-percentage-converter', cat: 'Calculators', icon: '&#128218;', desc: 'Convert between GPA and percentage across scales.' },
         { name: 'Pregnancy Due Date Calculator', path: '/calculators/pregnancy-due-date-calculator', cat: 'Calculators', icon: '&#128118;', desc: 'Estimate your due date and track milestones.' },
+        { name: 'BMI Calculator', path: '/calculators/bmi-calculator', cat: 'Calculators', icon: '&#9878;', desc: 'Calculate your Body Mass Index instantly.' },
 
         /* ── AI Tools ───────────────────────────────────────── */
         { name: 'Text Summarizer', path: '/ai-tools/text-summarizer', cat: 'AI Tools', icon: '&#129302;', desc: 'Summarize long text into key points with AI.' },

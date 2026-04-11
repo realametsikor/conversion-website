@@ -112,10 +112,15 @@
         { name: 'Tweet Generator', path: '/ai-tools/tweet-generator', cat: 'AI Tools' },
         { name: 'Username Generator', path: '/ai-tools/username-generator', cat: 'AI Tools' },
         { name: 'Idea Generator', path: '/ai-tools/idea-generator', cat: 'AI Tools' },
+        { name: 'Cover Letter Generator', path: '/ai-tools/cover-letter-generator', cat: 'AI Tools' },
+        { name: 'Word Counter', path: '/ai-tools/word-counter', cat: 'AI Tools' },
         { name: 'Citation Generator', path: '/student-tools/citation-generator', cat: 'Student Tools' },
         { name: 'Flashcard Maker', path: '/student-tools/flashcard-maker', cat: 'Student Tools' },
         { name: 'Study Timer', path: '/student-tools/study-timer', cat: 'Student Tools' },
-        { name: 'Read Time Estimator', path: '/student-tools/read-time-estimator', cat: 'Student Tools' }
+        { name: 'Read Time Estimator', path: '/student-tools/read-time-estimator', cat: 'Student Tools' },
+        { name: 'BMI Calculator', path: '/calculators/bmi-calculator', cat: 'Calculators' },
+        { name: 'PDF Compressor', path: '/file-tools/pdf-compressor', cat: 'File Tools' },
+        { name: 'Image to Text', path: '/image-tools/image-to-text', cat: 'Image Tools' }
     ];
 
     /* ── LocalStorage helpers ─────────────────────────────────────── */
