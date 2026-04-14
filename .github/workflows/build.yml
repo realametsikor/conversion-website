@@ -1,0 +1,59 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run static pre-renderer
+        run: node scripts/build.js
+
+      # ── Deploy to Cloudflare Pages ──────────────────────────────────────────
+      # Uncomment this block if you use Cloudflare Pages.
+      # Add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID to repo secrets.
+      #
+      # - name: Deploy to Cloudflare Pages
+      #   uses: cloudflare/pages-action@v1
+      #   with:
+      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      #     projectName: toolsnest
+      #     directory: dist
+      #     gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Deploy to GitHub Pages ──────────────────────────────────────────────
+      # Uncomment this block if you use GitHub Pages.
+      # Also enable GitHub Pages in repo Settings → Pages → Source: GitHub Actions.
+      #
+      # - name: Upload Pages artifact
+      #   uses: actions/upload-pages-artifact@v3
+      #   with:
+      #     path: dist
+
+  # ── GitHub Pages deploy job (uncomment with above) ──────────────────────────
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     pages: write
+  #     id-token: write
+  #   environment:
+  #     name: github-pages
+  #     url: ${{ steps.deployment.outputs.page_url }}
+  #   steps:
+  #     - name: Deploy to GitHub Pages
+  #       id: deployment
+  #       uses: actions/deploy-pages@v4
