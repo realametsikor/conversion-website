@@ -7,12 +7,6 @@
  *
  * Usage:
  *   node scripts/build.js
- *
- * What it does:
- *   1. Reads TOOLS and BLOGS data defined in this file (mirror of your registry)
- *   2. Walks every .html file in the project
- *   3. Injects static HTML into placeholder elements
- *   4. Writes modified files to /dist/ (deploy this folder, not root)
  */
 
 const fs   = require('fs');
@@ -20,90 +14,85 @@ const path = require('path');
 
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
 
-const SRC_DIR  = path.resolve(__dirname, '..');   // repo root
+const SRC_DIR  = path.resolve(__dirname, '..');
 const DIST_DIR = path.resolve(__dirname, '../dist');
 
-// Folders to copy as-is (not processed for HTML injection)
 const STATIC_DIRS = ['css', 'js', 'icons', 'assets', 'components'];
-
-// HTML files/folders to skip entirely
-const SKIP_PATHS = ['dist', 'node_modules', '.git', 'scripts'];
+const SKIP_PATHS  = ['dist', 'node_modules', '.git', 'scripts'];
 
 // ─── TOOLS REGISTRY ───────────────────────────────────────────────────────────
-// Mirror of your js/registry.js tool data.
-// Keep this in sync when you add new tools.
 
 const TOOLS = {
   'file-tools': [
-    { slug: 'pdf-to-word',      icon: '📄', name: 'PDF to Word',         desc: 'Convert PDF files to editable Word documents.' },
-    { slug: 'word-to-pdf',      icon: '📝', name: 'Word to PDF',         desc: 'Convert Word documents to PDF format instantly.' },
-    { slug: 'merge-pdf',        icon: '📑', name: 'Merge PDF',           desc: 'Combine multiple PDFs into a single file.' },
-    { slug: 'split-pdf',        icon: '✂️',  name: 'Split PDF',          desc: 'Split a PDF into individual pages or sections.' },
-    { slug: 'compress-pdf',     icon: '🗜️', name: 'Compress PDF',        desc: 'Reduce PDF file size without losing quality.' },
-    { slug: 'pdf-compressor',   icon: '📄', name: 'PDF Compressor',      desc: 'Compress PDF files instantly. No upload needed.' },
-    { slug: 'jpg-to-png',       icon: '🖼️', name: 'JPG to PNG',         desc: 'Convert JPG images to PNG format.' },
-    { slug: 'png-to-jpg',       icon: '🖼️', name: 'PNG to JPG',         desc: 'Convert PNG images to JPG format.' },
-    { slug: 'heic-to-jpg',      icon: '📷', name: 'HEIC to JPG',         desc: 'Convert iPhone HEIC photos to JPG.' },
-    { slug: 'excel-to-pdf',     icon: '📊', name: 'Excel to PDF',        desc: 'Convert Excel spreadsheets to PDF.' },
-    { slug: 'mp4-to-mp3',       icon: '🎵', name: 'MP4 to MP3',          desc: 'Extract audio from video files.' },
+    { slug: 'pdf-to-word',      icon: '📄', name: 'PDF to Word',          desc: 'Convert PDF files to editable Word documents.' },
+    { slug: 'word-to-pdf',      icon: '📝', name: 'Word to PDF',          desc: 'Convert Word documents to PDF format instantly.' },
+    { slug: 'merge-pdf',        icon: '📑', name: 'Merge PDF',            desc: 'Combine multiple PDFs into a single file.' },
+    { slug: 'split-pdf',        icon: '✂️',  name: 'Split PDF',           desc: 'Split a PDF into individual pages or sections.' },
+    { slug: 'compress-pdf',     icon: '🗜️', name: 'Compress PDF',         desc: 'Reduce PDF file size without losing quality.' },
+    { slug: 'pdf-compressor',   icon: '📄', name: 'PDF Compressor',       desc: 'Compress PDF files instantly. No upload needed.' },
+    { slug: 'jpg-to-png',       icon: '🖼️', name: 'JPG to PNG',          desc: 'Convert JPG images to PNG format.' },
+    { slug: 'png-to-jpg',       icon: '🖼️', name: 'PNG to JPG',          desc: 'Convert PNG images to JPG format.' },
+    { slug: 'heic-to-jpg',      icon: '📷', name: 'HEIC to JPG',          desc: 'Convert iPhone HEIC photos to JPG.' },
+    { slug: 'excel-to-pdf',     icon: '📊', name: 'Excel to PDF',         desc: 'Convert Excel spreadsheets to PDF.' },
+    { slug: 'mp4-to-mp3',       icon: '🎵', name: 'MP4 to MP3',           desc: 'Extract audio from video files.' },
   ],
   'image-tools': [
-    { slug: 'image-compressor',      icon: '🖼️', name: 'Compress Image',     desc: 'Reduce image file size without losing quality.' },
-    { slug: 'image-resizer',         icon: '📐', name: 'Resize Image',        desc: 'Resize images to any dimension instantly.' },
-    { slug: 'image-to-text',         icon: '🔤', name: 'Image to Text (OCR)', desc: 'Extract text from any image or screenshot.' },
-    { slug: 'qr-code-generator',     icon: '📱', name: 'QR Code Generator',   desc: 'Create QR codes for URLs, Wi-Fi, and more.' },
-    { slug: 'background-remover',    icon: '✂️', name: 'Background Remover',  desc: 'Remove image backgrounds with AI.' },
-    { slug: 'youtube-thumbnail-maker', icon: '▶️', name: 'YouTube Thumbnail', desc: 'Design 1280×720 thumbnails for free.' },
-    { slug: 'favicon-generator',     icon: '⭐', name: 'Favicon Generator',   desc: 'Convert any image into a website favicon.' },
-    { slug: 'collage-maker',         icon: '🖼️', name: 'Photo Collage Maker', desc: 'Combine multiple images into a collage.' },
+    { slug: 'image-compressor',        icon: '🖼️', name: 'Compress Image',       desc: 'Reduce image file size without losing quality.' },
+    { slug: 'image-resizer',           icon: '📐', name: 'Resize Image',          desc: 'Resize images to any dimension instantly.' },
+    { slug: 'image-to-text',           icon: '🔤', name: 'Image to Text (OCR)',   desc: 'Extract text from any image or screenshot.' },
+    { slug: 'qr-code-generator',       icon: '📱', name: 'QR Code Generator',     desc: 'Create QR codes for URLs, Wi-Fi, and more.' },
+    { slug: 'background-remover',      icon: '✂️', name: 'Background Remover',    desc: 'Remove image backgrounds with AI.' },
+    { slug: 'youtube-thumbnail-maker', icon: '▶️', name: 'YouTube Thumbnail',     desc: 'Design 1280×720 thumbnails for free.' },
+    { slug: 'favicon-generator',       icon: '⭐', name: 'Favicon Generator',     desc: 'Convert any image into a website favicon.' },
+    { slug: 'collage-maker',           icon: '🖼️', name: 'Photo Collage Maker',  desc: 'Combine multiple images into a collage.' },
   ],
   'calculators': [
-    { slug: 'bmi-calculator',        icon: '⚖️', name: 'BMI Calculator',      desc: 'Calculate your Body Mass Index instantly.' },
-    { slug: 'loan-calculator',       icon: '💰', name: 'Loan Calculator',      desc: 'Estimate monthly payments and total interest.' },
-    { slug: 'gpa-calculator',        icon: '🎓', name: 'GPA Calculator',       desc: 'Calculate your GPA quickly and accurately.' },
-    { slug: 'percentage-calculator', icon: '🔢', name: 'Percentage Calculator',desc: 'Calculate percentages and percentage change.' },
-    { slug: 'retirement-calculator', icon: '🏖️', name: 'Retirement Calculator',desc: 'Estimate your retirement savings goal.' },
-    { slug: 'tax-calculator',        icon: '🧾', name: 'Tax Calculator',       desc: 'Estimate your income tax quickly.' },
-    { slug: 'unit-converter',        icon: '📏', name: 'Unit Converter',       desc: 'Convert weight, height, speed, and more.' },
+    { slug: 'bmi-calculator',          icon: '⚖️', name: 'BMI Calculator',        desc: 'Calculate your Body Mass Index instantly.' },
+    { slug: 'loan-calculator',         icon: '💰', name: 'Loan Calculator',        desc: 'Estimate monthly payments and total interest.' },
+    { slug: 'gpa-calculator',          icon: '🎓', name: 'GPA Calculator',         desc: 'Calculate your GPA quickly and accurately.' },
+    { slug: 'percentage-calculator',   icon: '🔢', name: 'Percentage Calculator',  desc: 'Calculate percentages and percentage change.' },
+    { slug: 'retirement-calculator',   icon: '🏖️', name: 'Retirement Calculator', desc: 'Estimate your retirement savings goal.' },
+    { slug: 'tax-calculator',          icon: '🧾', name: 'Tax Calculator',         desc: 'Estimate your income tax quickly.' },
+    { slug: 'unit-converter',          icon: '📏', name: 'Unit Converter',         desc: 'Convert weight, height, speed, and more.' },
   ],
   'ai-tools': [
-    { slug: 'text-summarizer',       icon: '🤖', name: 'Text Summarizer',      desc: 'Summarize long articles into key points.' },
-    { slug: 'resume-bullet-generator',icon: '💼', name: 'Resume Bullet Generator', desc: 'Turn job duties into powerful resume bullets.' },
-    { slug: 'email-writer',          icon: '✉️', name: 'Email Writer',          desc: 'Craft professional emails for any situation.' },
-    { slug: 'caption-generator',     icon: '📲', name: 'Caption Generator',     desc: 'Generate social media captions instantly.' },
-    { slug: 'cover-letter-generator',icon: '📝', name: 'Cover Letter Generator',desc: 'Generate a professional cover letter with AI.' },
-    { slug: 'bio-generator',         icon: '👤', name: 'Bio Generator',         desc: 'Create polished professional bios in seconds.' },
-    { slug: 'grammar-checker',       icon: '✅', name: 'Grammar Checker',       desc: 'Fix grammar, spelling, and style errors.' },
-    { slug: 'paraphrasing-tool',     icon: '📝', name: 'Paraphrasing Tool',     desc: 'Rewrite text instantly with multiple modes.' },
-    { slug: 'plagiarism-checker',    icon: '🔍', name: 'Plagiarism Checker',    desc: 'Check your text for originality.' },
-    { slug: 'word-counter',          icon: '🔢', name: 'Word Counter',          desc: 'Count words, characters, and reading time.' },
-    { slug: 'text-to-speech',        icon: '🔈', name: 'Text to Speech',        desc: 'Convert text to audio with adjustable voice.' },
-    { slug: 'hashtag-generator',     icon: '📋', name: 'Hashtag Generator',     desc: 'Generate targeted hashtags for any platform.' },
+    { slug: 'text-summarizer',          icon: '🤖', name: 'Text Summarizer',           desc: 'Summarize long articles into key points.' },
+    { slug: 'resume-bullet-generator',  icon: '💼', name: 'Resume Bullet Generator',   desc: 'Turn job duties into powerful resume bullets.' },
+    { slug: 'email-writer',             icon: '✉️', name: 'Email Writer',              desc: 'Craft professional emails for any situation.' },
+    { slug: 'caption-generator',        icon: '📲', name: 'Caption Generator',         desc: 'Generate social media captions instantly.' },
+    { slug: 'cover-letter-generator',   icon: '📝', name: 'Cover Letter Generator',    desc: 'Generate a professional cover letter with AI.' },
+    { slug: 'bio-generator',            icon: '👤', name: 'Bio Generator',             desc: 'Create polished professional bios in seconds.' },
+    { slug: 'grammar-checker',          icon: '✅', name: 'Grammar Checker',           desc: 'Fix grammar, spelling, and style errors.' },
+    { slug: 'paraphrasing-tool',        icon: '📝', name: 'Paraphrasing Tool',         desc: 'Rewrite text instantly with multiple modes.' },
+    { slug: 'plagiarism-checker',       icon: '🔍', name: 'Plagiarism Checker',        desc: 'Check your text for originality.' },
+    { slug: 'word-counter',             icon: '🔢', name: 'Word Counter',              desc: 'Count words, characters, and reading time.' },
+    { slug: 'text-to-speech',           icon: '🔈', name: 'Text to Speech',            desc: 'Convert text to audio with adjustable voice.' },
+    { slug: 'hashtag-generator',        icon: '📋', name: 'Hashtag Generator',         desc: 'Generate targeted hashtags for any platform.' },
   ],
   'student-tools': [
-    { slug: 'citation-generator',    icon: '📚', name: 'Citation Generator',    desc: 'Generate APA, MLA, and Chicago citations.' },
-    { slug: 'flashcard-maker',       icon: '🗂️', name: 'Flashcard Maker',       desc: 'Create digital flashcards for active recall.' },
-    { slug: 'pomodoro-timer',        icon: '⏱️', name: 'Pomodoro Timer',        desc: 'Study smarter with the Pomodoro technique.' },
-    { slug: 'essay-outline-generator',icon: '📝', name: 'Essay Outline Generator',desc: 'Create structured essay outlines instantly.' },
-    { slug: 'quiz-generator',        icon: '❓', name: 'Quiz Generator',        desc: 'Create interactive quizzes from any text.' },
+    { slug: 'citation-generator',       icon: '📚', name: 'Citation Generator',        desc: 'Generate APA, MLA, and Chicago citations.' },
+    { slug: 'flashcard-maker',          icon: '🗂️', name: 'Flashcard Maker',           desc: 'Create digital flashcards for active recall.' },
+    { slug: 'pomodoro-timer',           icon: '⏱️', name: 'Pomodoro Timer',            desc: 'Study smarter with the Pomodoro technique.' },
+    { slug: 'essay-outline-generator',  icon: '📝', name: 'Essay Outline Generator',   desc: 'Create structured essay outlines instantly.' },
+    { slug: 'quiz-generator',           icon: '❓', name: 'Quiz Generator',            desc: 'Create interactive quizzes from any text.' },
   ],
 };
 
 // ─── BLOG REGISTRY ────────────────────────────────────────────────────────────
 
 const BLOGS = [
-  { slug: 'compress-images-without-losing-quality', title: 'How to Compress Images Without Losing Quality',     date: 'March 5, 2026',    category: 'Image Tools' },
-  { slug: 'best-free-image-creation-tools-online',  title: '15 Best Free Image Creation and Editing Tools Online in 2026', date: 'Feb 28, 2026', category: 'Image Tools' },
-  { slug: 'new-free-online-tools-2026',             title: '60+ New Free Online Tools Just Added to ToolsNest in 2026', date: 'Feb 20, 2026', category: 'News' },
-  { slug: 'best-free-ai-writing-tools',             title: 'Best Free AI Writing Tools for Content Creation in 2026', date: 'Feb 15, 2026', category: 'AI Tools' },
-  { slug: 'free-online-calculators-guide',          title: '22 Free Online Calculators for Finance, Academics & Everyday Use', date: 'Feb 10, 2026', category: 'Calculators' },
-  { slug: 'best-free-file-conversion-tools',        title: 'Best Free File Conversion and PDF Tools Online in 2026', date: 'Feb 5, 2026', category: 'File Tools' },
-  { slug: 'check-plagiarism-online-free',           title: 'How to Check for Plagiarism Online for Free',      date: 'Jan 30, 2026',   category: 'AI Tools' },
-  { slug: 'free-citation-generator-guide',          title: 'How to Generate Citations in APA, MLA & Chicago for Free', date: 'Jan 25, 2026', category: 'Student Tools' },
-  { slug: 'convert-pdf-to-word-free',               title: 'How to Convert PDF to Word for Free',              date: 'Jan 20, 2026',   category: 'File Tools' },
-  { slug: 'best-free-pdf-tools-online',             title: 'Best Free PDF Tools Online in 2026',               date: 'Jan 15, 2026',   category: 'File Tools' },
-  { slug: 'resize-images-online',                   title: 'How to Resize Images Online Without Losing Quality', date: 'Jan 10, 2026', category: 'Image Tools' },
-  { slug: 'compress-pdf-without-losing-quality',    title: 'How to Compress a PDF Without Losing Quality',     date: 'Jan 5, 2026',    category: 'File Tools' },
+  { slug: 'compress-images-without-losing-quality',  title: 'How to Compress Images Without Losing Quality',                date: 'March 5, 2026',  category: 'Image Tools'   },
+  { slug: 'best-free-image-creation-tools-online',   title: '15 Best Free Image Creation and Editing Tools Online in 2026', date: 'Feb 28, 2026',   category: 'Image Tools'   },
+  { slug: 'new-free-online-tools-2026',              title: '60+ New Free Online Tools Just Added to ToolsNest in 2026',    date: 'Feb 20, 2026',   category: 'News'          },
+  { slug: 'best-free-ai-writing-tools',              title: 'Best Free AI Writing Tools for Content Creation in 2026',      date: 'Feb 15, 2026',   category: 'AI Tools'      },
+  { slug: 'free-online-calculators-guide',           title: '22 Free Online Calculators for Finance, Academics & Everyday Use', date: 'Feb 10, 2026', category: 'Calculators' },
+  { slug: 'best-free-file-conversion-tools',         title: 'Best Free File Conversion and PDF Tools Online in 2026',       date: 'Feb 5, 2026',    category: 'File Tools'    },
+  { slug: 'check-plagiarism-online-free',            title: 'How to Check for Plagiarism Online for Free',                  date: 'Jan 30, 2026',   category: 'AI Tools'      },
+  { slug: 'free-citation-generator-guide',           title: 'How to Generate Citations in APA, MLA & Chicago for Free',    date: 'Jan 25, 2026',   category: 'Student Tools' },
+  { slug: 'convert-pdf-to-word-free',                title: 'How to Convert PDF to Word for Free',                         date: 'Jan 20, 2026',   category: 'File Tools'    },
+  { slug: 'best-free-pdf-tools-online',              title: 'Best Free PDF Tools Online in 2026',                          date: 'Jan 15, 2026',   category: 'File Tools'    },
+  { slug: 'resize-images-online',                    title: 'How to Resize Images Online Without Losing Quality',          date: 'Jan 10, 2026',   category: 'Image Tools'   },
+  { slug: 'compress-pdf-without-losing-quality',     title: 'How to Compress a PDF Without Losing Quality',               date: 'Jan 5, 2026',    category: 'File Tools'    },
 ];
 
 // ─── HTML GENERATORS ──────────────────────────────────────────────────────────
@@ -193,85 +182,100 @@ function staticFooter() {
 
 // ─── INJECTION HELPERS ────────────────────────────────────────────────────────
 
-/**
- * Detect which category page this HTML file belongs to (if any).
- * Returns category key like 'file-tools', or null.
- */
 function detectCategory(relPath) {
+  const normalized = relPath.replace(/\\/g, '/');
   for (const cat of Object.keys(TOOLS)) {
-    if (relPath.startsWith(cat + path.sep) || relPath.startsWith(cat + '/')) {
-      // Only inject on the category index (e.g. file-tools/index.html)
-      const parts = relPath.replace(/\\/g, '/').split('/');
+    if (normalized.startsWith(cat + '/')) {
+      const parts = normalized.split('/');
       if (parts.length === 2 && parts[1] === 'index.html') return cat;
     }
   }
   return null;
 }
 
-/**
- * Apply all static injections to an HTML string.
- */
 function processHTML(html, relPath) {
+  const normalized = relPath.replace(/\\/g, '/');
 
-  // 1. Replace <script src="/components/header.js"> with static header
-  //    Keep the script tag so JS can still enhance (mobile menu etc.)
-  html = html.replace(
-    /(<script\s+src="\/components\/header\.js"[^>]*><\/script>)/i,
-    `${staticHeader()}\n$1`
-  );
-
-  // 2. Replace <script src="/components/footer.js"> with static footer
-  html = html.replace(
-    /(<script\s+src="\/components\/footer\.js"[^>]*><\/script>)/i,
-    `${staticFooter()}\n$1`
-  );
-
-  // 3. Inject blog cards on homepage
-  if (relPath === 'index.html') {
-    const featuredBlogs = BLOGS.slice(0, 3);
-    const blogHTML = featuredBlogs.map(blogCard).join('\n');
-    // Replace the empty blog grid div
-    html = html.replace(
-      /(<div[^>]+id="homepage-blog-grid"[^>]*>)(\s*<\/div>)/i,
-      `$1\n${blogHTML}\n</div>`
+  // ── 1. Static header ──────────────────────────────────────────────────────
+  if (!html.includes('class="site-header"')) {
+    const replaced = html.replace(
+      /(<script[^>]+components\/header\.js[^>]*><\/script>)/i,
+      `${staticHeader()}\n$1`
     );
+    // Fallback: inject right after <body> tag if no header.js script found
+    html = replaced !== html ? replaced : html.replace(/(<body[^>]*>)/i, `$1\n${staticHeader()}`);
   }
 
-  // 4. Inject blog listing on /blog/index.html
-  if (relPath === path.join('blog', 'index.html') || relPath === 'blog/index.html') {
-    const allBlogHTML = BLOGS.map(blogCard).join('\n');
-    html = html.replace(
-      /(<div[^>]+id="blog-grid"[^>]*>)(\s*<\/div>)/i,
-      `$1\n${allBlogHTML}\n</div>`
+  // ── 2. Static footer ──────────────────────────────────────────────────────
+  if (!html.includes('class="site-footer"')) {
+    const replaced = html.replace(
+      /(<script[^>]+components\/footer\.js[^>]*><\/script>)/i,
+      `${staticFooter()}\n$1`
     );
-    // Also handle if blog page uses a section/ul pattern without an explicit id
-    // Insert after <h1>Blog</h1> if no grid id found
-    if (!html.includes('id="blog-grid"')) {
-      html = html.replace(
-        /(<h1[^>]*>Blog<\/h1>)/i,
+    // Fallback: inject before </body> if no footer.js script found
+    html = replaced !== html ? replaced : html.replace(/(<\/body>)/i, `${staticFooter()}\n$1`);
+  }
+
+  // ── 3. Homepage blog grid ─────────────────────────────────────────────────
+  if (normalized === 'index.html') {
+    const blogHTML = BLOGS.slice(0, 3).map(blogCard).join('\n');
+
+    // Replace the contents of the blog grid div (works whether empty or not)
+    let injected = html.replace(
+      /(<div[^>]+id="homepage-blog-grid"[^>]*>)([\s\S]*?)(<\/div>)/i,
+      `$1\n${blogHTML}\n$3`
+    );
+
+    // Fallback: try matching by class="grid-3" if id not found
+    if (injected === html) {
+      injected = html.replace(
+        /(<div[^>]+class="grid-3"[^>]*>)([\s\S]*?)(<\/div>)/i,
+        `$1\n${blogHTML}\n$3`
+      );
+    }
+
+    html = injected;
+  }
+
+  // ── 4. Blog listing page ──────────────────────────────────────────────────
+  if (normalized === 'blog/index.html') {
+    const allBlogHTML = BLOGS.map(blogCard).join('\n');
+
+    let injected = html.replace(
+      /(<div[^>]+id="blog-grid"[^>]*>)([\s\S]*?)(<\/div>)/i,
+      `$1\n${allBlogHTML}\n$3`
+    );
+
+    // Fallback: insert after <h1> if no blog-grid id found
+    if (injected === html) {
+      injected = html.replace(
+        /(<h1[^>]*>[\s\S]*?<\/h1>)/i,
         `$1\n<div class="blog-listing-static">\n${allBlogHTML}\n</div>`
       );
     }
+
+    html = injected;
   }
 
-  // 5. Inject tool cards on category index pages
-  const cat = detectCategory(relPath);
+  // ── 5. Category tool grids ────────────────────────────────────────────────
+  const cat = detectCategory(normalized);
   if (cat && TOOLS[cat]) {
     const cardsHTML = TOOLS[cat].map(t => toolCard(t, cat)).join('\n');
-    // Try to inject into a div with id matching the category or a tools-grid class
-    const injected = html.replace(
-      /(<div[^>]+(?:id="tools-grid"|class="[^"]*tools-grid[^"]*")[^>]*>)(\s*<\/div>)/i,
-      `$1\n${cardsHTML}\n</div>`
+
+    let injected = html.replace(
+      /(<div[^>]+(?:id="tools-grid"|class="[^"]*tools-grid[^"]*")[^>]*>)([\s\S]*?)(<\/div>)/i,
+      `$1\n${cardsHTML}\n$3`
     );
-    if (injected !== html) {
-      html = injected;
-    } else {
-      // Fallback: insert after the page <h1>
-      html = html.replace(
-        /(<h1[^>]*>.*?<\/h1>)/is,
+
+    // Fallback: insert after <h1>
+    if (injected === html) {
+      injected = html.replace(
+        /(<h1[^>]*>[\s\S]*?<\/h1>)/i,
         `$1\n<div class="tools-grid-static">\n${cardsHTML}\n</div>`
       );
     }
+
+    html = injected;
   }
 
   return html;
@@ -314,11 +318,9 @@ function walkHTML(dir, base, results = []) {
 function build() {
   console.log('🔨 ToolsNest build started...\n');
 
-  // Clean dist
   if (fs.existsSync(DIST_DIR)) fs.rmSync(DIST_DIR, { recursive: true });
   ensureDir(DIST_DIR);
 
-  // Copy static asset directories
   for (const dir of STATIC_DIRS) {
     const src = path.join(SRC_DIR, dir);
     if (fs.existsSync(src)) {
@@ -327,7 +329,6 @@ function build() {
     }
   }
 
-  // Copy root-level non-HTML files (robots.txt, manifest.json, sitemap, sw.js, etc.)
   for (const entry of fs.readdirSync(SRC_DIR, { withFileTypes: true })) {
     if (entry.isFile() && !entry.name.endsWith('.html') && !SKIP_PATHS.includes(entry.name)) {
       fs.copyFileSync(path.join(SRC_DIR, entry.name), path.join(DIST_DIR, entry.name));
@@ -335,7 +336,6 @@ function build() {
   }
   console.log('  ✓ Copied root static files\n');
 
-  // Process all HTML files
   const htmlFiles = walkHTML(SRC_DIR, SRC_DIR);
   let count = 0;
 
@@ -345,7 +345,7 @@ function build() {
     ensureDir(path.dirname(destFile));
 
     const original  = fs.readFileSync(srcFile, 'utf8');
-    const processed = processHTML(original, relPath.replace(/\\/g, '/'));
+    const processed = processHTML(original, relPath);
     fs.writeFileSync(destFile, processed, 'utf8');
     count++;
   }
