@@ -19,7 +19,7 @@
 const fs   = require(‘fs’);
 const path = require(‘path’);
 
-// ─── CONFIGURATION ────────────────────────────────────────────────────────────
+// — CONFIGURATION ————————————————————
 
 const SRC_DIR  = path.resolve(__dirname, ‘..’);   // repo root
 const DIST_DIR = path.resolve(__dirname, ‘../dist’);
@@ -30,7 +30,7 @@ const STATIC_DIRS = [‘css’, ‘js’, ‘icons’, ‘assets’, ‘componen
 // HTML files/folders to skip entirely
 const SKIP_PATHS = [‘dist’, ‘node_modules’, ‘.git’, ‘scripts’];
 
-// ─── TOOLS REGISTRY ───────────────────────────────────────────────────────────
+// — TOOLS REGISTRY ———————————————————–
 // Mirror of your js/registry.js tool data.
 // Keep this in sync when you add new tools.
 
@@ -90,7 +90,7 @@ const TOOLS = {
 ],
 };
 
-// ─── BLOG REGISTRY ────────────────────────────────────────────────────────────
+// — BLOG REGISTRY ————————————————————
 
 const BLOGS = [
 { slug: ‘compress-images-without-losing-quality’, title: ‘How to Compress Images Without Losing Quality’,     date: ‘March 5, 2026’,    category: ‘Image Tools’ },
@@ -107,7 +107,7 @@ const BLOGS = [
 { slug: ‘compress-pdf-without-losing-quality’,    title: ‘How to Compress a PDF Without Losing Quality’,     date: ‘Jan 5, 2026’,    category: ‘File Tools’ },
 ];
 
-// ─── HTML GENERATORS ──────────────────────────────────────────────────────────
+// — HTML GENERATORS –––––––––––––––––––––––––––––
 
 function toolCard(tool, category) {
 return `<a href="/${category}/${tool.slug}" class="ptool-card">
@@ -196,7 +196,7 @@ return `<footer class="site-footer" role="contentinfo">
 </footer>`;
 }
 
-// ─── INJECTION HELPERS ────────────────────────────────────────────────────────
+// — INJECTION HELPERS ––––––––––––––––––––––––––––
 
 /**
 
@@ -221,14 +221,14 @@ return `<footer class="site-footer" role="contentinfo">
   function processHTML(html, relPath) {
 
 // 1. Replace <script src="/components/header.js"> with static header
-//    Remove the script tag — static HTML is already in place, no need for JS to re-render it
+//    Remove the script tag - static HTML is already in place, no need for JS to re-render it
 html = html.replace(
 /<script\s+src=”/components/header.js”[^>]*></script>/i,
 staticHeader()
 );
 
 // 2. Replace <script src="/components/footer.js"> with static footer
-//    Remove the script tag — static HTML is already in place, no need for JS to re-render it
+//    Remove the script tag - static HTML is already in place, no need for JS to re-render it
 html = html.replace(
 /<script\s+src=”/components/footer.js”[^>]*></script>/i,
 staticFooter()
@@ -285,7 +285,7 @@ html = html.replace(
 return html;
 }
 
-// ─── FILE SYSTEM HELPERS ──────────────────────────────────────────────────────
+// — FILE SYSTEM HELPERS ——————————————————
 
 function ensureDir(dir) {
 if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
@@ -317,7 +317,7 @@ results.push(path.relative(base, full));
 return results;
 }
 
-// ─── MAIN BUILD ───────────────────────────────────────────────────────────────
+// — MAIN BUILD —————————————————————
 
 function build() {
 console.log(‘🔨 ToolsNest build started…\n’);
@@ -356,6 +356,7 @@ const original  = fs.readFileSync(srcFile, 'utf8');
 const processed = processHTML(original, relPath.replace(/\\/g, '/'));
 fs.writeFileSync(destFile, processed, 'utf8');
 count++;
+
 
 }
 
