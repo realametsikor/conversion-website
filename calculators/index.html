@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,41 +7,98 @@
     <title>Free Online Calculators & Converters | ToolsNest</title>
     <meta name="description" content="Free online calculators and converters for finance, education, health, and daily tasks. GPA, loans, age, percentages, BMI, unit conversions, and more. No signup required.">
     <link rel="canonical" href="https://www.usetoolnest.com/calculators/">
+    
     <meta property="og:title" content="Free Online Calculators & Converters | ToolsNest">
     <meta property="og:description" content="Free online calculators for finance, education, health, and daily tasks. No signup required.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.usetoolnest.com/calculators/">
     <meta property="og:site_name" content="ToolsNest">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Free Online Calculators & Converters | ToolsNest">
-    <meta name="twitter:description" content="Free online calculators for finance, education, health, and daily tasks. No signup required.">
     <meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/static-components.css">
+    
     <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#2563EB">
+    <meta name="theme-color" content="#10b981">
+
+    <style>
+        /* Directory Specific Premium Hero - Calculators Category (Emerald Tint) */
+        .directory-hero {
+            background: linear-gradient(135deg, #064e3b 0%, #059669 40%, #10b981 70%, #34d399 100%);
+            padding: 4rem 0 3.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .directory-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .directory-hero h1 {
+            color: #ffffff !important;
+            font-size: 2.75rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+        .directory-hero p {
+            color: rgba(255,255,255,0.9);
+            font-size: 1.15rem;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .page-breadcrumb {
+            margin-bottom: 2.5rem;
+        }
+    </style>
 </head>
 <body data-social-bar>
-<noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
-    <script src="/components/header.js"></script>
-    <main>
-        <section class="section">
-            <div class="container">
-                <div class="section-title">
-                    <h1>Calculators</h1>
-                    <p>Fast, accurate calculators for finance, education, health, and daily tasks.</p>
-                </div>
-                <div class="ad-placeholder ad-banner-top ad-native">Ad Banner Top</div>
-                <div class="grid-3" id="tools-grid"></div>
-                <div class="ad-placeholder ad-responsive ad-native">Ad</div>
-            </div>
-        </section>
-    </main>
-    <script src="/components/footer.js"></script>
-    <script src="/js/registry.js"></script>
-    <script defer src="/js/app.js"></script>
-    <script>
-        REGISTRY.renderTools('tools-grid', REGISTRY.getByCategory('Calculators'));
-    </script>
-    <script async src="/components/ads.js"></script>
+<noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul></nav></noscript>
+<script src="/components/header.js"></script>
+
+<main>
+    <section class="directory-hero">
+        <div class="container">
+            <h1>Calculators</h1>
+            <p>Fast, accurate calculators and converters for finance, education, health, and daily tasks.</p>
+        </div>
+    </section>
+
+    <div class="container" style="padding-bottom: 5rem;">
+        <nav class="breadcrumb page-breadcrumb">
+            <a href="/"><i data-lucide="home" width="14" height="14"></i> Home</a> 
+            <i data-lucide="chevron-right" width="14" height="14"></i> 
+            <span>Calculators</span>
+        </nav>
+
+        <div class="ad-placeholder ad-banner-top ad-native">Ad Banner Top</div>
+
+        <div class="tools-grid-static"></div>
+
+        <div class="ad-placeholder ad-responsive ad-native" style="margin-top:4rem;">Advertisement</div>
+    </div>
+</main>
+
+<script src="/components/footer.js"></script>
+<script defer src="/js/app.js"></script>
+<script async src="/components/ads.js"></script>
+
+<script>
+    if(typeof lucide !== "undefined") { lucide.createIcons(); }
+</script>
+
 </body>
 </html>
