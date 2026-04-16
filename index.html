@@ -23,7 +23,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -34,104 +34,11 @@
     <link rel="apple-touch-icon" href="/icons/icon-192.png">
     <meta name="theme-color" content="#2563EB">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "ToolsNest",
-      "url": "https://www.usetoolnest.com",
-      "description": "100+ free online tools for file conversion, PDF compression, image editing, calculators, and AI writing. No signup required.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.usetoolnest.com/all-tools?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "ToolsNest",
-      "url": "https://www.usetoolnest.com",
-      "logo": "https://www.usetoolnest.com/icons/icon-512.png",
-      "description": "Free online tools for file conversion, image editing, calculators, and AI writing."
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ItemList",
-      "name": "Popular Free Online Tools",
-      "description": "The most popular free online tools on ToolsNest",
-      "numberOfItems": 5,
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "PDF to Word Converter", "url": "https://www.usetoolnest.com/file-tools/pdf-to-word" },
-        { "@type": "ListItem", "position": 2, "name": "Image Compressor", "url": "https://www.usetoolnest.com/image-tools/image-compressor" },
-        { "@type": "ListItem", "position": 3, "name": "BMI Calculator", "url": "https://www.usetoolnest.com/calculators/bmi-calculator" },
-        { "@type": "ListItem", "position": 4, "name": "AI Cover Letter Generator", "url": "https://www.usetoolnest.com/ai-tools/cover-letter-generator" },
-        { "@type": "ListItem", "position": 5, "name": "QR Code Generator", "url": "https://www.usetoolnest.com/image-tools/qr-code-generator" }
-      ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Is ToolsNest really free?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Every tool on ToolsNest is completely free to use with no subscriptions, paywalls, or hidden fees." }
-        },
-        {
-          "@type": "Question",
-          "name": "Are my files safe on ToolsNest?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Absolutely. All file processing happens directly in your browser. Your files are never uploaded to any server." }
-        },
-        {
-          "@type": "Question",
-          "name": "Do I need to create an account?",
-          "acceptedAnswer": { "@type": "Answer", "text": "No. You can use any tool instantly without signing up or providing an email address." }
-        }
-      ]
-    }
-    </script>
     <style>
       /* ===== GLOBAL ULTRA-MODERN UPGRADES ===== */
       body {
         font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
         letter-spacing: -0.01em;
-      }
-
-      /* Modern App-Like Navigation */
-      .premium-nav {
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        display: flex;
-        align-items: center;
-        padding: 1rem 5%;
-        background: rgba(255, 255, 255, 0.7);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      }
-
-      .nav-back-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        color: #475569;
-        text-decoration: none;
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: all 0.2s ease;
-      }
-
-      .nav-back-btn:hover {
-        color: #2563EB;
-        transform: translateX(-4px);
       }
 
       /* ===== PREMIUM HERO ===== */
@@ -202,7 +109,11 @@
         50% { opacity: 0.5; transform: scale(0.8); }
       }
       .hero h1 {
-        color: white;
+        /* FORCING OVERRIDE OF GLOBAL STYLE.CSS INVISIBLE TEXT BUG */
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        background: none !important;
+        
         font-size: 3.5rem;
         letter-spacing: -0.035em;
         margin-bottom: 1.25rem;
@@ -212,11 +123,11 @@
         margin-right: auto;
       }
       .hero h1 .hero-highlight {
-        background: linear-gradient(90deg, #67e8f9, #a5f3fc, #67e8f9);
-        background-size: 200% auto;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        background: linear-gradient(90deg, #67e8f9, #a5f3fc, #67e8f9) !important;
+        background-size: 200% auto !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        background-clip: text !important;
         animation: shimmer 3s linear infinite;
       }
       @keyframes shimmer {
@@ -225,7 +136,7 @@
       }
       .hero > .container > p,
       .hero-inner > p {
-        color: rgba(255,255,255,0.8);
+        color: rgba(255,255,255,0.9);
         font-size: 1.2rem;
         margin-bottom: 2.25rem;
         max-width: 560px;
@@ -634,13 +545,6 @@
     </style>
 </head>
 <body data-social-bar>
-
-<nav class="premium-nav" aria-label="Main navigation">
-    <a href="#" class="nav-back-btn">
-        <i data-lucide="arrow-left" width="20" height="20"></i>
-        <span>Back to Hub</span>
-    </a>
-</nav>
 
 <noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
     <script src="/components/header.js"></script>
