@@ -15,7 +15,7 @@ const DIST_DIR = path.resolve(__dirname, '../dist');
 const STATIC_DIRS = ['css', 'js', 'icons', 'assets', 'components'];
 const SKIP_PATHS  = ['dist', 'node_modules', '.git', 'scripts'];
 
-// ─── TOOLS (Now using Lucide icon names instead of Emojis) ────────────────────
+// ─── TOOLS (Using Lucide icon names) ──────────────────────────────────────────
 
 const TOOLS = {
   'file-tools': [
@@ -84,15 +84,59 @@ const CATEGORY_COLORS = {
 // ─── BLOGS ────────────────────────────────────────────────────────────────────
 
 const BLOGS = [
-  { slug: 'compress-images-without-losing-quality', title: 'How to Compress Images Without Losing Quality',                date: 'March 5, 2026',  category: 'Image Tools'   },
-  { slug: 'best-free-image-creation-tools-online',  title: '15 Best Free Image Creation and Editing Tools Online in 2026', date: 'Feb 28, 2026',   category: 'Image Tools'   },
-  { slug: 'new-free-online-tools-2026',             title: '60+ New Free Online Tools Just Added to ToolsNest in 2026',    date: 'Feb 20, 2026',   category: 'News'          },
-  { slug: 'best-free-ai-writing-tools',             title: 'Best Free AI Writing Tools for Content Creation in 2026',      date: 'Feb 15, 2026',   category: 'AI Tools'      },
-  { slug: 'free-online-calculators-guide',          title: '22 Free Online Calculators for Finance, Academics & Everyday Use', date: 'Feb 10, 2026', category: 'Calculators' },
-  { slug: 'best-free-file-conversion-tools',        title: 'Best Free File Conversion and PDF Tools Online in 2026',       date: 'Feb 5, 2026',    category: 'File Tools'    },
+  { slug: 'compress-images-without-losing-quality', title: 'How to Compress Images Without Losing Quality (Free & No Software Needed)', date: 'March 5, 2026', category: 'Image Tools' },
+  { slug: 'best-free-image-creation-tools-online', title: '15 Best Free Image Creation and Editing Tools Online in 2026', date: 'Feb 28, 2026', category: 'Image Tools' },
+  { slug: 'new-free-online-tools-2026', title: '60+ New Free Online Tools Just Added to ToolsNest in 2026', date: 'Feb 20, 2026', category: 'News' },
+  { slug: 'best-free-ai-writing-tools', title: 'Best Free AI Writing Tools for Content Creation in 2026', date: 'Feb 15, 2026', category: 'AI Tools' },
+  { slug: 'free-online-calculators-guide', title: '22 Free Online Calculators for Finance, Academics & Everyday Use', date: 'Feb 10, 2026', category: 'Calculators' },
+  { slug: 'best-free-file-conversion-tools', title: 'Best Free File Conversion and PDF Tools Online in 2026', date: 'Feb 5, 2026', category: 'File Tools' },
+  { slug: 'check-plagiarism-online-free', title: 'How to Check for Plagiarism Online for Free', date: 'Jan 30, 2026', category: 'AI Tools' },
+  { slug: 'free-citation-generator-guide', title: 'How to Generate Citations in APA, MLA & Chicago for Free', date: 'Jan 25, 2026', category: 'Student Tools' },
+  { slug: 'pomodoro-study-timer-technique', title: 'How to Use the Pomodoro Technique to Study Effectively', date: 'Jan 22, 2026', category: 'Student Tools' },
+  { slug: 'paraphrase-text-online-free', title: 'How to Paraphrase Text Online for Free', date: 'Jan 20, 2026', category: 'AI Tools' },
+  { slug: 'best-free-grammar-checker', title: 'Best Free Online Grammar Checker Tools in 2026', date: 'Jan 18, 2026', category: 'AI Tools' },
+  { slug: 'make-flashcards-online-free', title: 'How to Make Flashcards Online for Free', date: 'Jan 15, 2026', category: 'Student Tools' },
+  { slug: 'convert-text-to-speech-free', title: 'How to Convert Text to Speech Online for Free', date: 'Jan 12, 2026', category: 'AI Tools' },
+  { slug: 'convert-speech-to-text-free', title: 'How to Convert Speech to Text Online for Free', date: 'Jan 10, 2026', category: 'AI Tools' },
+  { slug: 'estimate-read-time-content', title: 'How to Estimate Read Time for Your Content', date: 'Jan 8, 2026', category: 'Student Tools' },
+  { slug: 'convert-pdf-to-word-free', title: 'How to Convert PDF to Word for Free', date: 'Jan 5, 2026', category: 'File Tools' },
+  { slug: 'calculate-gpa-online', title: 'How to Calculate Your GPA Online', date: 'Jan 3, 2026', category: 'Calculators' },
+  { slug: 'resize-images-online', title: 'How to Resize Images Online Without Losing Quality', date: 'Dec 28, 2025', category: 'Image Tools' },
+  { slug: 'convert-mp4-to-mp3-free', title: 'How to Convert MP4 to MP3 for Free', date: 'Dec 25, 2025', category: 'File Tools' },
+  { slug: 'merge-pdf-files-online', title: 'How to Merge PDF Files Online for Free', date: 'Dec 22, 2025', category: 'File Tools' },
+  { slug: 'compress-pdf-without-losing-quality', title: 'How to Compress a PDF Without Losing Quality', date: 'Dec 20, 2025', category: 'File Tools' },
+  { slug: 'free-tools-every-student-needs', title: '5 Free Tools Every Student Needs', date: 'Dec 18, 2025', category: 'Student Tools' },
+  { slug: 'jpg-vs-png-which-format', title: 'JPG vs PNG: Which Format Should You Use?', date: 'Dec 15, 2025', category: 'Image Tools' },
+  { slug: 'split-pdf-pages-online', title: 'How to Split PDF Pages Online for Free', date: 'Dec 12, 2025', category: 'File Tools' },
+  { slug: 'convert-word-to-pdf-free', title: 'How to Convert Word to PDF for Free Online', date: 'Dec 10, 2025', category: 'File Tools' },
+  { slug: 'best-free-ai-text-summarizer', title: 'Best Free AI Text Summarizer Tools in 2026', date: 'Dec 8, 2025', category: 'AI Tools' },
+  { slug: 'student-loan-calculator-guide', title: 'How to Calculate Student Loan Payments', date: 'Dec 5, 2025', category: 'Calculators' },
+  { slug: 'reduce-image-file-size', title: 'How to Reduce Image File Size Without Losing Quality', date: 'Dec 2, 2025', category: 'Image Tools' },
+  { slug: 'best-free-pdf-tools-online', title: 'Best Free PDF Tools Online in 2026', date: 'Nov 30, 2025', category: 'File Tools' },
+  { slug: 'convert-jpg-to-png-online', title: 'How to Convert JPG to PNG Online for Free', date: 'Nov 28, 2025', category: 'Image Tools' },
+  { slug: 'compress-images-for-website', title: 'How to Compress Images for Your Website', date: 'Nov 25, 2025', category: 'Image Tools' },
+  { slug: 'summarize-long-articles-with-ai', title: 'How to Summarize Long Articles Instantly with AI', date: 'Nov 22, 2025', category: 'AI Tools' },
+  { slug: 'best-online-tools-for-remote-work', title: '10 Best Free Online Tools for Remote Workers', date: 'Nov 20, 2025', category: 'News' },
+  { slug: 'convert-heic-to-jpg-free', title: 'How to Convert HEIC to JPG for Free Online', date: 'Nov 18, 2025', category: 'Image Tools' },
+  { slug: 'free-ai-resume-writing-tips', title: 'How to Write a Better Resume with Free AI Tools', date: 'Nov 15, 2025', category: 'AI Tools' },
+  { slug: 'convert-excel-to-pdf-online', title: 'How to Convert Excel to PDF Online for Free', date: 'Nov 12, 2025', category: 'File Tools' },
+  { slug: 'best-free-video-editing-tools', title: 'Best Free Online Video Editing Tools in 2026', date: 'Nov 10, 2025', category: 'File Tools' },
+  { slug: 'create-perfect-profile-picture', title: 'How to Create the Perfect Profile Picture for Free', date: 'Nov 8, 2025', category: 'Image Tools' },
+  { slug: 'retirement-savings-calculator-guide', title: 'How to Calculate Your Retirement Savings Goal', date: 'Nov 5, 2025', category: 'Calculators' },
+  { slug: 'how-to-redact-pdf-for-privacy', title: 'How to Redact a PDF for Privacy and Security', date: 'Nov 2, 2025', category: 'File Tools' },
+  { slug: 'best-free-qr-code-generators', title: 'Best Free QR Code Generators Online in 2026', date: 'Oct 30, 2025', category: 'Image Tools' },
+  { slug: 'how-to-remove-image-background-free', title: 'How to Remove Image Background for Free', date: 'Oct 28, 2025', category: 'Image Tools' },
+  { slug: 'best-free-percentage-calculators', title: 'Best Free Online Percentage Calculators', date: 'Oct 25, 2025', category: 'Calculators' },
+  { slug: 'how-to-compress-pdf-for-email', title: 'How to Compress PDF for Email', date: 'Oct 22, 2025', category: 'File Tools' },
+  { slug: 'best-free-instagram-tools', title: 'Best Free Instagram Tools for Content Creators in 2026', date: 'Oct 20, 2025', category: 'Image Tools' },
+  { slug: 'how-to-generate-citations-free', title: 'How to Generate Citations for Free', date: 'Oct 18, 2025', category: 'Student Tools' },
+  { slug: 'best-ai-text-tools-for-students', title: 'Best AI Text Tools for Students in 2026', date: 'Oct 15, 2025', category: 'Student Tools' },
+  { slug: 'how-to-make-youtube-thumbnails-free', title: 'How to Make YouTube Thumbnails for Free', date: 'Oct 12, 2025', category: 'Image Tools' },
+  { slug: 'best-free-unit-converters-online', title: 'Best Free Unit Converters Online', date: 'Oct 10, 2025', category: 'Calculators' },
+  { slug: 'how-to-extract-audio-from-video', title: 'How to Extract Audio from Video Files', date: 'Oct 8, 2025', category: 'File Tools' }
 ];
 
-// ─── HTML GENERATORS (Now generating the modern structure) ───────────────────
+// ─── HTML GENERATORS (Premium UI Structure) ───────────────────────────────────
 
 function toolCard(tool, category) {
   const colorClass = CATEGORY_COLORS[category] || 'ptool-icon--blue';
@@ -144,7 +188,7 @@ function processHTML(html, relPath) {
   if (norm === 'blog/index.html') {
     var allBlogHTML = BLOGS.map(blogCard).join('\n');
     var before2 = html;
-    html = html.replace(/(<div[^>]+id="blog-grid"[^>]*>)([\s\S]*?)(<\/div>)/, '$1\n' + allBlogHTML + '\n$3');
+    html = html.replace(/(<div[^>]+(?:id="blog-grid"|class="[^"]*blog-grid-static[^"]*")[^>]*>)([\s\S]*?)(<\/div>)/, '$1\n' + allBlogHTML + '\n$3');
     if (html === before2) html = html.replace(/(<h1[^>]*>[\s\S]*?<\/h1>)/, '$1\n<div class="blog-listing-static">\n' + allBlogHTML + '\n</div>');
   }
 
