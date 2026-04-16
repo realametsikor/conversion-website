@@ -14,10 +14,15 @@
     <meta property="og:url" content="https://www.usetoolnest.com/image-tools/photo-filters-editor/">
     <meta property="og:site_name" content="ToolsNest">
     <meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="Photo Filters Editor Free Online - Apply Filters to Images | ToolsNest">
-    <meta name="twitter:description" content="Apply stunning photo filters to your images online for free. Choose from grayscale, sepia, vintage, warm, cool, and more effects. Download instantly.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <link rel="stylesheet" href="/css/style.css">
+    
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -38,520 +43,572 @@
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "Photo Filters Editor Free Online - Apply Filters to Images"
+          "name": "Photo Filters Editor"
         }
       ]
     }
     </script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#db2777">
+
     <style>
-        .filter-upload {
-            padding: 3rem 2rem;
+        /* Tool Specific Styles */
+        .upload-area {
             border: 2px dashed var(--border);
-            border-radius: var(--radius-sm);
-            text-align: center;
+            border-radius: var(--radius);
+            padding: 4rem 2rem;
+            background: var(--bg-color);
+            transition: all 0.3s ease;
             cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-        .filter-upload:hover,
-        .filter-upload.drag-over {
+        .upload-area:hover, .upload-area.drag-over {
             border-color: var(--primary);
-            background: rgba(37, 99, 235, 0.04);
+            background: var(--primary-light);
         }
-        .filter-upload .upload-icon {
-            font-size: 3rem;
+        .upload-icon {
+            color: var(--primary);
             margin-bottom: 1rem;
-            display: block;
         }
+        
         .canvas-wrapper {
             text-align: center;
-            margin: 1.5rem 0;
+            margin: 0 0 2rem 0;
+            background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/ENF5gA7gMiYYQ30wDDXgPzIwkNCDgTjRAwCY/SAdWv/4XAAAAABJRU5ErkJggg==') repeat;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
         }
         .canvas-wrapper canvas {
             max-width: 100%;
-            border-radius: var(--radius-sm);
-            border: 1px solid var(--border);
+            height: auto;
+            display: block;
+            margin: 0 auto;
         }
+        
+        .options-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
         .filter-presets {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            justify-content: center;
-            margin: 1rem 0;
+            justify-content: flex-start;
         }
-        .filter-presets button {
+        .preset-btn {
             padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            border-radius: var(--radius-sm);
-            border: 2px solid var(--border);
-            background: var(--bg-color);
+            font-size: 0.85rem;
+            font-family: inherit;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
             color: var(--text-main);
             cursor: pointer;
-            transition: border-color 0.2s, background 0.2s;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
-        .filter-presets button:hover {
+        .preset-btn:hover {
             border-color: var(--primary);
+            color: var(--primary);
         }
-        .filter-presets button.active {
+        .preset-btn.active {
             border-color: var(--primary);
             background: var(--primary);
             color: #fff;
+            box-shadow: 0 4px 10px rgba(37,99,235,0.2);
         }
-        .sliders-section {
-            max-width: 400px;
-            margin: 1.5rem auto;
-        }
+        
         .slider-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .slider-group:last-child {
+            margin-bottom: 0;
         }
         .slider-group label {
             display: flex;
             justify-content: space-between;
             font-weight: 600;
-            margin-bottom: 0.3rem;
-            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-main);
         }
         .slider-group input[type="range"] {
             width: 100%;
             accent-color: var(--primary);
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
         }
+        .val-badge {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+
         .action-buttons {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 1rem;
             justify-content: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        
+        @keyframes lucide-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .lucide-spin {
+            animation: lucide-spin 2s linear infinite;
         }
     </style>
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#2563EB">
 </head>
 <body data-social-bar>
 <noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
-    <script src="/components/header.js"></script>
+<script src="/components/header.js"></script>
 
-    <main class="container">
-        <nav class="breadcrumb mt-3">
-            <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Photo Filters Editor
-        </nav>
+<main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <nav class="breadcrumb">
+        <a href="/"><i data-lucide="home" width="14" height="14"></i> Home</a> 
+        <i data-lucide="chevron-right" width="14" height="14"></i> 
+        <a href="/image-tools">Image Tools</a>
+        <i data-lucide="chevron-right" width="14" height="14"></i> 
+        <span>Photo Filters Editor</span>
+    </nav>
 
-        <div class="tool-layout">
-            <div>
-                <h1 class="text-center mb-2">Photo Filters Editor</h1>
-                <p class="text-center mb-3">Apply beautiful filters and effects to your photos right in your browser. Choose from preset filters like grayscale, sepia, vintage, warm, cool, and more, or fine-tune brightness, contrast, and saturation with manual sliders. 100% free and private.</p>
+    <div class="tool-layout">
+        <div>
+            <h1 class="mb-2">Photo Filters Editor</h1>
+            <p class="mb-4">Apply beautiful filters and effects to your photos right in your browser. Fine-tune brightness, contrast, and saturation. 100% free and private.</p>
 
-                <div class="tool-workspace">
-                    <!-- Upload Section -->
-                    <div id="upload-section">
-                        <div class="filter-upload" id="drop-zone">
-                            <span class="upload-icon">&#127912;</span>
-                            <h3 class="mb-2">Upload Your Image</h3>
-                            <p class="text-muted mb-2">Drag &amp; drop an image here, or click to browse</p>
-                            <p class="text-muted" style="font-size: 0.85rem;">Supports JPG, PNG, and WebP</p>
-                            <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
-                            <label for="file-input" class="btn btn-primary" style="margin-top: 1rem;">Select Image</label>
-                        </div>
-                    </div>
-
-                    <!-- Editor Section -->
-                    <div id="editor-section" style="display: none;">
-                        <div class="canvas-wrapper">
-                            <canvas id="filter-canvas"></canvas>
-                        </div>
-
-                        <h3 class="text-center mb-1">Filter Presets</h3>
-                        <div class="filter-presets" id="filter-presets">
-                            <button class="active" data-filter="original">Original</button>
-                            <button data-filter="grayscale">Grayscale</button>
-                            <button data-filter="sepia">Sepia</button>
-                            <button data-filter="vintage">Vintage</button>
-                            <button data-filter="warm">Warm</button>
-                            <button data-filter="cool">Cool</button>
-                            <button data-filter="high-contrast">High Contrast</button>
-                            <button data-filter="brightness-boost">Brightness Boost</button>
-                            <button data-filter="invert">Invert</button>
-                            <button data-filter="blur">Blur</button>
-                        </div>
-
-                        <div class="sliders-section">
-                            <h3 class="text-center mb-1">Manual Adjustments</h3>
-                            <div class="slider-group">
-                                <label>Brightness <span id="brightness-val">0</span></label>
-                                <input type="range" id="brightness-slider" min="-100" max="100" value="0">
-                            </div>
-                            <div class="slider-group">
-                                <label>Contrast <span id="contrast-val">0</span></label>
-                                <input type="range" id="contrast-slider" min="-100" max="100" value="0">
-                            </div>
-                            <div class="slider-group">
-                                <label>Saturation <span id="saturation-val">0</span></label>
-                                <input type="range" id="saturation-slider" min="-100" max="100" value="0">
-                            </div>
-                        </div>
-
-                        <div class="action-buttons">
-                            <button id="download-btn" class="btn btn-primary" style="padding: 0.75rem 2rem; font-size: 1.05rem;">Download PNG</button>
-                            <button id="reset-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Reset</button>
-                            <button id="new-image-btn" class="btn" style="background: var(--bg-color); color: var(--text-main); border: 1px solid var(--border);">Upload New Image</button>
-                        </div>
+            <div class="tool-workspace">
+                
+                <div id="upload-section">
+                    <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click();">
+                        <i data-lucide="image-plus" width="56" height="56" class="upload-icon"></i>
+                        <h3 class="mb-1" style="font-size: 1.35rem;">Upload Your Image</h3>
+                        <p class="text-muted mb-3" style="font-size: 1rem;">Drag &amp; drop an image here, or click to browse</p>
+                        
+                        <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                        <span class="btn btn-primary" style="pointer-events: none;">Select Image</span>
+                        <p class="text-muted mt-3" style="font-size: 0.85rem; font-weight: 600;"><i data-lucide="check-circle-2" width="14" height="14" style="vertical-align: middle;"></i> Supports JPG, PNG, and WebP</p>
                     </div>
                 </div>
 
-                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+                <div id="editor-section" style="display: none;">
+                    
+                    <div class="canvas-wrapper">
+                        <canvas id="filter-canvas"></canvas>
+                    </div>
 
-                <section class="mb-4">
-                    <h2 class="mb-2">How to Use</h2>
-                    <ol style="margin-left: 1.5rem; line-height: 2;">
-                        <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP photo into the upload area.</li>
-                        <li>Choose a filter preset by clicking one of the filter buttons (Grayscale, Sepia, Vintage, etc.).</li>
-                        <li>Fine-tune the result using the Brightness, Contrast, and Saturation sliders.</li>
-                        <li>Preview the filtered image in real time on the canvas.</li>
-                        <li>Click "Download PNG" to save the final filtered image to your device.</li>
-                    </ol>
-                </section>
+                    <div class="options-card">
+                        <h3 class="mb-3" style="font-size: 1.1rem;"><i data-lucide="wand-2" width="18" height="18" style="vertical-align: text-bottom; margin-right: 4px;"></i> Filter Presets</h3>
+                        <div class="filter-presets" id="filter-presets">
+                            <button class="preset-btn active" data-filter="original">Original</button>
+                            <button class="preset-btn" data-filter="grayscale">Grayscale</button>
+                            <button class="preset-btn" data-filter="sepia">Sepia</button>
+                            <button class="preset-btn" data-filter="vintage">Vintage</button>
+                            <button class="preset-btn" data-filter="warm">Warm</button>
+                            <button class="preset-btn" data-filter="cool">Cool</button>
+                            <button class="preset-btn" data-filter="high-contrast">High Contrast</button>
+                            <button class="preset-btn" data-filter="brightness-boost">Boost</button>
+                            <button class="preset-btn" data-filter="invert">Invert</button>
+                            <button class="preset-btn" data-filter="blur">Blur</button>
+                        </div>
+                    </div>
 
-                <section class="mb-4">
-                    <h2 class="mb-2">Frequently Asked Questions</h2>
-                    <div class="faq-item">
-                        <h3>What filter types are available?</h3>
-                        <p>The tool offers 10 filter presets: Original, Grayscale, Sepia, Vintage, Warm, Cool, High Contrast, Brightness Boost, Invert, and Blur. You can also manually adjust brightness, contrast, and saturation with sliders for precise control.</p>
+                    <div class="options-card">
+                        <h3 class="mb-3" style="font-size: 1.1rem;"><i data-lucide="sliders-horizontal" width="18" height="18" style="vertical-align: text-bottom; margin-right: 4px;"></i> Manual Adjustments</h3>
+                        <div class="slider-group">
+                            <label>Brightness <span class="val-badge" id="brightness-val">0</span></label>
+                            <input type="range" id="brightness-slider" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-group">
+                            <label>Contrast <span class="val-badge" id="contrast-val">0</span></label>
+                            <input type="range" id="contrast-slider" min="-100" max="100" value="0">
+                        </div>
+                        <div class="slider-group">
+                            <label>Saturation <span class="val-badge" id="saturation-val">0</span></label>
+                            <input type="range" id="saturation-slider" min="-100" max="100" value="0">
+                        </div>
                     </div>
-                    <div class="faq-item">
-                        <h3>Does applying filters reduce image quality?</h3>
-                        <p>Filters are applied using direct pixel manipulation on an HTML5 Canvas at the original image resolution. The downloaded PNG preserves the full resolution of your original image with the filter applied, so there is no quality loss from compression.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Are my images uploaded to a server?</h3>
-                        <p>No. All processing happens entirely in your browser using the Canvas API and JavaScript. Your images never leave your device and are never sent to any server. Your privacy is fully protected.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>What image formats are supported?</h3>
-                        <p>You can upload JPEG, PNG, and WebP images. The filtered result is always downloaded as a high-quality PNG file, which supports lossless compression and transparency.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3>Can I combine multiple filters and adjustments?</h3>
-                        <p>Yes. You can select a filter preset and then further adjust the brightness, contrast, and saturation sliders. All adjustments are applied together and previewed in real time, so you can combine effects to achieve the exact look you want.</p>
-                    </div>
-                </section>
 
-                <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+                    <div class="action-buttons">
+                        <button id="download-btn" class="btn btn-accent" style="padding: 0.85rem 2rem; font-size: 1.05rem; min-width: 220px;">
+                            <i data-lucide="download" width="20" height="20"></i> Download Image
+                        </button>
+                        <button id="reset-btn" class="btn btn-outline" style="padding: 0.85rem 1.5rem;">
+                            <i data-lucide="rotate-ccw" width="18" height="18"></i> Reset
+                        </button>
+                        <button id="new-image-btn" class="btn btn-outline" style="padding: 0.85rem 1.5rem;">
+                            <i data-lucide="image-plus" width="18" height="18"></i> New Image
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <aside>
-                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
-                <div class="related-tools">
-                    <h3>Related Tools</h3>
-                    <a href="/image-tools/image-compressor" class="related-link">Image Compressor</a>
-                    <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
-                    <a href="/image-tools/background-remover" class="related-link">Background Remover</a>
-                    <a href="/all-tools" class="related-link">See All Tools</a>
+            <div class="ad-placeholder ad-between-sections ad-native mt-4">Ad Placeholder</div>
+
+            <section class="mt-4">
+                <h2>How to Add Filters to Photos Online</h2>
+                <ol>
+                    <li>Click <strong>Select Image</strong> or drag and drop a JPG, PNG, or WebP photo into the upload area above.</li>
+                    <li>Choose a quick aesthetic by clicking one of the <strong>Filter Presets</strong> (e.g., Grayscale, Sepia, Vintage, Blur).</li>
+                    <li>Fine-tune the result using the <strong>Manual Adjustments</strong> sliders to dial in the perfect brightness, contrast, and color saturation.</li>
+                    <li>Preview the filtered image in real time directly on the canvas.</li>
+                    <li>Click <strong>Download Image</strong> to save the final filtered, full-resolution image to your device as a high-quality PNG.</li>
+                </ol>
+            </section>
+
+            <section class="mt-4">
+                <h2>Frequently Asked Questions</h2>
+                <div class="faq-item">
+                    <h3>Does applying filters reduce image quality?</h3>
+                    <p>No! Our tool applies the filters using direct pixel manipulation at the exact resolution of your original image. The downloaded file preserves the full quality of your original photo, ensuring crisp, lossless results.</p>
                 </div>
-                <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
-            </aside>
+                <div class="faq-item">
+                    <h3>Are my photos uploaded to a server?</h3>
+                    <p>Absolutely not. We value your privacy. All image processing happens entirely inside your web browser using HTML5 Canvas and JavaScript. Your photos never leave your device and are never sent to our servers.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I combine multiple filters and adjustments?</h3>
+                    <p>Yes. You can select a base filter preset (like Vintage) and then further adjust the brightness, contrast, and saturation sliders to customize it. All adjustments stack together and preview in real time.</p>
+                </div>
+            </section>
+
+            <div class="ad-placeholder ad-between-sections ad-native mt-4">Ad Placeholder</div>
+            <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
         </div>
-    </main>
 
-    <script src="/components/footer.js"></script>
-    <script defer src="/js/app.js"></script>
+        <aside>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-bottom: 2rem;">Ad Placeholder</div>
+            
+            <div class="related-tools" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm);">
+                <h3>Related Tools</h3>
+                <a href="/image-tools/image-compressor" class="related-link">
+                    <i data-lucide="minimize" width="16" height="16"></i> Image Compressor
+                </a>
+                <a href="/image-tools/resize-image" class="related-link">
+                    <i data-lucide="scaling" width="16" height="16"></i> Resize Image
+                </a>
+                <a href="/image-tools/background-remover" class="related-link">
+                    <i data-lucide="eraser" width="16" height="16"></i> AI Background Remover
+                </a>
+                <a href="/image-tools/collage-maker" class="related-link">
+                    <i data-lucide="layout" width="16" height="16"></i> Photo Collage Maker
+                </a>
+                <a href="/all-tools" class="btn btn-outline" style="width: 100%; margin-top: 1rem; text-align: center; justify-content: center;">See All Tools</a>
+            </div>
+        </aside>
+    </div>
+</main>
 
-    <script>
-    (function() {
-        var fileInput = document.getElementById('file-input');
-        var dropZone = document.getElementById('drop-zone');
-        var uploadSection = document.getElementById('upload-section');
-        var editorSection = document.getElementById('editor-section');
-        var canvas = document.getElementById('filter-canvas');
-        var ctx = canvas.getContext('2d');
-        var downloadBtn = document.getElementById('download-btn');
-        var resetBtn = document.getElementById('reset-btn');
-        var newImageBtn = document.getElementById('new-image-btn');
-        var presetButtons = document.querySelectorAll('#filter-presets button');
-        var brightnessSlider = document.getElementById('brightness-slider');
-        var contrastSlider = document.getElementById('contrast-slider');
-        var saturationSlider = document.getElementById('saturation-slider');
-        var brightnessVal = document.getElementById('brightness-val');
-        var contrastVal = document.getElementById('contrast-val');
-        var saturationVal = document.getElementById('saturation-val');
+<script src="/components/footer.js"></script>
+<script defer src="/js/app.js"></script>
 
-        var originalImage = null;
-        var originalImageData = null;
-        var currentFilter = 'original';
-        var MAX_DISPLAY = 1200;
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    if(typeof lucide !== "undefined") { lucide.createIcons(); }
 
-        // File upload handling
-        dropZone.addEventListener('click', function(e) {
-            if (e.target === fileInput || e.target.closest('label[for="file-input"]')) return;
-            fileInput.click();
-        });
+    var fileInput = document.getElementById('file-input');
+    var dropZone = document.getElementById('drop-zone');
+    var uploadSection = document.getElementById('upload-section');
+    var editorSection = document.getElementById('editor-section');
+    var canvas = document.getElementById('filter-canvas');
+    var ctx = canvas.getContext('2d', { willReadFrequently: true }); // Performance optimization
+    var downloadBtn = document.getElementById('download-btn');
+    var resetBtn = document.getElementById('reset-btn');
+    var newImageBtn = document.getElementById('new-image-btn');
+    var presetButtons = document.querySelectorAll('#filter-presets button');
+    var brightnessSlider = document.getElementById('brightness-slider');
+    var contrastSlider = document.getElementById('contrast-slider');
+    var saturationSlider = document.getElementById('saturation-slider');
+    var brightnessVal = document.getElementById('brightness-val');
+    var contrastVal = document.getElementById('contrast-val');
+    var saturationVal = document.getElementById('saturation-val');
 
-        fileInput.addEventListener('change', function() {
-            if (fileInput.files && fileInput.files[0]) loadImage(fileInput.files[0]);
-        });
+    var originalImage = null;
+    var originalImageData = null;
+    var currentFilter = 'original';
+    var MAX_DISPLAY = 1200; // Limit preview size so browser doesn't freeze
 
-        dropZone.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            dropZone.classList.add('drag-over');
-        });
+    fileInput.addEventListener('change', function() {
+        if (fileInput.files && fileInput.files[0]) loadImage(fileInput.files[0]);
+    });
 
-        dropZone.addEventListener('dragleave', function(e) {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-        });
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        dropZone.classList.add('drag-over');
+    });
 
-        dropZone.addEventListener('drop', function(e) {
-            e.preventDefault();
-            dropZone.classList.remove('drag-over');
-            if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                var file = e.dataTransfer.files[0];
-                if (file.type.match(/^image\/(jpeg|png|webp)$/)) {
-                    loadImage(file);
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropZone.classList.remove('drag-over');
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+            var file = e.dataTransfer.files[0];
+            if (file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                loadImage(file);
+            }
+        }
+    });
+
+    function loadImage(file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = new Image();
+            img.onload = function() {
+                originalImage = img;
+                var w = img.naturalWidth;
+                var h = img.naturalHeight;
+                
+                // Scale down for preview if needed
+                if (w > MAX_DISPLAY || h > MAX_DISPLAY) {
+                    var scale = Math.min(MAX_DISPLAY / w, MAX_DISPLAY / h);
+                    w = Math.round(w * scale);
+                    h = Math.round(h * scale);
                 }
-            }
-        });
+                
+                canvas.width = w;
+                canvas.height = h;
+                ctx.drawImage(img, 0, 0, w, h);
+                originalImageData = ctx.getImageData(0, 0, w, h);
 
-        function loadImage(file) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                var img = new Image();
-                img.onload = function() {
-                    originalImage = img;
-                    var w = img.naturalWidth;
-                    var h = img.naturalHeight;
-                    if (w > MAX_DISPLAY || h > MAX_DISPLAY) {
-                        var scale = Math.min(MAX_DISPLAY / w, MAX_DISPLAY / h);
-                        w = Math.round(w * scale);
-                        h = Math.round(h * scale);
-                    }
-                    canvas.width = w;
-                    canvas.height = h;
-                    ctx.drawImage(img, 0, 0, w, h);
-                    originalImageData = ctx.getImageData(0, 0, w, h);
-
-                    uploadSection.style.display = 'none';
-                    editorSection.style.display = 'block';
-                    currentFilter = 'original';
-                    brightnessSlider.value = 0;
-                    contrastSlider.value = 0;
-                    saturationSlider.value = 0;
-                    brightnessVal.textContent = '0';
-                    contrastVal.textContent = '0';
-                    saturationVal.textContent = '0';
-                    setActivePreset('original');
-                    applyFilters();
-                };
-                img.src = e.target.result;
+                uploadSection.style.display = 'none';
+                editorSection.style.display = 'block';
+                resetControls();
             };
-            reader.readAsDataURL(file);
-        }
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
 
-        function setActivePreset(filterName) {
-            presetButtons.forEach(function(btn) {
-                btn.classList.toggle('active', btn.getAttribute('data-filter') === filterName);
-            });
-        }
-
-        // Preset button clicks
+    function setActivePreset(filterName) {
         presetButtons.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                currentFilter = btn.getAttribute('data-filter');
-                setActivePreset(currentFilter);
-                applyFilters();
-            });
+            btn.classList.toggle('active', btn.getAttribute('data-filter') === filterName);
         });
+    }
 
-        // Slider input handlers
-        brightnessSlider.addEventListener('input', function() {
-            brightnessVal.textContent = brightnessSlider.value;
+    presetButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            currentFilter = btn.getAttribute('data-filter');
+            setActivePreset(currentFilter);
             applyFilters();
         });
-        contrastSlider.addEventListener('input', function() {
-            contrastVal.textContent = contrastSlider.value;
-            applyFilters();
-        });
-        saturationSlider.addEventListener('input', function() {
-            saturationVal.textContent = saturationSlider.value;
-            applyFilters();
-        });
+    });
 
-        function clamp(val, min, max) {
-            return val < min ? min : val > max ? max : val;
+    brightnessSlider.addEventListener('input', function() {
+        brightnessVal.textContent = brightnessSlider.value;
+        applyFilters();
+    });
+    contrastSlider.addEventListener('input', function() {
+        contrastVal.textContent = contrastSlider.value;
+        applyFilters();
+    });
+    saturationSlider.addEventListener('input', function() {
+        saturationVal.textContent = saturationSlider.value;
+        applyFilters();
+    });
+
+    function clamp(val, min, max) {
+        return val < min ? min : val > max ? max : val;
+    }
+
+    function applyFilters() {
+        if (!originalImageData) return;
+
+        var src = originalImageData.data;
+        var imgData = ctx.createImageData(canvas.width, canvas.height);
+        var data = imgData.data;
+        var len = src.length;
+        var i;
+
+        // Copy original data fast
+        for (i = 0; i < len; i++) {
+            data[i] = src[i];
         }
 
-        function applyFilters() {
-            if (!originalImageData) return;
-
-            var src = originalImageData.data;
-            var imgData = ctx.createImageData(canvas.width, canvas.height);
-            var data = imgData.data;
-            var len = src.length;
-            var i;
-
-            // Copy original data
-            for (i = 0; i < len; i++) {
-                data[i] = src[i];
-            }
-
-            // Apply preset filter
-            switch (currentFilter) {
-                case 'grayscale':
-                    for (i = 0; i < len; i += 4) {
-                        var gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
-                        data[i] = data[i + 1] = data[i + 2] = gray;
-                    }
-                    break;
-
-                case 'sepia':
-                    for (i = 0; i < len; i += 4) {
-                        var r = data[i], g = data[i + 1], b = data[i + 2];
-                        data[i]     = clamp(r * 0.393 + g * 0.769 + b * 0.189, 0, 255);
-                        data[i + 1] = clamp(r * 0.349 + g * 0.686 + b * 0.168, 0, 255);
-                        data[i + 2] = clamp(r * 0.272 + g * 0.534 + b * 0.131, 0, 255);
-                    }
-                    break;
-
-                case 'vintage':
-                    for (i = 0; i < len; i += 4) {
-                        var r = data[i], g = data[i + 1], b = data[i + 2];
-                        // Sepia base
-                        var sr = clamp(r * 0.393 + g * 0.769 + b * 0.189, 0, 255);
-                        var sg = clamp(r * 0.349 + g * 0.686 + b * 0.168, 0, 255);
-                        var sb = clamp(r * 0.272 + g * 0.534 + b * 0.131, 0, 255);
-                        // Blend with original (desaturate partially) and add warm tint
-                        data[i]     = clamp(sr * 0.7 + r * 0.3 + 10, 0, 255);
-                        data[i + 1] = clamp(sg * 0.7 + g * 0.3, 0, 255);
-                        data[i + 2] = clamp(sb * 0.7 + b * 0.3 - 10, 0, 255);
-                    }
-                    break;
-
-                case 'warm':
-                    for (i = 0; i < len; i += 4) {
-                        data[i]     = clamp(data[i] + 20, 0, 255);
-                        data[i + 1] = clamp(data[i + 1] + 10, 0, 255);
-                        data[i + 2] = clamp(data[i + 2] - 15, 0, 255);
-                    }
-                    break;
-
-                case 'cool':
-                    for (i = 0; i < len; i += 4) {
-                        data[i]     = clamp(data[i] - 15, 0, 255);
-                        data[i + 1] = clamp(data[i + 1] + 5, 0, 255);
-                        data[i + 2] = clamp(data[i + 2] + 20, 0, 255);
-                    }
-                    break;
-
-                case 'high-contrast':
-                    var factor = 1.5;
-                    for (i = 0; i < len; i += 4) {
-                        data[i]     = clamp(factor * (data[i] - 128) + 128, 0, 255);
-                        data[i + 1] = clamp(factor * (data[i + 1] - 128) + 128, 0, 255);
-                        data[i + 2] = clamp(factor * (data[i + 2] - 128) + 128, 0, 255);
-                    }
-                    break;
-
-                case 'brightness-boost':
-                    for (i = 0; i < len; i += 4) {
-                        data[i]     = clamp(data[i] + 40, 0, 255);
-                        data[i + 1] = clamp(data[i + 1] + 40, 0, 255);
-                        data[i + 2] = clamp(data[i + 2] + 40, 0, 255);
-                    }
-                    break;
-
-                case 'invert':
-                    for (i = 0; i < len; i += 4) {
-                        data[i]     = 255 - data[i];
-                        data[i + 1] = 255 - data[i + 1];
-                        data[i + 2] = 255 - data[i + 2];
-                    }
-                    break;
-
-                case 'blur':
-                    // Multi-pass box blur (3 passes for Gaussian approximation)
-                    applyBoxBlur(data, canvas.width, canvas.height, 3);
-                    applyBoxBlur(data, canvas.width, canvas.height, 3);
-                    applyBoxBlur(data, canvas.width, canvas.height, 3);
-                    break;
-
-                case 'original':
-                default:
-                    break;
-            }
-
-            // Apply manual adjustments: brightness, contrast, saturation
-            var brightness = parseInt(brightnessSlider.value, 10);
-            var contrast = parseInt(contrastSlider.value, 10);
-            var saturation = parseInt(saturationSlider.value, 10);
-
-            if (brightness !== 0 || contrast !== 0 || saturation !== 0) {
-                var contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
-                var satFactor = 1 + saturation / 100;
-
+        // Apply preset
+        switch (currentFilter) {
+            case 'grayscale':
+                for (i = 0; i < len; i += 4) {
+                    var gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+                    data[i] = data[i + 1] = data[i + 2] = gray;
+                }
+                break;
+            case 'sepia':
                 for (i = 0; i < len; i += 4) {
                     var r = data[i], g = data[i + 1], b = data[i + 2];
-
-                    // Brightness
-                    r += brightness;
-                    g += brightness;
-                    b += brightness;
-
-                    // Contrast
-                    r = contrastFactor * (r - 128) + 128;
-                    g = contrastFactor * (g - 128) + 128;
-                    b = contrastFactor * (b - 128) + 128;
-
-                    // Saturation
-                    var gray = 0.299 * r + 0.587 * g + 0.114 * b;
-                    r = gray + satFactor * (r - gray);
-                    g = gray + satFactor * (g - gray);
-                    b = gray + satFactor * (b - gray);
-
-                    data[i]     = clamp(Math.round(r), 0, 255);
-                    data[i + 1] = clamp(Math.round(g), 0, 255);
-                    data[i + 2] = clamp(Math.round(b), 0, 255);
+                    data[i]     = clamp(r * 0.393 + g * 0.769 + b * 0.189, 0, 255);
+                    data[i + 1] = clamp(r * 0.349 + g * 0.686 + b * 0.168, 0, 255);
+                    data[i + 2] = clamp(r * 0.272 + g * 0.534 + b * 0.131, 0, 255);
                 }
-            }
-
-            ctx.putImageData(imgData, 0, 0);
+                break;
+            case 'vintage':
+                for (i = 0; i < len; i += 4) {
+                    var r = data[i], g = data[i + 1], b = data[i + 2];
+                    var sr = clamp(r * 0.393 + g * 0.769 + b * 0.189, 0, 255);
+                    var sg = clamp(r * 0.349 + g * 0.686 + b * 0.168, 0, 255);
+                    var sb = clamp(r * 0.272 + g * 0.534 + b * 0.131, 0, 255);
+                    data[i]     = clamp(sr * 0.7 + r * 0.3 + 10, 0, 255);
+                    data[i + 1] = clamp(sg * 0.7 + g * 0.3, 0, 255);
+                    data[i + 2] = clamp(sb * 0.7 + b * 0.3 - 10, 0, 255);
+                }
+                break;
+            case 'warm':
+                for (i = 0; i < len; i += 4) {
+                    data[i]     = clamp(data[i] + 20, 0, 255);
+                    data[i + 1] = clamp(data[i + 1] + 10, 0, 255);
+                    data[i + 2] = clamp(data[i + 2] - 15, 0, 255);
+                }
+                break;
+            case 'cool':
+                for (i = 0; i < len; i += 4) {
+                    data[i]     = clamp(data[i] - 15, 0, 255);
+                    data[i + 1] = clamp(data[i + 1] + 5, 0, 255);
+                    data[i + 2] = clamp(data[i + 2] + 20, 0, 255);
+                }
+                break;
+            case 'high-contrast':
+                var factor = 1.5;
+                for (i = 0; i < len; i += 4) {
+                    data[i]     = clamp(factor * (data[i] - 128) + 128, 0, 255);
+                    data[i + 1] = clamp(factor * (data[i + 1] - 128) + 128, 0, 255);
+                    data[i + 2] = clamp(factor * (data[i + 2] - 128) + 128, 0, 255);
+                }
+                break;
+            case 'brightness-boost':
+                for (i = 0; i < len; i += 4) {
+                    data[i]     = clamp(data[i] + 40, 0, 255);
+                    data[i + 1] = clamp(data[i + 1] + 40, 0, 255);
+                    data[i + 2] = clamp(data[i + 2] + 40, 0, 255);
+                }
+                break;
+            case 'invert':
+                for (i = 0; i < len; i += 4) {
+                    data[i]     = 255 - data[i];
+                    data[i + 1] = 255 - data[i + 1];
+                    data[i + 2] = 255 - data[i + 2];
+                }
+                break;
+            case 'blur':
+                applyBoxBlur(data, canvas.width, canvas.height, 3);
+                applyBoxBlur(data, canvas.width, canvas.height, 3);
+                applyBoxBlur(data, canvas.width, canvas.height, 3);
+                break;
+            case 'original':
+            default:
+                break;
         }
 
-        function applyBoxBlur(data, width, height, radius) {
-            var len = data.length;
-            var copy = new Uint8ClampedArray(len);
-            var i;
-            for (i = 0; i < len; i++) copy[i] = data[i];
+        // Apply sliders
+        var brightness = parseInt(brightnessSlider.value, 10);
+        var contrast = parseInt(contrastSlider.value, 10);
+        var saturation = parseInt(saturationSlider.value, 10);
 
-            var size = radius * 2 + 1;
-            var x, y, ix, iy, px, sx, sy;
+        if (brightness !== 0 || contrast !== 0 || saturation !== 0) {
+            var contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
+            var satFactor = 1 + saturation / 100;
 
-            for (y = 0; y < height; y++) {
-                for (x = 0; x < width; x++) {
-                    var rSum = 0, gSum = 0, bSum = 0, aSum = 0, count = 0;
-                    for (iy = -radius; iy <= radius; iy++) {
-                        for (ix = -radius; ix <= radius; ix++) {
-                            sx = x + ix;
-                            sy = y + iy;
-                            if (sx >= 0 && sx < width && sy >= 0 && sy < height) {
-                                px = (sy * width + sx) * 4;
-                                rSum += copy[px];
-                                gSum += copy[px + 1];
-                                bSum += copy[px + 2];
-                                aSum += copy[px + 3];
-                                count++;
-                            }
+            for (i = 0; i < len; i += 4) {
+                var r = data[i], g = data[i + 1], b = data[i + 2];
+
+                r += brightness;
+                g += brightness;
+                b += brightness;
+
+                r = contrastFactor * (r - 128) + 128;
+                g = contrastFactor * (g - 128) + 128;
+                b = contrastFactor * (b - 128) + 128;
+
+                var gray = 0.299 * r + 0.587 * g + 0.114 * b;
+                r = gray + satFactor * (r - gray);
+                g = gray + satFactor * (g - gray);
+                b = gray + satFactor * (b - gray);
+
+                data[i]     = clamp(Math.round(r), 0, 255);
+                data[i + 1] = clamp(Math.round(g), 0, 255);
+                data[i + 2] = clamp(Math.round(b), 0, 255);
+            }
+        }
+
+        ctx.putImageData(imgData, 0, 0);
+    }
+
+    function applyBoxBlur(data, width, height, radius) {
+        var len = data.length;
+        var copy = new Uint8ClampedArray(len);
+        var i;
+        for (i = 0; i < len; i++) copy[i] = data[i];
+
+        var x, y, ix, iy, px, sx, sy;
+
+        for (y = 0; y < height; y++) {
+            for (x = 0; x < width; x++) {
+                var rSum = 0, gSum = 0, bSum = 0, aSum = 0, count = 0;
+                for (iy = -radius; iy <= radius; iy++) {
+                    for (ix = -radius; ix <= radius; ix++) {
+                        sx = x + ix;
+                        sy = y + iy;
+                        if (sx >= 0 && sx < width && sy >= 0 && sy < height) {
+                            px = (sy * width + sx) * 4;
+                            rSum += copy[px];
+                            gSum += copy[px + 1];
+                            bSum += copy[px + 2];
+                            aSum += copy[px + 3];
+                            count++;
                         }
                     }
-                    px = (y * width + x) * 4;
-                    data[px]     = (rSum / count) | 0;
-                    data[px + 1] = (gSum / count) | 0;
-                    data[px + 2] = (bSum / count) | 0;
-                    data[px + 3] = (aSum / count) | 0;
                 }
+                px = (y * width + x) * 4;
+                data[px]     = (rSum / count) | 0;
+                data[px + 1] = (gSum / count) | 0;
+                data[px + 2] = (bSum / count) | 0;
+                data[px + 3] = (aSum / count) | 0;
             }
         }
+    }
 
-        // Download
-        downloadBtn.addEventListener('click', function() {
-            if (!originalImage) return;
+    function resetControls() {
+        currentFilter = 'original';
+        brightnessSlider.value = 0;
+        contrastSlider.value = 0;
+        saturationSlider.value = 0;
+        brightnessVal.textContent = '0';
+        contrastVal.textContent = '0';
+        saturationVal.textContent = '0';
+        setActivePreset('original');
+        applyFilters();
+    }
 
-            // Render at full resolution for download
+    // Safety Download Logic
+    downloadBtn.addEventListener('click', function() {
+        if (!originalImage) return;
+
+        // Visual Loading State to prevent UI freeze panic
+        var originalBtnHTML = downloadBtn.innerHTML;
+        downloadBtn.disabled = true;
+        downloadBtn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin" width="20" height="20"></i> Processing...';
+        lucide.createIcons();
+
+        // Use timeout to allow DOM to render loading state before heavy JS math blocks thread
+        setTimeout(function() {
             var dlCanvas = document.createElement('canvas');
             var dlCtx = dlCanvas.getContext('2d');
             dlCanvas.width = originalImage.naturalWidth;
@@ -562,7 +619,7 @@
             var fd = fullData.data;
             var fLen = fd.length;
 
-            // Apply the same filter at full resolution
+            // Re-apply current preset
             switch (currentFilter) {
                 case 'grayscale':
                     for (var j = 0; j < fLen; j += 4) {
@@ -635,7 +692,7 @@
                     break;
             }
 
-            // Apply manual adjustments at full resolution
+            // Re-apply manual adjustments
             var brightness = parseInt(brightnessSlider.value, 10);
             var contrast = parseInt(contrastSlider.value, 10);
             var saturation = parseInt(saturationSlider.value, 10);
@@ -646,16 +703,20 @@
 
                 for (var j = 0; j < fLen; j += 4) {
                     var r = fd[j], g = fd[j + 1], b = fd[j + 2];
+                    
                     r += brightness;
                     g += brightness;
                     b += brightness;
+                    
                     r = contrastFactor * (r - 128) + 128;
                     g = contrastFactor * (g - 128) + 128;
                     b = contrastFactor * (b - 128) + 128;
+                    
                     var gray = 0.299 * r + 0.587 * g + 0.114 * b;
                     r = gray + satFactor * (r - gray);
                     g = gray + satFactor * (g - gray);
                     b = gray + satFactor * (b - gray);
+                    
                     fd[j]     = clamp(Math.round(r), 0, 255);
                     fd[j + 1] = clamp(Math.round(g), 0, 255);
                     fd[j + 2] = clamp(Math.round(b), 0, 255);
@@ -673,40 +734,27 @@
                 a.click();
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
+                
+                // Reset Button
+                downloadBtn.disabled = false;
+                downloadBtn.innerHTML = originalBtnHTML;
+                lucide.createIcons();
             }, 'image/png');
-        });
+        }, 50);
+    });
 
-        // Reset filters
-        resetBtn.addEventListener('click', function() {
-            currentFilter = 'original';
-            brightnessSlider.value = 0;
-            contrastSlider.value = 0;
-            saturationSlider.value = 0;
-            brightnessVal.textContent = '0';
-            contrastVal.textContent = '0';
-            saturationVal.textContent = '0';
-            setActivePreset('original');
-            applyFilters();
-        });
+    resetBtn.addEventListener('click', resetControls);
 
-        // Upload new image
-        newImageBtn.addEventListener('click', function() {
-            originalImage = null;
-            originalImageData = null;
-            fileInput.value = '';
-            currentFilter = 'original';
-            brightnessSlider.value = 0;
-            contrastSlider.value = 0;
-            saturationSlider.value = 0;
-            brightnessVal.textContent = '0';
-            contrastVal.textContent = '0';
-            saturationVal.textContent = '0';
-            setActivePreset('original');
-            uploadSection.style.display = 'block';
-            editorSection.style.display = 'none';
-        });
-    })();
-    </script>
-    <script async src="/components/ads.js"></script>
+    newImageBtn.addEventListener('click', function() {
+        originalImage = null;
+        originalImageData = null;
+        fileInput.value = '';
+        resetControls();
+        uploadSection.style.display = 'block';
+        editorSection.style.display = 'none';
+    });
+});
+</script>
+<script async src="/components/ads.js"></script>
 </body>
 </html>
