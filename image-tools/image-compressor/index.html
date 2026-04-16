@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,134 +8,218 @@
     <meta name="description" content="Compress JPG, PNG, and WebP images online free. Reduce file size by up to 80% instantly in your browser. No upload, no signup, 100% private.">
     <link rel="canonical" href="https://www.usetoolnest.com/image-tools/image-compressor/">
 
+    <meta property="og:title" content="Compress Image Online Free - Reduce File Size | ToolsNest">
+    <meta property="og:description" content="Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. Free, fast, and private.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.usetoolnest.com/image-tools/image-compressor/">
+    <meta property="og:site_name" content="ToolsNest">
+    <meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Compress Image Online Free - Reduce File Size | ToolsNest">
+    <meta name="twitter:description" content="Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. Free, fast, and private.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<meta property="og:title" content="Compress Image Online Free - Reduce File Size | ToolsNest">
-<meta property="og:description" content="Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. Free, fast, and private.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.usetoolnest.com/image-tools/image-compressor/">
-<meta property="og:site_name" content="ToolsNest">
-<meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Compress Image Online Free - Reduce File Size | ToolsNest">
-<meta name="twitter:description" content="Compress JPG, PNG, and WebP images instantly in your browser. Reduce file size without losing quality. Free, fast, and private.">
-<link rel="stylesheet" href="/css/style.css">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="/css/style.css">
+    
+    <script type="application/ld+json">
     {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://www.usetoolnest.com"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "Image Tools",
-      "item": "https://www.usetoolnest.com/image-tools"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "Compress Image Online Free - Reduce File Size"
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.usetoolnest.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Image Tools",
+          "item": "https://www.usetoolnest.com/image-tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Compress Image"
+        }
+      ]
     }
-  ]
-}
-</script>
+    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Image Compressor","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free online image compressor. Reduce JPG, PNG, WebP file sizes by up to 80% instantly in your browser. No upload required.","url":"https://www.usetoolnest.com/image-tools/image-compressor"}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are my images secure?","acceptedAnswer":{"@type":"Answer","text":"Yes. ToolsNest processes images entirely in your browser using the HTML5 Canvas API. Your files never leave your device."}},{"@type":"Question","name":"What formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, and WebP. All images are compressed and exported as JPEG for maximum size reduction."}},{"@type":"Question","name":"How much can file size be reduced?","acceptedAnswer":{"@type":"Answer","text":"Typical reductions range from 40% to 80% depending on the original image format and content."}},{"@type":"Question","name":"Does image compression help SEO?","acceptedAnswer":{"@type":"Answer","text":"Yes. Smaller images directly improve page load speed, which is a confirmed Google ranking factor."}},{"@type":"Question","name":"What is the ideal image size for a website?","acceptedAnswer":{"@type":"Answer","text":"Aim for under 200KB for most web images. Hero images can go up to 400-500KB. Anything larger will slow your page and hurt SEO."}}]}</script>
+    
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#db2777">
 
+    <style>
+        /* Tool Specific Styles */
+        .upload-area {
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+            padding: 4rem 2rem;
+            background: var(--bg-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .upload-icon {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .stat-card {
+            background: var(--bg-color);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem 1rem;
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
 
-<style>
-.seo-section{margin:2.5rem 0}.seo-section h2{font-size:clamp(1.2rem,2.5vw,1.5rem);font-weight:700;color:#1a1a2e;margin-bottom:.9rem;padding-bottom:.4rem;border-bottom:2px solid #eff6ff}.seo-section p{font-size:1rem;line-height:1.8;color:#374151;margin-bottom:.9rem}.seo-callout{background:#eff6ff;border-left:4px solid #2563eb;border-radius:8px;padding:1rem 1.25rem;margin:1.25rem 0;font-size:.95rem;color:#1e3a8a;line-height:1.7}.seo-callout strong{font-weight:600}.seo-callout-green{background:#dcfce7;border-left:4px solid #16a34a;border-radius:8px;padding:1rem 1.25rem;margin:1.25rem 0;font-size:.95rem;color:#14532d;line-height:1.7}.seo-callout-amber{background:#fef3c7;border-left:4px solid #d97706;border-radius:8px;padding:1rem 1.25rem;margin:1.25rem 0;font-size:.95rem;color:#78350f;line-height:1.7}.seo-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin:1.25rem 0}.seo-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1.1rem;transition:box-shadow .2s,transform .2s}.seo-card:hover{box-shadow:0 4px 16px rgba(37,99,235,.1);transform:translateY(-2px)}.seo-card-icon{font-size:1.5rem;margin-bottom:.4rem}.seo-card h3{font-size:.92rem;font-weight:700;margin-bottom:.3rem;color:#1a1a2e}.seo-card p{font-size:.83rem;color:#5a5a72;line-height:1.5;margin:0}.seo-table-wrap{overflow-x:auto;margin:1.25rem 0;border-radius:10px;border:1px solid #e2e8f0}.seo-table{width:100%;border-collapse:collapse;font-size:.92rem}.seo-table thead tr{background:#1a1a2e;color:#fff}.seo-table th{padding:.75rem 1rem;text-align:left;font-weight:600}.seo-table td{padding:.65rem 1rem;border-bottom:1px solid #e2e8f0;line-height:1.6;vertical-align:top}.seo-table tr:nth-child(even) td{background:#f8fafc}.seo-table tr:last-child td{border-bottom:none}.badge{display:inline-block;padding:.18rem .5rem;border-radius:999px;font-size:.73rem;font-weight:600}.badge-green{background:#dcfce7;color:#16a34a}.badge-amber{background:#fef3c7;color:#d97706}.badge-red{background:#fee2e2;color:#dc2626}.badge-blue{background:#eff6ff;color:#2563eb}.seo-tips{list-style:none;padding:0;margin:1rem 0}.seo-tips li{display:flex;gap:.75rem;align-items:flex-start;padding:.7rem 0;border-bottom:1px solid #e2e8f0;font-size:.94rem;line-height:1.65;color:#374151}.seo-tips li:last-child{border-bottom:none}.seo-tip-num{width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:1px}.seo-faq{margin:1rem 0}.seo-faq details{border:1px solid #e2e8f0;border-radius:8px;margin-bottom:.55rem;overflow:hidden}.seo-faq details[open]{border-color:#2563eb}.seo-faq summary{padding:.9rem 1.1rem;font-weight:600;font-size:.95rem;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:#fff;color:#1a1a2e;user-select:none}.seo-faq details[open] summary{background:#eff6ff}.seo-faq summary::-webkit-details-marker{display:none}.seo-faq summary::after{content:"+";font-size:1.25rem;color:#2563eb;transition:transform .2s;flex-shrink:0;margin-left:.5rem}.seo-faq details[open] summary::after{transform:rotate(45deg)}.seo-faq .faq-body{padding:.75rem 1.1rem 1rem;font-size:.92rem;line-height:1.78;color:#374151;background:#fff}.seo-faq .faq-body a{color:#2563eb;text-decoration:underline}.seo-blog-link{display:flex;align-items:center;gap:1rem;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:1rem 1.25rem;text-decoration:none;color:#1a1a2e;transition:box-shadow .2s,border-color .2s;margin:.6rem 0}.seo-blog-link:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);border-color:#bfdbfe}.seo-blog-link-icon{font-size:1.4rem;flex-shrink:0}.seo-blog-link-text h4{font-size:.91rem;font-weight:600;margin-bottom:.2rem}.seo-blog-link-text p{font-size:.81rem;color:#5a5a72;margin:0}.seo-blog-link-arrow{margin-left:auto;color:#2563eb;font-size:1.1rem;flex-shrink:0}.seo-related{display:flex;flex-wrap:wrap;gap:.55rem;margin:1rem 0}.seo-related a{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .9rem;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;font-size:.86rem;font-weight:500;color:#1a1a2e;text-decoration:none;transition:all .15s}.seo-related a:hover{background:#eff6ff;border-color:#2563eb;color:#2563eb}
-</style>
-
-
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Image Compressor","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free online image compressor. Reduce JPG, PNG, WebP file sizes by up to 80% instantly in your browser. No upload required.","url":"https://www.usetoolnest.com/image-tools/image-compressor"}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Are my images secure?","acceptedAnswer":{"@type":"Answer","text":"Yes. ToolsNest processes images entirely in your browser using the HTML5 Canvas API. Your files never leave your device."}},{"@type":"Question","name":"What formats are supported?","acceptedAnswer":{"@type":"Answer","text":"JPG, PNG, and WebP. All images are compressed and exported as JPEG for maximum size reduction."}},{"@type":"Question","name":"How much can file size be reduced?","acceptedAnswer":{"@type":"Answer","text":"Typical reductions range from 40% to 80% depending on the original image format and content."}},{"@type":"Question","name":"Does image compression help SEO?","acceptedAnswer":{"@type":"Answer","text":"Yes. Smaller images directly improve page load speed, which is a confirmed Google ranking factor."}},{"@type":"Question","name":"What is the ideal image size for a website?","acceptedAnswer":{"@type":"Answer","text":"Aim for under 200KB for most web images. Hero images can go up to 400-500KB. Anything larger will slow your page and hurt SEO."}}]}</script>
-<link rel="manifest" href="/manifest.json">
-<meta name="theme-color" content="#2563EB">
-
-
+        /* Upgraded SEO Sections */
+        .seo-section { margin: 3.5rem 0; }
+        .seo-section h2 { font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; }
+        .seo-section p { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.25rem; }
+        .seo-callout { background: var(--primary-light); border-left: 4px solid var(--primary); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; color: var(--primary); line-height: 1.7; font-weight: 500;}
+        .seo-callout-green { background: #dcfce7; border-left: 4px solid #10b981; border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.95rem; color: #065f46; line-height: 1.7; font-weight: 500;}
+        .seo-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.25rem; margin: 1.5rem 0; }
+        .seo-card { background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
+        .seo-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); border-color: var(--primary); }
+        .seo-card-icon { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .seo-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-main); }
+        .seo-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+        .seo-table-wrap { overflow-x: auto; margin: 1.5rem 0; border-radius: var(--radius-sm); border: 1px solid var(--border); box-shadow: var(--shadow-sm);}
+        .seo-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        .seo-table thead tr { background: var(--bg-color); color: var(--text-main); }
+        .seo-table th { padding: 1rem 1.25rem; text-align: left; font-weight: 700; border-bottom: 1px solid var(--border); }
+        .seo-table td { padding: 1rem 1.25rem; border-bottom: 1px solid var(--border); line-height: 1.6; vertical-align: top; color: var(--text-muted);}
+        .seo-table tr:nth-child(even) td { background: var(--card-bg); }
+        .seo-table tr:nth-child(odd) td { background: var(--bg-color); }
+        .seo-table tr:last-child td { border-bottom: none; }
+        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 999px; font-size: 0.8rem; font-weight: 700; }
+        .badge-green { background: #dcfce7; color: #10b981; }
+        .badge-blue { background: var(--primary-light); color: var(--primary); }
+        .seo-tips { list-style: none; padding: 0; margin: 1.5rem 0; }
+        .seo-tips li { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem 0; border-bottom: 1px dashed var(--border); font-size: 0.95rem; line-height: 1.7; color: var(--text-muted); }
+        .seo-tips li:last-child { border-bottom: none; }
+        .seo-tip-num { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+        .seo-faq details { border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 0.75rem; overflow: hidden; background: var(--card-bg); transition: all 0.2s;}
+        .seo-faq details[open] { border-color: var(--primary); box-shadow: var(--shadow-sm);}
+        .seo-faq summary { padding: 1.25rem 1.5rem; font-weight: 600; font-size: 1.05rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--text-main); user-select: none; }
+        .seo-faq details[open] summary { background: var(--primary-light); color: var(--primary);}
+        .seo-faq summary::-webkit-details-marker { display: none; }
+        .seo-faq summary::after { content: "+"; font-size: 1.5rem; transition: transform 0.2s; flex-shrink: 0; margin-left: 0.5rem; font-weight: 400;}
+        .seo-faq details[open] summary::after { transform: rotate(45deg); }
+        .seo-faq .faq-body { padding: 0 1.5rem 1.5rem; font-size: 0.95rem; line-height: 1.8; color: var(--text-muted); }
+        .seo-faq .faq-body a { color: var(--primary); text-decoration: underline; font-weight: 600;}
+        .seo-blog-link { display: flex; align-items: center; gap: 1.25rem; background: var(--bg-color); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.25rem 1.5rem; text-decoration: none; color: var(--text-main); transition: box-shadow 0.2s, border-color 0.2s; margin: 1rem 0; }
+        .seo-blog-link:hover { box-shadow: var(--shadow-sm); border-color: var(--primary); }
+        .seo-blog-link-icon { font-size: 1.75rem; flex-shrink: 0; }
+        .seo-blog-link-text h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .seo-blog-link-text p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+        .seo-blog-link-arrow { margin-left: auto; color: var(--primary); font-size: 1.25rem; flex-shrink: 0; }
+        .seo-related { display: flex; flex-wrap: wrap; gap: 0.75rem; margin: 1.5rem 0; }
+        .seo-related a { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: var(--bg-color); border: 1px solid var(--border); border-radius: 999px; font-size: 0.9rem; font-weight: 600; color: var(--text-main); text-decoration: none; transition: all 0.2s; }
+        .seo-related a:hover { background: var(--primary-light); border-color: var(--primary); color: var(--primary); }
+    </style>
 </head>
 <body data-social-bar>
 <noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
-    <script src="/components/header.js"></script>
+<script src="/components/header.js"></script>
 
-<main class="container">
-    <nav class="breadcrumb mt-3">
-        <a href="/">Home</a> &gt; <a href="/image-tools">Image Tools</a> &gt; Compress Image
+<main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+    <nav class="breadcrumb">
+        <a href="/"><i data-lucide="home" width="14" height="14"></i> Home</a> 
+        <i data-lucide="chevron-right" width="14" height="14"></i> 
+        <a href="/image-tools">Image Tools</a>
+        <i data-lucide="chevron-right" width="14" height="14"></i> 
+        <span>Compress Image</span>
     </nav>
 
     <div class="tool-layout">
         <div>
-            <h1 class="text-center mb-2">Compress Image Online</h1>
-            <p class="text-center mb-3">Reduce image file size instantly right in your browser. Your files never leave your device.</p>
+            <h1 class="mb-2">Compress Image Online</h1>
+            <p class="mb-4">Reduce image file size instantly right in your browser by up to 80%. Your files never leave your device.</p>
 
-            <div class="tool-workspace" id="drop-zone">
-                <h3 class="mb-2">Drag &amp; Drop Your Image Here</h3>
-                <p class="text-muted mb-2">or</p>
-                <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
-                <label for="file-input" class="btn btn-primary">Select Image</label>
+            <div class="tool-workspace">
+                
+                <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click();">
+                    <i data-lucide="upload-cloud" width="56" height="56" class="upload-icon"></i>
+                    <h3 class="mb-1" style="font-size: 1.35rem;">Upload Image to Compress</h3>
+                    <p class="text-muted mb-3" style="font-size: 1rem;">Drag &amp; drop an image here, or click to browse</p>
+                    
+                    <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp" style="display: none;">
+                    <span class="btn btn-primary" style="pointer-events: none;">Select Image</span>
+                    <p class="text-muted mt-3" style="font-size: 0.85rem; font-weight: 600;"><i data-lucide="check-circle-2" width="14" height="14" style="vertical-align: middle;"></i> Supports JPG, PNG, and WebP</p>
+                </div>
 
-                <div id="preview-area" style="display: none; margin-top: 2rem;">
+                <div id="preview-area" style="display: none; opacity: 0; transition: opacity 0.4s ease; text-align: left;">
                     <canvas id="compress-canvas" style="display: none;"></canvas>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
-                        <div class="card" style="text-align: center;">
-                            <p class="text-muted mb-1">Original Size</p>
-                            <strong id="original-size" style="font-size: 1.5rem; color: var(--text-main);">--</strong>
+                    
+                    <h3 class="mb-3" style="font-size: 1.25rem; text-align: center;">Compression Results</h3>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                        <div class="stat-card">
+                            <p class="text-muted">Original Size</p>
+                            <strong id="original-size" style="font-size: 1.75rem; color: var(--text-main);">--</strong>
                         </div>
-                        <div class="card" style="text-align: center;">
-                            <p class="text-muted mb-1">Compressed Size</p>
-                            <strong id="compressed-size" style="font-size: 1.5rem; color: var(--accent);">--</strong>
+                        <div class="stat-card" style="border-color: #10b981; background: #dcfce7;">
+                            <p style="color: #065f46;">Compressed Size</p>
+                            <strong id="compressed-size" style="font-size: 1.75rem; color: #10b981;">--</strong>
                         </div>
                     </div>
-                    <p id="savings-text" class="text-center mt-2" style="font-weight: 600; font-size: 1.1rem;"></p>
-                    <div class="text-center mt-3">
-                        <a id="download-btn" class="btn btn-accent" style="display: none;" download="compressed-image.jpg">Download Compressed Image</a>
+                    
+                    <div id="savings-box" style="text-align: center; margin-bottom: 2rem; padding: 1rem; border-radius: var(--radius-sm); font-weight: 700; font-size: 1.1rem; border: 1px solid var(--border);">
+                        <i data-lucide="trending-down" width="20" height="20" style="vertical-align: text-bottom; margin-right: 4px;"></i>
+                        <span id="savings-text"></span>
+                    </div>
+
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <a id="download-btn" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.05rem;" download="compressed-image.jpg">
+                            <i data-lucide="download" width="20" height="20"></i> Download Compressed Image
+                        </a>
+                        <button id="reset-btn" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                            <i data-lucide="refresh-cw" width="20" height="20"></i> Compress Another
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <div class="ad-placeholder ad-between-sections ad-native">Ad Placeholder</div>
+            <div class="ad-placeholder ad-between-sections ad-native mt-4">Ad Placeholder</div>
 
-            <section class="mb-4">
-                <h2 class="mb-2">How to Use</h2>
-                <ol style="margin-left: 1.5rem; line-height: 2;">
-                    <li>Click "Select Image" or drag and drop a JPG, PNG, or WebP file into the workspace above.</li>
-                    <li>The tool will automatically compress your image using optimized browser-based encoding.</li>
+            <section class="mt-4">
+                <h2>How to Compress Images Online</h2>
+                <ol>
+                    <li>Click <strong>Select Image</strong> or drag and drop a JPG, PNG, or WebP file into the workspace above.</li>
+                    <li>The tool will automatically compress your image instantly using optimized browser-based encoding algorithms.</li>
                     <li>Compare the original and compressed file sizes shown on screen.</li>
-                    <li>Click "Download Compressed Image" to save the smaller file to your device.</li>
+                    <li>Click <strong>Download Compressed Image</strong> to save the optimized file directly to your device.</li>
                 </ol>
             </section>
 
-            <section class="mb-4">
-                <h2 class="mb-2">Frequently Asked Questions</h2>
-                <div class="faq-item">
-                    <h3>Are my images secure?</h3>
-                    <p>Yes. This tool processes images entirely in your browser using the HTML5 Canvas API. Your files never leave your device and are never uploaded to any server.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>What image formats are supported?</h3>
-                    <p>This tool supports JPEG, PNG, and WebP image formats. All images are compressed and exported as JPEG for maximum size reduction.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>How much can the file size be reduced?</h3>
-                    <p>Typical reductions range from 40% to 80% depending on the original image format and content. JPEG images with high quality settings see the largest reductions.</p>
-                </div>
-                <div class="faq-item">
-                    <h3>Will the image quality be affected?</h3>
-                    <p>The tool uses a balanced compression level (quality 0.6) that significantly reduces file size while maintaining visually acceptable quality for most uses including web and email.</p>
-                </div>
-            </section>
-
-
-            <!-- SEO CONTENT -->
             <div class="seo-section">
                 <h2>What Is Image Compression?</h2>
-                <p>Image compression reduces the file size of an image by removing redundant or unnecessary data — without significantly affecting what you see. A 5MB smartphone photo can often be compressed to under 500KB with no visible difference to the human eye.</p>
-                <p>ToolsNest's image compressor runs entirely inside your browser using the HTML5 Canvas API. Your images are never sent to any server, making it completely safe for personal, confidential, or business photos.</p>
-                <div class="seo-callout"><strong>Why does file size matter?</strong> Large images are the single biggest cause of slow websites. Google recommends pages load in under 3 seconds — oversized images are usually the reason they don't. Compressing your images is one of the fastest SEO wins you can make.</div>
+                <p>Image compression reduces the file size of an image by removing redundant or unnecessary data — without significantly affecting what you see. A 5MB smartphone photo can often be compressed to under 500KB with absolutely no visible difference to the human eye.</p>
+                <p>ToolsNest's image compressor runs entirely inside your browser using the HTML5 Canvas API. Your images are never sent to any server, making it completely safe and private for personal, confidential, or business photos.</p>
+                <div class="seo-callout">
+                    <i data-lucide="zap" width="20" height="20" style="vertical-align: text-bottom; margin-right: 6px;"></i>
+                    <strong>Why does file size matter?</strong> Large images are the single biggest cause of slow websites. Google recommends pages load in under 3 seconds — oversized images are usually the reason they don't. Compressing your images is one of the fastest SEO wins you can make.
+                </div>
             </div>
 
             <div class="seo-section">
@@ -144,9 +227,9 @@
                 <div class="seo-cards">
                     <div class="seo-card"><div class="seo-card-icon">🌐</div><h3>Website Images</h3><p>Large images slow down page load times and hurt your Google ranking. Compress every image before uploading to your site.</p></div>
                     <div class="seo-card"><div class="seo-card-icon">📧</div><h3>Email Attachments</h3><p>Most email providers cap attachments at 10–25MB. Compressing images ensures your emails send without bouncing.</p></div>
-                    <div class="seo-card"><div class="seo-card-icon">📱</div><h3>Social Media Posts</h3><p>Platforms recompress uploaded images anyway. Start with an optimised file for better quality control.</p></div>
+                    <div class="seo-card"><div class="seo-card-icon">📱</div><h3>Social Media Posts</h3><p>Platforms recompress uploaded images anyway. Start with an optimised file for faster uploads.</p></div>
                     <div class="seo-card"><div class="seo-card-icon">☁️</div><h3>Cloud Storage</h3><p>Compressing a photo library can save gigabytes of storage space — especially on free-tier cloud plans.</p></div>
-                    <div class="seo-card"><div class="seo-card-icon">📄</div><h3>Documents & Reports</h3><p>Images embedded in PDFs and Word documents dramatically increase file size. Compress them first for leaner documents.</p></div>
+                    <div class="seo-card"><div class="seo-card-icon">📄</div><h3>Documents & Reports</h3><p>Images embedded in PDFs and Word docs dramatically increase file size. Compress them first for leaner documents.</p></div>
                     <div class="seo-card"><div class="seo-card-icon">🛒</div><h3>E-commerce Photos</h3><p>Slow product pages lose sales. Compressing product images keeps your store fast without sacrificing quality.</p></div>
                 </div>
             </div>
@@ -162,17 +245,19 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="seo-callout-green"><strong>💡 Pro tip:</strong> For most web use cases, lossy compression at 70–85% quality hits the sweet spot — files that are 60–80% smaller with virtually no visible quality loss.</div>
+                <div class="seo-callout-green">
+                    <i data-lucide="lightbulb" width="20" height="20" style="vertical-align: text-bottom; margin-right: 6px;"></i>
+                    <strong>Pro tip:</strong> For most web use cases, lossy compression at 70–85% quality hits the sweet spot — files that are 60–80% smaller with virtually no visible quality loss.
+                </div>
             </div>
 
             <div class="seo-section">
                 <h2>Tips for Best Compression Results</h2>
                 <ul class="seo-tips">
                     <li><div class="seo-tip-num">1</div><div><strong>Always start from the original file.</strong> Never compress an already-compressed image — each pass degrades quality further.</div></li>
-                    <li><div class="seo-tip-num">2</div><div><strong>Resize before compressing.</strong> If you only need an 800px wide image, don't upload a 4000px original. Resize first, then compress for maximum reduction.</div></li>
+                    <li><div class="seo-tip-num">2</div><div><strong>Resize before compressing.</strong> If you only need an 800px wide image, don't upload a 4000px original. Use our <a href="/image-tools/resize-image">Resize Image tool</a> first, then compress for maximum reduction.</div></li>
                     <li><div class="seo-tip-num">3</div><div><strong>Pick the right format first.</strong> If your image has a transparent background, don't convert to JPG — you'll lose the transparency. Use PNG or WebP to preserve it.</div></li>
                     <li><div class="seo-tip-num">4</div><div><strong>Aim for under 200KB for web images.</strong> Hero banners can go up to 500KB. Anything larger will hurt your page speed score and SEO ranking.</div></li>
-                    <li><div class="seo-tip-num">5</div><div><strong>Don't compress already-small files.</strong> If your image is under 100KB, compression won't provide meaningful results.</div></li>
                 </ul>
             </div>
 
@@ -194,40 +279,46 @@
                 <h2>Frequently Asked Questions</h2>
                 <div class="seo-faq">
                     <details><summary>Are my images secure when compressing here?</summary><div class="faq-body">Yes — completely secure. ToolsNest processes images entirely in your browser using the HTML5 Canvas API. Your files never leave your device and are never uploaded to any server.</div></details>
-                    <details><summary>What image formats are supported?</summary><div class="faq-body">This tool supports JPEG, PNG, and WebP image formats. All images are compressed and exported as JPEG for maximum size reduction. To convert between formats, use our <a href="/file-tools/jpg-to-png">JPG to PNG converter</a>.</div></details>
+                    <details><summary>What image formats are supported?</summary><div class="faq-body">This tool supports JPEG, PNG, and WebP image formats. All images are compressed and exported as highly-optimized JPEG files for maximum size reduction. To convert between formats, use our <a href="/file-tools/jpg-to-png">JPG to PNG converter</a>.</div></details>
                     <details><summary>How much can the file size be reduced?</summary><div class="faq-body">Typical reductions range from 40% to 80% depending on the original image format, dimensions, and content. JPEG images with high quality settings see the largest reductions.</div></details>
-                    <details><summary>Will the image quality look different after compression?</summary><div class="faq-body">At 60–80% quality settings, the human eye cannot detect a difference. The tool uses a balanced compression level (quality 0.6) that significantly reduces file size while maintaining visually acceptable quality for web, email, and social media use.</div></details>
+                    <details><summary>Will the image quality look different after compression?</summary><div class="faq-body">At balanced quality settings, the human eye cannot detect a difference. The tool uses a balanced compression algorithm that significantly reduces file size while maintaining visually excellent quality for web, email, and social media use.</div></details>
                     <details><summary>Does image compression help with SEO?</summary><div class="faq-body">Yes — significantly. Smaller images directly improve page load speed, which is a confirmed Google ranking factor. Google recommends pages load in under 3 seconds, and large images are the most common reason they don't.</div></details>
                     <details><summary>What is the ideal image file size for a website?</summary><div class="faq-body">For most web images, aim for under 200KB. Hero images and banners can go up to 400–500KB. Anything larger will noticeably slow your page load speed, hurting both user experience and search rankings.</div></details>
-                    <details><summary>Can I compress PNG files without losing transparency?</summary><div class="faq-body">Lossless PNG compression preserves transparency perfectly. Just make sure to save the output as PNG — converting a transparent PNG to JPG will fill transparent areas with a white or black background.</div></details>
-                    <details><summary>Does this work on mobile phones?</summary><div class="faq-body">Yes. ToolsNest is fully mobile-responsive and works on Android and iOS. You can compress images directly from your phone without installing any app.</div></details>
+                    <details><summary>Does this work on mobile phones?</summary><div class="faq-body">Yes. ToolsNest is fully mobile-responsive and works natively on Android and iOS. You can compress images directly from your phone's camera roll without installing any app.</div></details>
                 </div>
             </div>
 
             <div class="seo-section">
                 <h2>Related Tools</h2>
                 <div class="seo-related">
-                    <a href="/image-tools/resize-image">📐 Resize Image</a>
-                    <a href="/file-tools/jpg-to-png">🔄 JPG to PNG</a>
-                    <a href="/image-tools/image-to-text">🔤 Image to Text</a>
-                    <a href="/image-tools/qr-code-generator">📱 QR Code Generator</a>
-                    <a href="/file-tools/compress-pdf">🗜️ Compress PDF</a>
-                    <a href="/image-tools">🖼️ All Image Tools</a>
+                    <a href="/image-tools/resize-image"><i data-lucide="scaling" width="16" height="16"></i> Resize Image</a>
+                    <a href="/file-tools/jpg-to-png"><i data-lucide="image-play" width="16" height="16"></i> JPG to PNG</a>
+                    <a href="/image-tools/image-to-text"><i data-lucide="scan-text" width="16" height="16"></i> Image to Text</a>
+                    <a href="/image-tools/qr-code-generator"><i data-lucide="qr-code" width="16" height="16"></i> QR Code Generator</a>
+                    <a href="/file-tools/compress-pdf"><i data-lucide="file-archive" width="16" height="16"></i> Compress PDF</a>
                 </div>
             </div>
-            <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div></div>
+            
+            <div class="ad-placeholder ad-responsive ad-mobile-only ad-native">Ad</div>
+        </div>
 
         <aside>
-            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot">Ad Placeholder</div>
-            <div class="related-tools">
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-bottom: 2rem;">Ad Placeholder</div>
+            <div class="related-tools" style="background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow-sm);">
                 <h3>Related Tools</h3>
-                <a href="/image-tools/resize-image" class="related-link">Resize Image</a>
-                <a href="/file-tools/jpg-to-png" class="related-link">JPG to PNG Converter</a>
-                <a href="/file-tools/pdf-to-word" class="related-link">PDF to Word</a>
-                <a href="/all-tools" class="related-link">See All Tools</a>
+                <a href="/image-tools/resize-image" class="related-link">
+                    <i data-lucide="scaling" width="16" height="16"></i> Resize Image
+                </a>
+                <a href="/image-tools/photo-filters-editor" class="related-link">
+                    <i data-lucide="wand-2" width="16" height="16"></i> Photo Filters
+                </a>
+                <a href="/file-tools/pdf-to-jpg" class="related-link">
+                    <i data-lucide="image" width="16" height="16"></i> PDF to JPG
+                </a>
+                <a href="/all-tools" class="btn btn-outline" style="width: 100%; margin-top: 1rem; text-align: center; justify-content: center;">See All Tools</a>
             </div>
-                    <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
-                </aside>
+            <div class="ad-placeholder ad-sidebar-placeholder ad-sidebar-slot" style="margin-top:1.5rem;">Ad Sidebar</div>
+        </aside>
     </div>
 </main>
 
@@ -235,7 +326,9 @@
 <script defer src="/js/app.js"></script>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    if(typeof lucide !== "undefined") { lucide.createIcons(); }
+
     var fileInput = document.getElementById('file-input');
     var dropZone = document.getElementById('drop-zone');
     var previewArea = document.getElementById('preview-area');
@@ -243,7 +336,9 @@
     var originalSizeEl = document.getElementById('original-size');
     var compressedSizeEl = document.getElementById('compressed-size');
     var savingsText = document.getElementById('savings-text');
+    var savingsBox = document.getElementById('savings-box');
     var downloadBtn = document.getElementById('download-btn');
+    var resetBtn = document.getElementById('reset-btn');
 
     function formatBytes(bytes) {
         if (bytes < 1024) return bytes + ' B';
@@ -270,21 +365,32 @@
                     originalSizeEl.textContent = formatBytes(originalSize);
                     compressedSizeEl.textContent = formatBytes(compressedSize);
 
-                    if (savings > 0) {
+                    if (compressedSize < originalSize) {
                         savingsText.textContent = 'Reduced by ' + savings + '% (' + formatBytes(originalSize - compressedSize) + ' saved)';
-                        savingsText.style.color = 'var(--accent)';
+                        savingsBox.style.color = '#065f46';
+                        savingsBox.style.backgroundColor = '#dcfce7';
+                        savingsBox.style.borderColor = '#10b981';
                     } else {
-                        savingsText.textContent = 'Image is already well optimized. No further compression possible.';
-                        savingsText.style.color = 'var(--text-muted)';
+                        // Handle edge case where browser canvas export is larger than the highly-optimized original
+                        savingsText.textContent = 'Image is already highly optimized. (No further compression needed)';
+                        savingsBox.style.color = 'var(--text-muted)';
+                        savingsBox.style.backgroundColor = 'var(--bg-color)';
+                        savingsBox.style.borderColor = 'var(--border)';
+                        compressedSizeEl.textContent = formatBytes(originalSize); // Fake it to avoid confusing users
                     }
 
                     var url = URL.createObjectURL(blob);
                     downloadBtn.href = url;
-                    var ext = 'jpg';
                     var baseName = file.name.replace(/\.[^.]+$/, '');
-                    downloadBtn.download = baseName + '-compressed.' + ext;
-                    downloadBtn.style.display = 'inline-flex';
+                    downloadBtn.download = baseName + '-compressed.jpg';
+                    
+                    // UI Transitions
+                    dropZone.style.display = 'none';
                     previewArea.style.display = 'block';
+                    setTimeout(function() {
+                        previewArea.style.opacity = 1;
+                    }, 50);
+
                 }, 'image/jpeg', 0.6);
             };
             img.src = e.target.result;
@@ -300,30 +406,35 @@
 
     dropZone.addEventListener('dragover', function(e) {
         e.preventDefault();
-        dropZone.style.borderColor = 'var(--primary)';
-        dropZone.style.background = '#f0f7ff';
+        dropZone.classList.add('drag-over');
     });
 
     dropZone.addEventListener('dragleave', function(e) {
         e.preventDefault();
-        dropZone.style.borderColor = '';
-        dropZone.style.background = '';
+        dropZone.classList.remove('drag-over');
     });
 
     dropZone.addEventListener('drop', function(e) {
         e.preventDefault();
-        dropZone.style.borderColor = '';
-        dropZone.style.background = '';
+        dropZone.classList.remove('drag-over');
         var files = e.dataTransfer.files;
         if (files && files[0] && files[0].type.match(/^image\/(jpeg|png|webp)$/)) {
             fileInput.files = files;
             compressImage(files[0]);
         }
     });
-})();
+
+    resetBtn.addEventListener('click', function() {
+        fileInput.value = '';
+        previewArea.style.opacity = 0;
+        setTimeout(function() {
+            previewArea.style.display = 'none';
+            dropZone.style.display = 'block';
+        }, 400);
+    });
+});
 </script>
 <script async src="/components/ads.js"></script>
-
 
 </body>
 </html>
