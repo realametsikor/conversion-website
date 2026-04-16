@@ -275,23 +275,19 @@ html = html.replace(
 }
 
 // 5. Inject tool cards on category index pages
+//    Skip if the page already has ptool-card links hardcoded (fully static pages).
+//    Only inject into pages with an empty tools-grid div placeholder.
 const cat = detectCategory(relPath);
-if (cat && TOOLS[cat]) {
+if (cat && TOOLS[cat] && !html.includes(‘ptool-card’)) {
 const cardsHTML = TOOLS[cat].map(t => toolCard(t, cat)).join(’\n’);
-// Try to inject into a div with id matching the category or a tools-grid class
 const injected = html.replace(
 /(<div[^>]+(?:id=“tools-grid”|class=”[^”]*tools-grid[^”]*”)[^>]*>)(\s*</div>)/i,
 `$1\n${cardsHTML}\n</div>`
 );
 if (injected !== html) {
 html = injected;
-} else {
-// Fallback: insert after the page <h1>
-html = html.replace(
-/(<h1[^>]*>.*?</h1>)/is,
-`$1\n<div class="tools-grid-static">\n${cardsHTML}\n</div>`
-);
 }
+// No fallback - if no tools-grid div, skip rather than misplace cards after h1
 }
 
 return html;
