@@ -149,7 +149,7 @@
             <h1 class="mb-2">Exact Age Calculator</h1>
             <p class="mb-4">Enter your date of birth to find your exact chronological age in years, months, and days, plus a live countdown to your next birthday.</p>
 
-            <div class="tool-workspace" style="padding: 2.5rem 2rem;">
+            <div class="tool-workspace" style="padding: 2.5rem 2rem; text-align: left;">
                 <form id="age-form">
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
                         <div class="form-group" style="margin-bottom: 0;">
@@ -163,7 +163,7 @@
                         </div>
                     </div>
                     
-                    <p class="text-muted mb-4" style="font-size: 0.85rem; text-align: left;"><i data-lucide="info" width="14" height="14" style="vertical-align: middle;"></i> The "Calculate Age As Of" field automatically defaults to today if left blank.</p>
+                    <p class="text-muted mb-4" style="font-size: 0.85rem;"><i data-lucide="info" width="14" height="14" style="vertical-align: middle;"></i> The "Calculate Age As Of" field automatically defaults to today if left blank.</p>
 
                     <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1.1rem; padding: 1rem;">
                         <i data-lucide="calculator" width="20" height="20"></i> Calculate Exact Age
@@ -278,34 +278,18 @@
 <script defer src="/js/app.js"></script>
 
 <script>
-(function() {
-    // Initialize Lucide Icons
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Initialize Icons safely
     if(typeof lucide !== "undefined") { lucide.createIcons(); }
 
     var form = document.getElementById('age-form');
     var resultsDiv = document.getElementById('age-results');
 
+    if (!form || !resultsDiv) return;
+
     function getDaysInMonth(year, month) {
         return new Date(year, month + 1, 0).getDate();
-    }
-
-    function calcAge(birthDate, targetDate) {
-        var years = targetDate.getFullYear() - birthDate.getFullYear();
-        var months = targetDate.getMonth() - birthDate.getMonth();
-        var days = targetDate.getDate() - birthDate.getDate();
-
-        if (days < 0) {
-            months--;
-            var prevMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
-            days += prevMonth.getDate();
-        }
-
-        if (months < 0) {
-            years--;
-            months += 12;
-        }
-
-        return { years: years, months: months, days: days };
     }
 
     function totalDaysBetween(d1, d2) {
@@ -323,92 +307,110 @@
     form.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        var dobVal = document.getElementById('dob').value;
-        var asOfVal = document.getElementById('age-as-of').value;
+        try {
+            var dobVal = document.getElementById('dob').value;
+            var asOfVal = document.getElementById('age-as-of').value;
 
-        if (!dobVal) return;
+            if (!dobVal) return;
 
-        var parts = dobVal.split('-');
-        var birthDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+            // Safe parsing to avoid timezone shift bugs
+            var parts = dobVal.split('-');
+            var birthDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10));
 
-        var targetDate;
-        if (asOfVal) {
-            var tParts = asOfVal.split('-');
-            targetDate = new Date(parseInt(tParts[0]), parseInt(tParts[1]) - 1, parseInt(tParts[2]));
-        } else {
-            var now = new Date();
-            targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        }
-
-        if (birthDate > targetDate) {
-            resultsDiv.style.display = 'block';
-            document.getElementById('result-years').textContent = '--';
-            document.getElementById('result-months').textContent = '--';
-            document.getElementById('result-days').textContent = '--';
-            document.getElementById('result-total-days').textContent = 'Date of birth must be before target date.';
-            document.getElementById('result-total-weeks').textContent = '--';
-            document.getElementById('result-total-months').textContent = '--';
-            document.getElementById('result-next-birthday').textContent = 'Invalid Dates';
-            document.getElementById('result-countdown').textContent = '';
-            return;
-        }
-
-        var age = calcAge(birthDate, targetDate);
-        var totalDays = totalDaysBetween(birthDate, targetDate);
-        var totalWeeks = Math.floor(totalDays / 7);
-        var totalMonths = age.years * 12 + age.months;
-
-        document.getElementById('result-years').textContent = age.years;
-        document.getElementById('result-months').textContent = age.months;
-        document.getElementById('result-days').textContent = age.days;
-        document.getElementById('result-total-days').textContent = totalDays.toLocaleString();
-        document.getElementById('result-total-weeks').textContent = totalWeeks.toLocaleString();
-        document.getElementById('result-total-months').textContent = totalMonths.toLocaleString();
-
-        // Next birthday calculation
-        var nextBirthday = new Date(targetDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
-
-        // Handle Feb 29 birthdays
-        if (birthDate.getMonth() === 1 && birthDate.getDate() === 29) {
-            var yearToCheck = targetDate.getFullYear();
-            if (getDaysInMonth(yearToCheck, 1) < 29) {
-                nextBirthday = new Date(yearToCheck, 2, 1); // March 1 in non-leap years
+            var targetDate;
+            if (asOfVal) {
+                var tParts = asOfVal.split('-');
+                targetDate = new Date(parseInt(tParts[0], 10), parseInt(tParts[1], 10) - 1, parseInt(tParts[2], 10));
+            } else {
+                var now = new Date();
+                targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             }
-        }
 
-        if (nextBirthday <= targetDate) {
-            var nextYear = targetDate.getFullYear() + 1;
+            // Error state: born in the future
+            if (birthDate > targetDate) {
+                resultsDiv.style.display = 'block';
+                document.getElementById('result-years').textContent = '--';
+                document.getElementById('result-months').textContent = '--';
+                document.getElementById('result-days').textContent = '--';
+                document.getElementById('result-total-days').textContent = 'Error: Date of birth is after the target date.';
+                document.getElementById('result-total-weeks').textContent = '--';
+                document.getElementById('result-total-months').textContent = '--';
+                document.getElementById('result-next-birthday').textContent = 'Invalid Dates';
+                document.getElementById('result-countdown').textContent = '';
+                return;
+            }
+
+            // Core Age Math
+            var years = targetDate.getFullYear() - birthDate.getFullYear();
+            var months = targetDate.getMonth() - birthDate.getMonth();
+            var days = targetDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                var prevMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // High level stats
+            var totalDays = totalDaysBetween(birthDate, targetDate);
+            var totalWeeks = Math.floor(totalDays / 7);
+            var totalMonths = (years * 12) + months;
+
+            // DOM Updates
+            document.getElementById('result-years').textContent = years;
+            document.getElementById('result-months').textContent = months;
+            document.getElementById('result-days').textContent = days;
+            document.getElementById('result-total-days').textContent = totalDays.toLocaleString();
+            document.getElementById('result-total-weeks').textContent = totalWeeks.toLocaleString();
+            document.getElementById('result-total-months').textContent = totalMonths.toLocaleString();
+
+            // Next birthday calculation
+            var nextBirthday = new Date(targetDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+
+            // Handle Feb 29 logic safely
             if (birthDate.getMonth() === 1 && birthDate.getDate() === 29) {
-                // Find next leap year
-                while (getDaysInMonth(nextYear, 1) < 29) {
-                    nextYear++;
+                var yearToCheck = targetDate.getFullYear();
+                if (getDaysInMonth(yearToCheck, 1) < 29) {
+                    nextBirthday = new Date(yearToCheck, 2, 1); 
                 }
             }
-            nextBirthday = new Date(nextYear, birthDate.getMonth(), birthDate.getDate());
-        }
 
-        var daysUntil = totalDaysBetween(targetDate, nextBirthday);
-        var turningAge = nextBirthday.getFullYear() - birthDate.getFullYear();
+            if (nextBirthday <= targetDate) {
+                var nextYear = targetDate.getFullYear() + 1;
+                if (birthDate.getMonth() === 1 && birthDate.getDate() === 29) {
+                    while (getDaysInMonth(nextYear, 1) < 29) {
+                        nextYear++;
+                    }
+                }
+                nextBirthday = new Date(nextYear, birthDate.getMonth(), birthDate.getDate());
+            }
 
-        document.getElementById('result-next-birthday').textContent = formatDateNice(nextBirthday) + ' (Turning ' + turningAge + ')';
-        document.getElementById('result-countdown').textContent = daysUntil + ' day' + (daysUntil !== 1 ? 's' : '') + ' away!';
+            var daysUntil = totalDaysBetween(targetDate, nextBirthday);
+            var turningAge = nextBirthday.getFullYear() - birthDate.getFullYear();
 
-        // Reveal with a smooth transition
-        resultsDiv.style.opacity = 0;
-        resultsDiv.style.display = 'block';
-        setTimeout(function() {
-            resultsDiv.style.transition = 'opacity 0.4s ease';
-            resultsDiv.style.opacity = 1;
-        }, 10);
-        
-        // Scroll slightly to reveal results on mobile
-        if(window.innerWidth < 768) {
-            setTimeout(function() {
-                resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, 100);
+            document.getElementById('result-next-birthday').textContent = formatDateNice(nextBirthday) + ' (Turning ' + turningAge + ')';
+            document.getElementById('result-countdown').textContent = daysUntil + ' day' + (daysUntil !== 1 ? 's' : '') + ' away!';
+
+            // Show results securely without fragile CSS transitions
+            resultsDiv.style.display = 'block';
+
+            // Auto-scroll on mobile devices
+            if (window.innerWidth < 768) {
+                setTimeout(function() {
+                    resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 50);
+            }
+
+        } catch (error) {
+            console.error("Calculation Error: ", error);
+            alert("An error occurred while calculating the date. Please ensure the date format is correct.");
         }
     });
-})();
+});
 </script>
 <script async src="/components/ads.js"></script>
 
