@@ -17,21 +17,93 @@
     <meta name="twitter:title" content="All Free Online Tools | ToolsNest">
     <meta name="twitter:description" content="Browse all free online tools: file converters, image editors, calculators, AI tools, and student utilities. No signup required.">
     <meta property="og:image" content="https://www.usetoolnest.com/icons/icon-512.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <link rel="stylesheet" href="/css/style.css">
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#2563EB">
+
+    <style>
+        /* Directory Specific Premium Hero */
+        .directory-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 40%, #2563EB 70%, #0ea5e9 100%);
+            padding: 4rem 0 3.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        .directory-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .directory-hero h1 {
+            color: #ffffff !important;
+            font-size: 2.75rem;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+        .directory-hero p {
+            color: rgba(255,255,255,0.8);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        .hero-search {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            padding: 6px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+        }
+        .hero-search i {
+            margin-left: 12px;
+            color: #64748b;
+        }
+        .hero-search input {
+            flex: 1;
+            padding: 0.85rem 1rem;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            color: #1e293b;
+        }
+        .hero-search input::placeholder {
+            color: #94a3b8;
+        }
+    </style>
 </head>
 <body data-social-bar>
 <noscript><nav aria-label="Site navigation"><ul style="display:flex;gap:1rem;list-style:none;padding:1rem;flex-wrap:wrap"><li><a href="/">Home</a></li><li><a href="/file-tools">File Tools</a></li><li><a href="/image-tools">Image Tools</a></li><li><a href="/calculators">Calculators</a></li><li><a href="/ai-tools">AI Tools</a></li><li><a href="/student-tools">Student Tools</a></li><li><a href="/all-tools">All Tools</a></li><li><a href="/blog">Blog</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li><li><a href="/sitemap-index.xml">Sitemap</a></li></ul></nav></noscript>
     <script src="/components/header.js"></script>
 
     <main>
-        <section class="hero section" style="padding-bottom: 1rem;">
+        <section class="directory-hero">
             <div class="container">
                 <h1>All Tools</h1>
-                <p>Every tool we offer, in one place.</p>
-                <div class="hero-search" style="margin-top: 1.5rem;">
-                    <input type="text" placeholder="Search tools..." id="tools-search">
+                <p>Every tool we offer, instantly available in one place.</p>
+                <div class="hero-search">
+                    <i data-lucide="search" width="20" height="20"></i>
+                    <input type="text" placeholder="Search 100+ tools instantly..." id="tools-search">
                 </div>
             </div>
         </section>
@@ -40,277 +112,277 @@
             <div class="ad-placeholder ad-banner-top ad-native">Ad Banner Top</div>
         </div>
 
-        <!-- File Tools -->
         <section class="section" id="file-tools" style="padding-top: 1rem;">
             <div class="container">
                 <h2 class="mb-3">File Tools</h2>
                 <div class="grid-3 tool-grid">
                     <a href="/file-tools/pdf-to-word" class="card tool-card" data-name="pdf to word converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-text" color="#2563EB"></i></div>
                         <div><h3>PDF to Word</h3><p>Convert PDF to editable Word documents.</p></div>
                     </a>
                     <a href="/file-tools/word-to-pdf" class="card tool-card" data-name="word to pdf converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-check" color="#2563EB"></i></div>
                         <div><h3>Word to PDF</h3><p>Convert Word documents to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/merge-pdf" class="card tool-card" data-name="merge pdf combine">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="files" color="#2563EB"></i></div>
                         <div><h3>Merge PDF</h3><p>Combine multiple PDFs into one file.</p></div>
                     </a>
                     <a href="/file-tools/split-pdf" class="card tool-card" data-name="split pdf extract pages">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="split-square-vertical" color="#2563EB"></i></div>
                         <div><h3>Split PDF</h3><p>Extract pages or split into multiple files.</p></div>
                     </a>
                     <a href="/file-tools/compress-pdf" class="card tool-card" data-name="compress pdf reduce size">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-archive" color="#2563EB"></i></div>
                         <div><h3>Compress PDF</h3><p>Reduce PDF file size while maintaining quality.</p></div>
                     </a>
                     <a href="/file-tools/mp4-to-mp3" class="card tool-card" data-name="mp4 to mp3 audio video">
-                        <div class="card-icon">&#127925;</div>
+                        <div class="card-icon"><i data-lucide="music" color="#2563EB"></i></div>
                         <div><h3>MP4 to MP3</h3><p>Extract audio from video files.</p></div>
                     </a>
                     <a href="/file-tools/pdf-to-jpg" class="card tool-card" data-name="pdf to jpg image converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="image" color="#2563EB"></i></div>
                         <div><h3>PDF to JPG</h3><p>Convert PDF pages to high-quality JPG images.</p></div>
                     </a>
                     <a href="/file-tools/jpg-to-pdf" class="card tool-card" data-name="jpg to pdf image converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-image" color="#2563EB"></i></div>
                         <div><h3>JPG to PDF</h3><p>Convert JPG images to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/pdf-to-excel" class="card tool-card" data-name="pdf to excel spreadsheet converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="sheet" color="#2563EB"></i></div>
                         <div><h3>PDF to Excel</h3><p>Convert PDF tables and data to Excel spreadsheets.</p></div>
                     </a>
                     <a href="/file-tools/excel-to-pdf" class="card tool-card" data-name="excel to pdf spreadsheet converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="table" color="#2563EB"></i></div>
                         <div><h3>Excel to PDF</h3><p>Convert Excel spreadsheets to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/pdf-to-powerpoint" class="card tool-card" data-name="pdf to powerpoint pptx converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="presentation" color="#2563EB"></i></div>
                         <div><h3>PDF to PowerPoint</h3><p>Convert PDF files to editable PowerPoint presentations.</p></div>
                     </a>
                     <a href="/file-tools/powerpoint-to-pdf" class="card tool-card" data-name="powerpoint to pdf pptx converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="projector" color="#2563EB"></i></div>
                         <div><h3>PowerPoint to PDF</h3><p>Convert PowerPoint presentations to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/extract-text-from-pdf" class="card tool-card" data-name="extract text pdf ocr scanner">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="scan-text" color="#2563EB"></i></div>
                         <div><h3>Extract Text from PDF</h3><p>Extract text from any PDF including scanned documents.</p></div>
                     </a>
                     <a href="/file-tools/unlock-pdf" class="card tool-card" data-name="unlock pdf remove password protection">
-                        <div class="card-icon">&#128274;</div>
+                        <div class="card-icon"><i data-lucide="unlock" color="#2563EB"></i></div>
                         <div><h3>Unlock PDF</h3><p>Remove password protection and restrictions from PDFs.</p></div>
                     </a>
                     <a href="/file-tools/redact-pdf" class="card tool-card" data-name="redact pdf blackout sensitive information">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-warning" color="#2563EB"></i></div>
                         <div><h3>Redact PDF</h3><p>Permanently redact sensitive information from PDFs.</p></div>
                     </a>
                     <a href="/file-tools/add-page-numbers-pdf" class="card tool-card" data-name="add page numbers pdf numbering">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="list-numbers" color="#2563EB"></i></div>
                         <div><h3>Add Page Numbers</h3><p>Add page numbers to your PDF documents.</p></div>
                     </a>
                     <a href="/file-tools/reorder-pdf-pages" class="card tool-card" data-name="reorder pdf pages rearrange sort">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="arrow-down-up" color="#2563EB"></i></div>
                         <div><h3>Reorder PDF Pages</h3><p>Rearrange pages in your PDF by drag and drop.</p></div>
                     </a>
                     <a href="/file-tools/docx-to-txt" class="card tool-card" data-name="docx to txt word text converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-type" color="#2563EB"></i></div>
                         <div><h3>DOCX to TXT</h3><p>Convert Word documents to plain text files.</p></div>
                     </a>
                     <a href="/file-tools/txt-to-pdf" class="card tool-card" data-name="txt to pdf text converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="file-digit" color="#2563EB"></i></div>
                         <div><h3>TXT to PDF</h3><p>Convert plain text files to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/epub-to-pdf" class="card tool-card" data-name="epub to pdf ebook converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="book-open" color="#2563EB"></i></div>
                         <div><h3>EPUB to PDF</h3><p>Convert EPUB ebooks to PDF format.</p></div>
                     </a>
                     <a href="/file-tools/html-to-pdf" class="card tool-card" data-name="html to pdf webpage converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="globe" color="#2563EB"></i></div>
                         <div><h3>HTML to PDF</h3><p>Convert HTML files and code to PDF documents.</p></div>
                     </a>
                     <a href="/file-tools/csv-to-excel" class="card tool-card" data-name="csv to excel spreadsheet converter">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="database" color="#2563EB"></i></div>
                         <div><h3>CSV to Excel</h3><p>Convert CSV files to Excel spreadsheets.</p></div>
                     </a>
                     <a href="/file-tools/file-metadata-remover" class="card tool-card" data-name="file metadata remover exif gps privacy">
-                        <div class="card-icon">&#128274;</div>
+                        <div class="card-icon"><i data-lucide="shield-off" color="#2563EB"></i></div>
                         <div><h3>File Metadata Remover</h3><p>Remove EXIF and metadata from your files.</p></div>
                     </a>
                     <a href="/file-tools/file-checksum-generator" class="card tool-card" data-name="file checksum generator md5 sha hash verify">
-                        <div class="card-icon">&#128274;</div>
+                        <div class="card-icon"><i data-lucide="hash" color="#2563EB"></i></div>
                         <div><h3>File Checksum Generator</h3><p>Generate MD5, SHA-1, SHA-256 checksums for any file.</p></div>
                     </a>
                     <a href="/file-tools/batch-file-renamer" class="card tool-card" data-name="batch file renamer rename multiple files">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="replace" color="#2563EB"></i></div>
                         <div><h3>Batch File Renamer</h3><p>Rename multiple files at once with patterns.</p></div>
+                    </a>
                     <a href="/file-tools/screenshot-to-pdf" class="card tool-card" data-name="screenshot to pdf image convert">
-                        <div class="card-icon">&#128248;</div>
+                        <div class="card-icon"><i data-lucide="camera" color="#2563EB"></i></div>
                         <div><h3>Screenshot to PDF</h3><p>Convert screenshots and images into PDF documents.</p></div>
                     </a>
                     <a href="/file-tools/video-trimmer" class="card tool-card" data-name="video trimmer cut clip editor">
-                        <div class="card-icon">&#127916;</div>
+                        <div class="card-icon"><i data-lucide="scissors" color="#2563EB"></i></div>
                         <div><h3>Video Trimmer</h3><p>Trim and cut video files to exact length.</p></div>
                     </a>
                     <a href="/file-tools/audio-cutter" class="card tool-card" data-name="audio cutter trim mp3 wav">
-                        <div class="card-icon">&#127925;</div>
+                        <div class="card-icon"><i data-lucide="audio-lines" color="#2563EB"></i></div>
                         <div><h3>Audio Cutter</h3><p>Cut and trim audio files with waveform visualization.</p></div>
                     </a>
                     <a href="/file-tools/merge-audio" class="card tool-card" data-name="merge audio combine join files">
-                        <div class="card-icon">&#127925;</div>
+                        <div class="card-icon"><i data-lucide="audio-waveform" color="#2563EB"></i></div>
                         <div><h3>Merge Audio</h3><p>Combine multiple audio files into a single track.</p></div>
                     </a>
                     <a href="/file-tools/screen-recorder" class="card tool-card" data-name="screen recorder capture browser">
-                        <div class="card-icon">&#128187;</div>
+                        <div class="card-icon"><i data-lucide="monitor-dot" color="#2563EB"></i></div>
                         <div><h3>Screen Recorder</h3><p>Record your screen directly from the browser.</p></div>
                     </a>
                     <a href="/file-tools/subtitle-editor" class="card tool-card" data-name="subtitle srt editor captions">
-                        <div class="card-icon">&#128221;</div>
+                        <div class="card-icon"><i data-lucide="subtitles" color="#2563EB"></i></div>
                         <div><h3>Subtitle Editor</h3><p>Create and edit .srt subtitle files.</p></div>
                     </a>
                     <a href="/file-tools/add-subtitles-to-video" class="card tool-card" data-name="add subtitles video burn captions">
-                        <div class="card-icon">&#127916;</div>
+                        <div class="card-icon"><i data-lucide="closed-captioning" color="#2563EB"></i></div>
                         <div><h3>Add Subtitles to Video</h3><p>Burn subtitles into video files permanently.</p></div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Image Tools -->
         <section class="section section-alt" id="image-tools">
             <div class="container">
                 <h2 class="mb-3">Image Tools</h2>
                 <div class="grid-3 tool-grid">
                     <a href="/image-tools/image-compressor" class="card tool-card" data-name="compress image reduce size">
-                        <div class="card-icon">&#128247;</div>
+                        <div class="card-icon"><i data-lucide="minimize" color="#db2777"></i></div>
                         <div><h3>Compress Image</h3><p>Reduce image file size without losing quality.</p></div>
                     </a>
                     <a href="/image-tools/resize-image" class="card tool-card" data-name="resize image dimensions">
-                        <div class="card-icon">&#128247;</div>
+                        <div class="card-icon"><i data-lucide="scaling" color="#db2777"></i></div>
                         <div><h3>Resize Image</h3><p>Change image dimensions quickly.</p></div>
                     </a>
                     <a href="/file-tools/jpg-to-png" class="card tool-card" data-name="jpg to png convert image">
-                        <div class="card-icon">&#128247;</div>
+                        <div class="card-icon"><i data-lucide="image-play" color="#db2777"></i></div>
                         <div><h3>JPG to PNG</h3><p>Convert JPG images to PNG format.</p></div>
                     </a>
                     <a href="/image-tools/heic-to-jpg" class="card tool-card" data-name="heic to jpg iphone photo convert">
-                        <div class="card-icon">&#128247;</div>
+                        <div class="card-icon"><i data-lucide="smartphone" color="#db2777"></i></div>
                         <div><h3>HEIC to JPG</h3><p>Convert iPhone HEIC photos to JPG format.</p></div>
+                    </a>
                     <a href="/image-tools/meme-generator" class="card tool-card" data-name="meme generator maker text image">
-                        <div class="card-icon">&#128514;</div>
+                        <div class="card-icon"><i data-lucide="smile" color="#db2777"></i></div>
                         <div><h3>Meme Generator</h3><p>Create memes with custom text and templates.</p></div>
                     </a>
                     <a href="/image-tools/profile-picture-maker" class="card tool-card" data-name="profile picture maker avatar crop circle">
-                        <div class="card-icon">&#128100;</div>
+                        <div class="card-icon"><i data-lucide="user-square" color="#db2777"></i></div>
                         <div><h3>Profile Picture Maker</h3><p>Crop and resize photos for profile pictures.</p></div>
                     </a>
                     <a href="/image-tools/image-to-base64" class="card tool-card" data-name="image to base64 encode convert">
-                        <div class="card-icon">&#128260;</div>
+                        <div class="card-icon"><i data-lucide="code" color="#db2777"></i></div>
                         <div><h3>Image to Base64</h3><p>Convert any image to a Base64 encoded string.</p></div>
                     </a>
                     <a href="/image-tools/base64-to-image" class="card tool-card" data-name="base64 to image decode convert">
-                        <div class="card-icon">&#128260;</div>
+                        <div class="card-icon"><i data-lucide="image-off" color="#db2777"></i></div>
                         <div><h3>Base64 to Image</h3><p>Decode Base64 strings back into images.</p></div>
                     </a>
                     <a href="/image-tools/blur-background" class="card tool-card" data-name="blur background image photo">
-                        <div class="card-icon">&#127912;</div>
+                        <div class="card-icon"><i data-lucide="focus" color="#db2777"></i></div>
                         <div><h3>Blur Background</h3><p>Blur the background of any image.</p></div>
                     </a>
                     <a href="/image-tools/face-cropper" class="card tool-card" data-name="face cropper passport photo maker">
-                        <div class="card-icon">&#128248;</div>
+                        <div class="card-icon"><i data-lucide="crop" color="#db2777"></i></div>
                         <div><h3>Face Cropper</h3><p>Crop photos to passport and ID dimensions.</p></div>
                     </a>
                     <a href="/image-tools/id-photo-resizer" class="card tool-card" data-name="id passport photo resizer visa">
-                        <div class="card-icon">&#128179;</div>
+                        <div class="card-icon"><i data-lucide="credit-card" color="#db2777"></i></div>
                         <div><h3>ID Photo Resizer</h3><p>Resize photos to standard ID and passport sizes.</p></div>
                     </a>
                     <a href="/image-tools/instagram-grid-splitter" class="card tool-card" data-name="instagram grid splitter carousel">
-                        <div class="card-icon">&#128444;</div>
+                        <div class="card-icon"><i data-lucide="layout-grid" color="#db2777"></i></div>
                         <div><h3>Instagram Grid Splitter</h3><p>Split images into grid pieces for Instagram.</p></div>
                     </a>
                     <a href="/image-tools/thumbnail-text-adder" class="card tool-card" data-name="thumbnail text adder youtube overlay">
-                        <div class="card-icon">&#127916;</div>
+                        <div class="card-icon"><i data-lucide="type" color="#db2777"></i></div>
                         <div><h3>Thumbnail Text Adder</h3><p>Add bold text overlays to thumbnails.</p></div>
                     </a>
                     <a href="/image-tools/color-palette-extractor" class="card tool-card" data-name="color palette extractor dominant colors">
-                        <div class="card-icon">&#127912;</div>
+                        <div class="card-icon"><i data-lucide="palette" color="#db2777"></i></div>
                         <div><h3>Color Palette Extractor</h3><p>Extract dominant colors from any image.</p></div>
                     </a>
                     <a href="/image-tools/hex-rgb-converter" class="card tool-card" data-name="hex rgb hsl color converter">
-                        <div class="card-icon">&#127752;</div>
+                        <div class="card-icon"><i data-lucide="pipette" color="#db2777"></i></div>
                         <div><h3>HEX &#8596; RGB Converter</h3><p>Convert between HEX, RGB, and HSL formats.</p></div>
                     </a>
                     <a href="/image-tools/image-format-detector" class="card tool-card" data-name="image format detector file type">
-                        <div class="card-icon">&#128270;</div>
+                        <div class="card-icon"><i data-lucide="file-search" color="#db2777"></i></div>
                         <div><h3>Image Format Detector</h3><p>Detect the true format of any image file.</p></div>
                     </a>
                     <a href="/image-tools/gif-compressor" class="card tool-card" data-name="gif compressor reduce size animation">
-                        <div class="card-icon">&#127910;</div>
+                        <div class="card-icon"><i data-lucide="file-archive" color="#db2777"></i></div>
                         <div><h3>GIF Compressor</h3><p>Reduce GIF file size by scaling and reducing colors.</p></div>
                     </a>
                     <a href="/image-tools/background-remover" class="card tool-card" data-name="ai background remover transparent png image auto">
-                        <div class="card-icon">&#9986;</div>
-                        <div><h3>AI Background Remover</h3><p>Automatically remove image backgrounds with AI and download transparent PNGs.</p></div>
+                        <div class="card-icon"><i data-lucide="eraser" color="#db2777"></i></div>
+                        <div><h3>AI Background Remover</h3><p>Automatically remove image backgrounds with AI.</p></div>
                     </a>
                     <a href="/image-tools/youtube-thumbnail-maker" class="card tool-card" data-name="youtube thumbnail maker creator 1280x720">
-                        <div class="card-icon">&#127916;</div>
+                        <div class="card-icon"><i data-lucide="youtube" color="#db2777"></i></div>
                         <div><h3>YouTube Thumbnail Maker</h3><p>Create custom YouTube thumbnails at 1280x720.</p></div>
                     </a>
                     <a href="/image-tools/youtube-banner-maker" class="card tool-card" data-name="youtube banner channel art maker 2560x1440">
-                        <div class="card-icon">&#127916;</div>
+                        <div class="card-icon"><i data-lucide="monitor-play" color="#db2777"></i></div>
                         <div><h3>YouTube Banner Maker</h3><p>Design YouTube channel art at 2560x1440.</p></div>
                     </a>
                     <a href="/image-tools/instagram-dp-resizer" class="card tool-card" data-name="instagram dp profile picture resizer 320x320">
-                        <div class="card-icon">&#128247;</div>
+                        <div class="card-icon"><i data-lucide="instagram" color="#db2777"></i></div>
                         <div><h3>Instagram DP Resizer</h3><p>Resize photos to Instagram profile picture size.</p></div>
                     </a>
                     <a href="/image-tools/whatsapp-image-compressor" class="card tool-card" data-name="whatsapp image compressor photo reduce size">
-                        <div class="card-icon">&#128172;</div>
+                        <div class="card-icon"><i data-lucide="message-square" color="#db2777"></i></div>
                         <div><h3>WhatsApp Image Compressor</h3><p>Compress images for WhatsApp sharing.</p></div>
                     </a>
                     <a href="/image-tools/screenshot-mockup-generator" class="card tool-card" data-name="screenshot mockup generator device frame phone laptop">
-                        <div class="card-icon">&#128187;</div>
-                        <div><h3>Screenshot Mockup Generator</h3><p>Place screenshots in device frames.</p></div>
+                        <div class="card-icon"><i data-lucide="laptop" color="#db2777"></i></div>
+                        <div><h3>Screenshot Mockup Gen.</h3><p>Place screenshots in device frames.</p></div>
                     </a>
                     <a href="/image-tools/collage-maker" class="card tool-card" data-name="photo collage maker grid layout multiple images">
-                        <div class="card-icon">&#128444;</div>
+                        <div class="card-icon"><i data-lucide="layout" color="#db2777"></i></div>
                         <div><h3>Collage Maker</h3><p>Create photo collages with grid layouts.</p></div>
                     </a>
                     <a href="/image-tools/favicon-generator" class="card tool-card" data-name="favicon generator ico website icon">
-                        <div class="card-icon">&#127760;</div>
+                        <div class="card-icon"><i data-lucide="globe" color="#db2777"></i></div>
                         <div><h3>Favicon Generator</h3><p>Generate favicon icons for your website.</p></div>
                     </a>
                     <a href="/image-tools/svg-to-png" class="card tool-card" data-name="svg to png converter vector raster">
-                        <div class="card-icon">&#128260;</div>
+                        <div class="card-icon"><i data-lucide="vector" color="#db2777"></i></div>
                         <div><h3>SVG to PNG</h3><p>Convert SVG vector files to PNG images.</p></div>
                     </a>
                     <a href="/image-tools/png-to-svg" class="card tool-card" data-name="png to svg converter raster vector trace">
-                        <div class="card-icon">&#128260;</div>
+                        <div class="card-icon"><i data-lucide="vector" color="#db2777"></i></div>
                         <div><h3>PNG to SVG</h3><p>Convert raster images to SVG vector format.</p></div>
                     </a>
                     <a href="/image-tools/photo-filters-editor" class="card tool-card" data-name="photo filters editor grayscale sepia vintage effects">
-                        <div class="card-icon">&#127912;</div>
+                        <div class="card-icon"><i data-lucide="wand-2" color="#db2777"></i></div>
                         <div><h3>Photo Filters Editor</h3><p>Apply filters and effects to your photos.</p></div>
                     </a>
                     <a href="/image-tools/remove-exif-metadata" class="card tool-card" data-name="remove exif metadata strip gps location camera info privacy">
-                        <div class="card-icon">&#128274;</div>
+                        <div class="card-icon"><i data-lucide="shield-ban" color="#db2777"></i></div>
                         <div><h3>Remove EXIF Metadata</h3><p>Strip metadata from photos for privacy.</p></div>
                     </a>
                     <a href="/image-tools/qr-code-generator" class="card tool-card" data-name="qr code generator url text wifi barcode">
-                        <div class="card-icon">&#128178;</div>
+                        <div class="card-icon"><i data-lucide="qr-code" color="#db2777"></i></div>
                         <div><h3>QR Code Generator</h3><p>Create custom QR codes for URLs, text, and Wi-Fi.</p></div>
                     </a>
                     <a href="/image-tools/barcode-generator" class="card tool-card" data-name="barcode generator code 128 ean upc product">
-                        <div class="card-icon">&#128178;</div>
+                        <div class="card-icon"><i data-lucide="barcode" color="#db2777"></i></div>
                         <div><h3>Barcode Generator</h3><p>Generate Code 128 barcodes instantly.</p></div>
                     </a>
                     <a href="/image-tools/signature-generator" class="card tool-card" data-name="signature generator draw handwritten digital sign">
-                        <div class="card-icon">&#9999;</div>
+                        <div class="card-icon"><i data-lucide="pen-tool" color="#db2777"></i></div>
                         <div><h3>Signature Generator</h3><p>Draw or type your digital signature.</p></div>
                     </a>
                     <a href="/image-tools/whiteboard-sketch-converter" class="card tool-card" data-name="whiteboard sketch converter clean photo enhance">
-                        <div class="card-icon">&#128221;</div>
-                        <div><h3>Whiteboard Sketch Converter</h3><p>Clean up whiteboard photos instantly.</p></div>
+                        <div class="card-icon"><i data-lucide="pen-line" color="#db2777"></i></div>
+                        <div><h3>Whiteboard Converter</h3><p>Clean up whiteboard photos instantly.</p></div>
                     </a>
                 </div>
             </div>
@@ -320,224 +392,218 @@
             <div class="ad-placeholder ad-between-sections ad-native">Ad Between Sections</div>
         </div>
 
-        <!-- Calculators -->
         <section class="section" id="calculators">
             <div class="container">
                 <h2 class="mb-3">Calculators</h2>
                 <div class="grid-3 tool-grid">
                     <a href="/calculators/gpa-calculator" class="card tool-card" data-name="gpa calculator college school">
-                        <div class="card-icon">&#129518;</div>
+                        <div class="card-icon"><i data-lucide="graduation-cap" color="#059669"></i></div>
                         <div><h3>GPA Calculator</h3><p>Calculate your college or high school GPA.</p></div>
                     </a>
                     <a href="/calculators/loan-calculator" class="card tool-card" data-name="loan calculator mortgage payment">
-                        <div class="card-icon">&#129518;</div>
+                        <div class="card-icon"><i data-lucide="circle-dollar-sign" color="#059669"></i></div>
                         <div><h3>Loan Calculator</h3><p>Estimate monthly payments and total interest.</p></div>
                     </a>
                     <a href="/calculators/age-calculator" class="card tool-card" data-name="age calculator birthday years months days">
-                        <div class="card-icon">&#128197;</div>
+                        <div class="card-icon"><i data-lucide="calendar-days" color="#059669"></i></div>
                         <div><h3>Age Calculator</h3><p>Calculate your exact age in years, months, and days.</p></div>
                     </a>
                     <a href="/calculators/date-difference-calculator" class="card tool-card" data-name="date difference calculator days between">
-                        <div class="card-icon">&#128198;</div>
+                        <div class="card-icon"><i data-lucide="calendar-clock" color="#059669"></i></div>
                         <div><h3>Date Difference Calculator</h3><p>Find the exact difference between two dates.</p></div>
                     </a>
                     <a href="/calculators/percentage-calculator" class="card tool-card" data-name="percentage calculator percent change">
-                        <div class="card-icon">&#128290;</div>
+                        <div class="card-icon"><i data-lucide="percent" color="#059669"></i></div>
                         <div><h3>Percentage Calculator</h3><p>Calculate percentages, percentage change, and more.</p></div>
                     </a>
                     <a href="/calculators/grade-calculator" class="card tool-card" data-name="grade calculator weighted assignment score">
-                        <div class="card-icon">&#127891;</div>
+                        <div class="card-icon"><i data-lucide="award" color="#059669"></i></div>
                         <div><h3>Grade Calculator</h3><p>Calculate your weighted or unweighted course grade.</p></div>
                     </a>
                     <a href="/calculators/time-zone-converter" class="card tool-card" data-name="time zone converter world clock">
-                        <div class="card-icon">&#127760;</div>
+                        <div class="card-icon"><i data-lucide="globe-2" color="#059669"></i></div>
                         <div><h3>Time Zone Converter</h3><p>Convert time between any world time zones.</p></div>
                     </a>
                     <a href="/calculators/fuel-cost-calculator" class="card tool-card" data-name="fuel cost calculator gas trip">
-                        <div class="card-icon">&#9981;</div>
+                        <div class="card-icon"><i data-lucide="fuel" color="#059669"></i></div>
                         <div><h3>Fuel Cost Calculator</h3><p>Estimate fuel costs for any trip distance.</p></div>
                     </a>
                     <a href="/calculators/data-usage-calculator" class="card tool-card" data-name="data usage calculator internet bandwidth">
-                        <div class="card-icon">&#128246;</div>
+                        <div class="card-icon"><i data-lucide="wifi" color="#059669"></i></div>
                         <div><h3>Data Usage Calculator</h3><p>Estimate your monthly internet data consumption.</p></div>
                     </a>
                     <a href="/calculators/savings-goal-calculator" class="card tool-card" data-name="savings goal calculator finance money">
-                        <div class="card-icon">&#127919;</div>
+                        <div class="card-icon"><i data-lucide="target" color="#059669"></i></div>
                         <div><h3>Savings Goal Calculator</h3><p>Find out how long to reach your savings goal.</p></div>
                     </a>
                     <a href="/calculators/break-even-calculator" class="card tool-card" data-name="break even calculator business profit">
-                        <div class="card-icon">&#128200;</div>
+                        <div class="card-icon"><i data-lucide="trending-up" color="#059669"></i></div>
                         <div><h3>Break-Even Calculator</h3><p>Calculate your break-even point in units and revenue.</p></div>
                     </a>
                     <a href="/calculators/markup-calculator" class="card tool-card" data-name="markup calculator price profit margin">
-                        <div class="card-icon">&#128176;</div>
+                        <div class="card-icon"><i data-lucide="tags" color="#059669"></i></div>
                         <div><h3>Markup Calculator</h3><p>Calculate markup percentage and selling price.</p></div>
                     </a>
                     <a href="/calculators/vat-tax-calculator" class="card tool-card" data-name="vat tax calculator sales tax">
-                        <div class="card-icon">&#128179;</div>
+                        <div class="card-icon"><i data-lucide="receipt" color="#059669"></i></div>
                         <div><h3>VAT/Tax Calculator</h3><p>Add or remove VAT/tax from any price.</p></div>
                     </a>
                     <a href="/calculators/commission-calculator" class="card tool-card" data-name="commission calculator sales tiered">
-                        <div class="card-icon">&#129297;</div>
+                        <div class="card-icon"><i data-lucide="hand-coins" color="#059669"></i></div>
                         <div><h3>Commission Calculator</h3><p>Calculate flat or tiered sales commission.</p></div>
                     </a>
                     <a href="/calculators/discount-calculator" class="card tool-card" data-name="discount price calculator sale savings">
-                        <div class="card-icon">&#127991;</div>
+                        <div class="card-icon"><i data-lucide="badge-percent" color="#059669"></i></div>
                         <div><h3>Discount Calculator</h3><p>Calculate discount savings and final price.</p></div>
                     </a>
                     <a href="/calculators/weight-converter" class="card tool-card" data-name="weight converter kg lbs pounds ounces">
-                        <div class="card-icon">&#9878;</div>
+                        <div class="card-icon"><i data-lucide="weight" color="#059669"></i></div>
                         <div><h3>Weight Converter</h3><p>Convert between kg, lbs, oz, stones, and more.</p></div>
                     </a>
                     <a href="/calculators/height-converter" class="card tool-card" data-name="height converter cm feet inches meters">
-                        <div class="card-icon">&#128207;</div>
+                        <div class="card-icon"><i data-lucide="ruler" color="#059669"></i></div>
                         <div><h3>Height Converter</h3><p>Convert between cm, feet, inches, and meters.</p></div>
                     </a>
                     <a href="/calculators/speed-converter" class="card tool-card" data-name="speed converter mph kmh knots">
-                        <div class="card-icon">&#128168;</div>
+                        <div class="card-icon"><i data-lucide="gauge" color="#059669"></i></div>
                         <div><h3>Speed Converter</h3><p>Convert between mph, km/h, knots, m/s, and more.</p></div>
                     </a>
                     <a href="/calculators/pregnancy-due-date-calculator" class="card tool-card" data-name="pregnancy due date calculator baby">
-                        <div class="card-icon">&#128118;</div>
-                        <div><h3>Pregnancy Due Date Calculator</h3><p>Estimate your due date and track milestones.</p></div>
+                        <div class="card-icon"><i data-lucide="baby" color="#059669"></i></div>
+                        <div><h3>Due Date Calculator</h3><p>Estimate your due date and track milestones.</p></div>
                     </a>
                     <a href="/calculators/retirement-savings-calculator" class="card tool-card" data-name="retirement savings calculator 401k investment">
-                        <div class="card-icon">&#127958;</div>
-                        <div><h3>Retirement Savings Calculator</h3><p>Project your retirement savings and income.</p></div>
+                        <div class="card-icon"><i data-lucide="piggy-bank" color="#059669"></i></div>
+                        <div><h3>Retirement Calculator</h3><p>Project your retirement savings and income.</p></div>
                     </a>
                     <a href="/calculators/gpa-to-percentage-converter" class="card tool-card" data-name="gpa to percentage converter grade scale">
-                        <div class="card-icon">&#128218;</div>
-                        <div><h3>GPA to Percentage Converter</h3><p>Convert between GPA and percentage across scales.</p></div>
+                        <div class="card-icon"><i data-lucide="calculator" color="#059669"></i></div>
+                        <div><h3>GPA to Percentage</h3><p>Convert between GPA and percentage scales.</p></div>
                     </a>
                     <a href="/calculators/random-number-generator" class="card tool-card" data-name="random number generator rng dice">
-                        <div class="card-icon">&#127922;</div>
+                        <div class="card-icon"><i data-lucide="dices" color="#059669"></i></div>
                         <div><h3>Random Number Generator</h3><p>Generate random numbers with custom ranges.</p></div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Ad: Between Calculators and AI Tools -->
         <div class="container">
             <div class="ad-placeholder ad-responsive ad-native">Ad</div>
         </div>
 
-        <!-- AI Tools -->
         <section class="section section-alt" id="ai-tools">
             <div class="container">
                 <h2 class="mb-3">AI Tools</h2>
                 <div class="grid-3 tool-grid">
                     <a href="/ai-tools/text-summarizer" class="card tool-card" data-name="ai text summarizer">
-                        <div class="card-icon">&#129302;</div>
+                        <div class="card-icon"><i data-lucide="bot" color="#7c3aed"></i></div>
                         <div><h3>Text Summarizer</h3><p>Summarize long text into key points with AI.</p></div>
                     </a>
                     <a href="/ai-tools/resume-bullet-generator" class="card tool-card" data-name="resume bullet generator cv achievement">
-                        <div class="card-icon">&#128188;</div>
-                        <div><h3>Resume Bullet Generator</h3><p>Transform job duties into achievement-oriented bullet points.</p></div>
+                        <div class="card-icon"><i data-lucide="briefcase" color="#7c3aed"></i></div>
+                        <div><h3>Resume Bullet Generator</h3><p>Transform job duties into achievement bullets.</p></div>
                     </a>
                     <a href="/ai-tools/email-writer" class="card tool-card" data-name="email writer professional business">
-                        <div class="card-icon">&#9993;</div>
-                        <div><h3>Email Writer</h3><p>Craft professional emails for any situation instantly.</p></div>
+                        <div class="card-icon"><i data-lucide="mail" color="#7c3aed"></i></div>
+                        <div><h3>Email Writer</h3><p>Craft professional emails for any situation.</p></div>
                     </a>
                     <a href="/ai-tools/caption-generator" class="card tool-card" data-name="caption generator social media instagram">
-                        <div class="card-icon">&#128242;</div>
-                        <div><h3>Caption Generator</h3><p>Generate engaging social media captions for any platform.</p></div>
+                        <div class="card-icon"><i data-lucide="smartphone" color="#7c3aed"></i></div>
+                        <div><h3>Caption Generator</h3><p>Generate engaging social media captions.</p></div>
                     </a>
                     <a href="/ai-tools/bio-generator" class="card tool-card" data-name="bio generator professional linkedin">
-                        <div class="card-icon">&#128100;</div>
+                        <div class="card-icon"><i data-lucide="user" color="#7c3aed"></i></div>
                         <div><h3>Bio Generator</h3><p>Create polished bios for any platform in seconds.</p></div>
                     </a>
                     <a href="/ai-tools/headline-rewriter" class="card tool-card" data-name="headline rewriter title seo">
-                        <div class="card-icon">&#128240;</div>
+                        <div class="card-icon"><i data-lucide="pen" color="#7c3aed"></i></div>
                         <div><h3>Headline Rewriter</h3><p>Rewrite headlines in 8 high-converting styles.</p></div>
                     </a>
                     <a href="/ai-tools/essay-outline-generator" class="card tool-card" data-name="essay outline generator writing structure">
-                        <div class="card-icon">&#128221;</div>
-                        <div><h3>Essay Outline Generator</h3><p>Create structured essay outlines with thesis and body.</p></div>
+                        <div class="card-icon"><i data-lucide="list-tree" color="#7c3aed"></i></div>
+                        <div><h3>Essay Outline Generator</h3><p>Create structured essay outlines with AI.</p></div>
                     </a>
                     <a href="/ai-tools/notes-summarizer" class="card tool-card" data-name="notes summarizer organize action items">
-                        <div class="card-icon">&#128466;</div>
+                        <div class="card-icon"><i data-lucide="file-text" color="#7c3aed"></i></div>
                         <div><h3>Notes Summarizer</h3><p>Turn messy notes into organized summaries.</p></div>
                     </a>
                     <a href="/ai-tools/hashtag-generator" class="card tool-card" data-name="hashtag generator social media tags">
-                        <div class="card-icon">&#128203;</div>
-                        <div><h3>Hashtag Generator</h3><p>Generate targeted hashtags for any social platform.</p></div>
+                        <div class="card-icon"><i data-lucide="hash" color="#7c3aed"></i></div>
+                        <div><h3>Hashtag Generator</h3><p>Generate targeted hashtags for any platform.</p></div>
                     </a>
                     <a href="/ai-tools/quiz-generator" class="card tool-card" data-name="quiz generator questions test education">
-                        <div class="card-icon">&#10067;</div>
-                        <div><h3>Quiz Generator</h3><p>Create quizzes from any text with multiple question types.</p></div>
+                        <div class="card-icon"><i data-lucide="help-circle" color="#7c3aed"></i></div>
+                        <div><h3>Quiz Generator</h3><p>Create quizzes from any text format.</p></div>
                     </a>
                     <a href="/ai-tools/prompt-improver" class="card tool-card" data-name="prompt improver ai chatgpt enhance">
-                        <div class="card-icon">&#10024;</div>
-                        <div><h3>Prompt Improver</h3><p>Transform basic AI prompts into effective, detailed prompts.</p></div>
+                        <div class="card-icon"><i data-lucide="sparkles" color="#7c3aed"></i></div>
+                        <div><h3>Prompt Improver</h3><p>Transform basic AI prompts into detailed ones.</p></div>
                     </a>
                     <a href="/ai-tools/username-generator" class="card tool-card" data-name="username generator handle nickname gaming">
-                        <div class="card-icon">&#128100;</div>
-                        <div><h3>Username Generator</h3><p>Generate creative, unique usernames for any platform.</p></div>
+                        <div class="card-icon"><i data-lucide="at-sign" color="#7c3aed"></i></div>
+                        <div><h3>Username Generator</h3><p>Generate creative, unique usernames quickly.</p></div>
                     </a>
                     <a href="/ai-tools/title-case-formatter" class="card tool-card" data-name="title case formatter capitalize text convert">
-                        <div class="card-icon">&#128221;</div>
+                        <div class="card-icon"><i data-lucide="case-upper" color="#7c3aed"></i></div>
                         <div><h3>Title Case Formatter</h3><p>Convert text to title case, sentence case, and more.</p></div>
                     </a>
                     <a href="/ai-tools/idea-generator" class="card tool-card" data-name="idea generator brainstorm creative business">
-                        <div class="card-icon">&#128161;</div>
-                        <div><h3>Idea Generator</h3><p>Brainstorm creative ideas for business, content, and projects.</p></div>
+                        <div class="card-icon"><i data-lucide="lightbulb" color="#7c3aed"></i></div>
+                        <div><h3>Idea Generator</h3><p>Brainstorm creative ideas for business and content.</p></div>
                     </a>
                     <a href="/ai-tools/regex-generator" class="card tool-card" data-name="regex generator regular expression pattern tester">
-                        <div class="card-icon">&#128270;</div>
-                        <div><h3>Regex Generator</h3><p>Generate and test regular expressions from common patterns.</p></div>
+                        <div class="card-icon"><i data-lucide="regex" color="#7c3aed"></i></div>
+                        <div><h3>Regex Generator</h3><p>Generate and test regular expressions.</p></div>
                     </a>
                     <a href="/ai-tools/json-formatter" class="card tool-card" data-name="json formatter beautify minify validate">
-                        <div class="card-icon">&#128196;</div>
+                        <div class="card-icon"><i data-lucide="brackets" color="#7c3aed"></i></div>
                         <div><h3>JSON Formatter</h3><p>Beautify, minify, and validate JSON data instantly.</p></div>
                     </a>
                     <a href="/ai-tools/fake-data-generator" class="card tool-card" data-name="fake data generator mock testing csv json">
-                        <div class="card-icon">&#128202;</div>
-                        <div><h3>Fake Data Generator</h3><p>Generate realistic mock data for testing and development.</p></div>
+                        <div class="card-icon"><i data-lucide="database" color="#7c3aed"></i></div>
+                        <div><h3>Fake Data Generator</h3><p>Generate realistic mock data for testing.</p></div>
                     </a>
                     <a href="/ai-tools/tweet-generator" class="card tool-card" data-name="tweet generator twitter x social media post">
-                        <div class="card-icon">&#128172;</div>
-                        <div><h3>Tweet Generator</h3><p>Create engaging, viral-ready tweets for any topic and tone.</p></div>
+                        <div class="card-icon"><i data-lucide="twitter" color="#7c3aed"></i></div>
+                        <div><h3>Tweet Generator</h3><p>Create engaging tweets for any topic and tone.</p></div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Ad: Before Student Tools -->
         <div class="container">
             <div class="ad-placeholder ad-between-sections ad-native">Ad</div>
         </div>
 
-        <!-- Student Tools -->
         <section class="section" id="student-tools">
             <div class="container">
                 <h2 class="mb-3">Student Tools</h2>
                 <div class="grid-3 tool-grid">
                     <a href="/calculators/gpa-calculator" class="card tool-card" data-name="gpa calculator student">
-                        <div class="card-icon">&#127891;</div>
+                        <div class="card-icon"><i data-lucide="graduation-cap" color="#d97706"></i></div>
                         <div><h3>GPA Calculator</h3><p>Calculate your GPA quickly and accurately.</p></div>
                     </a>
                     <a href="/student-tools/citation-generator" class="card tool-card" data-name="citation generator apa mla chicago harvard">
-                        <div class="card-icon">&#128218;</div>
+                        <div class="card-icon"><i data-lucide="book-text" color="#d97706"></i></div>
                         <div><h3>Citation Generator</h3><p>Create APA, MLA, Chicago, and Harvard citations.</p></div>
                     </a>
                     <a href="/student-tools/study-timer" class="card tool-card" data-name="study timer pomodoro focus">
-                        <div class="card-icon">&#9201;</div>
+                        <div class="card-icon"><i data-lucide="timer" color="#d97706"></i></div>
                         <div><h3>Study Timer</h3><p>Stay focused with the Pomodoro technique.</p></div>
                     </a>
                     <a href="/student-tools/flashcard-maker" class="card tool-card" data-name="flashcard maker study cards">
-                        <div class="card-icon">&#127183;</div>
+                        <div class="card-icon"><i data-lucide="layers" color="#d97706"></i></div>
                         <div><h3>Flashcard Maker</h3><p>Create and study flashcards with flip animation.</p></div>
                     </a>
                     <a href="/student-tools/read-time-estimator" class="card tool-card" data-name="read time estimator word count">
-                        <div class="card-icon">&#128337;</div>
+                        <div class="card-icon"><i data-lucide="clock" color="#d97706"></i></div>
                         <div><h3>Read Time Estimator</h3><p>Calculate reading time and text statistics.</p></div>
                     </a>
                 </div>
             </div>
         </section>
 
-        <!-- Ad: Bottom -->
         <div class="container">
             <div class="ad-placeholder ad-responsive ad-native">Ad</div>
         </div>
@@ -579,6 +645,9 @@
             });
         }
     });
+    
+    // Initialize Lucide Icons for this page
+    lucide.createIcons();
     </script>
     <script async src="/components/ads.js"></script>
 </body>
