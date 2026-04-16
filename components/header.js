@@ -1,13 +1,22 @@
-/* Reusable header component - single bar with integrated back arrow */
+/* Reusable header component - single bar with smart back arrow */
 function renderHeader() {
     const header = document.createElement('header');
     header.className = 'header';
+    
+    // Check if the user is on the homepage
+    const isHomePage = window.location.pathname === '/' || window.location.pathname === '/index.html';
+    
+    // Create the back arrow HTML conditionally
+    const backArrowHTML = isHomePage 
+        ? '' // Don't show the back arrow on the homepage
+        : `<a href="/" aria-label="Go back to home" style="color: var(--text-muted); display: flex; align-items: center; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
+                <i data-lucide="arrow-left" width="22" height="22"></i>
+           </a>`;
+
     header.innerHTML = `
         <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
             <div class="logo" style="display: flex; align-items: center; gap: 1rem;">
-                <a href="/all-tools" aria-label="Go back to hub" style="color: var(--text-muted); display: flex; align-items: center; transition: color 0.2s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'">
-                    <i data-lucide="arrow-left" width="22" height="22"></i>
-                </a>
+                ${backArrowHTML}
                 <a href="/" style="display: flex; align-items: center; gap: 0.5rem;">
                     <i data-lucide="layers" color="var(--primary)" width="26" height="26"></i> ToolsNest
                 </a>
