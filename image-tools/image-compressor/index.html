@@ -77,6 +77,38 @@
             color: var(--primary);
             margin-bottom: 1rem;
         }
+        
+        /* RESPONSIVE FIXES */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 1.5rem; 
+            margin-bottom: 1.5rem; 
+        }
+        .action-buttons { 
+            display: flex; 
+            justify-content: center; 
+            gap: 1rem; 
+            flex-wrap: wrap; 
+        }
+        .action-btn { 
+            flex: 1; 
+            min-width: 220px; 
+            padding: 1rem; 
+            font-size: 1.05rem; 
+            text-align: center; 
+            white-space: normal; /* Prevents text from forcing container wider */
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 0.5rem; 
+        }
+
+        @media (max-width: 500px) {
+            .stats-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .upload-area { padding: 2.5rem 1rem; }
+        }
+
         .stat-card {
             background: var(--bg-color);
             border: 1px solid var(--border);
@@ -91,7 +123,7 @@
             box-shadow: var(--shadow-sm);
         }
 
-        /* Upgraded SEO Sections */
+        /* SEO Content Styling */
         .seo-section { margin: 3.5rem 0; }
         .seo-section h2 { font-size: 1.75rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.25rem; }
         .seo-section p { font-size: 1.05rem; line-height: 1.8; color: var(--text-muted); margin-bottom: 1.25rem; }
@@ -152,8 +184,7 @@
     </nav>
 
     <div class="tool-layout">
-        <div>
-            <h1 class="mb-2">Compress Image Online</h1>
+        <div style="min-width: 0;"> <h1 class="mb-2">Compress Image Online</h1>
             <p class="mb-4">Reduce image file size instantly right in your browser by up to 80%. Your files never leave your device.</p>
 
             <div class="tool-workspace">
@@ -173,7 +204,7 @@
                     
                     <h3 class="mb-3" style="font-size: 1.25rem; text-align: center;">Compression Results</h3>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem;">
+                    <div class="stats-grid">
                         <div class="stat-card">
                             <p class="text-muted">Original Size</p>
                             <strong id="original-size" style="font-size: 1.75rem; color: var(--text-main);">--</strong>
@@ -189,11 +220,11 @@
                         <span id="savings-text"></span>
                     </div>
 
-                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
-                        <a id="download-btn" class="btn btn-accent" style="padding: 1rem 2rem; font-size: 1.05rem;" download="compressed-image.jpg">
+                    <div class="action-buttons">
+                        <a id="download-btn" class="btn btn-accent action-btn" download="compressed-image.jpg">
                             <i data-lucide="download" width="20" height="20"></i> Download Compressed Image
                         </a>
-                        <button id="reset-btn" class="btn btn-outline" style="padding: 1rem 2rem; font-size: 1.05rem;">
+                        <button id="reset-btn" class="btn btn-outline action-btn">
                             <i data-lucide="refresh-cw" width="20" height="20"></i> Compress Another
                         </button>
                     </div>
@@ -205,10 +236,10 @@
             <section class="mt-4">
                 <h2>How to Compress Images Online</h2>
                 <ol>
-                    <li>Click <strong>Select Image</strong> or drag and drop a JPG, PNG, or WebP file into the workspace above.</li>
-                    <li>The tool will automatically compress your image instantly using optimized browser-based encoding algorithms.</li>
-                    <li>Compare the original and compressed file sizes shown on screen.</li>
-                    <li>Click <strong>Download Compressed Image</strong> to save the optimized file directly to your device.</li>
+                    <li><span>Click <strong>Select Image</strong> or drag and drop a JPG, PNG, or WebP file into the workspace above.</span></li>
+                    <li><span>The tool will automatically compress your image instantly using optimized browser-based encoding algorithms.</span></li>
+                    <li><span>Compare the original and compressed file sizes shown on screen.</span></li>
+                    <li><span>Click <strong>Download Compressed Image</strong> to save the optimized file directly to your device.</span></li>
                 </ol>
             </section>
 
@@ -371,12 +402,11 @@ document.addEventListener('DOMContentLoaded', function() {
                         savingsBox.style.backgroundColor = '#dcfce7';
                         savingsBox.style.borderColor = '#10b981';
                     } else {
-                        // Handle edge case where browser canvas export is larger than the highly-optimized original
                         savingsText.textContent = 'Image is already highly optimized. (No further compression needed)';
                         savingsBox.style.color = 'var(--text-muted)';
                         savingsBox.style.backgroundColor = 'var(--bg-color)';
                         savingsBox.style.borderColor = 'var(--border)';
-                        compressedSizeEl.textContent = formatBytes(originalSize); // Fake it to avoid confusing users
+                        compressedSizeEl.textContent = formatBytes(originalSize);
                     }
 
                     var url = URL.createObjectURL(blob);
